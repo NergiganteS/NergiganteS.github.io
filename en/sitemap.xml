@@ -23,6 +23,9 @@
     <loc>https://example.com/p/hello/</loc>
     <lastmod>2025-03-11T17:02:54+08:00</lastmod>
   </url><url>
+    <loc>https://example.com/p/hello/</loc>
+    <lastmod>2025-03-11T17:02:54+08:00</lastmod>
+  </url><url>
     <loc>https://example.com/post/</loc>
     <lastmod>2025-03-11T17:02:54+08:00</lastmod>
     <xhtml:link
@@ -170,8 +173,6 @@
                 hreflang="en"
                 href="https://example.com/about/"
                 />
-  </url><url>
-    <loc>https://example.com/p/</loc>
   </url><url>
     <loc>https://example.com/links/</loc>
   </url><url>
