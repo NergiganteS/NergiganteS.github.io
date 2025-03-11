@@ -105,10 +105,10 @@
                 href="https://example.com/tags/"
                 />
   </url><url>
-    <loc>https://example.com/categories/themes/</loc>
+    <loc>https://example.com/tags/themes/</loc>
     <lastmod>2019-03-11T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://example.com/tags/themes/</loc>
+    <loc>https://example.com/categories/themes/</loc>
     <lastmod>2019-03-11T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://example.com/p/placeholder-text/</loc>
