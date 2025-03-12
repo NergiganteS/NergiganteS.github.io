@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://example.com/post/</loc>
+    <lastmod>2025-03-12T16:33:41+08:00</lastmod>
+  </url><url>
+    <loc>https://example.com/p/theone/</loc>
+    <lastmod>2025-03-12T16:33:41+08:00</lastmod>
+  </url><url>
+    <loc>https://example.com/p/theone/</loc>
+    <lastmod>2025-03-12T16:33:41+08:00</lastmod>
+  </url><url>
     <loc>https://example.com/archives/</loc>
     <lastmod>2025-03-11T17:00:30+08:00</lastmod>
   </url><url>
@@ -26,9 +35,6 @@
                 href="https://example.com/"
                 />
   </url><url>
-    <loc>https://example.com/p/</loc>
-    <lastmod>2025-03-12T16:29:59+08:00</lastmod>
-  </url><url>
     <loc>https://example.com/categories/</loc>
     <lastmod>2025-03-11T17:00:30+08:00</lastmod>
     <xhtml:link
@@ -49,9 +55,6 @@
   </url><url>
     <loc>https://example.com/links/</loc>
     <lastmod>2025-03-11T17:00:30+08:00</lastmod>
-  </url><url>
-    <loc>https://example.com/post/</loc>
-    <lastmod>2025-03-12T16:29:59+08:00</lastmod>
   </url><url>
     <loc>https://example.com/search/</loc>
     <lastmod>2025-03-11T17:00:30+08:00</lastmod>
