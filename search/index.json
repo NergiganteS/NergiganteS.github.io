@@ -1,1 +1,1 @@
-[{"content":"","date":"2025-03-11T18:29:30+08:00","permalink":"https://example.com/p/theone/","title":"Theone"},{"content":"外网打点 扫端口，有域名扫子域名，扫目录\n打开网址\n界面可以上传网址然后通过curl拿到网址的信息\n有个后台域名admin.forge.htb\n后台域名限制了本地ip访问（常规绕过也不管用）\n所以思路就是制造ssrf攻击\n测试admin.forge.htb\n有黑名单\n双大写绕过ADMIN.FORGE.htb\n从这里得知upload可以用ftp协议\nhttp://ADMIN.FORGE.htb/upload?u=ftp://user:heightofsecurity123!@127.0.1.1/\n有用，之后拿/.ssh/id_rsa\n拿到user.txt\n提权 linpeas.sh扫pwnkit\n上传脚本提权成功\n","date":"0001-01-01T00:00:00Z","permalink":"https://example.com/p/","title":""}]
+[]
