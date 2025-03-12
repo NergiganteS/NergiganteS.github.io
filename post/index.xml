@@ -7,14 +7,14 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Example Person</copyright>
-        <lastBuildDate>Wed, 12 Mar 2025 16:33:41 +0800</lastBuildDate><atom:link href="https://example.com/post/index.xml" rel="self" type="application/rss+xml" /><item>
-        <title>Theone</title>
-        <link>https://example.com/p/theone/</link>
+        <lastBuildDate>Wed, 12 Mar 2025 16:46:28 +0800</lastBuildDate><atom:link href="https://example.com/post/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Forge</title>
+        <link>https://example.com/p/forge/</link>
         <pubDate>Tue, 11 Mar 2025 18:29:30 +0800</pubDate>
         
-        <guid>https://example.com/p/theone/</guid>
-        <description>&lt;h1 id=&#34;CcEC0&#34;&gt;外网打点&lt;/h1&gt;
-扫端口，有域名扫子域名，扫目录
+        <guid>https://example.com/p/forge/</guid>
+        <description>&lt;h1 id=&#34;外网打点&#34;&gt;外网打点
+&lt;/h1&gt;&lt;p&gt;扫端口，有域名扫子域名，扫目录&lt;/p&gt;
 &lt;p&gt;打开网址&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://cdn.nlark.com/yuque/0/2025/png/43055475/1741503924490-3e975224-41fb-4eb1-9628-4956bf9874f9.png&#34;
 	
@@ -68,8 +68,8 @@
 &gt;&lt;/p&gt;
 &lt;p&gt;有用，之后拿/.ssh/id_rsa&lt;/p&gt;
 &lt;p&gt;拿到user.txt&lt;/p&gt;
-&lt;h1 id=&#34;UVR33&#34;&gt;提权&lt;/h1&gt;
-linpeas.sh扫pwnkit
+&lt;h1 id=&#34;提权&#34;&gt;提权
+&lt;/h1&gt;&lt;p&gt;linpeas.sh扫pwnkit&lt;/p&gt;
 &lt;p&gt;上传脚本提权成功&lt;/p&gt;
 </description>
         </item>
