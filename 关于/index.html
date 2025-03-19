@@ -6,7 +6,7 @@
 
 <link rel='canonical' href='https://nergigantes.github.io/%E5%85%B3%E4%BA%8E/'>
 
-<link rel="stylesheet" href="/scss/style.min.b41fbeb1758861b170a462ca5c5b93b973caa976a8f1c39fb877a49158ef60fb.css"><meta property='og:title' content="关于">
+<link rel="stylesheet" href="/scss/style.min.f720cbcbc8f9265d2875caa41c2c2572405d50fc427ef4375391537c33376c29.css"><meta property='og:title' content="关于">
 <meta property='og:description' content="This is a test page for i18n support.">
 <meta property='og:url' content='https://nergigantes.github.io/%E5%85%B3%E4%BA%8E/'>
 <meta property='og:site_name' content='NergiganteS&#39;s Blog'>
@@ -524,10 +524,21 @@
 </script>
 <style>
     body {
-      background: url(https://nergigantes.github.io/background/1.png) no-repeat center top;
-      background-size: cover;
-      background-attachment: fixed;
-    }
+  position: relative;  
+}
+
+body::before {
+  content: "";
+  position: fixed;  
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url(https://nergigantes.github.io/background/1.png) no-repeat center top;
+  background-size: cover;
+  background-attachment: fixed;
+  z-index: -1;  
+}
   </style>
   
     </body>

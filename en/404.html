@@ -6,7 +6,7 @@
 
 <link rel='canonical' href='https://nergigantes.github.io/en/404.html'>
 
-<link rel="stylesheet" href="/scss/style.min.b41fbeb1758861b170a462ca5c5b93b973caa976a8f1c39fb877a49158ef60fb.css"><meta property='og:title' content="404 Page not found">
+<link rel="stylesheet" href="/scss/style.min.f720cbcbc8f9265d2875caa41c2c2572405d50fc427ef4375391537c33376c29.css"><meta property='og:title' content="404 Page not found">
 <meta property='og:description' content="Example description">
 <meta property='og:url' content='https://nergigantes.github.io/en/404.html'>
 <meta property='og:site_name' content='Example Site'>
@@ -212,10 +212,21 @@
 </script>
 <style>
     body {
-      background: url(https://nergigantes.github.io/background/1.png) no-repeat center top;
-      background-size: cover;
-      background-attachment: fixed;
-    }
+  position: relative;  
+}
+
+body::before {
+  content: "";
+  position: fixed;  
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url(https://nergigantes.github.io/background/1.png) no-repeat center top;
+  background-size: cover;
+  background-attachment: fixed;
+  z-index: -1;  
+}
   </style>
   
     </body>

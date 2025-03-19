@@ -2,26 +2,8 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://nergigantes.github.io/htb/armageddon/</loc>
-    <lastmod>2025-03-19T15:14:13+08:00</lastmod>
-  </url><url>
-    <loc>https://nergigantes.github.io/htb/bashed/</loc>
-    <lastmod>2025-03-19T14:41:21+08:00</lastmod>
-  </url><url>
-    <loc>https://nergigantes.github.io/htb/blocky/</loc>
-    <lastmod>2025-03-19T14:41:21+08:00</lastmod>
-  </url><url>
-    <loc>https://nergigantes.github.io/htb/bountyhunter/</loc>
-    <lastmod>2025-03-19T14:41:21+08:00</lastmod>
-  </url><url>
-    <loc>https://nergigantes.github.io/htb/broker%E6%9C%AA%E5%AE%8C/</loc>
-    <lastmod>2025-03-19T07:23:19+00:00</lastmod>
-  </url><url>
-    <loc>https://nergigantes.github.io/htb/busqueda/</loc>
-    <lastmod>2025-03-19T14:41:21+08:00</lastmod>
-  </url><url>
     <loc>https://nergigantes.github.io/categories/</loc>
-    <lastmod>2025-03-19T07:23:19+00:00</lastmod>
+    <lastmod>2025-03-19T08:42:15+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -38,140 +20,158 @@
                 href="https://nergigantes.github.io/categories/"
                 />
   </url><url>
-    <loc>https://nergigantes.github.io/htb/codify/</loc>
-    <lastmod>2025-03-19T14:41:21+08:00</lastmod>
-  </url><url>
-    <loc>https://nergigantes.github.io/htb/cozyhosting/</loc>
-    <lastmod>2025-03-19T14:41:21+08:00</lastmod>
-  </url><url>
-    <loc>https://nergigantes.github.io/htb/cronos/</loc>
-    <lastmod>2025-03-19T14:41:21+08:00</lastmod>
-  </url><url>
-    <loc>https://nergigantes.github.io/htb/curling/</loc>
-    <lastmod>2025-03-19T14:41:21+08:00</lastmod>
-  </url><url>
-    <loc>https://nergigantes.github.io/htb/devvortex/</loc>
-    <lastmod>2025-03-19T14:41:21+08:00</lastmod>
-  </url><url>
-    <loc>https://nergigantes.github.io/htb/forge/</loc>
-    <lastmod>2025-03-19T14:41:21+08:00</lastmod>
-  </url><url>
-    <loc>https://nergigantes.github.io/htb/horizontall/</loc>
-    <lastmod>2025-03-19T14:41:21+08:00</lastmod>
-  </url><url>
     <loc>https://nergigantes.github.io/categories/htb/</loc>
-    <lastmod>2025-03-19T07:23:19+00:00</lastmod>
+    <lastmod>2025-03-19T08:42:15+00:00</lastmod>
   </url><url>
     <loc>https://nergigantes.github.io/htb/</loc>
-    <lastmod>2025-03-19T07:23:19+00:00</lastmod>
-  </url><url>
-    <loc>https://nergigantes.github.io/htb/inject/</loc>
-    <lastmod>2025-03-19T14:41:21+08:00</lastmod>
-  </url><url>
-    <loc>https://nergigantes.github.io/htb/jarvis/</loc>
-    <lastmod>2025-03-19T14:41:21+08:00</lastmod>
-  </url><url>
-    <loc>https://nergigantes.github.io/htb/magic/</loc>
-    <lastmod>2025-03-19T14:41:21+08:00</lastmod>
-  </url><url>
-    <loc>https://nergigantes.github.io/htb/mango/</loc>
-    <lastmod>2025-03-19T14:41:21+08:00</lastmod>
-  </url><url>
-    <loc>https://nergigantes.github.io/htb/metatwo/</loc>
-    <lastmod>2025-03-19T14:41:21+08:00</lastmod>
-  </url><url>
-    <loc>https://nergigantes.github.io/htb/mirai/</loc>
-    <lastmod>2025-03-19T14:41:21+08:00</lastmod>
-  </url><url>
-    <loc>https://nergigantes.github.io/htb/monitorstwo/</loc>
-    <lastmod>2025-03-19T14:41:21+08:00</lastmod>
-  </url><url>
-    <loc>https://nergigantes.github.io/htb/nibbles/</loc>
-    <lastmod>2025-03-19T14:41:21+08:00</lastmod>
-  </url><url>
-    <loc>https://nergigantes.github.io/htb/nineveh/</loc>
-    <lastmod>2025-03-19T14:41:21+08:00</lastmod>
-  </url><url>
-    <loc>https://nergigantes.github.io/htb/obscurity/</loc>
-    <lastmod>2025-03-19T14:41:21+08:00</lastmod>
-  </url><url>
-    <loc>https://nergigantes.github.io/htb/openadmin/</loc>
-    <lastmod>2025-03-19T14:41:21+08:00</lastmod>
-  </url><url>
-    <loc>https://nergigantes.github.io/htb/paper/</loc>
-    <lastmod>2025-03-19T14:41:21+08:00</lastmod>
-  </url><url>
-    <loc>https://nergigantes.github.io/htb/passage/</loc>
-    <lastmod>2025-03-19T14:41:21+08:00</lastmod>
-  </url><url>
-    <loc>https://nergigantes.github.io/htb/pc/</loc>
-    <lastmod>2025-03-19T14:41:21+08:00</lastmod>
-  </url><url>
-    <loc>https://nergigantes.github.io/htb/perfection/</loc>
-    <lastmod>2025-03-19T14:41:21+08:00</lastmod>
-  </url><url>
-    <loc>https://nergigantes.github.io/htb/photobomb/</loc>
-    <lastmod>2025-03-19T14:41:21+08:00</lastmod>
-  </url><url>
-    <loc>https://nergigantes.github.io/htb/pilgrimage/</loc>
-    <lastmod>2025-03-19T14:41:21+08:00</lastmod>
-  </url><url>
-    <loc>https://nergigantes.github.io/htb/popcorn/</loc>
-    <lastmod>2025-03-19T14:41:21+08:00</lastmod>
-  </url><url>
-    <loc>https://nergigantes.github.io/htb/postman/</loc>
-    <lastmod>2025-03-19T14:41:21+08:00</lastmod>
-  </url><url>
-    <loc>https://nergigantes.github.io/htb/precious/</loc>
-    <lastmod>2025-03-19T14:41:21+08:00</lastmod>
-  </url><url>
-    <loc>https://nergigantes.github.io/htb/previse/</loc>
-    <lastmod>2025-03-19T14:41:21+08:00</lastmod>
-  </url><url>
-    <loc>https://nergigantes.github.io/htb/redpanda/</loc>
-    <lastmod>2025-03-19T14:41:21+08:00</lastmod>
-  </url><url>
-    <loc>https://nergigantes.github.io/htb/sau/</loc>
-    <lastmod>2025-03-19T14:41:21+08:00</lastmod>
-  </url><url>
-    <loc>https://nergigantes.github.io/htb/secret/</loc>
-    <lastmod>2025-03-19T14:41:21+08:00</lastmod>
-  </url><url>
-    <loc>https://nergigantes.github.io/htb/shocker/</loc>
-    <lastmod>2025-03-19T14:41:21+08:00</lastmod>
-  </url><url>
-    <loc>https://nergigantes.github.io/htb/shoppy/</loc>
-    <lastmod>2025-03-19T14:41:21+08:00</lastmod>
-  </url><url>
-    <loc>https://nergigantes.github.io/htb/solidstate/</loc>
-    <lastmod>2025-03-19T14:41:21+08:00</lastmod>
-  </url><url>
-    <loc>https://nergigantes.github.io/htb/stocker/</loc>
-    <lastmod>2025-03-19T14:41:21+08:00</lastmod>
+    <lastmod>2025-03-19T08:42:15+00:00</lastmod>
   </url><url>
     <loc>https://nergigantes.github.io/htb/tabby/</loc>
-    <lastmod>2025-03-19T14:41:21+08:00</lastmod>
+    <lastmod>2025-03-19T16:40:35+08:00</lastmod>
   </url><url>
     <loc>https://nergigantes.github.io/htb/traceback/</loc>
-    <lastmod>2025-03-19T14:41:21+08:00</lastmod>
+    <lastmod>2025-03-19T16:40:35+08:00</lastmod>
   </url><url>
     <loc>https://nergigantes.github.io/htb/traverxec/</loc>
-    <lastmod>2025-03-19T14:41:21+08:00</lastmod>
+    <lastmod>2025-03-19T16:40:35+08:00</lastmod>
   </url><url>
     <loc>https://nergigantes.github.io/htb/usage/</loc>
-    <lastmod>2025-03-19T14:41:21+08:00</lastmod>
+    <lastmod>2025-03-19T16:40:35+08:00</lastmod>
   </url><url>
     <loc>https://nergigantes.github.io/htb/valentine/</loc>
-    <lastmod>2025-03-19T14:41:21+08:00</lastmod>
+    <lastmod>2025-03-19T16:40:35+08:00</lastmod>
   </url><url>
     <loc>https://nergigantes.github.io/htb/vault%E5%86%85%E7%BD%91%E6%9C%AA%E5%AE%8C/</loc>
-    <lastmod>2025-03-19T07:23:19+00:00</lastmod>
+    <lastmod>2025-03-19T08:42:15+00:00</lastmod>
   </url><url>
     <loc>https://nergigantes.github.io/htb/writeup/</loc>
-    <lastmod>2025-03-19T14:41:21+08:00</lastmod>
+    <lastmod>2025-03-19T16:40:35+08:00</lastmod>
+  </url><url>
+    <loc>https://nergigantes.github.io/htb/magic/</loc>
+    <lastmod>2025-03-19T16:40:35+08:00</lastmod>
+  </url><url>
+    <loc>https://nergigantes.github.io/htb/mango/</loc>
+    <lastmod>2025-03-19T16:40:35+08:00</lastmod>
+  </url><url>
+    <loc>https://nergigantes.github.io/htb/metatwo/</loc>
+    <lastmod>2025-03-19T16:40:35+08:00</lastmod>
+  </url><url>
+    <loc>https://nergigantes.github.io/htb/mirai/</loc>
+    <lastmod>2025-03-19T16:40:35+08:00</lastmod>
+  </url><url>
+    <loc>https://nergigantes.github.io/htb/monitorstwo/</loc>
+    <lastmod>2025-03-19T16:40:35+08:00</lastmod>
+  </url><url>
+    <loc>https://nergigantes.github.io/htb/nibbles/</loc>
+    <lastmod>2025-03-19T16:40:35+08:00</lastmod>
+  </url><url>
+    <loc>https://nergigantes.github.io/htb/nineveh/</loc>
+    <lastmod>2025-03-19T16:40:35+08:00</lastmod>
+  </url><url>
+    <loc>https://nergigantes.github.io/htb/obscurity/</loc>
+    <lastmod>2025-03-19T16:40:35+08:00</lastmod>
+  </url><url>
+    <loc>https://nergigantes.github.io/htb/openadmin/</loc>
+    <lastmod>2025-03-19T16:40:35+08:00</lastmod>
+  </url><url>
+    <loc>https://nergigantes.github.io/htb/paper/</loc>
+    <lastmod>2025-03-19T16:40:35+08:00</lastmod>
+  </url><url>
+    <loc>https://nergigantes.github.io/htb/passage/</loc>
+    <lastmod>2025-03-19T16:40:35+08:00</lastmod>
+  </url><url>
+    <loc>https://nergigantes.github.io/htb/pc/</loc>
+    <lastmod>2025-03-19T16:40:35+08:00</lastmod>
+  </url><url>
+    <loc>https://nergigantes.github.io/htb/perfection/</loc>
+    <lastmod>2025-03-19T16:40:35+08:00</lastmod>
+  </url><url>
+    <loc>https://nergigantes.github.io/htb/photobomb/</loc>
+    <lastmod>2025-03-19T16:40:35+08:00</lastmod>
+  </url><url>
+    <loc>https://nergigantes.github.io/htb/pilgrimage/</loc>
+    <lastmod>2025-03-19T16:40:35+08:00</lastmod>
+  </url><url>
+    <loc>https://nergigantes.github.io/htb/popcorn/</loc>
+    <lastmod>2025-03-19T16:40:35+08:00</lastmod>
+  </url><url>
+    <loc>https://nergigantes.github.io/htb/postman/</loc>
+    <lastmod>2025-03-19T16:40:35+08:00</lastmod>
+  </url><url>
+    <loc>https://nergigantes.github.io/htb/precious/</loc>
+    <lastmod>2025-03-19T16:40:35+08:00</lastmod>
+  </url><url>
+    <loc>https://nergigantes.github.io/htb/previse/</loc>
+    <lastmod>2025-03-19T16:40:35+08:00</lastmod>
+  </url><url>
+    <loc>https://nergigantes.github.io/htb/redpanda/</loc>
+    <lastmod>2025-03-19T16:40:35+08:00</lastmod>
+  </url><url>
+    <loc>https://nergigantes.github.io/htb/sau/</loc>
+    <lastmod>2025-03-19T16:40:35+08:00</lastmod>
+  </url><url>
+    <loc>https://nergigantes.github.io/htb/secret/</loc>
+    <lastmod>2025-03-19T16:40:35+08:00</lastmod>
+  </url><url>
+    <loc>https://nergigantes.github.io/htb/shocker/</loc>
+    <lastmod>2025-03-19T16:40:35+08:00</lastmod>
+  </url><url>
+    <loc>https://nergigantes.github.io/htb/shoppy/</loc>
+    <lastmod>2025-03-19T16:40:35+08:00</lastmod>
+  </url><url>
+    <loc>https://nergigantes.github.io/htb/solidstate/</loc>
+    <lastmod>2025-03-19T16:40:35+08:00</lastmod>
+  </url><url>
+    <loc>https://nergigantes.github.io/htb/stocker/</loc>
+    <lastmod>2025-03-19T16:40:35+08:00</lastmod>
   </url><url>
     <loc>https://nergigantes.github.io/htb/analytics/</loc>
-    <lastmod>2025-03-19T14:34:54+08:00</lastmod>
+    <lastmod>2025-03-19T16:40:35+08:00</lastmod>
+  </url><url>
+    <loc>https://nergigantes.github.io/htb/armageddon/</loc>
+    <lastmod>2025-03-19T16:40:35+08:00</lastmod>
+  </url><url>
+    <loc>https://nergigantes.github.io/htb/bashed/</loc>
+    <lastmod>2025-03-19T16:40:35+08:00</lastmod>
+  </url><url>
+    <loc>https://nergigantes.github.io/htb/blocky/</loc>
+    <lastmod>2025-03-19T16:40:35+08:00</lastmod>
+  </url><url>
+    <loc>https://nergigantes.github.io/htb/bountyhunter/</loc>
+    <lastmod>2025-03-19T16:40:35+08:00</lastmod>
+  </url><url>
+    <loc>https://nergigantes.github.io/htb/broker%E6%9C%AA%E5%AE%8C/</loc>
+    <lastmod>2025-03-19T08:42:13+00:00</lastmod>
+  </url><url>
+    <loc>https://nergigantes.github.io/htb/busqueda/</loc>
+    <lastmod>2025-03-19T16:40:35+08:00</lastmod>
+  </url><url>
+    <loc>https://nergigantes.github.io/htb/codify/</loc>
+    <lastmod>2025-03-19T16:40:35+08:00</lastmod>
+  </url><url>
+    <loc>https://nergigantes.github.io/htb/cozyhosting/</loc>
+    <lastmod>2025-03-19T16:40:35+08:00</lastmod>
+  </url><url>
+    <loc>https://nergigantes.github.io/htb/cronos/</loc>
+    <lastmod>2025-03-19T16:40:35+08:00</lastmod>
+  </url><url>
+    <loc>https://nergigantes.github.io/htb/curling/</loc>
+    <lastmod>2025-03-19T16:40:35+08:00</lastmod>
+  </url><url>
+    <loc>https://nergigantes.github.io/htb/devvortex/</loc>
+    <lastmod>2025-03-19T16:40:35+08:00</lastmod>
+  </url><url>
+    <loc>https://nergigantes.github.io/htb/forge/</loc>
+    <lastmod>2025-03-19T16:40:35+08:00</lastmod>
+  </url><url>
+    <loc>https://nergigantes.github.io/htb/horizontall/</loc>
+    <lastmod>2025-03-19T16:40:35+08:00</lastmod>
+  </url><url>
+    <loc>https://nergigantes.github.io/htb/inject/</loc>
+    <lastmod>2025-03-19T16:40:35+08:00</lastmod>
+  </url><url>
+    <loc>https://nergigantes.github.io/htb/jarvis/</loc>
+    <lastmod>2025-03-19T16:40:35+08:00</lastmod>
   </url><url>
     <loc>https://nergigantes.github.io/htb/seal/</loc>
     <lastmod>2025-03-19T14:16:03+08:00</lastmod>
