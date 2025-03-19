@@ -7,7 +7,7 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Example Person</copyright>
-        <lastBuildDate>Wed, 19 Mar 2025 14:07:55 +0800</lastBuildDate><atom:link href="https://example.com/categories/htb/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Wed, 19 Mar 2025 14:16:03 +0800</lastBuildDate><atom:link href="https://example.com/categories/htb/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Seal</title>
         <link>https://example.com/htb/seal/</link>
         <pubDate>Wed, 19 Mar 2025 14:05:44 +0800</pubDate>
@@ -17,21 +17,29 @@
 &lt;p&gt;三板斧&lt;/p&gt;
 &lt;p&gt;开了三个端口 22，443，8080&lt;/p&gt;
 &lt;p&gt;有域名扫子域名无果&lt;/p&gt;
-&lt;p&gt;扫目录&lt;img src=&#34;https://cdn.nlark.com/yuque/0/2025/png/43055475/1742283637071-04444643-5fdb-48d0-9c12-e8f040aac419.png&#34;
-	
-	
-	
+&lt;p&gt;扫目录&lt;img src=&#34;https://example.com/htb/seal/image.png&#34;
+	width=&#34;860&#34;
+	height=&#34;641&#34;
+	srcset=&#34;https://example.com/htb/seal/image_hu9df0e9e6abb1dbe28ba326843e3a8c7d_86202_480x0_resize_box_3.png 480w, https://example.com/htb/seal/image_hu9df0e9e6abb1dbe28ba326843e3a8c7d_86202_1024x0_resize_box_3.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;134&#34;
+		data-flex-basis=&#34;321px&#34;
 	
 &gt;&lt;/p&gt;
 &lt;p&gt;现在要么就是看不了要么就是要登录，看8080端口&lt;/p&gt;
-&lt;p&gt;在一个历史版本里找到了用户密码&lt;img src=&#34;https://cdn.nlark.com/yuque/0/2025/png/43055475/1742283686936-c77081ac-80f4-4d78-b8ff-6911a40223f4.png&#34;
-	
-	
-	
+&lt;p&gt;在一个历史版本里找到了用户密码&lt;img src=&#34;https://example.com/htb/seal/image2.png&#34;
+	width=&#34;1028&#34;
+	height=&#34;496&#34;
+	srcset=&#34;https://example.com/htb/seal/image2_hu032c9733e9714094bdf1e768eac86e46_23244_480x0_resize_box_3.png 480w, https://example.com/htb/seal/image2_hu032c9733e9714094bdf1e768eac86e46_23244_1024x0_resize_box_3.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;207&#34;
+		data-flex-basis=&#34;497px&#34;
 	
 &gt;&lt;/p&gt;
 &lt;p&gt;登录了之前扫401的目录&lt;/p&gt;
@@ -93,12 +101,16 @@
 &lt;p&gt;file模块：把/opt/backups/files/目录删除。&lt;/p&gt;
 &lt;p&gt;开启了copy_links，我们可以把一些好东西连接到/var/lib/tomcat9/webapps/ROOT/admin/dashboard目录下，然后让这个进程打包，之后我们再解压拿到东西&lt;/p&gt;
 &lt;p&gt;正好我们有在/var/lib/tomcat9/webapps/ROOT/admin/dashboard/uploads下写的权限&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://cdn.nlark.com/yuque/0/2025/png/43055475/1742284705743-0ec47bfd-fb39-4fc3-9c4d-5adf5f2e02bd.png&#34;
-	
-	
-	
+&lt;p&gt;&lt;img src=&#34;https://example.com/htb/seal/image3.png&#34;
+	width=&#34;1048&#34;
+	height=&#34;899&#34;
+	srcset=&#34;https://example.com/htb/seal/image3_hub380d5171a6fbbbe81f30331af4212a4_102688_480x0_resize_box_3.png 480w, https://example.com/htb/seal/image3_hub380d5171a6fbbbe81f30331af4212a4_102688_1024x0_resize_box_3.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;116&#34;
+		data-flex-basis=&#34;279px&#34;
 	
 &gt;&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
@@ -110,29 +122,42 @@
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;p&gt;然后等待我们的id_rsa&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://cdn.nlark.com/yuque/0/2025/png/43055475/1742285643706-336265e1-c307-4698-be7e-f65ba8102b4d.png&#34;
-	
-	
-	
+&lt;p&gt;&lt;img src=&#34;https://example.com/htb/seal/image4.png&#34;
+	width=&#34;880&#34;
+	height=&#34;986&#34;
+	srcset=&#34;https://example.com/htb/seal/image4_hu75cc4fcfb0d872c151bbeb27bedf17f5_168416_480x0_resize_box_3.png 480w, https://example.com/htb/seal/image4_hu75cc4fcfb0d872c151bbeb27bedf17f5_168416_1024x0_resize_box_3.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;89&#34;
+		data-flex-basis=&#34;214px&#34;
 	
 &gt;&lt;/p&gt;
 &lt;p&gt;ssh登录拿到user.txt&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://cdn.nlark.com/yuque/0/2025/png/43055475/1742285699452-423caaf4-6523-41c6-a649-a406a8d9a92d.png&#34;
-	
-	
-	
+&lt;p&gt;sudo -l查看超级权限&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://example.com/htb/seal/image5.png&#34;
+	width=&#34;479&#34;
+	height=&#34;149&#34;
+	srcset=&#34;https://example.com/htb/seal/image5_hu8468b9c391a969e83dfbb4a7b9ce0a20_12262_480x0_resize_box_3.png 480w, https://example.com/htb/seal/image5_hu8468b9c391a969e83dfbb4a7b9ce0a20_12262_1024x0_resize_box_3.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;321&#34;
+		data-flex-basis=&#34;771px&#34;
 	
 &gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://cdn.nlark.com/yuque/0/2025/png/43055475/1742285736005-1dea12a7-7112-426a-b60c-1cd8eeb36cda.png&#34;
-	
-	
-	
+&lt;p&gt;&lt;img src=&#34;https://example.com/htb/seal/image6.png&#34;
+	width=&#34;1240&#34;
+	height=&#34;786&#34;
+	srcset=&#34;https://example.com/htb/seal/image6_hu343ca78469915868e3976dbad24ca46f_39106_480x0_resize_box_3.png 480w, https://example.com/htb/seal/image6_hu343ca78469915868e3976dbad24ca46f_39106_1024x0_resize_box_3.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;157&#34;
+		data-flex-basis=&#34;378px&#34;
 	
 &gt;&lt;/p&gt;
 </description>
