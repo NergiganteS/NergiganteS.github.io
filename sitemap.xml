@@ -2,19 +2,19 @@
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <sitemap>
-    <loc>https://example.com/zh-cn/sitemap.xml</loc>
+    <loc>https://nergigantes.github.io/zh-cn/sitemap.xml</loc>
     
-      <lastmod>2025-03-19T07:14:24+00:00</lastmod>
-    
-  </sitemap>
-  
-  <sitemap>
-    <loc>https://example.com/en/sitemap.xml</loc>
+      <lastmod>2025-03-19T07:23:19+00:00</lastmod>
     
   </sitemap>
   
   <sitemap>
-    <loc>https://example.com/ar/sitemap.xml</loc>
+    <loc>https://nergigantes.github.io/en/sitemap.xml</loc>
+    
+  </sitemap>
+  
+  <sitemap>
+    <loc>https://nergigantes.github.io/ar/sitemap.xml</loc>
     
   </sitemap>
   
