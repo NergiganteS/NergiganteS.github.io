@@ -7,7 +7,7 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Example Person</copyright>
-        <lastBuildDate>Wed, 19 Mar 2025 09:00:04 +0000</lastBuildDate><atom:link href="https://nergigantes.github.io/categories/htb/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Wed, 19 Mar 2025 10:52:38 +0000</lastBuildDate><atom:link href="https://nergigantes.github.io/categories/htb/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Tabby</title>
         <link>https://nergigantes.github.io/htb/tabby/</link>
         <pubDate>Wed, 19 Mar 2025 16:38:29 +0800</pubDate>
@@ -1938,7 +1938,7 @@
         <pubDate>Wed, 19 Mar 2025 16:38:27 +0800</pubDate>
         
         <guid>https://nergigantes.github.io/htb/analytics/</guid>
-        <description>&lt;img src="https://nergigantes.github.io/3.Yu-Gi-Oh%21%20Master%20Duel%20-%20Egyptian%20God%20clash%20-%20Slifer%20vs%20Obelisk%20%5BMusic&#43;4K%5D.jpg" alt="Featured image of post Analytics" /&gt;&lt;h1 id=&#34;寻找立足点&#34;&gt;寻找立足点
+        <description>&lt;img src="https://nergigantes.github.io/htb/analytics/1.jpg" alt="Featured image of post Analytics" /&gt;&lt;h1 id=&#34;寻找立足点&#34;&gt;寻找立足点
 &lt;/h1&gt;&lt;p&gt;扫描端口正常1，有域名扫子域名正常，目录爆破也没东西&lt;/p&gt;
 &lt;p&gt;在登录页面看到是matebases&lt;/p&gt;
 &lt;p&gt;msf存在可以利用漏洞&lt;/p&gt;
@@ -2823,7 +2823,7 @@
         <pubDate>Wed, 19 Mar 2025 16:38:27 +0800</pubDate>
         
         <guid>https://nergigantes.github.io/htb/horizontall/</guid>
-        <description>&lt;img src="https://nergigantes.github.io/3.Yu-Gi-Oh%21%20Master%20Duel%20-%20Egyptian%20God%20clash%20-%20Slifer%20vs%20Obelisk%20%5BMusic&#43;4K%5D.jpg" alt="Featured image of post Horizontall" /&gt;&lt;h1 id=&#34;寻找立足点&#34;&gt;寻找立足点
+        <description>&lt;img src="https://nergigantes.github.io/htb/horizontall/1.jpg" alt="Featured image of post Horizontall" /&gt;&lt;h1 id=&#34;寻找立足点&#34;&gt;寻找立足点
 &lt;/h1&gt;&lt;p&gt;扫描端口正常，打开网页添加域名，该域名下无任何发现，扫一下目录和子域名&lt;/p&gt;
 &lt;p&gt;扫到一个子域名api-prod打开是一个Strapi MCS框架的网页，在admin/init路径下发现具体版本，网上搜索poc反弹shell拿到立足点&lt;/p&gt;
 &lt;h1 id=&#34;权限提升&#34;&gt;权限提升
@@ -3098,7 +3098,7 @@ exit(）&lt;/p&gt;
         <pubDate>Wed, 19 Mar 2025 14:05:44 +0800</pubDate>
         
         <guid>https://nergigantes.github.io/htb/seal/</guid>
-        <description>&lt;img src="https://nergigantes.github.io/3.Yu-Gi-Oh%21%20Master%20Duel%20-%20Egyptian%20God%20clash%20-%20Slifer%20vs%20Obelisk%20%5BMusic&#43;4K%5D.jpg" alt="Featured image of post Seal" /&gt;&lt;p&gt;外网打点&lt;/p&gt;
+        <description>&lt;img src="https://nergigantes.github.io/htb/seal/1.jpg" alt="Featured image of post Seal" /&gt;&lt;p&gt;外网打点&lt;/p&gt;
 &lt;p&gt;三板斧&lt;/p&gt;
 &lt;p&gt;开了三个端口 22，443，8080&lt;/p&gt;
 &lt;p&gt;有域名扫子域名无果&lt;/p&gt;
