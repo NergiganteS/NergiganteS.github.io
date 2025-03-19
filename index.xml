@@ -7,6 +7,147 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Example Person</copyright><atom:link href="https://nergigantes.github.io/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>TheNotebook(Docker 逃逸)</title>
+        <link>https://nergigantes.github.io/htb/thenotebookdocker-%E9%80%83%E9%80%B8/</link>
+        <pubDate>Wed, 19 Mar 2025 21:27:22 +0800</pubDate>
+        
+        <guid>https://nergigantes.github.io/htb/thenotebookdocker-%E9%80%83%E9%80%B8/</guid>
+        <description>&lt;img src="https://nergigantes.github.io/htb/thenotebookdocker-%E9%80%83%E9%80%B8/9.jpg" alt="Featured image of post TheNotebook(Docker 逃逸)" /&gt;&lt;h2 id=&#34;外网打点&#34;&gt;外网打点
+&lt;/h2&gt;&lt;p&gt;三板斧&lt;/p&gt;
+&lt;p&gt;扫端口，目录，域名&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://nergigantes.github.io/htb/thenotebookdocker-%E9%80%83%E9%80%B8/1742382513237-4fb7ed7b-6ead-4dca-b7ea-145d637c0d5c.png&#34;
+	width=&#34;1096&#34;
+	height=&#34;735&#34;
+	srcset=&#34;https://nergigantes.github.io/htb/thenotebookdocker-%E9%80%83%E9%80%B8/1742382513237-4fb7ed7b-6ead-4dca-b7ea-145d637c0d5c_hu0db0e07f604f19c072c89252cfca9c8b_190684_480x0_resize_box_3.png 480w, https://nergigantes.github.io/htb/thenotebookdocker-%E9%80%83%E9%80%B8/1742382513237-4fb7ed7b-6ead-4dca-b7ea-145d637c0d5c_hu0db0e07f604f19c072c89252cfca9c8b_190684_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;149&#34;
+		data-flex-basis=&#34;357px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;异常的10010端口没有发现，也没有扫到域名，浅浅的扫到了登录注册界面&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://nergigantes.github.io/htb/thenotebookdocker-%E9%80%83%E9%80%B8/1742382590906-e76c26af-78a7-4d31-86a7-eb8b6a7ed254.png&#34;
+	width=&#34;829&#34;
+	height=&#34;265&#34;
+	srcset=&#34;https://nergigantes.github.io/htb/thenotebookdocker-%E9%80%83%E9%80%B8/1742382590906-e76c26af-78a7-4d31-86a7-eb8b6a7ed254_hu9a63a60d844fdcc74b119b34b87970ea_49704_480x0_resize_box_3.png 480w, https://nergigantes.github.io/htb/thenotebookdocker-%E9%80%83%E9%80%B8/1742382590906-e76c26af-78a7-4d31-86a7-eb8b6a7ed254_hu9a63a60d844fdcc74b119b34b87970ea_49704_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;312&#34;
+		data-flex-basis=&#34;750px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;注册了进去看一下cookie，典型的jwt开头&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://nergigantes.github.io/htb/thenotebookdocker-%E9%80%83%E9%80%B8/1742382671723-52706105-072b-46a7-b269-d036d0336348.png&#34;
+	width=&#34;1474&#34;
+	height=&#34;663&#34;
+	srcset=&#34;https://nergigantes.github.io/htb/thenotebookdocker-%E9%80%83%E9%80%B8/1742382671723-52706105-072b-46a7-b269-d036d0336348_huaf6df3efb29b930588b7b4d8ae91faf6_148939_480x0_resize_box_3.png 480w, https://nergigantes.github.io/htb/thenotebookdocker-%E9%80%83%E9%80%B8/1742382671723-52706105-072b-46a7-b269-d036d0336348_huaf6df3efb29b930588b7b4d8ae91faf6_148939_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;222&#34;
+		data-flex-basis=&#34;533px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;但是这次和我以前不同的是有个kid的连接，指向了一个服务器本地的私钥文件&lt;/p&gt;
+&lt;p&gt;刚开始很懵因为和以前的不一样，（爆破之类）后来反应过来那个服务器本地的私钥是我们可以篡改的，直接把那个连接指向我们的key&lt;img src=&#34;https://nergigantes.github.io/htb/thenotebookdocker-%E9%80%83%E9%80%B8/1742383447952-45fc06f2-0d22-440f-9b26-81c576fbd895.png&#34;
+	width=&#34;1831&#34;
+	height=&#34;741&#34;
+	srcset=&#34;https://nergigantes.github.io/htb/thenotebookdocker-%E9%80%83%E9%80%B8/1742383447952-45fc06f2-0d22-440f-9b26-81c576fbd895_hu8882659afba6c005f42613affacf5ef1_152186_480x0_resize_box_3.png 480w, https://nergigantes.github.io/htb/thenotebookdocker-%E9%80%83%E9%80%B8/1742383447952-45fc06f2-0d22-440f-9b26-81c576fbd895_hu8882659afba6c005f42613affacf5ef1_152186_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;247&#34;
+		data-flex-basis=&#34;593px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;然后修改admin的认证数字&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://nergigantes.github.io/htb/thenotebookdocker-%E9%80%83%E9%80%B8/1742383483427-792d49d5-eb45-4bbe-a5ce-6e5b9aea5e67.png&#34;
+	width=&#34;1301&#34;
+	height=&#34;798&#34;
+	srcset=&#34;https://nergigantes.github.io/htb/thenotebookdocker-%E9%80%83%E9%80%B8/1742383483427-792d49d5-eb45-4bbe-a5ce-6e5b9aea5e67_hu3839ebeb0636cb77b09183ef8e900dca_250869_480x0_resize_box_3.png 480w, https://nergigantes.github.io/htb/thenotebookdocker-%E9%80%83%E9%80%B8/1742383483427-792d49d5-eb45-4bbe-a5ce-6e5b9aea5e67_hu3839ebeb0636cb77b09183ef8e900dca_250869_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;163&#34;
+		data-flex-basis=&#34;391px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;成功！！&lt;/p&gt;
+&lt;h2 id=&#34;权限提升&#34;&gt;权限提升
+&lt;/h2&gt;&lt;p&gt;进入系统后可以在/var/backups看到noha用户的ssh私钥，并且权限是可读的&lt;/p&gt;
+&lt;p&gt;mkdir /tmp/.tempdir &amp;amp;&amp;amp; tar -C /tmp/.tempdir -xzf /var/backups/home.tar.gz&lt;/p&gt;
+&lt;p&gt;然后直接在我们有写入权限的文件夹下解压这个备份拿到id_rsa登陆&lt;/p&gt;
+&lt;p&gt;登陆后查看当前用户超级权限文件&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://nergigantes.github.io/htb/thenotebookdocker-%E9%80%83%E9%80%B8/1742389596644-9ac20d1a-5027-4cc7-8c99-0b9fc3eba929.png&#34;
+	width=&#34;688&#34;
+	height=&#34;133&#34;
+	srcset=&#34;https://nergigantes.github.io/htb/thenotebookdocker-%E9%80%83%E9%80%B8/1742389596644-9ac20d1a-5027-4cc7-8c99-0b9fc3eba929_hu64a645b5a106e43aacb195b84b8da1e7_53109_480x0_resize_box_3.png 480w, https://nergigantes.github.io/htb/thenotebookdocker-%E9%80%83%E9%80%B8/1742389596644-9ac20d1a-5027-4cc7-8c99-0b9fc3eba929_hu64a645b5a106e43aacb195b84b8da1e7_53109_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;517&#34;
+		data-flex-basis=&#34;1241px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;看到的是可以运行docker&lt;/p&gt;
+&lt;p&gt;先docker -v看看版本&lt;/p&gt;
+&lt;p&gt;Docker version 18.06.0-ce, build 0ffa825&lt;/p&gt;
+&lt;p&gt;网上搜Poc存在CVE-2019-5736&lt;/p&gt;
+&lt;p&gt;拿poc直接打&lt;/p&gt;
+&lt;p&gt;首先我的想法是直接在docker时给到/bin/bash u+s的权限这样以来可以让我直接运行/bin/bash时就能成为root用户（但是没用。。不知道为什么不能这样做）&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://nergigantes.github.io/htb/thenotebookdocker-%E9%80%83%E9%80%B8/1742390012591-5e9fa62b-72e1-4806-b602-17d13963487e.png&#34;
+	width=&#34;917&#34;
+	height=&#34;119&#34;
+	srcset=&#34;https://nergigantes.github.io/htb/thenotebookdocker-%E9%80%83%E9%80%B8/1742390012591-5e9fa62b-72e1-4806-b602-17d13963487e_hu24317b4aec0e7c1b233b767c26d43f79_83245_480x0_resize_box_3.png 480w, https://nergigantes.github.io/htb/thenotebookdocker-%E9%80%83%E9%80%B8/1742390012591-5e9fa62b-72e1-4806-b602-17d13963487e_hu24317b4aec0e7c1b233b767c26d43f79_83245_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;770&#34;
+		data-flex-basis=&#34;1849px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://medium.com/@ali.tamer.ibrahim/thenotebook-d6bcb940d139&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://medium.com/@ali.tamer.ibrahim/thenotebook-d6bcb940d139&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;看了大佬的思路。。将当前我们所有的noah的用户的sudo权限扩展的全局&lt;/p&gt;
+&lt;p&gt;这个起作用了（0.0）ps:我的为啥不行&lt;/p&gt;
+&lt;p&gt;只会还要注意到一点，这个poc需要运行poc的时候同时运行docker&lt;/p&gt;
+&lt;p&gt;原因具体是这样的&lt;img src=&#34;https://nergigantes.github.io/htb/thenotebookdocker-%E9%80%83%E9%80%B8/1742390149590-b8e3cbd4-c2af-496e-aec5-498e099af92b.png&#34;
+	width=&#34;979&#34;
+	height=&#34;481&#34;
+	srcset=&#34;https://nergigantes.github.io/htb/thenotebookdocker-%E9%80%83%E9%80%B8/1742390149590-b8e3cbd4-c2af-496e-aec5-498e099af92b_hu540a030308de3ff12b94279ad3d4330f_129033_480x0_resize_box_3.png 480w, https://nergigantes.github.io/htb/thenotebookdocker-%E9%80%83%E9%80%B8/1742390149590-b8e3cbd4-c2af-496e-aec5-498e099af92b_hu540a030308de3ff12b94279ad3d4330f_129033_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;203&#34;
+		data-flex-basis=&#34;488px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://nergigantes.github.io/htb/thenotebookdocker-%E9%80%83%E9%80%B8/1742390182980-bb0dadf7-b8ec-4a26-8f82-e82e405fcad7.png&#34;
+	width=&#34;1424&#34;
+	height=&#34;213&#34;
+	srcset=&#34;https://nergigantes.github.io/htb/thenotebookdocker-%E9%80%83%E9%80%B8/1742390182980-bb0dadf7-b8ec-4a26-8f82-e82e405fcad7_hu8dc348227e2a31d5d17581eeac831357_140715_480x0_resize_box_3.png 480w, https://nergigantes.github.io/htb/thenotebookdocker-%E9%80%83%E9%80%B8/1742390182980-bb0dadf7-b8ec-4a26-8f82-e82e405fcad7_hu8dc348227e2a31d5d17581eeac831357_140715_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;668&#34;
+		data-flex-basis=&#34;1604px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;成功啦。。&lt;/p&gt;
+</description>
+        </item>
+        <item>
         <title>Tabby</title>
         <link>https://nergigantes.github.io/htb/tabby/</link>
         <pubDate>Wed, 19 Mar 2025 16:38:29 +0800</pubDate>
