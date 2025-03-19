@@ -7,11 +7,141 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Example Person</copyright><atom:link href="https://example.com/index.xml" rel="self" type="application/rss+xml" /><item>
-        <title>Forge</title>
-        <link>https://example.com/htb/forge1/</link>
-        <pubDate>Wed, 12 Mar 2025 17:28:02 +0800</pubDate>
+        <title>Seal</title>
+        <link>https://example.com/htb/seal/</link>
+        <pubDate>Wed, 19 Mar 2025 14:05:44 +0800</pubDate>
         
-        <guid>https://example.com/htb/forge1/</guid>
+        <guid>https://example.com/htb/seal/</guid>
+        <description>&lt;p&gt;外网打点&lt;/p&gt;
+&lt;p&gt;三板斧&lt;/p&gt;
+&lt;p&gt;开了三个端口 22，443，8080&lt;/p&gt;
+&lt;p&gt;有域名扫子域名无果&lt;/p&gt;
+&lt;p&gt;扫目录&lt;img src=&#34;https://cdn.nlark.com/yuque/0/2025/png/43055475/1742283637071-04444643-5fdb-48d0-9c12-e8f040aac419.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;现在要么就是看不了要么就是要登录，看8080端口&lt;/p&gt;
+&lt;p&gt;在一个历史版本里找到了用户密码&lt;img src=&#34;https://cdn.nlark.com/yuque/0/2025/png/43055475/1742283686936-c77081ac-80f4-4d78-b8ff-6911a40223f4.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;登录了之前扫401的目录&lt;/p&gt;
+&lt;p&gt;看/manger/status/all看不到管理界面&lt;/p&gt;
+&lt;p&gt;看一下html的但是跳到nginx了。。。（这不是tomcat吗？）&lt;/p&gt;
+&lt;p&gt;之后搜了下这是用nginx反向代理了tomcat&lt;/p&gt;
+&lt;p&gt;之后看了其他大佬的wp&lt;/p&gt;
+&lt;p&gt;这里存在一个目录穿越&lt;/p&gt;
+&lt;p&gt;大体就是tomcat会将&lt;code&gt;/..;/&lt;/code&gt;解析成传统意义上的&lt;code&gt;/../&lt;/code&gt;，而nginx不会。所以nginx放过了本该拦截的URL访问，这样我们就能进入控制台了。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-plain&#34; data-lang=&#34;plain&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Web servers and reverse proxies normalize the request path. For example, the path /image/../image/ is normalized to /images/ . When Apache Tomcat is used together with a reverse proxy such as nginx there is a nromalization inconsistency.
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Tomcat will threat the sequence /..;/ as /../ and normalize the path while reverse proxies will not normalize this sequence and send it to Apache Tomcat as it is.
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;This allows an attacker to access Apache Tomcat resources that are not normally accessible via the reverse proxy mapping.
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;/manger/status/..;/html进入到管理后台&lt;/p&gt;
+&lt;p&gt;看到可以上传war文件上传一个🐎拿到shell&lt;/p&gt;
+&lt;h1 id=&#34;权限提升&#34;&gt;权限提升
+&lt;/h1&gt;&lt;p&gt;找了半天找到一个run.yml&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-plain&#34; data-lang=&#34;plain&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;- hosts: localhost
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  tasks:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  - name: Copy Files
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    synchronize: src=https://example.com/var/lib/tomcat9/webapps/ROOT/admin/dashboard dest=/opt/backups/files copy_links=yes
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  - name: Server Backups
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    archive:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      path: /opt/backups/files/
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      dest: &amp;#34;/opt/backups/archives/backup-{{ansible_date_time.date}}-{{ansible_date_time.time}}.gz&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  - name: Clean
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    file:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      state: absent
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      path: /opt/backups/files/
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;代码解释&lt;/p&gt;
+&lt;p&gt;synchronize模块：其功能是把源目录/var/lib/tomcat9/webapps/ROOT/admin/dashboard复制到目标目录/opt/backups/files，并且复制符号链接。&lt;/p&gt;
+&lt;p&gt;archive模块：将/opt/backups/files/目录打包成一个压缩文件，文件名包含当前日期和时间，存于/opt/backups/archives/目录下。&lt;/p&gt;
+&lt;p&gt;file模块：把/opt/backups/files/目录删除。&lt;/p&gt;
+&lt;p&gt;开启了copy_links，我们可以把一些好东西连接到/var/lib/tomcat9/webapps/ROOT/admin/dashboard目录下，然后让这个进程打包，之后我们再解压拿到东西&lt;/p&gt;
+&lt;p&gt;正好我们有在/var/lib/tomcat9/webapps/ROOT/admin/dashboard/uploads下写的权限&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://cdn.nlark.com/yuque/0/2025/png/43055475/1742284705743-0ec47bfd-fb39-4fc3-9c4d-5adf5f2e02bd.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ln -s /home/luis/.ssh/ /var/lib/tomcat9/webapps/ROOT/admin/dashboard/uploads/id_rsa
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;然后等待我们的id_rsa&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://cdn.nlark.com/yuque/0/2025/png/43055475/1742285643706-336265e1-c307-4698-be7e-f65ba8102b4d.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;ssh登录拿到user.txt&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://cdn.nlark.com/yuque/0/2025/png/43055475/1742285699452-423caaf4-6523-41c6-a649-a406a8d9a92d.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://cdn.nlark.com/yuque/0/2025/png/43055475/1742285736005-1dea12a7-7112-426a-b60c-1cd8eeb36cda.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>Test</title>
+        <link>https://example.com/htb/test/</link>
+        <pubDate>Thu, 13 Mar 2025 11:49:13 +0800</pubDate>
+        
+        <guid>https://example.com/htb/test/</guid>
         <description></description>
         </item>
         <item>
@@ -99,14 +229,6 @@
 &lt;/h1&gt;&lt;p&gt;linpeas.sh扫pwnkit&lt;/p&gt;
 &lt;p&gt;上传脚本提权成功&lt;/p&gt;
 </description>
-        </item>
-        <item>
-        <title>Theone</title>
-        <link>https://example.com/htb/theone/</link>
-        <pubDate>Tue, 11 Mar 2025 18:29:30 +0800</pubDate>
-        
-        <guid>https://example.com/htb/theone/</guid>
-        <description></description>
         </item>
         <item>
         <title>Archives</title>
