@@ -7,7 +7,7 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Example Person</copyright>
-        <lastBuildDate>Wed, 19 Mar 2025 13:28:46 +0000</lastBuildDate><atom:link href="https://nergigantes.github.io/htb/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Thu, 20 Mar 2025 02:19:49 +0000</lastBuildDate><atom:link href="https://nergigantes.github.io/htb/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>TheNotebook(Docker 逃逸)</title>
         <link>https://nergigantes.github.io/htb/thenotebookdocker-%E9%80%83%E9%80%B8/</link>
         <pubDate>Wed, 19 Mar 2025 21:27:22 +0800</pubDate>
@@ -1753,7 +1753,7 @@
         <pubDate>Wed, 19 Mar 2025 16:38:28 +0800</pubDate>
         
         <guid>https://nergigantes.github.io/htb/sau/</guid>
-        <description>&lt;img src="https://nergigantes.github.io/3.Yu-Gi-Oh%21%20Master%20Duel%20-%20Egyptian%20God%20clash%20-%20Slifer%20vs%20Obelisk%20%5BMusic&#43;4K%5D.jpg" alt="Featured image of post Sau" /&gt;&lt;p&gt;拿到网站扫描端口&lt;/p&gt;
+        <description>&lt;img src="https://nergigantes.github.io/htb/sau/1.jpg" alt="Featured image of post Sau" /&gt;&lt;p&gt;拿到网站扫描端口&lt;/p&gt;
 &lt;p&gt;22，80，55555&lt;/p&gt;
 &lt;p&gt;80打不开，55555端口跳转的web目录，得知该网站服务器是&lt;/p&gt;
 &lt;p&gt;&lt;font style=&#34;color:rgb(240, 246, 252);&#34;&gt; &lt;/font&gt;&lt;a class=&#34;link&#34; href=&#34;https://github.com/darklynx/request-baskets&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
