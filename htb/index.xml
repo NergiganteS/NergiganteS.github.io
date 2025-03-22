@@ -7,7 +7,523 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Example Person</copyright>
-        <lastBuildDate>Thu, 20 Mar 2025 02:19:49 +0000</lastBuildDate><atom:link href="https://nergigantes.github.io/htb/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sat, 22 Mar 2025 11:15:49 +0000</lastBuildDate><atom:link href="https://nergigantes.github.io/htb/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Sauna</title>
+        <link>https://nergigantes.github.io/htb/sauna/</link>
+        <pubDate>Sat, 22 Mar 2025 19:05:53 +0800</pubDate>
+        
+        <guid>https://nergigantes.github.io/htb/sauna/</guid>
+        <description>&lt;img src="https://nergigantes.github.io/htb/sauna/18.jpg" alt="Featured image of post Sauna" /&gt;&lt;p&gt;扫端口&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://nergigantes.github.io/htb/sauna/1742544068788-0b5e774d-9fad-43df-8798-bb6646c2111e.png&#34;
+	width=&#34;1168&#34;
+	height=&#34;821&#34;
+	srcset=&#34;https://nergigantes.github.io/htb/sauna/1742544068788-0b5e774d-9fad-43df-8798-bb6646c2111e_hu7449a1331874145b95c60b4e5a77e255_459052_480x0_resize_box_3.png 480w, https://nergigantes.github.io/htb/sauna/1742544068788-0b5e774d-9fad-43df-8798-bb6646c2111e_hu7449a1331874145b95c60b4e5a77e255_459052_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;142&#34;
+		data-flex-basis=&#34;341px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;发现了一个奇奇怪怪的域名(Domain: EGOTISTICAL-BANK.LOCAL0., Site: Default-First-Site-Name)很奇怪的格式我们先确认一下域名&lt;/p&gt;
+&lt;p&gt;crackmapexec smb 10.10.10.175&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://nergigantes.github.io/htb/sauna/1742544254838-2c7460b7-1e1a-4ff1-9a8f-b197fdd9d5c0.png&#34;
+	width=&#34;1164&#34;
+	height=&#34;724&#34;
+	srcset=&#34;https://nergigantes.github.io/htb/sauna/1742544254838-2c7460b7-1e1a-4ff1-9a8f-b197fdd9d5c0_hu291a1581bd8b8b4124b2d7b2457fbb51_330510_480x0_resize_box_3.png 480w, https://nergigantes.github.io/htb/sauna/1742544254838-2c7460b7-1e1a-4ff1-9a8f-b197fdd9d5c0_hu291a1581bd8b8b4124b2d7b2457fbb51_330510_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;160&#34;
+		data-flex-basis=&#34;385px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;不知道为什么报错了但是还是出了结果&lt;/p&gt;
+&lt;p&gt;再看看其他端口&lt;/p&gt;
+&lt;p&gt;有kerbreos,rpc&lt;/p&gt;
+&lt;p&gt;rpcclient没权限&lt;/p&gt;
+&lt;p&gt;kerbrute出了4个用户名&lt;/p&gt;
+&lt;p&gt;试一下能不能拿到hash&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://nergigantes.github.io/htb/sauna/1742545292137-ccb00a43-5b48-49e8-935c-9105f42e0f1e.png&#34;
+	width=&#34;1177&#34;
+	height=&#34;721&#34;
+	srcset=&#34;https://nergigantes.github.io/htb/sauna/1742545292137-ccb00a43-5b48-49e8-935c-9105f42e0f1e_huc229551700e36a29688636a1affaf439_505715_480x0_resize_box_3.png 480w, https://nergigantes.github.io/htb/sauna/1742545292137-ccb00a43-5b48-49e8-935c-9105f42e0f1e_huc229551700e36a29688636a1affaf439_505715_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;163&#34;
+		data-flex-basis=&#34;391px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;拿到了fsmith用户的hash，爆破登陆&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://nergigantes.github.io/htb/sauna/1742545323184-732cdd2b-3f71-4064-aaf9-d10f2bb8b7d8.png&#34;
+	width=&#34;1178&#34;
+	height=&#34;685&#34;
+	srcset=&#34;https://nergigantes.github.io/htb/sauna/1742545323184-732cdd2b-3f71-4064-aaf9-d10f2bb8b7d8_hu5be1c3194913ffe16dc73d3caa5939a5_426648_480x0_resize_box_3.png 480w, https://nergigantes.github.io/htb/sauna/1742545323184-732cdd2b-3f71-4064-aaf9-d10f2bb8b7d8_hu5be1c3194913ffe16dc73d3caa5939a5_426648_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;171&#34;
+		data-flex-basis=&#34;412px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;Thestrokes23&lt;/p&gt;
+&lt;p&gt;登陆后传bloodhound看域情况，还有winPEAS看看提权情况&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://nergigantes.github.io/htb/sauna/1742547404845-477b635a-af25-41c2-a64f-b810f32c4be3.png&#34;
+	width=&#34;2289&#34;
+	height=&#34;1022&#34;
+	srcset=&#34;https://nergigantes.github.io/htb/sauna/1742547404845-477b635a-af25-41c2-a64f-b810f32c4be3_hu68fbe701578eb3631e51d338f80f3edb_232907_480x0_resize_box_3.png 480w, https://nergigantes.github.io/htb/sauna/1742547404845-477b635a-af25-41c2-a64f-b810f32c4be3_hu68fbe701578eb3631e51d338f80f3edb_232907_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;223&#34;
+		data-flex-basis=&#34;537px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;当前用户的权限很低，寻找其他用户看看&lt;/p&gt;
+&lt;p&gt;winPEAS扫出了一组账户密码&lt;/p&gt;
+&lt;p&gt;Some AutoLogon credentials were found&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;DefaultDomainName             :  EGOTISTICALBANK
+
+DefaultUserName               :  EGOTISTICALBANK\svc_loanmanager
+
+DefaultPassword               :  Moneymakestheworldgoround!
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;但是这个账户登不了。。。并且我们的bloohhound也搜不到这个用户&lt;/p&gt;
+&lt;p&gt;陷入了瓶颈看了其他大佬的wp，原来是&lt;img src=&#34;https://nergigantes.github.io/htb/sauna/1742547820275-f73ce860-393c-4a42-bc41-db52770e970c.png&#34;
+	width=&#34;814&#34;
+	height=&#34;408&#34;
+	srcset=&#34;https://nergigantes.github.io/htb/sauna/1742547820275-f73ce860-393c-4a42-bc41-db52770e970c_hu4824ad5dbd26a20ef71f89a3fb14e052_97055_480x0_resize_box_3.png 480w, https://nergigantes.github.io/htb/sauna/1742547820275-f73ce860-393c-4a42-bc41-db52770e970c_hu4824ad5dbd26a20ef71f89a3fb14e052_97055_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;199&#34;
+		data-flex-basis=&#34;478px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;里面有个svc-loanmgr用户，用这个密码登（原因是长得像？？？）&lt;/p&gt;
+&lt;p&gt;我们先在bloodhound查看一下这个用户有没有啥权限&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://nergigantes.github.io/htb/sauna/1742547946998-6ac49cd0-147b-4ddb-af9e-65174e7aa1ff.png&#34;
+	width=&#34;1622&#34;
+	height=&#34;653&#34;
+	srcset=&#34;https://nergigantes.github.io/htb/sauna/1742547946998-6ac49cd0-147b-4ddb-af9e-65174e7aa1ff_hu3256f5283f0e4fb1febfacb2f17eba0f_74785_480x0_resize_box_3.png 480w, https://nergigantes.github.io/htb/sauna/1742547946998-6ac49cd0-147b-4ddb-af9e-65174e7aa1ff_hu3256f5283f0e4fb1febfacb2f17eba0f_74785_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;248&#34;
+		data-flex-basis=&#34;596px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;这个用户拥有对域DCSync权限,所以现在的思路是登陆这个账户然后进行DCSync攻击拿到管理员的hash,然后接管这个域&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://nergigantes.github.io/htb/sauna/1742548925714-273cf30e-91c9-4677-8287-d138dd7f3b75.png&#34;
+	width=&#34;1103&#34;
+	height=&#34;178&#34;
+	srcset=&#34;https://nergigantes.github.io/htb/sauna/1742548925714-273cf30e-91c9-4677-8287-d138dd7f3b75_hu2a3165ebe29788bf8ef1b28fb358cfad_91745_480x0_resize_box_3.png 480w, https://nergigantes.github.io/htb/sauna/1742548925714-273cf30e-91c9-4677-8287-d138dd7f3b75_hu2a3165ebe29788bf8ef1b28fb358cfad_91745_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;619&#34;
+		data-flex-basis=&#34;1487px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;成功拿到了管理员的hash，用这个hash登陆一下&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://nergigantes.github.io/htb/sauna/1742549198504-932d99d7-a46e-442e-ba60-42f211b5925c.png&#34;
+	width=&#34;1182&#34;
+	height=&#34;386&#34;
+	srcset=&#34;https://nergigantes.github.io/htb/sauna/1742549198504-932d99d7-a46e-442e-ba60-42f211b5925c_hu309b8856fabfb4e08049ffc291c8388a_206666_480x0_resize_box_3.png 480w, https://nergigantes.github.io/htb/sauna/1742549198504-932d99d7-a46e-442e-ba60-42f211b5925c_hu309b8856fabfb4e08049ffc291c8388a_206666_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;306&#34;
+		data-flex-basis=&#34;734px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;成功了！&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>Active</title>
+        <link>https://nergigantes.github.io/htb/active/</link>
+        <pubDate>Sat, 22 Mar 2025 19:05:52 +0800</pubDate>
+        
+        <guid>https://nergigantes.github.io/htb/active/</guid>
+        <description>&lt;img src="https://nergigantes.github.io/htb/active/27.jpg" alt="Featured image of post Active" /&gt;&lt;p&gt;端口信息：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://nergigantes.github.io/htb/active/1742632854854-be7899f7-4d73-4344-a0d4-b150209812c6.png&#34;
+	width=&#34;1300&#34;
+	height=&#34;1111&#34;
+	srcset=&#34;https://nergigantes.github.io/htb/active/1742632854854-be7899f7-4d73-4344-a0d4-b150209812c6_hu10b77dabc64d0dc8fb3c979839629cfd_545033_480x0_resize_box_3.png 480w, https://nergigantes.github.io/htb/active/1742632854854-be7899f7-4d73-4344-a0d4-b150209812c6_hu10b77dabc64d0dc8fb3c979839629cfd_545033_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;117&#34;
+		data-flex-basis=&#34;280px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;发现了域名active.htb&lt;/p&gt;
+&lt;p&gt;smbmap扫到了无需用户就可以拥有读的权限&lt;/p&gt;
+&lt;p&gt;使用smbclient&lt;/p&gt;
+&lt;p&gt;smbclient -N \\10.10.10.100\Replication&lt;/p&gt;
+&lt;p&gt;recurse列出一下文件&lt;/p&gt;
+&lt;p&gt;最后找到了一个文件&lt;/p&gt;
+&lt;p&gt;&lt;Properties action=&#34;U&#34; newName=&#34;&#34; fullName=&#34;&#34; description=&#34;&#34; cpassword=&#34;edBSHOwhZLTjt/QS9FeIcJ83mjWA98gw9guKOhJOdcqh+ZGMeXOsQbCpZ3xUjTLfCuNH8pG5aSVYdYw/NglVmQ&#34; changeLogon=&#34;0&#34; noChange=&#34;1&#34; neverExpires=&#34;1&#34; acctDisabled=&#34;0&#34; userName=&#34;active.htb\SVC_TGS&#34;/&gt;&lt;/User&gt;&lt;/p&gt;
+&lt;p&gt;里面包含了一个账户密码&lt;/p&gt;
+&lt;p&gt;这个密码不是hash值。&lt;/p&gt;
+&lt;p&gt;用gpp-decrypt&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://nergigantes.github.io/htb/active/1742635001553-9246f799-438c-4913-b0e3-0a4ddf35a819.png&#34;
+	width=&#34;1154&#34;
+	height=&#34;203&#34;
+	srcset=&#34;https://nergigantes.github.io/htb/active/1742635001553-9246f799-438c-4913-b0e3-0a4ddf35a819_hu59ebd787def059d3f623057ddbec8903_82287_480x0_resize_box_3.png 480w, https://nergigantes.github.io/htb/active/1742635001553-9246f799-438c-4913-b0e3-0a4ddf35a819_hu59ebd787def059d3f623057ddbec8903_82287_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;568&#34;
+		data-flex-basis=&#34;1364px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;GPPstillStandingStrong2k18&lt;/p&gt;
+&lt;p&gt;拿到了账户密码尝试evil登陆，但是不行。原因很简单前面的nmap就扫到了5985端口没开。&lt;/p&gt;
+&lt;p&gt;尝试用smbexec登陆这个账户,也是不行，用smbclient看一下文件&lt;/p&gt;
+&lt;p&gt;可以用smbmap使用这个账户&lt;/p&gt;
+&lt;p&gt;之后使用&lt;a class=&#34;link&#34; href=&#34;https://www.redsiege.com/wp-content/uploads/2020/08/Kerberoastv4.pdf&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Kerberoasting&lt;/a&gt;攻击拿管理员的密码hash，如果是弱hash能爆出来&lt;/p&gt;
+&lt;p&gt;这里报了错，具体原因是我们攻击机和服务器的时差不能超过5分钟，但是我和和靶机的市区不是同一个。。。&lt;/p&gt;
+&lt;p&gt;于是就拿了官方wp爆出来的hash&lt;/p&gt;
+&lt;p&gt;impacket-GetUserSPNs active.htb/SVC_TGS:GPPstillStandingStrong2k18 -dc-ip 10.10.10.100 -request&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-plain&#34; data-lang=&#34;plain&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$krb5tgs$23$*Administrator$ACTIVE.HTB$active/CIFS~445*$7028f37607953ce9fd6c9060de4aece5$55e2d21e37623a43d8cd5e36e39bfaffc52abead3887ca728d527874107ca042e0e9283ac478b1c91cab58c9
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;184828e7a5e0af452ad2503e463ad2088ba97964f65ac10959a3826a7f99d2d41e2a35c5a2c47392f160d65451156893242004cb6e3052854a9990bac4deb104f838f3e50eca3ba770fbed089e1c91c513b7c98149af2f9a
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;994655f5f13559e0acb003519ce89fa32a1dd1c8c7a24636c48a5c948317feb38abe54f875ffe259b6b25a63007798174e564f0d6a09479de92e6ed98f0887e19b1069b30e2ed8005bb8601faf4e476672865310c6a0ea0b
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ea1ae10caff51715aea15a38fb2c1461310d99d6916445d7254f232e78cf9288231e436ab457929f50e6d4f70cbfcfd2251272961ff422c3928b0d702dcb31edeafd856334b64f74bbe486241d752e4cf2f6160b718b87aa
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;7c7161e95fab757005e5c80254a71d8615f4e89b0f4bd51575cc370e881a570f6e5b71dd14f50b8fd574a04978039e6f32d108fb4207d5540b4e58df5b8a0a9e36ec2d7fc1150bb41eb9244d96aaefb36055ebcdf435a42d
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;937dd86b179034754d2ac4db28a177297eaeeb86c229d0f121cf04b0ce32f63dbaa0bc5eafd47bb97c7b3a14980597a9cb2d83ce7c40e1b864c3b3a77539dd78ad41aceb950a421a707269f5ac25b27d5a6b7f334d37acc7
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;532451b55ded3fb46a4571ac27fc36cfad031675a85e0055d31ed154d1f273e18be7f7bc0c810f27e9e7951ccc48d976f7fa66309355422124ce6fda42f9df406563bc4c20d9005ba0ea93fac71891132113a15482f3d952
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;d54f22840b7a0a6000c8e8137e04a898a4fd1d87739bf5428d748086f0166b35c181729cc62b41ba6a9157333bb77c9e03dc9ac23782cf5dcebd11faad8ca3e3e74e25f21dc04ba9f1703bd51d100051c8f505cc8085056b
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;94e349b57906ee8deaf026b3daa89e7c3fc747a6a31ae08376da259f3118370bef86b6e7c2f88d66400eccb122dec8028223f6dcde29ffaa5b83ecb1c3780a782a5797c527a26a7b51b62db3e4865ebc2a0a0d2c931550de
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;cb3e7ae581b59f070dd33e423a90ec2ef66982a1b6336afe968fa93f5dd2880a313dc05d4e5cf104b6d9a8316b9fe3dc16e057e0f5c835e111ab92795fb0033541916a57df8f8e6b8cc25ecff2775282ccee110c49376c2c
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ec6b7bb95c265f1466994da89e69605594ead28d24212a137ee20197d8aa95f243c347e02616f40f4071c33f749f5b94d1259fd32174
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;hashcat直接爆&lt;/p&gt;
+&lt;p&gt;Ticketmaster1968&lt;/p&gt;
+&lt;p&gt;尝试使用smbexec登陆，成功&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>Forest</title>
+        <link>https://nergigantes.github.io/htb/forest/</link>
+        <pubDate>Sat, 22 Mar 2025 19:00:49 +0800</pubDate>
+        
+        <guid>https://nergigantes.github.io/htb/forest/</guid>
+        <description>&lt;img src="https://nergigantes.github.io/htb/forest/26.jpg" alt="Featured image of post Forest" /&gt;&lt;p&gt;扫端口&lt;/p&gt;
+&lt;p&gt;nmap -sCV -A 10.10.10.161&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://nergigantes.github.io/htb/forest/1742439388416-045b031c-7131-4cb7-93ff-25530f74c781.png&#34;
+	width=&#34;1343&#34;
+	height=&#34;310&#34;
+	srcset=&#34;https://nergigantes.github.io/htb/forest/1742439388416-045b031c-7131-4cb7-93ff-25530f74c781_hu53ac31f8a9b67c2fec3e17650187291d_458099_480x0_resize_box_3.png 480w, https://nergigantes.github.io/htb/forest/1742439388416-045b031c-7131-4cb7-93ff-25530f74c781_hu53ac31f8a9b67c2fec3e17650187291d_458099_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;433&#34;
+		data-flex-basis=&#34;1039px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://nergigantes.github.io/htb/forest/1742439496909-d3c5db9c-330e-4331-b3cc-9b6d97158eb9.png&#34;
+	width=&#34;1080&#34;
+	height=&#34;502&#34;
+	srcset=&#34;https://nergigantes.github.io/htb/forest/1742439496909-d3c5db9c-330e-4331-b3cc-9b6d97158eb9_hu486ed12525c597a8c17a7b2d40edd24f_583184_480x0_resize_box_3.png 480w, https://nergigantes.github.io/htb/forest/1742439496909-d3c5db9c-330e-4331-b3cc-9b6d97158eb9_hu486ed12525c597a8c17a7b2d40edd24f_583184_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;215&#34;
+		data-flex-basis=&#34;516px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;第一次做域渗透的靶机，详细的看看&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;● Kerberos （88/TCP）— Windows Kerberos 协议服务，可用于枚举AD 信息
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;● LDAP （389/TCP）— 活动目录 LDAP。LDAP 通常提供有关 AD 的详细信息。而如果允许匿名绑定，我们可以查询到很多好的AD信息，比如用户信息。
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;● SMB （445/TCP）— Windows 服务器消息块 （“SMB”） 协议。对于 SMB，最好检查它是否允许空会话。如果允许我们可以枚举许多有用的 AD 信息。
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;● WinRM （5985/TCP）— WS-Management 协议的 Microsoft 实现。这可以允许通过 PowerShell 进行远程连接。
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;● RPC（135/RPC） 可用于枚举AD 信息
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://nergigantes.github.io/htb/forest/1742440439892-6dd43ba0-4bfc-41f9-8c83-785739b0b167.png&#34;
+	width=&#34;496&#34;
+	height=&#34;97&#34;
+	srcset=&#34;https://nergigantes.github.io/htb/forest/1742440439892-6dd43ba0-4bfc-41f9-8c83-785739b0b167_hu9b0154a4e09755097bb37a9b4f86273c_48133_480x0_resize_box_3.png 480w, https://nergigantes.github.io/htb/forest/1742440439892-6dd43ba0-4bfc-41f9-8c83-785739b0b167_hu9b0154a4e09755097bb37a9b4f86273c_48133_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;511&#34;
+		data-flex-basis=&#34;1227px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;smb2-security-mode：这是 Nmap 用来检查 SMBv2 安全设置的结果。&lt;br&gt;
+Message signing enabled and required：这表示消息签名已启用并且是强制性的。在 SMB 协议中，启用消息签名有助于防止中间人攻击，保证数据的完整性和真实性。强制要求消息签名表示任何连接到该服务的客户端都必须使用消息签名。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://nergigantes.github.io/htb/forest/1742440471794-dde66b90-213e-4fc8-9a3e-3b1d2f9f7cc1.png&#34;
+	width=&#34;361&#34;
+	height=&#34;119&#34;
+	srcset=&#34;https://nergigantes.github.io/htb/forest/1742440471794-dde66b90-213e-4fc8-9a3e-3b1d2f9f7cc1_huf078dcdcdbee5b77469a38315b08777c_49993_480x0_resize_box_3.png 480w, https://nergigantes.github.io/htb/forest/1742440471794-dde66b90-213e-4fc8-9a3e-3b1d2f9f7cc1_huf078dcdcdbee5b77469a38315b08777c_49993_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;303&#34;
+		data-flex-basis=&#34;728px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;account_used: &lt;blank&gt;&lt;/strong&gt;：没有提供账户信息，通常这表示你没有成功登录任何账户，可能是匿名访问或者没有认证。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;authentication_level: user&lt;/strong&gt;：这表示 SMB 服务要求使用用户级别的认证。也就是说，在连接时需要提供用户名和密码来验证用户身份。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;challenge_response: supported&lt;/strong&gt;：支持挑战-响应认证，这通常是指 NTLM（NT LAN Manager）认证机制，用于验证用户身份。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;message_signing: required&lt;/strong&gt;：消息签名是必需的，确保 SMB 通信的安全性和完整性。&lt;/li&gt;
+&lt;li&gt;&lt;img src=&#34;https://nergigantes.github.io/htb/forest/1742440496069-8816cd99-639c-4188-84ea-b1a80bf17a43.png&#34;
+	width=&#34;840&#34;
+	height=&#34;180&#34;
+	srcset=&#34;https://nergigantes.github.io/htb/forest/1742440496069-8816cd99-639c-4188-84ea-b1a80bf17a43_hu56c403dc003a4f0fb65edb7ca0dff2ef_166351_480x0_resize_box_3.png 480w, https://nergigantes.github.io/htb/forest/1742440496069-8816cd99-639c-4188-84ea-b1a80bf17a43_hu56c403dc003a4f0fb65edb7ca0dff2ef_166351_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;466&#34;
+		data-flex-basis=&#34;1120px&#34;
+	
+&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;OS: Windows Server 2016 Standard 14393&lt;/strong&gt;：这是目标系统的操作系统版本。它运行的是 Windows Server 2016 Standard，版本号为 14393。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Computer name: FOREST&lt;/strong&gt;：计算机的主机名是 &lt;code&gt;FOREST&lt;/code&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;NetBIOS computer name: FOREST\x00&lt;/strong&gt;：NetBIOS 名称也是 &lt;code&gt;FOREST&lt;/code&gt;，&lt;code&gt;\x00&lt;/code&gt; 是 NetBIOS 名称的结束符。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Domain name: htb.local&lt;/strong&gt;：该机器加入了名为 &lt;code&gt;htb.local&lt;/code&gt; 的域。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Forest name: htb.local&lt;/strong&gt;：这是 Active Directory 林（Forest）的名称，与域名相同。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;FQDN: FOREST.htb.local&lt;/strong&gt;：这是完整的域名（FQDN），即 &lt;code&gt;FOREST.htb.local&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;img src=&#34;https://nergigantes.github.io/htb/forest/1742440530634-972b04fa-305f-4ffc-bd53-a0b55990dc2a.png&#34;
+	width=&#34;748&#34;
+	height=&#34;118&#34;
+	srcset=&#34;https://nergigantes.github.io/htb/forest/1742440530634-972b04fa-305f-4ffc-bd53-a0b55990dc2a_huf02d0c7de5ea144626adf5eb6aaec319_87557_480x0_resize_box_3.png 480w, https://nergigantes.github.io/htb/forest/1742440530634-972b04fa-305f-4ffc-bd53-a0b55990dc2a_huf02d0c7de5ea144626adf5eb6aaec319_87557_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;633&#34;
+		data-flex-basis=&#34;1521px&#34;
+	
+&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;date&lt;/strong&gt;：表示系统当前时间是 &lt;code&gt;2025-03-20T02:27:24&lt;/code&gt;（UTC）。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;start_date&lt;/strong&gt;：表示 SMB 服务启动的时间为 &lt;code&gt;2025-03-20T02:22:58&lt;/code&gt;（UTC）。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;clock-skew&lt;/strong&gt;：系统时间偏差。这里显示的偏差值如下：&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;mean (平均偏差): 2小时08分钟29秒&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;deviation (偏差范围): 4小时02分钟30秒&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;median (中位数): -11分钟31秒&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;枚举一下用户名，用kerbrute爆一下&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; ./kerbrute_linux_amd64 userenum --dc 10.10.10.161 -d htb.local /home/kali/Desktop/Blasting-Dictionary-master/xato-net-10-million-usernames.txt 
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;取决于字典&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://nergigantes.github.io/htb/forest/1742462653206-997bd00b-7eba-4fad-b832-52deae1c82cf.png&#34;
+	width=&#34;1538&#34;
+	height=&#34;675&#34;
+	srcset=&#34;https://nergigantes.github.io/htb/forest/1742462653206-997bd00b-7eba-4fad-b832-52deae1c82cf_huc5fe64e50fe05f1d6571e567c4db77ff_865238_480x0_resize_box_3.png 480w, https://nergigantes.github.io/htb/forest/1742462653206-997bd00b-7eba-4fad-b832-52deae1c82cf_huc5fe64e50fe05f1d6571e567c4db77ff_865238_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;227&#34;
+		data-flex-basis=&#34;546px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;还有就是rpcclient&lt;/p&gt;
+&lt;p&gt;&lt;font style=&#34;color:rgb(77, 77, 77);&#34;&gt;rpcclient是Samba套件中的一个工具，允许攻击者或渗透测试人员与Windows系统上的SMB服务进行交互，执行各种RPC调用。它可用于枚举域信息、用户、组、共享资源等&lt;/font&gt;&lt;/p&gt;
+&lt;p&gt;&lt;font style=&#34;color:rgb(77, 77, 77);&#34;&gt;&lt;/font&gt;&lt;/p&gt;
+&lt;p&gt;前面的信息收集看到了开放了的135RPC端口&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#RPC测试&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;rpcclient -U &lt;span class=&#34;s2&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt; 10.10.10.161 建立连接 
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;enumdomusers 枚举用户 
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;srvinfo 服务器信息枚举
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;enumdomains 枚举网络中的所有域
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ips：空身份验证有助于在使用时枚举域和用户，这是 Windows Server &lt;span class=&#34;m&#34;&gt;2003&lt;/span&gt; 和 &lt;span class=&#34;m&#34;&gt;2008&lt;/span&gt; 中的一项功能。在以后的版本中，它在进行全新安装时被删除。从以前版本的 Windows Server 升级时，该功能不会被禁用，因为用户可能正在使用此功能。
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://nergigantes.github.io/htb/forest/1742463106528-c9f7c171-3bb5-4db3-8eb7-6b82c468e6ad.png&#34;
+	width=&#34;1734&#34;
+	height=&#34;515&#34;
+	srcset=&#34;https://nergigantes.github.io/htb/forest/1742463106528-c9f7c171-3bb5-4db3-8eb7-6b82c468e6ad_hu137e734bf8f6cd025130abca7b12ec15_742000_480x0_resize_box_3.png 480w, https://nergigantes.github.io/htb/forest/1742463106528-c9f7c171-3bb5-4db3-8eb7-6b82c468e6ad_hu137e734bf8f6cd025130abca7b12ec15_742000_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;336&#34;
+		data-flex-basis=&#34;808px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;所有当前就列举出来了以下用户&lt;/p&gt;
+&lt;p&gt;mark&lt;/p&gt;
+&lt;p&gt;andy&lt;/p&gt;
+&lt;p&gt;forest&lt;/p&gt;
+&lt;p&gt;administrator&lt;/p&gt;
+&lt;p&gt;sebastien&lt;/p&gt;
+&lt;p&gt;santi&lt;/p&gt;
+&lt;p&gt;lucinda&lt;/p&gt;
+&lt;p&gt;svc-alfresco&lt;/p&gt;
+&lt;p&gt;然后使用impacket-GetNPUsers爆破一下这些用户的hash值&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://nergigantes.github.io/htb/forest/1742463687238-eae50afc-309b-476b-a0dd-797b9a5176c1.png&#34;
+	width=&#34;1775&#34;
+	height=&#34;389&#34;
+	srcset=&#34;https://nergigantes.github.io/htb/forest/1742463687238-eae50afc-309b-476b-a0dd-797b9a5176c1_hud435bc24fa7c6319187f59b5d8833f97_561899_480x0_resize_box_3.png 480w, https://nergigantes.github.io/htb/forest/1742463687238-eae50afc-309b-476b-a0dd-797b9a5176c1_hud435bc24fa7c6319187f59b5d8833f97_561899_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;456&#34;
+		data-flex-basis=&#34;1095px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;成功的拿到了svc-alfresco用户的hash&lt;/p&gt;
+&lt;p&gt;爆破一下&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://nergigantes.github.io/htb/forest/1742464047219-326b892a-c246-4d62-80a9-eff81b401b0d.png&#34;
+	width=&#34;1183&#34;
+	height=&#34;151&#34;
+	srcset=&#34;https://nergigantes.github.io/htb/forest/1742464047219-326b892a-c246-4d62-80a9-eff81b401b0d_hu5365e2f4ad187999e448f25073349b8f_226444_480x0_resize_box_3.png 480w, https://nergigantes.github.io/htb/forest/1742464047219-326b892a-c246-4d62-80a9-eff81b401b0d_hu5365e2f4ad187999e448f25073349b8f_226444_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;783&#34;
+		data-flex-basis=&#34;1880px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;成功的拿到了密码&lt;/p&gt;
+&lt;p&gt;s3rvice&lt;/p&gt;
+&lt;p&gt;然后使用 evil-winRM  登陆一下&lt;/p&gt;
+&lt;p&gt;登陆成功了上传bloodhound.exe看一下域的情况&lt;/p&gt;
+&lt;p&gt;拿回zip文件放回本地分析一下&lt;/p&gt;
+&lt;p&gt;为当前的SVC-ALFRESCO用户加骷髅头之后查看最短线&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://nergigantes.github.io/htb/forest/1742477387570-6bb4d79a-7b3f-497f-b7f2-614e672578f4.png&#34;
+	width=&#34;1410&#34;
+	height=&#34;1011&#34;
+	srcset=&#34;https://nergigantes.github.io/htb/forest/1742477387570-6bb4d79a-7b3f-497f-b7f2-614e672578f4_hu21534f86af85cb1ef14727f491b65df1_109336_480x0_resize_box_3.png 480w, https://nergigantes.github.io/htb/forest/1742477387570-6bb4d79a-7b3f-497f-b7f2-614e672578f4_hu21534f86af85cb1ef14727f491b65df1_109336_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;139&#34;
+		data-flex-basis=&#34;334px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;我们当前用户组一环套一环，最终能看到我们是ACCOUNT OPERATORS组的一员并且能够拥有EXCH01.HTB.LOCAL的完全权限&lt;/p&gt;
+&lt;p&gt;现在看着有点迷，但是我们再看看EXCH01.HTB.LOCAL的线就清楚了&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://nergigantes.github.io/htb/forest/1742478312474-9f95c67c-e3d1-4cfa-8aeb-291d615bcf48.png&#34;
+	width=&#34;2057&#34;
+	height=&#34;521&#34;
+	srcset=&#34;https://nergigantes.github.io/htb/forest/1742478312474-9f95c67c-e3d1-4cfa-8aeb-291d615bcf48_hu8720da16aafe05265b3e375a77212b69_79680_480x0_resize_box_3.png 480w, https://nergigantes.github.io/htb/forest/1742478312474-9f95c67c-e3d1-4cfa-8aeb-291d615bcf48_hu8720da16aafe05265b3e375a77212b69_79680_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;394&#34;
+		data-flex-basis=&#34;947px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;所有现在思路是创建一个新的用户，给他加到EXCHANGE WINDOWS PERMISSIONS组，使得他在HTB.LOCAL有WriteDacl的权限，然后给这个用户DcSync 权限，接着执行 DcSync 攻击并转储域上所有用户的密码哈希值，之后通过管理员的hash登陆，接管域&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;1. net user zss password /add /domain
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;2. net group &lt;span class=&#34;s2&#34;&gt;&amp;#34;EXCHANGE WINDOWS PERMISSIONS&amp;#34;&lt;/span&gt; /add zss
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;3. 上传Powerview.ps1文件给到zss用户DcSync 权限  
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Import-Module .&lt;span class=&#34;se&#34;&gt;\P&lt;/span&gt;owerView.ps1
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;**$pass = convertto-securestring &amp;lsquo;password&amp;rsquo; -AsPlainText -Force&lt;/p&gt;
+&lt;p&gt;****$cred = New-Object System.Management.Automation.PSCredential(&amp;lsquo;htb\zeus&amp;rsquo;, $pass)&lt;/p&gt;
+&lt;p&gt;**&lt;strong&gt;Add-DomainObjectAcl -Credential $cred -TargetIdentity &amp;ldquo;DC=htb,DC=local&amp;rdquo; -PrincipalIdentity zss -Rights DCSync&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;然后用&lt;a class=&#34;link&#34; href=&#34;https://github.com/SecureAuthCorp/impacket/blob/master/examples/secretsdump.py&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;secretsdump&lt;/a&gt;脚本拿到hash&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://nergigantes.github.io/htb/forest/1742478859276-836cbaf0-aa84-42c5-8034-af782075412a.png&#34;
+	width=&#34;1198&#34;
+	height=&#34;206&#34;
+	srcset=&#34;https://nergigantes.github.io/htb/forest/1742478859276-836cbaf0-aa84-42c5-8034-af782075412a_hub69d77676a4f8a0fbc8eb5d7cae3442d_110144_480x0_resize_box_3.png 480w, https://nergigantes.github.io/htb/forest/1742478859276-836cbaf0-aa84-42c5-8034-af782075412a_hub69d77676a4f8a0fbc8eb5d7cae3442d_110144_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;581&#34;
+		data-flex-basis=&#34;1395px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;再用psexec脚本使用hash值登陆&lt;/p&gt;
+&lt;p&gt;impacket-psexec &lt;a class=&#34;link&#34; href=&#34;mailto:htb.local/administrator@10.10.10.161&#34; &gt;htb.local/administrator@10.10.10.161&lt;/a&gt; -hashes aad3b435b51404eeaad3b435b51404ee:32693b11e6aa90eb43d32c72a07ceea6&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://nergigantes.github.io/htb/forest/1742478922413-34859606-2fdd-4cee-99e0-a931861c5c17.png&#34;
+	width=&#34;368&#34;
+	height=&#34;110&#34;
+	srcset=&#34;https://nergigantes.github.io/htb/forest/1742478922413-34859606-2fdd-4cee-99e0-a931861c5c17_hu1f00727e335cd2951c1cf5a8989802e1_8103_480x0_resize_box_3.png 480w, https://nergigantes.github.io/htb/forest/1742478922413-34859606-2fdd-4cee-99e0-a931861c5c17_hu1f00727e335cd2951c1cf5a8989802e1_8103_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;334&#34;
+		data-flex-basis=&#34;802px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;成功了！！！&lt;/p&gt;
+</description>
+        </item>
+        <item>
         <title>TheNotebook(Docker 逃逸)</title>
         <link>https://nergigantes.github.io/htb/thenotebookdocker-%E9%80%83%E9%80%B8/</link>
         <pubDate>Wed, 19 Mar 2025 21:27:22 +0800</pubDate>

