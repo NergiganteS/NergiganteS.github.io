@@ -7,13 +7,13 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Example Person</copyright>
-        <lastBuildDate>Mon, 31 Mar 2025 20:25:29 +0800</lastBuildDate><atom:link href="https://nergigantes.github.io/categories/%E5%9F%9F/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Mon, 31 Mar 2025 21:03:06 +0800</lastBuildDate><atom:link href="https://nergigantes.github.io/categories/%E5%9F%9F/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Sizzle</title>
         <link>https://nergigantes.github.io/htb/sizzle/</link>
         <pubDate>Mon, 31 Mar 2025 20:24:47 +0800</pubDate>
         
         <guid>https://nergigantes.github.io/htb/sizzle/</guid>
-        <description>&lt;img src="https://nergigantes.github.io/19.jpg" alt="Featured image of post Sizzle" /&gt;&lt;p&gt;扫端口&lt;/p&gt;
+        <description>&lt;p&gt;扫端口&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://nergigantes.github.io/htb/sizzle/1743335703330-be6d977a-4d0b-45a4-a2b7-f2c2d861b36d.png&#34;
 	width=&#34;1165&#34;
 	height=&#34;857&#34;
@@ -362,7 +362,7 @@
         <pubDate>Sat, 29 Mar 2025 13:36:57 +0800</pubDate>
         
         <guid>https://nergigantes.github.io/htb/resolute/</guid>
-        <description>&lt;img src="https://nergigantes.github.io/10.jpg" alt="Featured image of post Resolute" /&gt;&lt;h1 id=&#34;速通教程&#34;&gt;速通教程：
+        <description>&lt;h1 id=&#34;速通教程&#34;&gt;速通教程：
 &lt;/h1&gt;&lt;p&gt;使用netexec扫一下漏洞&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
@@ -556,7 +556,7 @@
         <pubDate>Sat, 29 Mar 2025 13:36:53 +0800</pubDate>
         
         <guid>https://nergigantes.github.io/htb/blackfield/</guid>
-        <description>&lt;img src="https://nergigantes.github.io/19.jpg" alt="Featured image of post Blackfield" /&gt;&lt;p&gt;扫一下端口&lt;/p&gt;
+        <description>&lt;p&gt;扫一下端口&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://nergigantes.github.io/htb/blackfield/1742784922578-e573fa60-eb3d-4381-b080-4edb2318aaf0.png&#34;
 	width=&#34;1178&#34;
 	height=&#34;799&#34;
@@ -874,7 +874,7 @@
         <pubDate>Sat, 22 Mar 2025 19:05:53 +0800</pubDate>
         
         <guid>https://nergigantes.github.io/htb/sauna/</guid>
-        <description>&lt;img src="https://nergigantes.github.io/3.jpg" alt="Featured image of post Sauna" /&gt;&lt;p&gt;扫端口&lt;/p&gt;
+        <description>&lt;p&gt;扫端口&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://nergigantes.github.io/htb/sauna/1742544068788-0b5e774d-9fad-43df-8798-bb6646c2111e.png&#34;
 	width=&#34;1168&#34;
 	height=&#34;821&#34;
@@ -1017,7 +1017,7 @@ DefaultPassword               :  Moneymakestheworldgoround!
         <pubDate>Sat, 22 Mar 2025 19:05:52 +0800</pubDate>
         
         <guid>https://nergigantes.github.io/htb/active/</guid>
-        <description>&lt;img src="https://nergigantes.github.io/1.jpg" alt="Featured image of post Active" /&gt;&lt;p&gt;端口信息：&lt;/p&gt;
+        <description>&lt;p&gt;端口信息：&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://nergigantes.github.io/htb/active/1742632854854-be7899f7-4d73-4344-a0d4-b150209812c6.png&#34;
 	width=&#34;1300&#34;
 	height=&#34;1111&#34;
@@ -1100,7 +1100,7 @@ DefaultPassword               :  Moneymakestheworldgoround!
         <pubDate>Sat, 22 Mar 2025 19:00:49 +0800</pubDate>
         
         <guid>https://nergigantes.github.io/htb/forest/</guid>
-        <description>&lt;img src="https://nergigantes.github.io/27.jpg" alt="Featured image of post Forest" /&gt;&lt;p&gt;扫端口&lt;/p&gt;
+        <description>&lt;p&gt;扫端口&lt;/p&gt;
 &lt;p&gt;nmap -sCV -A 10.10.10.161&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://nergigantes.github.io/htb/forest/1742439388416-045b031c-7131-4cb7-93ff-25530f74c781.png&#34;
 	width=&#34;1343&#34;
