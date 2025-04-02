@@ -7,6 +7,294 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Example Person</copyright><atom:link href="https://nergigantes.github.io/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Cascade</title>
+        <link>https://nergigantes.github.io/htb/cascade/</link>
+        <pubDate>Wed, 02 Apr 2025 14:27:05 +0800</pubDate>
+        
+        <guid>https://nergigantes.github.io/htb/cascade/</guid>
+        <description>&lt;p&gt;扫端口，也很正常就那几样&lt;/p&gt;
+&lt;p&gt;Domain: cascade.local&lt;/p&gt;
+&lt;p&gt;smb扫到些用户，但是无法作用于&lt;font style=&#34;color:rgba(0, 0, 0, 0.85);&#34;&gt;AS-REP Roasting攻击&lt;/font&gt;&lt;/p&gt;
+&lt;p&gt;&lt;font style=&#34;color:rgba(0, 0, 0, 0.85);&#34;&gt;smb共享目录也没有能看的。。网页端口也没有信息&lt;/font&gt;&lt;/p&gt;
+&lt;p&gt;&lt;font style=&#34;color:rgba(0, 0, 0, 0.85);&#34;&gt;最后看wp意思是用ldarpsearch&lt;/font&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-plain&#34; data-lang=&#34;plain&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ldapsearch -x -H ldap://10.10.10.182  -b &amp;#34;dc=cascade,dc=local&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;在里面找到一个 r.thompson  用户的base64的密码（怎么感觉和ctf差不多了？？）&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://nergigantes.github.io/htb/cascade/1743485013681-fe17b293-2596-40cb-bdde-3d8805a7382c.webp&#34;
+	width=&#34;919&#34;
+	height=&#34;703&#34;
+	srcset=&#34;https://nergigantes.github.io/htb/cascade/1743485013681-fe17b293-2596-40cb-bdde-3d8805a7382c_hu0474c52e059644556a88979d93ba951b_50208_480x0_resize_q75_h2_box_2.webp 480w, https://nergigantes.github.io/htb/cascade/1743485013681-fe17b293-2596-40cb-bdde-3d8805a7382c_hu0474c52e059644556a88979d93ba951b_50208_1024x0_resize_q75_h2_box_2.webp 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;130&#34;
+		data-flex-basis=&#34;313px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://nergigantes.github.io/htb/cascade/1743485037736-7381f6e4-eca0-45d7-a220-d57d5957ec9d.png&#34;
+	width=&#34;708&#34;
+	height=&#34;176&#34;
+	srcset=&#34;https://nergigantes.github.io/htb/cascade/1743485037736-7381f6e4-eca0-45d7-a220-d57d5957ec9d_huf3e401aaa9cd860b5033ab196c191e0b_39856_480x0_resize_box_3.png 480w, https://nergigantes.github.io/htb/cascade/1743485037736-7381f6e4-eca0-45d7-a220-d57d5957ec9d_huf3e401aaa9cd860b5033ab196c191e0b_39856_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;402&#34;
+		data-flex-basis=&#34;965px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;那么现在我们就拥有了一个账户密码了&lt;/p&gt;
+&lt;p&gt;r.thompson rY4n5eva&lt;/p&gt;
+&lt;p&gt;evil,几个exec也登不进去，那我们就看看这个账户能不能看到什么smb的共享目录吧&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://nergigantes.github.io/htb/cascade/1743487928917-68ae9c32-fc80-415a-9586-2e3e4d161994.png&#34;
+	width=&#34;1238&#34;
+	height=&#34;363&#34;
+	srcset=&#34;https://nergigantes.github.io/htb/cascade/1743487928917-68ae9c32-fc80-415a-9586-2e3e4d161994_hu34fae386b506a974b3e50f219f7f26b5_183698_480x0_resize_box_3.png 480w, https://nergigantes.github.io/htb/cascade/1743487928917-68ae9c32-fc80-415a-9586-2e3e4d161994_hu34fae386b506a974b3e50f219f7f26b5_183698_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;341&#34;
+		data-flex-basis=&#34;818px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;文件很多，把这些挂载在本地上方便查看&lt;/p&gt;
+&lt;p&gt;sudo mount -t cifs -o rw,username=r.thompson,password=rY4n5eva &amp;lsquo;//10.10.10.182/Data&amp;rsquo; /tmp/smb&lt;/p&gt;
+&lt;p&gt;发现了俩个有趣的文件&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://nergigantes.github.io/htb/cascade/1743489628530-8e3722fb-1d81-4f50-962b-e5e9d50a8a99.png&#34;
+	width=&#34;2507&#34;
+	height=&#34;1084&#34;
+	srcset=&#34;https://nergigantes.github.io/htb/cascade/1743489628530-8e3722fb-1d81-4f50-962b-e5e9d50a8a99_hu0593d2f0747e3040068b41b95af8464d_218062_480x0_resize_box_3.png 480w, https://nergigantes.github.io/htb/cascade/1743489628530-8e3722fb-1d81-4f50-962b-e5e9d50a8a99_hu0593d2f0747e3040068b41b95af8464d_218062_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;231&#34;
+		data-flex-basis=&#34;555px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;TempAdmin用户的密码与管理员用户密码相同（有可能）&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://nergigantes.github.io/htb/cascade/1743489676373-c02797c3-f066-4aa7-9581-b5851c50d346.png&#34;
+	width=&#34;574&#34;
+	height=&#34;322&#34;
+	srcset=&#34;https://nergigantes.github.io/htb/cascade/1743489676373-c02797c3-f066-4aa7-9581-b5851c50d346_hu713432c657ec1bff7fbd85e20cac7962_12213_480x0_resize_box_3.png 480w, https://nergigantes.github.io/htb/cascade/1743489676373-c02797c3-f066-4aa7-9581-b5851c50d346_hu713432c657ec1bff7fbd85e20cac7962_12213_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;178&#34;
+		data-flex-basis=&#34;427px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;另外在这个目录发现了特别像用户的文件 s.smith下里有着一串passwd的奇异编码&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://nergigantes.github.io/htb/cascade/1743489751392-c6354679-8b66-400e-8839-a3f5ec27821b.png&#34;
+	width=&#34;1059&#34;
+	height=&#34;788&#34;
+	srcset=&#34;https://nergigantes.github.io/htb/cascade/1743489751392-c6354679-8b66-400e-8839-a3f5ec27821b_hu7b5a5e2fe04f3478f03c52833130bb39_210125_480x0_resize_box_3.png 480w, https://nergigantes.github.io/htb/cascade/1743489751392-c6354679-8b66-400e-8839-a3f5ec27821b_hu7b5a5e2fe04f3478f03c52833130bb39_210125_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;134&#34;
+		data-flex-basis=&#34;322px&#34;
+	
+&gt;&amp;ldquo;Password&amp;rdquo;=hex:6b,cf,2a,4b,6e,5a,ca,0f&lt;/p&gt;
+&lt;p&gt;搜了一下说是VNC密码（文件名就已经揭示了吧。？）&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://github.com/frizb/PasswordDecrypts?source=post_page-----f37382eed3f3---------------------------------------&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://github.com/frizb/PasswordDecrypts?source=post_page&amp;mdash;&amp;ndash;f37382eed3f3&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;font style=&#34;color:rgba(0, 0, 0, 0.85);&#34;&gt;echo -n &lt;/font&gt;&lt;strong&gt;&lt;font style=&#34;color:rgba(0, 0, 0, 0.85);&#34;&gt;6bcf2a4b6e5aca0f&lt;/font&gt;&lt;/strong&gt;&lt;font style=&#34;color:rgba(0, 0, 0, 0.85);&#34;&gt;| xxd -r -p | openssl enc -des-cbc &amp;ndash;nopad &amp;ndash;nosalt -K e84ad660c4721ae0 -iv 0000000000000000 -d | hexdump -Cv&lt;/font&gt;&lt;/p&gt;
+&lt;p&gt;&lt;font style=&#34;color:rgba(0, 0, 0, 0.85);&#34;&gt;sudo umount /tmp/smb（取消挂载）&lt;/font&gt;&lt;/p&gt;
+&lt;p&gt;&lt;font style=&#34;color:rgba(0, 0, 0, 0.85);&#34;&gt;现在我们测试一下这个账户&lt;/font&gt;&lt;/p&gt;
+&lt;p&gt;&lt;font style=&#34;color:rgba(0, 0, 0, 0.85);&#34;&gt;s.smith sT333ve2&lt;/font&gt;&lt;/p&gt;
+&lt;p&gt;&lt;font style=&#34;color:rgba(0, 0, 0, 0.85);&#34;&gt;这个账户能登winrm，上bloodhound康一康里面的乾坤&lt;/font&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://nergigantes.github.io/htb/cascade/1743492245560-f053466d-3c64-4b0f-b5e7-6ccfa0820205.png&#34;
+	width=&#34;1233&#34;
+	height=&#34;223&#34;
+	srcset=&#34;https://nergigantes.github.io/htb/cascade/1743492245560-f053466d-3c64-4b0f-b5e7-6ccfa0820205_huc98f148e5fafcec3f589e7a2f0e40cd3_51167_480x0_resize_box_3.png 480w, https://nergigantes.github.io/htb/cascade/1743492245560-f053466d-3c64-4b0f-b5e7-6ccfa0820205_huc98f148e5fafcec3f589e7a2f0e40cd3_51167_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;552&#34;
+		data-flex-basis=&#34;1326px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;奇怪的报错，那就用bloodhound-python看一下&lt;/p&gt;
+&lt;p&gt;进去之后看了下我们掌握的俩个账户，都没有有价值的&lt;/p&gt;
+&lt;p&gt;而且域控的这个情况看起来很安全。但是之前我们是了解到TempAdmin用户的密码与管理员用户密码相同（有可能）&lt;img src=&#34;https://nergigantes.github.io/htb/cascade/1743492485440-6b0dff3d-ec05-4ecb-94f7-52dd5e6de0ca.png&#34;
+	width=&#34;1726&#34;
+	height=&#34;1036&#34;
+	srcset=&#34;https://nergigantes.github.io/htb/cascade/1743492485440-6b0dff3d-ec05-4ecb-94f7-52dd5e6de0ca_hu6bc1887dc14fa87e0d56073c3b7d81a6_243462_480x0_resize_box_3.png 480w, https://nergigantes.github.io/htb/cascade/1743492485440-6b0dff3d-ec05-4ecb-94f7-52dd5e6de0ca_hu6bc1887dc14fa87e0d56073c3b7d81a6_243462_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;166&#34;
+		data-flex-basis=&#34;399px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;但是找不到TempAdmin用户，似乎已经被删了&lt;/p&gt;
+&lt;p&gt;而且s.smith用户属于了一个非常规的组&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://nergigantes.github.io/htb/cascade/1743507989668-ee2f4e61-263d-47c4-9fd9-7746b00fbc59.png&#34;
+	width=&#34;1059&#34;
+	height=&#34;731&#34;
+	srcset=&#34;https://nergigantes.github.io/htb/cascade/1743507989668-ee2f4e61-263d-47c4-9fd9-7746b00fbc59_hu585813824bb08819335eca14fe73b86d_92383_480x0_resize_box_3.png 480w, https://nergigantes.github.io/htb/cascade/1743507989668-ee2f4e61-263d-47c4-9fd9-7746b00fbc59_hu585813824bb08819335eca14fe73b86d_92383_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;144&#34;
+		data-flex-basis=&#34;347px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://nergigantes.github.io/htb/cascade/1743508067190-023b1fe0-cc4d-4623-b6d3-71cc95651419.png&#34;
+	width=&#34;929&#34;
+	height=&#34;552&#34;
+	srcset=&#34;https://nergigantes.github.io/htb/cascade/1743508067190-023b1fe0-cc4d-4623-b6d3-71cc95651419_hue76e9489ad00802be266eae7f6d23c71_90918_480x0_resize_box_3.png 480w, https://nergigantes.github.io/htb/cascade/1743508067190-023b1fe0-cc4d-4623-b6d3-71cc95651419_hue76e9489ad00802be266eae7f6d23c71_90918_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;168&#34;
+		data-flex-basis=&#34;403px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;AUDIT SHARE这个组只有我们一个用户并且似乎是一个共享文件&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://nergigantes.github.io/htb/cascade/1743508203211-e3ab6704-8365-4e3b-a412-c952a6ef8ca9.png&#34;
+	width=&#34;975&#34;
+	height=&#34;304&#34;
+	srcset=&#34;https://nergigantes.github.io/htb/cascade/1743508203211-e3ab6704-8365-4e3b-a412-c952a6ef8ca9_hu2136c63790f2fa6911bb2e4f71572c21_58248_480x0_resize_box_3.png 480w, https://nergigantes.github.io/htb/cascade/1743508203211-e3ab6704-8365-4e3b-a412-c952a6ef8ca9_hu2136c63790f2fa6911bb2e4f71572c21_58248_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;320&#34;
+		data-flex-basis=&#34;769px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;DB文件夹很有意思，里面可能存入了sql用户的账户密码，也许与机器互通&lt;/p&gt;
+&lt;p&gt;为了方便访问我们再次将这个共享目录挂载在本地上&lt;/p&gt;
+&lt;p&gt;sudo mount -t cifs -o rw,username=s.smith,password=&lt;font style=&#34;color:rgba(0, 0, 0, 0.85);&#34;&gt;sT333ve2&lt;/font&gt; &amp;lsquo;//10.10.10.182/Audit$&amp;rsquo; /tmp/smb&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://nergigantes.github.io/htb/cascade/1743508975042-fbe819c2-92ae-4e50-bd50-61991266a991.png&#34;
+	width=&#34;1144&#34;
+	height=&#34;710&#34;
+	srcset=&#34;https://nergigantes.github.io/htb/cascade/1743508975042-fbe819c2-92ae-4e50-bd50-61991266a991_hub59bf5b09ddabc7337e30b5e00941557_127554_480x0_resize_box_3.png 480w, https://nergigantes.github.io/htb/cascade/1743508975042-fbe819c2-92ae-4e50-bd50-61991266a991_hub59bf5b09ddabc7337e30b5e00941557_127554_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;161&#34;
+		data-flex-basis=&#34;386px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;疑似ArkSvc账户的密码，并且不是base64的编码方式，&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://nergigantes.github.io/htb/cascade/1743511817506-787b4edf-2dc2-4de0-aec6-28a7d233512a.png&#34;
+	width=&#34;1612&#34;
+	height=&#34;743&#34;
+	srcset=&#34;https://nergigantes.github.io/htb/cascade/1743511817506-787b4edf-2dc2-4de0-aec6-28a7d233512a_hu896d04eb28c9109f38f9e3cf1c424f28_149004_480x0_resize_box_3.png 480w, https://nergigantes.github.io/htb/cascade/1743511817506-787b4edf-2dc2-4de0-aec6-28a7d233512a_hu896d04eb28c9109f38f9e3cf1c424f28_149004_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;216&#34;
+		data-flex-basis=&#34;520px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;CascAudit运行了这个db文件，那么接下来看样子是要逆向一下这个CascAudit.exe了。&lt;/p&gt;
+&lt;p&gt;利用dnspy看了半天后，看到一个对应的密码&lt;font style=&#34;color:rgb(51, 51, 51);&#34;&gt;w3lc0meFr31nd&lt;/font&gt;&lt;/p&gt;
+&lt;p&gt;&lt;font style=&#34;color:rgb(51, 51, 51);&#34;&gt;测试一下发现正确，让我们看看arksvc用户在这个域里面的角色吧&lt;/font&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://nergigantes.github.io/htb/cascade/1743574514501-c4158441-a08d-43ac-88d9-fb140f6dff87.png&#34;
+	width=&#34;1954&#34;
+	height=&#34;1093&#34;
+	srcset=&#34;https://nergigantes.github.io/htb/cascade/1743574514501-c4158441-a08d-43ac-88d9-fb140f6dff87_hu7a94f39facb206a93076ab21b374cfae_221362_480x0_resize_box_3.png 480w, https://nergigantes.github.io/htb/cascade/1743574514501-c4158441-a08d-43ac-88d9-fb140f6dff87_hu7a94f39facb206a93076ab21b374cfae_221362_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;178&#34;
+		data-flex-basis=&#34;429px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;该用户是AD RECYCLE BIN用户组里的可以查看回收站里的东西&lt;/p&gt;
+&lt;p&gt;那么现在思路很清晰了，登陆这个账户，查看被删去的TempAdmin用户&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-plain&#34; data-lang=&#34;plain&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Get-ADObject -Filter &amp;#39;isDeleted -eq $True&amp;#39; -IncludeDeletedObjects
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://nergigantes.github.io/htb/cascade/1743574752967-98f95cdc-23bb-47fd-a0e3-606959da0054.png&#34;
+	width=&#34;1317&#34;
+	height=&#34;170&#34;
+	srcset=&#34;https://nergigantes.github.io/htb/cascade/1743574752967-98f95cdc-23bb-47fd-a0e3-606959da0054_hu3c8ad975c21fb34d42ca9945d658b764_40626_480x0_resize_box_3.png 480w, https://nergigantes.github.io/htb/cascade/1743574752967-98f95cdc-23bb-47fd-a0e3-606959da0054_hu3c8ad975c21fb34d42ca9945d658b764_40626_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;774&#34;
+		data-flex-basis=&#34;1859px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;确实存在这个情况，那看来答案很接近了&lt;/p&gt;
+&lt;p&gt;查看这个用户的详细情况&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-plain&#34; data-lang=&#34;plain&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Get-ADObject -filter { SAMAccountName -eq &amp;#34;TempAdmin&amp;#34; } -includeDeletedObjects -property *
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://nergigantes.github.io/htb/cascade/1743574831064-4bd0854a-39d5-40d9-849a-e13a48ac8f46.png&#34;
+	width=&#34;1507&#34;
+	height=&#34;873&#34;
+	srcset=&#34;https://nergigantes.github.io/htb/cascade/1743574831064-4bd0854a-39d5-40d9-849a-e13a48ac8f46_hu8c8989377720f92379432f1c5dc41655_218352_480x0_resize_box_3.png 480w, https://nergigantes.github.io/htb/cascade/1743574831064-4bd0854a-39d5-40d9-849a-e13a48ac8f46_hu8c8989377720f92379432f1c5dc41655_218352_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;172&#34;
+		data-flex-basis=&#34;414px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;cascadeLegacyPwd                : YmFDVDNyMWFOMDBkbGVz&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://nergigantes.github.io/htb/cascade/1743574878850-ab494c4a-0e71-4543-8b5c-ecd7dbe673eb.png&#34;
+	width=&#34;791&#34;
+	height=&#34;240&#34;
+	srcset=&#34;https://nergigantes.github.io/htb/cascade/1743574878850-ab494c4a-0e71-4543-8b5c-ecd7dbe673eb_hu1acd068a6bee469a37f9837695a662f6_43032_480x0_resize_box_3.png 480w, https://nergigantes.github.io/htb/cascade/1743574878850-ab494c4a-0e71-4543-8b5c-ecd7dbe673eb_hu1acd068a6bee469a37f9837695a662f6_43032_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;329&#34;
+		data-flex-basis=&#34;791px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;baCT3r1aN00dles&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://nergigantes.github.io/htb/cascade/1743574919190-d726815e-d1de-45af-9fb0-c9f7bef6f406.png&#34;
+	width=&#34;1519&#34;
+	height=&#34;365&#34;
+	srcset=&#34;https://nergigantes.github.io/htb/cascade/1743574919190-d726815e-d1de-45af-9fb0-c9f7bef6f406_hucb4353847797b84200fb013470387d60_95883_480x0_resize_box_3.png 480w, https://nergigantes.github.io/htb/cascade/1743574919190-d726815e-d1de-45af-9fb0-c9f7bef6f406_hucb4353847797b84200fb013470387d60_95883_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;416&#34;
+		data-flex-basis=&#34;998px&#34;
+	
+&gt;&lt;/p&gt;
+</description>
+        </item>
+        <item>
         <title>Sizzle</title>
         <link>https://nergigantes.github.io/htb/sizzle/</link>
         <pubDate>Mon, 31 Mar 2025 20:24:47 +0800</pubDate>

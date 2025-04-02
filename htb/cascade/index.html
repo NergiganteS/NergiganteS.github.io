@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="扫端口，也很正常就那几样 Domain: cascade.local smb扫到些用户，但是无法作用于AS-REP Roasting攻击 smb共享目录也没有能看的。。网页端口也没有信息">
+<title>Cascade</title>
+
+<link rel='canonical' href='https://nergigantes.github.io/htb/cascade/'>
+
+<link rel="stylesheet" href="/scss/style.min.f720cbcbc8f9265d2875caa41c2c2572405d50fc427ef4375391537c33376c29.css"><meta property='og:title' content="Cascade">
+<meta property='og:description' content="扫端口，也很正常就那几样 Domain: cascade.local smb扫到些用户，但是无法作用于AS-REP Roasting攻击 smb共享目录也没有能看的。。网页端口也没有信息">
+<meta property='og:url' content='https://nergigantes.github.io/htb/cascade/'>
+<meta property='og:site_name' content='NergiganteS&#39;s Blog'>
+<meta property='og:type' content='article'><meta property='article:section' content='Htb' /><meta property='article:published_time' content='2025-04-02T14:27:05&#43;08:00'/><meta property='article:modified_time' content='2025-04-02T14:28:01&#43;08:00'/>
+<meta name="twitter:title" content="Cascade">
+<meta name="twitter:description" content="扫端口，也很正常就那几样 Domain: cascade.local smb扫到些用户，但是无法作用于AS-REP Roasting攻击 smb共享目录也没有能看的。。网页端口也没有信息">
+  
+
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu315a7ad84d8f1f09f998948c005c5c1b_42437_300x0_resize_box_3.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">🍥</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">NergiganteS&#39;s Blog</a></h1>
+            <h2 class="site-description">分享学习笔记路程</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/CaiJimmy/hugo-theme-stack'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://twitter.com'
+                        target="_blank"
+                        title="Twitter"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c-.002 -.249 1.51 -2.772 1.818 -4.013z" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E5%85%B3%E4%BA%8E/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/links/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>Links</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+                    
+                        <li id="i18n-switch">  
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M4 5h7" />
+  <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
+  <path d="M5 9c-.003 2.144 2.952 3.908 6.7 4" />
+  <path d="M12 20l4 -9l4 9" />
+  <path d="M19.1 18h-6.2" />
+</svg>
+
+
+
+                            <select name="language" title="language" onchange="window.location.href = this.selectedOptions[0].value">
+                                
+                                    <option value="https://nergigantes.github.io/en/" >English</option>
+                                
+                                    <option value="https://nergigantes.github.io/" selected>中文</option>
+                                
+                                    <option value="https://nergigantes.github.io/ar/" >عربي</option>
+                                
+                            </select>
+                        </li>
+                    
+                
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/htb/" >
+                Htb
+            </a>
+        
+            <a href="/categories/%E5%9F%9F/" >
+                域
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/htb/cascade/">Cascade</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Apr 02, 2025</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    阅读时长: 2 分钟
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <p>扫端口，也很正常就那几样</p>
+<p>Domain: cascade.local</p>
+<p>smb扫到些用户，但是无法作用于<font style="color:rgba(0, 0, 0, 0.85);">AS-REP Roasting攻击</font></p>
+<p><font style="color:rgba(0, 0, 0, 0.85);">smb共享目录也没有能看的。。网页端口也没有信息</font></p>
+<p><font style="color:rgba(0, 0, 0, 0.85);">最后看wp意思是用ldarpsearch</font></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-plain" data-lang="plain"><span class="line"><span class="cl">ldapsearch -x -H ldap://10.10.10.182  -b &#34;dc=cascade,dc=local&#34;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>在里面找到一个 r.thompson  用户的base64的密码（怎么感觉和ctf差不多了？？）</p>
+<p><img src="/htb/cascade/1743485013681-fe17b293-2596-40cb-bdde-3d8805a7382c.webp"
+	width="919"
+	height="703"
+	srcset="/htb/cascade/1743485013681-fe17b293-2596-40cb-bdde-3d8805a7382c_hu0474c52e059644556a88979d93ba951b_50208_480x0_resize_q75_h2_box_2.webp 480w, /htb/cascade/1743485013681-fe17b293-2596-40cb-bdde-3d8805a7382c_hu0474c52e059644556a88979d93ba951b_50208_1024x0_resize_q75_h2_box_2.webp 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="130"
+		data-flex-basis="313px"
+	
+></p>
+<p><img src="/htb/cascade/1743485037736-7381f6e4-eca0-45d7-a220-d57d5957ec9d.png"
+	width="708"
+	height="176"
+	srcset="/htb/cascade/1743485037736-7381f6e4-eca0-45d7-a220-d57d5957ec9d_huf3e401aaa9cd860b5033ab196c191e0b_39856_480x0_resize_box_3.png 480w, /htb/cascade/1743485037736-7381f6e4-eca0-45d7-a220-d57d5957ec9d_huf3e401aaa9cd860b5033ab196c191e0b_39856_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="402"
+		data-flex-basis="965px"
+	
+></p>
+<p>那么现在我们就拥有了一个账户密码了</p>
+<p>r.thompson rY4n5eva</p>
+<p>evil,几个exec也登不进去，那我们就看看这个账户能不能看到什么smb的共享目录吧</p>
+<p><img src="/htb/cascade/1743487928917-68ae9c32-fc80-415a-9586-2e3e4d161994.png"
+	width="1238"
+	height="363"
+	srcset="/htb/cascade/1743487928917-68ae9c32-fc80-415a-9586-2e3e4d161994_hu34fae386b506a974b3e50f219f7f26b5_183698_480x0_resize_box_3.png 480w, /htb/cascade/1743487928917-68ae9c32-fc80-415a-9586-2e3e4d161994_hu34fae386b506a974b3e50f219f7f26b5_183698_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="341"
+		data-flex-basis="818px"
+	
+></p>
+<p>文件很多，把这些挂载在本地上方便查看</p>
+<p>sudo mount -t cifs -o rw,username=r.thompson,password=rY4n5eva &lsquo;//10.10.10.182/Data&rsquo; /tmp/smb</p>
+<p>发现了俩个有趣的文件</p>
+<p><img src="/htb/cascade/1743489628530-8e3722fb-1d81-4f50-962b-e5e9d50a8a99.png"
+	width="2507"
+	height="1084"
+	srcset="/htb/cascade/1743489628530-8e3722fb-1d81-4f50-962b-e5e9d50a8a99_hu0593d2f0747e3040068b41b95af8464d_218062_480x0_resize_box_3.png 480w, /htb/cascade/1743489628530-8e3722fb-1d81-4f50-962b-e5e9d50a8a99_hu0593d2f0747e3040068b41b95af8464d_218062_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="231"
+		data-flex-basis="555px"
+	
+></p>
+<p>TempAdmin用户的密码与管理员用户密码相同（有可能）</p>
+<p><img src="/htb/cascade/1743489676373-c02797c3-f066-4aa7-9581-b5851c50d346.png"
+	width="574"
+	height="322"
+	srcset="/htb/cascade/1743489676373-c02797c3-f066-4aa7-9581-b5851c50d346_hu713432c657ec1bff7fbd85e20cac7962_12213_480x0_resize_box_3.png 480w, /htb/cascade/1743489676373-c02797c3-f066-4aa7-9581-b5851c50d346_hu713432c657ec1bff7fbd85e20cac7962_12213_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="178"
+		data-flex-basis="427px"
+	
+></p>
+<p>另外在这个目录发现了特别像用户的文件 s.smith下里有着一串passwd的奇异编码</p>
+<p><img src="/htb/cascade/1743489751392-c6354679-8b66-400e-8839-a3f5ec27821b.png"
+	width="1059"
+	height="788"
+	srcset="/htb/cascade/1743489751392-c6354679-8b66-400e-8839-a3f5ec27821b_hu7b5a5e2fe04f3478f03c52833130bb39_210125_480x0_resize_box_3.png 480w, /htb/cascade/1743489751392-c6354679-8b66-400e-8839-a3f5ec27821b_hu7b5a5e2fe04f3478f03c52833130bb39_210125_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="134"
+		data-flex-basis="322px"
+	
+>&ldquo;Password&rdquo;=hex:6b,cf,2a,4b,6e,5a,ca,0f</p>
+<p>搜了一下说是VNC密码（文件名就已经揭示了吧。？）</p>
+<p><a class="link" href="https://github.com/frizb/PasswordDecrypts?source=post_page-----f37382eed3f3---------------------------------------"  target="_blank" rel="noopener"
+    >https://github.com/frizb/PasswordDecrypts?source=post_page&mdash;&ndash;f37382eed3f3&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;</a></p>
+<p><font style="color:rgba(0, 0, 0, 0.85);">echo -n </font><strong><font style="color:rgba(0, 0, 0, 0.85);">6bcf2a4b6e5aca0f</font></strong><font style="color:rgba(0, 0, 0, 0.85);">| xxd -r -p | openssl enc -des-cbc &ndash;nopad &ndash;nosalt -K e84ad660c4721ae0 -iv 0000000000000000 -d | hexdump -Cv</font></p>
+<p><font style="color:rgba(0, 0, 0, 0.85);">sudo umount /tmp/smb（取消挂载）</font></p>
+<p><font style="color:rgba(0, 0, 0, 0.85);">现在我们测试一下这个账户</font></p>
+<p><font style="color:rgba(0, 0, 0, 0.85);">s.smith sT333ve2</font></p>
+<p><font style="color:rgba(0, 0, 0, 0.85);">这个账户能登winrm，上bloodhound康一康里面的乾坤</font></p>
+<p><img src="/htb/cascade/1743492245560-f053466d-3c64-4b0f-b5e7-6ccfa0820205.png"
+	width="1233"
+	height="223"
+	srcset="/htb/cascade/1743492245560-f053466d-3c64-4b0f-b5e7-6ccfa0820205_huc98f148e5fafcec3f589e7a2f0e40cd3_51167_480x0_resize_box_3.png 480w, /htb/cascade/1743492245560-f053466d-3c64-4b0f-b5e7-6ccfa0820205_huc98f148e5fafcec3f589e7a2f0e40cd3_51167_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="552"
+		data-flex-basis="1326px"
+	
+></p>
+<p>奇怪的报错，那就用bloodhound-python看一下</p>
+<p>进去之后看了下我们掌握的俩个账户，都没有有价值的</p>
+<p>而且域控的这个情况看起来很安全。但是之前我们是了解到TempAdmin用户的密码与管理员用户密码相同（有可能）<img src="/htb/cascade/1743492485440-6b0dff3d-ec05-4ecb-94f7-52dd5e6de0ca.png"
+	width="1726"
+	height="1036"
+	srcset="/htb/cascade/1743492485440-6b0dff3d-ec05-4ecb-94f7-52dd5e6de0ca_hu6bc1887dc14fa87e0d56073c3b7d81a6_243462_480x0_resize_box_3.png 480w, /htb/cascade/1743492485440-6b0dff3d-ec05-4ecb-94f7-52dd5e6de0ca_hu6bc1887dc14fa87e0d56073c3b7d81a6_243462_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="166"
+		data-flex-basis="399px"
+	
+></p>
+<p>但是找不到TempAdmin用户，似乎已经被删了</p>
+<p>而且s.smith用户属于了一个非常规的组</p>
+<p><img src="/htb/cascade/1743507989668-ee2f4e61-263d-47c4-9fd9-7746b00fbc59.png"
+	width="1059"
+	height="731"
+	srcset="/htb/cascade/1743507989668-ee2f4e61-263d-47c4-9fd9-7746b00fbc59_hu585813824bb08819335eca14fe73b86d_92383_480x0_resize_box_3.png 480w, /htb/cascade/1743507989668-ee2f4e61-263d-47c4-9fd9-7746b00fbc59_hu585813824bb08819335eca14fe73b86d_92383_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="144"
+		data-flex-basis="347px"
+	
+></p>
+<p><img src="/htb/cascade/1743508067190-023b1fe0-cc4d-4623-b6d3-71cc95651419.png"
+	width="929"
+	height="552"
+	srcset="/htb/cascade/1743508067190-023b1fe0-cc4d-4623-b6d3-71cc95651419_hue76e9489ad00802be266eae7f6d23c71_90918_480x0_resize_box_3.png 480w, /htb/cascade/1743508067190-023b1fe0-cc4d-4623-b6d3-71cc95651419_hue76e9489ad00802be266eae7f6d23c71_90918_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="168"
+		data-flex-basis="403px"
+	
+></p>
+<p>AUDIT SHARE这个组只有我们一个用户并且似乎是一个共享文件</p>
+<p><img src="/htb/cascade/1743508203211-e3ab6704-8365-4e3b-a412-c952a6ef8ca9.png"
+	width="975"
+	height="304"
+	srcset="/htb/cascade/1743508203211-e3ab6704-8365-4e3b-a412-c952a6ef8ca9_hu2136c63790f2fa6911bb2e4f71572c21_58248_480x0_resize_box_3.png 480w, /htb/cascade/1743508203211-e3ab6704-8365-4e3b-a412-c952a6ef8ca9_hu2136c63790f2fa6911bb2e4f71572c21_58248_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="320"
+		data-flex-basis="769px"
+	
+></p>
+<p>DB文件夹很有意思，里面可能存入了sql用户的账户密码，也许与机器互通</p>
+<p>为了方便访问我们再次将这个共享目录挂载在本地上</p>
+<p>sudo mount -t cifs -o rw,username=s.smith,password=<font style="color:rgba(0, 0, 0, 0.85);">sT333ve2</font> &lsquo;//10.10.10.182/Audit$&rsquo; /tmp/smb</p>
+<p><img src="/htb/cascade/1743508975042-fbe819c2-92ae-4e50-bd50-61991266a991.png"
+	width="1144"
+	height="710"
+	srcset="/htb/cascade/1743508975042-fbe819c2-92ae-4e50-bd50-61991266a991_hub59bf5b09ddabc7337e30b5e00941557_127554_480x0_resize_box_3.png 480w, /htb/cascade/1743508975042-fbe819c2-92ae-4e50-bd50-61991266a991_hub59bf5b09ddabc7337e30b5e00941557_127554_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="161"
+		data-flex-basis="386px"
+	
+></p>
+<p>疑似ArkSvc账户的密码，并且不是base64的编码方式，</p>
+<p><img src="/htb/cascade/1743511817506-787b4edf-2dc2-4de0-aec6-28a7d233512a.png"
+	width="1612"
+	height="743"
+	srcset="/htb/cascade/1743511817506-787b4edf-2dc2-4de0-aec6-28a7d233512a_hu896d04eb28c9109f38f9e3cf1c424f28_149004_480x0_resize_box_3.png 480w, /htb/cascade/1743511817506-787b4edf-2dc2-4de0-aec6-28a7d233512a_hu896d04eb28c9109f38f9e3cf1c424f28_149004_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="216"
+		data-flex-basis="520px"
+	
+></p>
+<p>CascAudit运行了这个db文件，那么接下来看样子是要逆向一下这个CascAudit.exe了。</p>
+<p>利用dnspy看了半天后，看到一个对应的密码<font style="color:rgb(51, 51, 51);">w3lc0meFr31nd</font></p>
+<p><font style="color:rgb(51, 51, 51);">测试一下发现正确，让我们看看arksvc用户在这个域里面的角色吧</font></p>
+<p><img src="/htb/cascade/1743574514501-c4158441-a08d-43ac-88d9-fb140f6dff87.png"
+	width="1954"
+	height="1093"
+	srcset="/htb/cascade/1743574514501-c4158441-a08d-43ac-88d9-fb140f6dff87_hu7a94f39facb206a93076ab21b374cfae_221362_480x0_resize_box_3.png 480w, /htb/cascade/1743574514501-c4158441-a08d-43ac-88d9-fb140f6dff87_hu7a94f39facb206a93076ab21b374cfae_221362_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="178"
+		data-flex-basis="429px"
+	
+></p>
+<p>该用户是AD RECYCLE BIN用户组里的可以查看回收站里的东西</p>
+<p>那么现在思路很清晰了，登陆这个账户，查看被删去的TempAdmin用户</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-plain" data-lang="plain"><span class="line"><span class="cl">Get-ADObject -Filter &#39;isDeleted -eq $True&#39; -IncludeDeletedObjects
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img src="/htb/cascade/1743574752967-98f95cdc-23bb-47fd-a0e3-606959da0054.png"
+	width="1317"
+	height="170"
+	srcset="/htb/cascade/1743574752967-98f95cdc-23bb-47fd-a0e3-606959da0054_hu3c8ad975c21fb34d42ca9945d658b764_40626_480x0_resize_box_3.png 480w, /htb/cascade/1743574752967-98f95cdc-23bb-47fd-a0e3-606959da0054_hu3c8ad975c21fb34d42ca9945d658b764_40626_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="774"
+		data-flex-basis="1859px"
+	
+></p>
+<p>确实存在这个情况，那看来答案很接近了</p>
+<p>查看这个用户的详细情况</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-plain" data-lang="plain"><span class="line"><span class="cl">Get-ADObject -filter { SAMAccountName -eq &#34;TempAdmin&#34; } -includeDeletedObjects -property *
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img src="/htb/cascade/1743574831064-4bd0854a-39d5-40d9-849a-e13a48ac8f46.png"
+	width="1507"
+	height="873"
+	srcset="/htb/cascade/1743574831064-4bd0854a-39d5-40d9-849a-e13a48ac8f46_hu8c8989377720f92379432f1c5dc41655_218352_480x0_resize_box_3.png 480w, /htb/cascade/1743574831064-4bd0854a-39d5-40d9-849a-e13a48ac8f46_hu8c8989377720f92379432f1c5dc41655_218352_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="172"
+		data-flex-basis="414px"
+	
+></p>
+<p>cascadeLegacyPwd                : YmFDVDNyMWFOMDBkbGVz</p>
+<p><img src="/htb/cascade/1743574878850-ab494c4a-0e71-4543-8b5c-ecd7dbe673eb.png"
+	width="791"
+	height="240"
+	srcset="/htb/cascade/1743574878850-ab494c4a-0e71-4543-8b5c-ecd7dbe673eb_hu1acd068a6bee469a37f9837695a662f6_43032_480x0_resize_box_3.png 480w, /htb/cascade/1743574878850-ab494c4a-0e71-4543-8b5c-ecd7dbe673eb_hu1acd068a6bee469a37f9837695a662f6_43032_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="329"
+		data-flex-basis="791px"
+	
+></p>
+<p>baCT3r1aN00dles</p>
+<p><img src="/htb/cascade/1743574919190-d726815e-d1de-45af-9fb0-c9f7bef6f406.png"
+	width="1519"
+	height="365"
+	srcset="/htb/cascade/1743574919190-d726815e-d1de-45af-9fb0-c9f7bef6f406_hucb4353847797b84200fb013470387d60_95883_480x0_resize_box_3.png 480w, /htb/cascade/1743574919190-d726815e-d1de-45af-9fb0-c9f7bef6f406_hucb4353847797b84200fb013470387d60_95883_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="416"
+		data-flex-basis="998px"
+	
+></p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    <section class="article-lastmod">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+        <span>
+            最后更新于 Apr 02, 2025 14:28 &#43;0800
+        </span>
+    </section></footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/htb/sizzle/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Sizzle</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/htb/resolute/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Resolute</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/htb/blackfield/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Blackfield</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/htb/sauna/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Sauna</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/htb/active/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Active</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script>
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (typeof DISQUS == 'object') {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2025 Example Person
+    </section>
+    
+    <section class="powerby">
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.30.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+<style>
+    body {
+  position: relative;  
+}
+
+body::before {
+  content: "";
+  position: fixed;  
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url(https://nergigantes.github.io/background/1.png) no-repeat center top;
+  background-size: cover;
+  background-attachment: fixed;
+  z-index: -1;  
+}
+  </style>
+  
+    </body>
+</html>
