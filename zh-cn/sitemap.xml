@@ -2,11 +2,8 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://nergigantes.github.io/htb/cascade/</loc>
-    <lastmod>2025-04-02T14:28:01+08:00</lastmod>
-  </url><url>
     <loc>https://nergigantes.github.io/categories/</loc>
-    <lastmod>2025-04-02T06:28:27+00:00</lastmod>
+    <lastmod>2025-04-06T11:39:29+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -24,12 +21,21 @@
                 />
   </url><url>
     <loc>https://nergigantes.github.io/categories/htb/</loc>
-    <lastmod>2025-04-02T06:28:27+00:00</lastmod>
+    <lastmod>2025-04-06T11:39:29+00:00</lastmod>
   </url><url>
     <loc>https://nergigantes.github.io/htb/</loc>
-    <lastmod>2025-04-02T06:28:27+00:00</lastmod>
+    <lastmod>2025-04-06T11:39:29+00:00</lastmod>
+  </url><url>
+    <loc>https://nergigantes.github.io/htb/multimaster/</loc>
+    <lastmod>2025-04-06T19:38:33+08:00</lastmod>
   </url><url>
     <loc>https://nergigantes.github.io/categories/%E5%9F%9F/</loc>
+    <lastmod>2025-04-06T19:38:33+08:00</lastmod>
+  </url><url>
+    <loc>https://nergigantes.github.io/htb/linkvortex/</loc>
+    <lastmod>2025-04-06T19:38:33+08:00</lastmod>
+  </url><url>
+    <loc>https://nergigantes.github.io/htb/cascade/</loc>
     <lastmod>2025-04-02T14:28:01+08:00</lastmod>
   </url><url>
     <loc>https://nergigantes.github.io/htb/sizzle/</loc>
@@ -51,7 +57,7 @@
     <lastmod>2025-03-31T21:03:06+08:00</lastmod>
   </url><url>
     <loc>https://nergigantes.github.io/htb/thenotebookdocker-%E9%80%83%E9%80%B8/</loc>
-    <lastmod>2025-04-02T06:28:27+00:00</lastmod>
+    <lastmod>2025-04-06T11:39:29+00:00</lastmod>
   </url><url>
     <loc>https://nergigantes.github.io/htb/tabby/</loc>
     <lastmod>2025-03-31T21:03:06+08:00</lastmod>
@@ -69,7 +75,7 @@
     <lastmod>2025-03-31T21:03:06+08:00</lastmod>
   </url><url>
     <loc>https://nergigantes.github.io/htb/vault%E5%86%85%E7%BD%91%E6%9C%AA%E5%AE%8C/</loc>
-    <lastmod>2025-04-02T06:28:27+00:00</lastmod>
+    <lastmod>2025-04-06T11:39:29+00:00</lastmod>
   </url><url>
     <loc>https://nergigantes.github.io/htb/writeup/</loc>
     <lastmod>2025-03-31T21:03:06+08:00</lastmod>
@@ -168,7 +174,7 @@
     <lastmod>2025-03-31T21:03:06+08:00</lastmod>
   </url><url>
     <loc>https://nergigantes.github.io/htb/broker%E6%9C%AA%E5%AE%8C/</loc>
-    <lastmod>2025-04-02T06:28:27+00:00</lastmod>
+    <lastmod>2025-04-06T11:39:29+00:00</lastmod>
   </url><url>
     <loc>https://nergigantes.github.io/htb/busqueda/</loc>
     <lastmod>2025-03-31T21:03:06+08:00</lastmod>

